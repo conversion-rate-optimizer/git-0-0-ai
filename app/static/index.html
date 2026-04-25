@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITT Business Name Resolver</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --border: #1e1e2e;
+    --accent: #7c6af7;
+    --accent2: #4fc3f7;
+    --text: #e2e2f0;
+    --muted: #6b6b8a;
+    --danger: #f87171;
+    --success: #4ade80;
+    --warn: #fbbf24;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+
+  .container { width: 100%; max-width: 780px; }
+
+  header { text-align: center; margin-bottom: 2rem; }
+  header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.35rem;
+  }
+  header p { color: var(--muted); font-size: 0.85rem; }
+
+  /* Input section */
+  .inputs {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .inputs label { font-size: 0.75rem; color: var(--muted); display: block; margin-bottom: 0.3rem; }
+
+  .inputs input, .inputs select {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    padding: 0.55rem 0.75rem;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .inputs input:focus, .inputs select:focus { border-color: var(--accent); }
+
+  .btn-row {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  button {
+    flex: 1;
+    padding: 0.65rem 1rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+  }
+  button:active { transform: scale(0.98); }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .btn-primary { background: var(--accent); color: white; }
+  .btn-secondary { background: var(--border); color: var(--text); }
+
+  /* Score badge */
+  .score-bar {
+    display: none;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+    display: none;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    align-items: center;
+  }
+  .score-bar.visible { display: grid; }
+
+  .metric { text-align: center; }
+  .metric .val {
+    font-size: 1.3rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .metric .lbl { font-size: 0.68rem; color: var(--muted); margin-top: 0.15rem; }
+
+  .band-pill {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 0.45rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  /* Chat */
+  .chat-window {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    height: 420px;
+    overflow-y: auto;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    scroll-behavior: smooth;
+  }
+
+  .msg { margin-bottom: 1rem; }
+  .msg .role {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.3rem;
+    text-transform: uppercase;
+  }
+  .msg.user .role { color: var(--accent); }
+  .msg.assistant .role { color: var(--accent2); }
+  .msg .body {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    white-space: pre-wrap;
+  }
+
+  .typing { color: var(--muted); font-size: 0.82rem; font-style: italic; }
+
+  /* Chat input */
+  .chat-input-row {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .chat-input-row input {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    padding: 0.65rem 0.9rem;
+    font-size: 0.9rem;
+    outline: none;
+  }
+  .chat-input-row input:focus { border-color: var(--accent); }
+
+  .footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.73rem;
+    color: var(--muted);
+  }
+  .footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>ITT Business Name Resolver</h1>
+    <p>Thermodynamics of Commercial Identity · Field-theoretic scoring · <a href="https://intent-tensor-theory.com" target="_blank">intent-tensor-theory.com</a></p>
+  </header>
+
+  <!-- Input Fields -->
+  <div class="inputs">
+    <div>
+      <label>Business Name</label>
+      <input type="text" id="biz-name" placeholder="e.g. Blue River Group" />
+    </div>
+    <div>
+      <label>Sector / Industry</label>
+      <input type="text" id="biz-sector" placeholder="e.g. Plumbing, HVAC, Consulting" />
+    </div>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="startAnalysis()">Analyze Name →</button>
+      <button class="btn-secondary" onclick="resetChat()">Reset</button>
+    </div>
+  </div>
+
+  <!-- Score Bar (shown after analysis) -->
+  <div class="score-bar" id="score-bar">
+    <div class="metric">
+      <div class="val" id="s-V">—</div>
+      <div class="lbl">Viability (V)</div>
+    </div>
+    <div class="metric">
+      <div class="val" id="s-Rsn">—</div>
+      <div class="lbl">Resultant (Rsn)</div>
+    </div>
+    <div class="metric">
+      <div class="val" id="s-Dt">—</div>
+      <div class="lbl">Trough (Dt)</div>
+    </div>
+    <div class="metric">
+      <div class="val" id="s-W">—</div>
+      <div class="lbl">Work-Offset</div>
+    </div>
+    <div class="band-pill" id="band-pill">—</div>
+  </div>
+
+  <!-- Chat Window -->
+  <div class="chat-window" id="chat-window">
+    <div class="msg assistant">
+      <div class="role">ITT Resolver</div>
+      <div class="body">Enter a business name and sector above to begin field analysis. I will score it against the Minimal Resolution Template V* = Cl + Os + Fa + Nc and compute viability, trough depth, and atmospheric resultant.\n\nOr ask me anything about commercial naming theory.</div>
+    </div>
+  </div>
+
+  <!-- Chat Input -->
+  <div class="chat-input-row">
+    <input type="text" id="chat-input" placeholder="Ask a follow-up question..." onkeydown="if(event.key==='Enter') sendMessage()" />
+    <button class="btn-primary" onclick="sendMessage()" id="send-btn">Send</button>
+  </div>
+
+  <div class="footer">
+    Free field analysis · Powered by ITT framework + Llama 3.3 via Groq ·
+    <a href="https://intent-tensor-theory.com/applied-itt/field-store/" target="_blank">Field Store</a> ·
+    © Armstrong Knight
+  </div>
+</div>
+
+<script>
+// ── Config ────────────────────────────────────────────────────────────────────
+// Same-origin by default (the FastAPI service serves this page).
+// Override with window.ITT_API_BASE if hosting the UI separately.
+const API_BASE = window.ITT_API_BASE || '';
+
+// ── State ─────────────────────────────────────────────────────────────────────
+let chatHistory = [];
+let currentName = '';
+let currentSector = '';
+let currentScores = null;
+
+// ── Score bar colors ──────────────────────────────────────────────────────────
+const BAND_STYLES = {
+  'Stable Atom':  { bg: '#14532d', color: '#4ade80' },
+  'Transitional': { bg: '#713f12', color: '#fbbf24' },
+  'High Effort':  { bg: '#7c2d12', color: '#fb923c' },
+  'Ghost Risk':   { bg: '#450a0a', color: '#f87171' },
+};
+
+function updateScoreBar(data) {
+  const bar = document.getElementById('score-bar');
+  bar.classList.add('visible');
+
+  document.getElementById('s-V').textContent   = data.outputs.V.toFixed(3);
+  document.getElementById('s-Rsn').textContent  = data.outputs.Rsn.toFixed(3);
+  document.getElementById('s-Dt').textContent   = data.outputs.Dt.toFixed(3);
+  document.getElementById('s-W').textContent    = data.outputs.W_delta.toFixed(1) + 'x';
+
+  const pill = document.getElementById('band-pill');
+  const band = data.outputs.band;
+  pill.textContent = band + (data.outputs.is_net_negative ? ' ⚠ NET-NEGATIVE' : '');
+  const style = BAND_STYLES[band] || { bg: '#1e1e2e', color: '#e2e2f0' };
+  pill.style.background = style.bg;
+  pill.style.color = style.color;
+
+  currentScores = data.outputs;
+}
+
+// ── Chat helpers ──────────────────────────────────────────────────────────────
+function appendMessage(role, content, isStreaming = false) {
+  const win = document.getElementById('chat-window');
+  let el = isStreaming ? document.getElementById('streaming-msg') : null;
+
+  if (!el) {
+    el = document.createElement('div');
+    el.className = `msg ${role}`;
+    if (isStreaming) el.id = 'streaming-msg';
+    el.innerHTML = `<div class="role">${role === 'user' ? 'You' : 'ITT Resolver'}</div><div class="body"></div>`;
+    win.appendChild(el);
+  }
+
+  el.querySelector('.body').textContent = content;
+  win.scrollTop = win.scrollHeight;
+  return el;
+}
+
+function finalizeStream() {
+  const el = document.getElementById('streaming-msg');
+  if (el) el.removeAttribute('id');
+}
+
+// ── Main analysis trigger ─────────────────────────────────────────────────────
+async function startAnalysis() {
+  currentName   = document.getElementById('biz-name').value.trim();
+  currentSector = document.getElementById('biz-sector').value.trim();
+
+  if (!currentName || !currentSector) {
+    alert('Please enter both a business name and sector.');
+    return;
+  }
+
+  // Get quick score first
+  try {
+    const scoreResp = await fetch(`${API_BASE}/score`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: currentName,
+        sector: currentSector,
+        alpha: 0.5, sigma: 0.25, delta: 0.35, lam: 0.55
+      })
+    });
+    const scoreData = await scoreResp.json();
+    updateScoreBar(scoreData);
+  } catch(e) {
+    console.warn('Score endpoint not available, continuing with chat only');
+  }
+
+  // Kick off streaming chat analysis
+  const prompt = `Analyze this business name using the full ITT framework:\n\nBusiness Name: "${currentName}"\nSector: ${currentSector}\n\nWalk through V* = Cl + Os + Fa + Nc. Score each component. Identify any failure modes. If the name scores below Transitional, generate 3 better alternatives with scores.`;
+
+  chatHistory = [];
+  chatHistory.push({ role: 'user', content: prompt });
+  appendMessage('user', prompt);
+
+  await streamResponse();
+}
+
+// ── Send follow-up message ────────────────────────────────────────────────────
+async function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+
+  input.value = '';
+  chatHistory.push({ role: 'user', content: text });
+  appendMessage('user', text);
+  await streamResponse();
+}
+
+// ── Stream from API ───────────────────────────────────────────────────────────
+async function streamResponse() {
+  const sendBtn = document.getElementById('send-btn');
+  sendBtn.disabled = true;
+
+  let accumulated = '';
+  const streamEl = appendMessage('assistant', '▋', true);
+
+  try {
+    const resp = await fetch(`${API_BASE}/chat/stream`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages: chatHistory,
+        business_name: currentName,
+        sector: currentSector,
+      })
+    });
+
+    const reader = resp.body.getReader();
+    const decoder = new TextDecoder();
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      const text = decoder.decode(value);
+      const lines = text.split('\n');
+
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
+        const payload = line.slice(6).trim();
+        if (payload === '[DONE]') break;
+
+        try {
+          const parsed = JSON.parse(payload);
+          if (parsed.token) {
+            accumulated += parsed.token;
+            streamEl.querySelector('.body').textContent = accumulated;
+            document.getElementById('chat-window').scrollTop = 9999;
+          }
+        } catch {}
+      }
+    }
+
+    finalizeStream();
+    chatHistory.push({ role: 'assistant', content: accumulated });
+
+  } catch(e) {
+    streamEl.querySelector('.body').textContent = `Connection error: ${e.message}\n\nMake sure the ITT service is running at ${API_BASE}`;
+    finalizeStream();
+  }
+
+  sendBtn.disabled = false;
+}
+
+// ── Reset ────────────────────────────────────────────────────────────────────
+function resetChat() {
+  chatHistory = [];
+  currentName = '';
+  currentSector = '';
+  document.getElementById('biz-name').value = '';
+  document.getElementById('biz-sector').value = '';
+  document.getElementById('score-bar').classList.remove('visible');
+  document.getElementById('chat-window').innerHTML = `
+    <div class="msg assistant">
+      <div class="role">ITT Resolver</div>
+      <div class="body">Enter a business name and sector above to begin field analysis.</div>
+    </div>`;
+}
+</script>
+</body>
+</html>

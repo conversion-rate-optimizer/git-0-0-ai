@@ -1,0 +1,94 @@
+name: Test & Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Scoring engine tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install -r requirements.txt
+
+      - name: Run scoring smoke test
+        run: |
+          python -c "
+          from app.scoring import ScoringInputs, score, get_phi_for_sector
+          phi = get_phi_for_sector('plumbing')
+          i = ScoringInputs('Test Name','Plumbing',0.9,0.05,phi,0.35,0.55)
+          o = score(i)
+          assert o.band == 'Stable Atom', f'Expected Stable Atom, got {o.band}'
+          assert o.Rsn > 0, 'Expected positive Rsn'
+          print('Scoring engine OK:', o)
+          "
+
+      - name: Import-time smoke test (FastAPI app boots)
+        run: python -c "from app.main import app; print('FastAPI app loaded with', len(app.routes), 'routes')"
+
+  deploy:
+    name: Sync secrets & deploy to Render
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: github  # pulls secrets from the `github` environment
+    steps:
+      - name: Sync env vars to Render and trigger deploy
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          RENDER_SERVICE_NAME: itt-business-name-resolver
+        run: |
+          set -euo pipefail
+
+          if [ -z "${RENDER_API_KEY}" ]; then
+            echo "::error::RENDER_API_KEY missing from the 'github' environment."
+            exit 1
+          fi
+
+          AUTH="Authorization: Bearer ${RENDER_API_KEY}"
+          API="https://api.render.com/v1"
+
+          echo "→ Looking up Render service by name: ${RENDER_SERVICE_NAME}"
+          SERVICE_JSON=$(curl -sf -H "$AUTH" "${API}/services?name=${RENDER_SERVICE_NAME}&limit=1")
+          SERVICE_ID=$(echo "$SERVICE_JSON" | python -c "import sys,json; d=json.load(sys.stdin); print(d[0]['service']['id'] if d else '')")
+
+          if [ -z "$SERVICE_ID" ]; then
+            echo "::warning::Render service '${RENDER_SERVICE_NAME}' not found."
+            echo "First-time setup: connect this repo on Render → New → Blueprint, point at render.yaml, and re-run this workflow."
+            exit 0
+          fi
+
+          echo "→ Service ID: ${SERVICE_ID}"
+
+          echo "→ Syncing env vars from GitHub 'github' environment to Render"
+          PAYLOAD=$(python -c "
+          import json, os
+          print(json.dumps([
+            {'key': 'GROQ_API_KEY',       'value': os.environ['GROQ_API_KEY']},
+            {'key': 'OPENROUTER_API_KEY', 'value': os.environ['OPENROUTER_API_KEY']},
+          ]))
+          ")
+          curl -sf -X PUT -H "$AUTH" -H "Content-Type: application/json" \
+            -d "$PAYLOAD" \
+            "${API}/services/${SERVICE_ID}/env-vars" > /dev/null
+          echo "  ✓ env vars updated"
+
+          echo "→ Triggering deploy"
+          DEPLOY_ID=$(curl -sf -X POST -H "$AUTH" -H "Content-Type: application/json" \
+            -d '{"clearCache": "do_not_clear"}' \
+            "${API}/services/${SERVICE_ID}/deploys" \
+            | python -c "import sys,json; print(json.load(sys.stdin)['id'])")
+          echo "  ✓ deploy queued: ${DEPLOY_ID}"
+          echo "Watch it: https://dashboard.render.com/web/${SERVICE_ID}/deploys/${DEPLOY_ID}"
