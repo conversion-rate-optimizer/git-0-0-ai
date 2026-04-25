@@ -41,7 +41,7 @@ jobs:
     needs: test
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    environment: github  # pulls secrets from the `github` environment
+    environment: GITHUB_API  # pulls secrets from the `GITHUB_API` environment
     steps:
       - name: Sync env vars to Render and trigger deploy
         env:
