@@ -1,0 +1,283 @@
+CHAPTER 6
+
+
+                                                                                     Vector
+Drift and the Unintended Basin
+
+
+
+  Chapter Thesis
+
+  Vector drift σ measures how far a name’s semantic vector points away from
+  its intended classification. Where α measures the absence of resolution signal,
+  σ measures the presence of the wrong signal — words and associations that
+  actively pull the entity toward an unintended category. Drift is invisible at
+  naming time and expensive to discover after it has settled into classification
+  systems.
+
+
+
+
+6.1   Defining σ: Drift from the Classification Constant
+
+A name can fail to resolve in two distinct ways. The first way is absence: the name
+simply does not contain enough information for the system to classify it. This is
+captured by low α. The second way is misdirection: the name contains information
+that points the system toward the wrong classification. This is captured by high σ.
+
+Definition 6.1 (Vector Drift Coefficient). The vector drift coefficient σ ≥ 0 measures
+the degree to which a business name’s composite semantic vector is displaced from
+
+                                         18
+
+                                   6.2. HOW DRIFT ACCUMULATES ACROSS FIELDS
+
+
+the vector position of its intended classification in the resolution field:
+
+                                σ = ∥⃗vname − ⃗vintended ∥
+
+where ⃗vname is the composite embedding of the name and ⃗vintended is the centroid of
+vectors for correctly named entities in the same category.
+In practice, σ is bounded for scoring purposes: σ ∈ [0, 1] where σ = 0 is zero drift
+(the name points directly at the intended classification) and σ = 1 is maximum drift
+(the name points as far as possible from the intended classification).
+
+Plain English: σ answers the question: “When the machine evaluates this name,
+does it point confidently toward the right category, or does it wander toward the
+wrong one?”
+A name like “Dallas Roof Repair Company” has σ ≈ 0.05: virtually no drift. Every
+word in the name either confirms the roofing category or is neutral. Nothing pulls
+the system’s interpretation away from roofing.
+A name like “Transitions Financial Planning” has σ ≈ 0.70: high drift. The word
+“Transitions” is strongly associated — in the embedding space of every major
+language model — with either social services (life transitions, gender transition
+support, rehab programs) or eyewear (Transitions lenses). Both associations actively
+pull the system’s classification away from financial planning. The word is not
+neutral noise; it is a misdirection signal.
+
+
+
+6.2   How Drift Accumulates Across Fields
+
+Drift does not just reduce the probability of correct classification. It increases
+the probability of incorrect classification, which has consequences beyond simple
+invisibility.
+In the registry field, drift produces active misclassification: the entity is assigned to
+the wrong industry category. This is worse than no classification because the system
+is now confidently wrong. The entity appears in the wrong directory sections,
+receives the wrong related-business recommendations, and fails to appear when
+customers search for the correct category because the system believes it is a different
+category.
+In the search field, drift produces query mismatch: the system surfaces the entity
+
+                                           19
+
+CHAPTER 6. VECTOR DRIFT AND THE UNINTENDED BASIN
+
+
+for queries made by people who want something entirely different. This generates
+traffic without conversion — people arrive at the entity’s presence expecting one
+thing and finding another. This traffic pattern actively harms the entity’s search
+performance because high bounce rates signal to the search engine that the entity is
+not relevant to the queries it is appearing for, producing a downranking effect.
+In the intent field, drift produces selection confusion: potential customers en-
+counter the entity and cannot quickly determine whether it serves their need. Some
+fraction of them, rather than investigating, simply move to a competitor whose
+name is unambiguous.
+
+
+6.3     The Unintended Basin Problem
+
+The most severe form of vector drift is what we call the Unintended Basin: a
+condition in which the name’s semantic vector has fallen so deeply into a compet-
+ing category’s classification region that the entity is treated as a member of that
+competing category by default.
+
+Definition 6.2 (Unintended Basin). An Unintended Basin is a region of semantic
+space dominated by a classification that is not the entity’s intended category. A
+business name falls into an Unintended Basin when its composite vector has higher
+cosine similarity to the centroid of a competing category than to the centroid of its
+intended category:
+
+        Unintended Basin condition:    cos(⃗vname , ⃗vwrong ) > cos(⃗vname , ⃗vintended )
+
+
+6.3.1   When “Transitions” Means Social Services, Not Financial Planning
+
+Consider a financial planning firm named “Transitions Financial.” The word “Tran-
+sitions” appears frequently in the following contexts in the training data of every
+major language model and in the category associations of every registry system:
+
+
+ • Life transition counseling (social services)
+
+ • Gender transition support organizations
+
+ • Substance abuse rehabilitation programs (“transitions to sober living”)
+
+ • Educational transition programs (high school to college, etc.)
+
+                                         20
+
+                                           6.3. THE UNINTENDED BASIN PROBLEM
+
+
+ • Transitions Optical (the eyewear brand — a major corporate presence in the
+   embedding space)
+
+The word “Financial” in “Transitions Financial” partially offsets this drift, but it
+does not fully overcome it. The composite vector of the name falls between the
+financial planning cluster and the social services cluster in semantic space, creating
+persistent classification uncertainty.
+In practice, this manifests as: GMB auto-suggesting “Social services organization” as
+the category. Directory listings appearing in support-services sections. AI-powered
+search surfacing the company for social transition queries. Potential customers
+seeing the name and — before reading any description — forming a mental model
+of a social services organization rather than a financial advisory firm.
+
+
+6.3.2   When “Apex” Means Mountain, Not Excellence
+
+The word “Apex” is a common naming choice intended to convey excellence,
+pinnacle achievement, and market leadership. Its semantic vector, however, is
+positioned near the following clusters:
+
+ • Geographic location (Apex, North Carolina — a rapidly growing city with a
+   strong data presence)
+
+ • Predator biology (apex predator — strong association in natural language)
+
+ • Geometric term (the apex of a triangle)
+
+ • The video game Apex Legends (enormous data presence post-2019)
+
+A business named “Apex Services” or “Apex Consulting” therefore faces drift
+toward multiple competing basins simultaneously, none of which are the intended
+classification. The intended meaning (excellence, top-tier quality) is a human
+interpretation that requires cultural context to decode; the machine has no access to
+that context and classifies based on statistical association.
+
+
+6.3.3   Basin Depth and Escape Cost
+
+The deeper an entity has fallen into an Unintended Basin, the higher the cost of
+escape. Unlike trough depth (which measures absence of signal), basin depth
+measures the strength of the competing signal that must be overcome.
+
+                                         21
+
+CHAPTER 6. VECTOR DRIFT AND THE UNINTENDED BASIN
+
+
+
+            Basin depth = max cos(⃗vname , ⃗vwrong,j ) − cos(⃗vname , ⃗vintended )   (6.1)
+                               j
+
+
+When this value is positive, the entity is in an Unintended Basin. The magnitude
+of the positive value measures how far the entity must be pulled back toward the
+correct classification.
+Escaping a basin requires not just adding correct classification signals (which ad-
+dresses α) but actively overriding the competing association signals (which ad-
+dresses σ). This typically requires either renaming (removing the offending token)
+or an extraordinary content investment that overwhelms the competing association
+through sheer volume of correctly classified material.
+
+
+6.4   Drift Amplification Under Pressure
+
+An important property of drift is that its cost is not constant. Drift becomes more
+expensive as Resolution Pressure (Rp ) increases — a relationship we formalize in
+Part V. The intuition is simple: when a customer is under time pressure, emotional
+pressure, or urgency of need, they have no patience for a name that requires them
+to second-guess what the business does. They select the most immediately legible
+option and move on.
+Formally, under high pressure conditions, the effective drift penalty becomes:
+
+                                     σp = σ(1 + ψRp )                                (6.2)
+
+where ψ is the pressure amplification constant and Rp is the Resolution Pressure
+variable. This equation, derived fully in Chapter 13, tells us that drift is tolerable in
+a calm, browsing market environment and becomes increasingly fatal in an urgent,
+high-stakes selection environment.
+The practical implication: businesses in high-pressure categories (emergency ser-
+vices, medical services, financial crisis services, legal services) pay a dramatically
+higher price for drift than businesses in low-pressure categories (decorative home
+services, hobby supplies, entertainment). A roofing company with a drifting name
+loses some organic traffic. An emergency plumber with a drifting name loses cus-
+tomers who are in active crisis and cannot afford to spend cognitive effort parsing
+an ambiguous name.
+
+
+
+                                             22
+
+                                6.5. THE DRIFT-ADJUSTED SURVIVAL THRESHOLD
+
+
+6.5   The Drift-Adjusted Survival Threshold
+
+Incorporating drift into the survival analysis from Chapter 5, the minimum align-
+ment required for market viability becomes:
+
+                                             Φ(1 + σ)2
+                                αmin (σ) =                                       (6.3)
+                                              1 + λ∆
+
+where λ∆ is the differentiation compensation term introduced in Part IV. In the
+absence of differentiation compensation (∆ = 0), the survival threshold simplifies
+to:
+
+
+                                αmin (σ) = Φ(1 + σ)2
+
+This reveals a critical structural relationship: drift and friction multiply, not add.
+A business in a high-friction sector (Φ = 0.90) with moderate drift (σ = 0.40) faces a
+survival threshold of:
+
+                    αmin = 0.90 × (1.40)2 = 0.90 × 1.96 = 1.764
+
+
+This value exceeds 1.0, which means no achievable alignment score — no matter
+how good the name — can survive in that combination of friction and drift with-
+out differentiation compensation. The (1 + σ)2 term is why drift is not a minor
+inconvenience. In high-friction markets, even moderate drift can make the survival
+condition mathematically impossible to satisfy through naming quality alone.
+
+
+
+6.6   Chapter Summary
+
+Chapter 6 establishes the following:
+1. σ measures active misdirection — the presence of wrong signals — as distinct
+from α’s measure of absent correct signals.
+2. Drift accumulates across all four fields, producing misclassification (registry),
+query mismatch (search), and selection confusion (intent).
+3. The Unintended Basin is the most severe form of drift — a condition in which
+the name has been captured by a competing category’s classification region.
+
+                                         23
+
+CHAPTER 6. VECTOR DRIFT AND THE UNINTENDED BASIN
+
+
+4. Drift cost amplifies with Resolution Pressure: σp = σ(1 + ψRp ).
+5. In high-friction markets, moderate drift can make viability mathematically
+impossible without differentiation compensation, due to the (1 + σ)2 term in the
+survival threshold.
+
+   Core Equations from Chapter 6:
+
+                              σ = ∥⃗vname − ⃗vintended ∥
+
+           Unintended Basin:     cos(⃗vname , ⃗vwrong ) > cos(⃗vname , ⃗vintended )
+
+                   σp = σ(1 + ψRp )    (pressure-amplified drift)
+
+          αmin (σ) = Φ(1 + σ)2   (survival threshold, no differentiation)
+
+
+
+
+                                          24

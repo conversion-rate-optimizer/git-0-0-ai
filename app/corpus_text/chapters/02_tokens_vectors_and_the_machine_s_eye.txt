@@ -1,0 +1,564 @@
+CHAPTER 2
+
+
+                                                                                     Tokens,
+Vectors, and the Machine’s Eye
+
+
+
+  Chapter Thesis
+
+  Search engines, registry systems, and AI classification tools do not process
+  language. They process vectors. A business name, when it enters the resolution
+  environment, is transformed into a geometric object in high-dimensional space.
+  Understanding that transformation is essential for understanding why certain
+  names resolve and others do not — and it reveals why conventional grammar
+  categories are not the right framework for naming decisions.
+
+
+
+
+2.1   How Machines Actually Read a Name
+
+The first thing to understand about how automated systems evaluate a business
+name is that they do not read it the way a human does. A human reading “Dallas
+Roof Repair Company” processes the words sequentially, activates semantic associ-
+ations, and arrives at a meaning: a business in Dallas that repairs roofs. The process
+feels like comprehension.
+A machine does something structurally different. It transforms each token — each
+word — into a high-dimensional numerical vector, and then performs geometric
+operations on those vectors to determine relationships, similarities, and category
+
+                                         29
+
+CHAPTER 2. TOKENS, VECTORS, AND THE MACHINE’S EYE
+
+
+memberships.
+
+Definition 2.1 (Token-to-Vector Transformation). For a word wi in a business name,
+the machine’s representation is:
+
+                                  wi → ⃗vi ∈ Rn
+
+where n is the dimensionality of the embedding space (typically 768 to 1536 di-
+mensions in modern language models). Each word becomes a point in a very
+high-dimensional geometric space.
+
+This is not an approximation of meaning. It is a precise geometric encoding that
+captures semantic relationships: words with similar meanings occupy nearby re-
+gions of the space; words with different meanings occupy distant regions. The
+entire vocabulary of a language is mapped into this space during the training of
+language models, with the geometric relationships between vectors reflecting the
+statistical patterns of how words co-occur and relate to each other in real usage.
+The business name “Dallas Roof Repair Company” becomes, for the machine, not
+four words but four vectors — four points in a geometric space — and the machine
+operates on those points to determine what the entity is.
+
+
+2.2     From Words to Vectors: The Embedding Space
+
+To understand why certain name choices resolve better than others, we need to
+understand the structure of the embedding space and what kinds of words occupy
+what regions of it.
+
+
+2.2.1   Why Parts of Speech Are Emergent, Not Primary
+
+The conventional approach to naming analysis uses grammar as the primary frame-
+work: nouns are good, adjectives are decorative, verbs clarify function, and so on.
+This is not wrong, but it is incomplete in a way that matters.
+Grammar categories are not primary variables in the machine’s evaluation. They
+are emergent patterns that arise from the geometric structure of the embedding
+space. The machine does not ask “is this a noun?” It asks “what region of semantic
+space does this vector occupy, and what probability distributions over categories
+does that region imply?”
+
+                                        30
+
+                          2.2. FROM WORDS TO VECTORS: THE EMBEDDING SPACE
+
+
+Definition 2.2 (Part-of-Speech as Vector Cluster). In the embedding space, gram-
+matical categories correspond to approximate cluster regions, not discrete labels:
+
+                         P OS(w) ≈ arg max P (clusterk | ⃗vw )
+                                         k
+
+
+Nouns cluster around entity-space regions. Verbs cluster around transformation-
+space regions. Adjectives cluster around attribute-modifier regions.
+
+This matters for naming because it means the machine is not looking for a noun at
+position one and a verb at position two. It is looking for vectors that together activate
+a stable, unambiguous classification probability over the categories it knows. The
+grammar is a byproduct of that activation pattern, not the cause of it.
+
+
+
+2.2.2   Noun Clusters, Verb Clusters, and What the Machine Sees
+
+The geometry of the embedding space produces characteristic behaviors that di-
+rectly affect naming resolution.
+Noun clusters (entity-space regions): Words that name things, categories, and
+roles occupy a region of semantic space that is high-signal for registry classification
+systems. When a business name contains a strong category noun — “plumber,”
+“attorney,” “consultant,” “repair” — the vector for that word falls in an entity-space
+region that registry systems recognize and map directly to classification categories.
+The noun is doing most of the classification work.
+Verb clusters (transformation-space regions): Words that name actions, processes,
+and operations occupy transformation-space regions. Task classification systems
+(O*NET, occupational databases) are calibrated to these regions. When a name
+contains a clear action verb — “repair,” “consult,” “install,” “manage” — the verb
+resolves the task field.
+Adjective clusters (attribute-modifier regions): Descriptive modifiers contribute
+almost nothing to category classification. The word “professional” in a business
+name occupies an attribute-modifier region of semantic space that nearly every
+business in every category also activates. It adds no discriminating information to
+the resolution system. The machine cannot classify “Professional Services” because
+the attribution is universal, not categorical.
+Abstract/metaphorical terms: Words like “Logic,” “Apex,” “Nexus,” “Synergy,” or
+“Profit” — common in invented business names — occupy semantic space regions
+
+                                             31
+
+CHAPTER 2. TOKENS, VECTORS, AND THE MACHINE’S EYE
+
+
+that are either diffuse (pulling toward multiple unrelated categories simultaneously)
+or opaque (the machine has no strong probability assignment for them in the
+commercial classification context). These words actively increase semantic entropy.
+
+
+2.2.3   The Pronoun Collapse Problem
+
+One of the clearest demonstrations of why vector-space thinking matters for naming
+is what we call the Pronoun Collapse: the failure mode that occurs when a business
+name or tagline uses pronouns as its primary identity anchors.
+Names like “We Fix It,” “Our Promise,” “Your Solution” use pronouns that in
+linguistic context require an antecedent to resolve. In the machine’s evaluation,
+pronouns occupy placeholder regions of semantic space — regions that function as
+pointers to some other context, not as self-contained classification signals.
+
+  The Pronoun Collapse
+
+  For pronouns and deictic expressions, the classification probability approaches
+  zero because they require referential context that the machine does not have at
+  the moment of first evaluation:
+
+                            P (category | pronoun) ≈ 0
+
+  A business name that relies on pronouns for its primary meaning cannot resolve
+  in the classification fields.
+
+The machine evaluates a name in isolation, not in context. It cannot assume that “we”
+refers to roofers rather than accountants. The resolution requires the categorical
+information to be present in the name string itself.
+
+
+
+2.3     Attention Weights and Semantic Roles in Real Queries
+
+Modern search systems use transformer-based language models (BERT and its de-
+scendants) that process text using attention mechanisms. Understanding attention
+is critical for understanding which parts of a name carry the most resolution weight.
+An attention mechanism assigns a weight to each token in a sequence relative
+to every other token, capturing how much each token should “attend to” each
+other token when computing the final representation. In practice, this means that
+
+                                         32
+
+                    2.4. THE DEPENDENCY GRAPH: YOUR NAME AS A NETWORK
+
+
+certain words in a query receive disproportionate weight in determining the overall
+meaning of the query.
+For a query like “roof repair Dallas,” a transformer model implicitly learns:
+
+ • “repair” receives high attention from “roof” and vice versa, encoding the action-
+   object relationship
+
+ • “Dallas” receives moderate attention from both, encoding the geographic scope
+
+ • The composite representation activates business categories related to home
+   services in a specific geography
+
+This attention pattern is learned from data, not programmed. The model has seen
+millions of queries and documents where “roof repair” co-occurs with home services
+businesses, and “Dallas” co-occurs with Texas geography. The vectors and attention
+weights reflect those statistical regularities.
+The implication for naming is direct: the higher the semantic similarity between
+your name’s composite vector and the composite vectors of common customer
+queries in your category, the higher your resolution probability in the search field.
+
+
+
+2.4   The Dependency Graph: Your Name as a Network
+
+Beyond individual token vectors, resolution systems model the relationships between
+tokens in a name as a graph structure. This is the dependency parse: a representation
+of which words modify, act on, or relate to which other words.
+
+Definition 2.3 (Name Dependency Graph). A business name can be modeled as a
+directed graph G = (V, E) where:
+
+ • V = set of tokens in the name
+
+ • E = directed edges encoding grammatical and semantic relationships
+
+The intent match probability for a query is computed as a function of the alignment
+between the name’s dependency graph and the query’s dependency graph:
+
+                P (intent match | Gname , Gquery ) = f (Gname , Gquery )
+
+                                          33
+
+CHAPTER 2. TOKENS, VECTORS, AND THE MACHINE’S EYE
+
+
+Consider the name “Business Algorithm Consulting.” Its dependency graph en-
+codes:
+
+ • “Consulting” is the head node (the primary category: what the entity is)
+
+ • “Algorithm” is the object node (what the consulting acts on)
+
+ • “Business” is the domain modifier (what sector the algorithms apply to)
+
+A customer querying “algorithm consulting for my business” produces a query
+graph with the same structural relationships. The graphs align. Resolution proba-
+bility is high.
+Now consider the name “ProfitLogic.” Its dependency graph is essentially a single
+compound node — a portmanteau that combines “profit” and “logic” into a single
+synthetic term with no internal relational structure. There are no edges. There is
+no action-object relationship. The head node is undefined. The query graph for
+“business analytics consulting” finds no structural alignment.
+
+
+2.4.1   Graph Density and Resolution Efficiency
+
+The density of a name’s dependency graph — the number of meaningful semantic
+relationships encoded in the name string — correlates directly with its resolution
+efficiency. A dense graph (multiple well-defined relationships between tokens)
+provides the resolution system with more information to work with, enabling faster
+and more accurate classification.
+A sparse graph (few or no relationships, isolated tokens, or synthetic compound
+terms) provides insufficient structure for automatic resolution.
+
+This leads to a non-obvious but important principle: longer names are often more
+resolvable than shorter names, provided the additional length encodes additional
+relational structure rather than redundant or decorative content. The name “Dallas
+Commercial Roof Repair Company” is more resolvable than “Dallas Roofing Co.”
+not because it is longer, but because it encodes an additional meaningful distinction
+(commercial vs. residential) that reduces search-space ambiguity.
+The optimal length is the minimum length that fully populates the dependency
+graph with all required classification information. This is what we formalize in Part
+II as the Minimal Resolution Template.
+
+                                         34
+
+        2.5. HOW EACH RESOLUTION FIELD WEIGHTS TOKEN TYPES DIFFERENTLY
+
+
+2.5     How Each Resolution Field Weights Token Types Differently
+
+One of the most important insights in this chapter is that the four resolution fields
+do not weight the same token types equally. A token that is high-signal in one field
+may be low-signal in another.
+
+
+2.5.1   Search Fields: Query Matching and Relevance Scoring
+
+Search fields weight tokens by their query-alignment probability: how often does a
+token in the name also appear in queries made by potential customers?
+The formal scoring is a similarity function between the name embedding and the
+query embedding:
+
+                     Scoresearch (name, query) = f (⃗vname , ⃗vquery )
+
+
+Search fields are relatively balanced across token types but are particularly sensitive
+to action verbs and category nouns because these are the primary query constructs:
+“repair roof,” “consult business,” “install solar.” A name that contains the same
+action verbs and category nouns that appear in customer queries will score well in
+the search field.
+
+
+2.5.2   Registry Fields: NAICS, SIC, and the Noun-Dominant System
+
+Registry classification systems are structurally noun-dominant. The NAICS code
+system, the SIC system, the Google Business Category system — all of them classify
+entities based primarily on what they are, not what they do. This maps directly onto
+category nouns.
+Formally:
+               wnoun ≫ wverb ≫ wadjective     (in registry classification)
+
+A name containing a strong, unambiguous category noun (“plumber,” “attorney,”
+“roofing company,” “tax preparation service”) resolves immediately and accurately
+in registry systems. A name without a clear category noun forces the registry to
+use secondary signals, produces misclassification, or requires the business owner
+to manually select categories from menus — a process that most business owners
+perform poorly, further degrading registry resolution.
+
+                                            35
+
+CHAPTER 2. TOKENS, VECTORS, AND THE MACHINE’S EYE
+
+
+2.5.3   Task Fields: O*NET and the Verb-Dominant System
+
+Task classification systems operate on exactly the opposite weighting:
+
+                       wverb ≫ wnoun    (in task classification)
+
+
+O*NET, the Bureau of Labor Statistics Occupational Outlook Handbook, and similar
+task-definition systems classify economic activity by what is done, not what type
+of entity does it. The relevant signal is the action verb that describes the primary
+activity.
+This matters because task classification affects how businesses appear in platform-
+based matching systems — contractor marketplaces, professional service directories,
+talent matching tools. A business whose name clearly encodes its primary action
+verb resolves accurately in these systems without additional metadata.
+
+
+2.5.4   Intent Fields: Google Business Category Matching
+
+The intent field operates as a maximum-likelihood category match:
+
+                    Categoryintent (name) = arg max P (c | name)
+                                                 c
+
+
+Google Business Profile categories, the primary example of intent classification,
+function as noun-phrase dominant systems that require the name to activate a
+clear, unambiguous category probability. Crucially, the intent field is also sensitive
+to geographic context — it incorporates the local searcher’s location to boost entities
+that match both the categorical and geographic components of the query.
+
+
+
+2.6     The Mesh Against Mesh Principle Formalized
+
+We are now ready to state the most important structural insight of this chapter.
+Each resolution field creates what we can model as a tensor field — a structured
+mathematical space that maps entity representations to classification probabilities. A
+business name, represented as a composite vector V⃗entity , is simultaneously projected
+into all four tensor fields.
+
+
+                                          36
+
+   2.7. THE FINAL UNIFIED VIEW: ENTITY RESOLUTION AS FIELD INTERSECTION
+
+
+  The Mesh Against Mesh Principle
+
+  A business name is not evaluated by a single system. It is a vector that simul-
+  taneously enters four independent tensor fields, each with different internal
+  structure and different token-weighting schemes:
+                                             
+                                             
+                                             
+                                              Fsearch
+                                             
+                                             F
+                                             
+                                                  registry
+                                V⃗entity →
+                                             
+                                             
+                                              Ftask
+                                             
+                                             
+                                             F
+                                                intent
+
+
+  The mesh of the name’s vector structure meets the mesh of each field’s clas-
+  sification structure. The overlap between them determines resolution quality.
+  High overlap in all fields = Stable Atom. Low overlap in any field = resolution
+  failure in that field.
+
+
+
+
+This formalization explains a puzzle that conventional naming theory cannot: why a
+name can perform well in Google search but poorly in directory listings, or perform
+well in formal registry classification but fail in conversational AI search. The answer
+is that these are different fields with different internal structures. Optimizing for
+one does not automatically optimize for the others.
+The design challenge is to create a name vector that simultaneously achieves high
+overlap with all four field structures. This is exactly what the Minimal Resolution
+Template accomplishes, as we prove in Part II.
+
+
+
+
+2.7   The Final Unified View: Entity Resolution as Field Intersection
+
+
+Pulling together everything in this chapter, we can now state the complete entity
+resolution problem as a mathematical object:
+
+                                             37
+
+CHAPTER 2. TOKENS, VECTORS, AND THE MACHINE’S EYE
+
+
+   Entity Resolution — Complete Formulation:
+                                                  \
+                               Resolution =               fi (V⃗entity )
+                                                      i
+
+
+   where each fi represents the projection of the entity vector onto field Fi ’s
+   classification structure.
+   A fully resolved entity satisfies:
+
+                fi (V⃗entity ) ≈ 1 ∀i ∈ {search, registry, task, intent}
+
+   A partially resolved entity has:
+
+                fi (V⃗entity ) ≈ 1 for some i,        fj (V⃗entity ) ≈ 0 for some j
+
+
+The question of how to construct a name vector that satisfies all four field conditions
+simultaneously is the central engineering problem this textbook solves. The answer
+begins in the next chapter with the proof that such a vector requires exactly four
+irreducible components.
+
+
+2.8   Chapter Summary
+
+Chapter 2 establishes the following:
+1. Machines process names as vectors, not as language. The transformation
+wi → ⃗vi ∈ Rn is the fundamental operation underlying all machine evaluation of
+names.
+2. Parts of speech are emergent vector cluster behaviors. Nouns occupy entity-
+space regions, verbs occupy transformation-space regions, adjectives occupy attribute-
+modifier regions. The machine weights them differently across different fields.
+3. Token weighting is field-specific. Registry fields are noun-dominant. Task fields
+are verb-dominant. Search fields reward query-alignment. Intent fields reward
+categorical clarity. Optimizing for one field does not guarantee optimization for
+others.
+4. A name has a dependency graph structure whose alignment with customer
+query graphs directly determines search resolution probability.
+5. The Mesh Against Mesh Principle formalizes why simultaneous multi-field
+
+                                                 38
+
+                                                                    2.8. CHAPTER SUMMARY
+
+
+resolution requires deliberate name construction, not creative trial and error.
+
+   Core Equations from Chapter 2:
+
+                            wi → ⃗vi ∈ Rn       (token embedding)
+
+             P OS(w) ≈ arg max P (clusterk | ⃗vw )           (emergent grammar)
+                                k
+
+                      wnoun ≫ wverb ≫ wadj            (registry weighting)
+
+                          wverb ≫ wnoun       (task field weighting)
+
+       V⃗entity → {Fsearch , Fregistry , Ftask , Fintent }   (simultaneous projection)
+
+
+
+
+                                                 39
+
+                                                                                            Contents
+
+
+
+
+II    The Minimal Resolution Structure                                                  2
+
+3 The Four Irreducible Components                                                       4
+
+     3.1   Why Closure Requires Exactly Four Variables . . . . . . . . . . . . . .      4
+
+           3.1.1   The Proof from Field Structure . . . . . . . . . . . . . . . . . .   5
+
+           3.1.2   Fewer Than Four Cannot Produce Stable Resolution . . . . . .         6
+
+           3.1.3   More Than Four Decomposes Into These . . . . . . . . . . . .         7
+
+     3.2   Component One: The Category Noun (Nc ) . . . . . . . . . . . . . . .         8
+
+           3.2.1   Nc Maps to Industry Identity . . . . . . . . . . . . . . . . . . .   8
+
+           3.2.2   NAICS Alignment and Google Business Category Targeting .             9
+
+           3.2.3   What Happens When Nc Is Missing . . . . . . . . . . . . . . .        9
+
+     3.3   Component Two: The Object (Os ) . . . . . . . . . . . . . . . . . . . . . 10
+
+           3.3.1   Os Defines the Economic Unit . . . . . . . . . . . . . . . . . . . 10
+
+           3.3.2   The Transaction Anchor and Conversion Probability . . . . . 11
+
+           3.3.3   What Happens When Os Is Missing . . . . . . . . . . . . . . . 12
+
+     3.4   Component Three: The Function (Fa ) . . . . . . . . . . . . . . . . . . . 12
+
+           3.4.1   Fa Defines the Operation . . . . . . . . . . . . . . . . . . . . . 12
+
+                                             1
+
+CONTENTS
+
+
+        3.4.2   Task Resolution and Action Interpretation . . . . . . . . . . . 13
+        3.4.3   What Happens When Fa Is Missing . . . . . . . . . . . . . . . 14
+  3.5   Component Four: The Context (Cl ) . . . . . . . . . . . . . . . . . . . . 14
+        3.5.1   Cl as Search-Space Reduction . . . . . . . . . . . . . . . . . . . 15
+        3.5.2   Local Dominance and the Geography of Intent . . . . . . . . . 16
+        3.5.3   When Context Is Optional and When It Is Not . . . . . . . . . 16
+  3.6   Chapter Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+
+4 The Minimal Resolution Equation                                                   19
+  4.1   Deriving V ∗ = Cl + Os + Fa + Nc . . . . . . . . . . . . . . . . . . . . . 19
+        4.1.1   The Compressed Form . . . . . . . . . . . . . . . . . . . . . . . 20
+        4.1.2   Why “Shortest String” Matters . . . . . . . . . . . . . . . . . . 21
+  4.2   The Compressed Form and When to Use It . . . . . . . . . . . . . . . 21
+  4.3   System Behavior at Full Resolution . . . . . . . . . . . . . . . . . . . . 22
+        4.3.1   Search Resolution: P (query match | V ∗ ) → 1 . . . . . . . . . . 22
+        4.3.2   Registry Resolution: P (category | V ∗ ) → 1 . . . . . . . . . . . 23
+        4.3.3   Task Resolution: P (task | V ∗ ) → 1 . . . . . . . . . . . . . . . . 23
+        4.3.4   Intent Resolution: P (conversion | V ∗ ) → 1 . . . . . . . . . . . 23
+  4.4   The Stable Atom Defined Formally . . . . . . . . . . . . . . . . . . . . 24
+  4.5   Algorithmic Autonomy: When the System Maintains You for Free . . 25
+  4.6   Real Examples: Fully Resolved vs. Partially Resolved Names . . . . . 26
+        4.6.1   Dallas Roof Repair Company — Full Resolution Analysis . . 26
+        4.6.2   Business Algorithms — Missing Function Diagnosis . . . . . . 27
+        4.6.3   ProfitLogic — All Components Missing . . . . . . . . . . . . . 28
+  4.7   Chapter Summary and the Deterministic Naming Principle . . . . . . 29
+
+
+
+
+                                          2
+
+             PART II
+
+
+The Minimal Resolution Structure
+
+
+
+
+                3
+
+Proving that a fully resolved commercial identity requires exactly
+      four irreducible components — not three, not five —
+  derived from the structure of the resolution fields themselves.
+
+
+
+
+                                4

@@ -1,0 +1,591 @@
+CHAPTER 17
+
+
+                                                                                     The
+Complete Failure Mode Taxonomy
+
+
+
+  Chapter Thesis
+
+  Commercial naming failures are not random. They are structurally determined,
+  reproducible across industries, and diagnosable from the model’s variables.
+  This chapter presents the complete taxonomy of ten failure modes, each defined
+  formally with its mathematical signature, its commercial manifestation, its
+  diagnostic test, and its repair path. The taxonomy closes with a decision matrix
+  that routes any named entity to its failure mode in three questions.
+
+
+
+
+17.1   Introduction: Why Failure Is Classifiable
+
+Every naming failure leaves a specific signature in the variables of the model. Not
+all failures look alike from the outside — a business losing market share, failing to
+grow, spending too much on marketing, or receiving confused customer inquiries
+are all different surface symptoms. But when the model’s variables are examined,
+the underlying failure mode is identifiable with precision.
+There are exactly ten failure modes in the taxonomy. They are organized by the
+primary variable that drives the failure. Some failures are pure (driven by a single
+variable in an extreme state). Others are compound (driven by two or more variables
+
+                                         23
+
+CHAPTER 17. THE COMPLETE FAILURE MODE TAXONOMY
+
+
+interacting).
+
+
+
+17.2 Failure Mode One: Missing Category — α ↓, Classification
+     Fails
+
+  Failure Mode 1: Missing Category (Nc absent)
+
+  Mathematical signature:
+
+                     Nc = ∅     ⇒   Pregistry (N ) ≈ 0,    α↓
+
+ What it looks like: The business has a name that sounds like a business name
+ but does not contain a category noun that maps to any industry classification.
+ “Vertex,” “Pinnacle Group,” “Blue Sky Ventures.”
+ Commercial manifestation: The business does not appear in category searches.
+ It is misassigned in directories. Customers who find it through other means
+ cannot quickly determine what industry it serves. New customers arriving
+ through search enter with the wrong expectations.
+ Diagnostic test: Enter the name into Google Business Profile’s category auto-
+ suggest. If the system proposes an unrelated category or returns “Business,”
+ Nc is absent.
+ Repair: Add a category noun to the name. Not as a tagline. In the name itself.
+ “Vertex” becomes “Vertex Roof Repair” or “Vertex Financial Planning.” The
+ category noun does the registry work.
+
+
+
+17.3    Failure Mode Two: Missing Function — τi ↑, Action Unclear
+
+  Failure Mode 2: Missing Function (Fa absent)
+
+  Mathematical signature:
+
+                       Fa = ∅   ⇒    Ptask (N ) ≈ 0,      τi ↑
+
+ What it looks like: The name contains a category and possibly an object but no
+ action verb or verb nominalization. “Business Algorithms,” “Dallas Roofing,”
+ “Smith Financial.”
+
+
+                                      24
+
+   17.4. FAILURE MODE THREE: MISSING OBJECT — CONVERSION PROBABILITY
+                                                          DECREASES
+
+ Commercial manifestation: The Inference Tax is highest here because the
+ scope ambiguity is most active. Platform matching fails. Voice search fails. The
+ first question every new customer asks: “So what exactly do you do?” This
+ question, multiplied across every new customer interaction for the life of the
+ business, is the tax in its most visible form.
+ Diagnostic test: A customer who can name the industry but cannot identify
+ the service the business provides has diagnosed this failure mode in real time.
+ Repair: Add the function word. “Business Algorithms” → “Business Algo-
+ rithm Consulting.” “Dallas Roofing” → “Dallas Roof Repair” or “Dallas Roof
+ Installation.” The function word simultaneously fixes the task field and reduces
+ the Inference Tax to near zero.
+
+
+
+17.4 Failure Mode Three: Missing Object — Conversion Probabil-
+     ity Decreases
+
+ Failure Mode 3: Missing Object (Os absent or generic)
+
+ Mathematical signature:
+
+                            Os = ∅    ⇒        Pintent (N ) ↓
+
+ What it looks like: The name describes the function and category but not
+ what is being acted upon. “Strategy Consulting,” “Management Services,”
+ “Advisory Group.”
+ Commercial manifestation: Conversion probability decreases because the
+ transaction is not anchored. The buyer cannot confirm that the service applies
+ to their specific problem. This failure mode is most damaging in professional
+ services, where “strategy consulting” could apply to a dozen different objects
+ (operations, marketing, technology, finance, HR, legal, supply chain).
+ Diagnostic test: Ask: “Could this name describe a business serving a com-
+ pletely different client type with the same name?” If yes, Os is absent or generic.
+ Repair: Specify the object. “Strategy Consulting” → “Supply Chain Strategy
+ Consulting” or “Marketing Strategy Consulting.” The object reduction does not
+ limit the market — it clarifies it, which increases conversion from the specific
+ clients who need what the business actually provides.
+
+
+
+
+                                          25
+
+CHAPTER 17. THE COMPLETE FAILURE MODE TAXONOMY
+
+
+17.5 Failure Mode Four: Missing Context — Local Dominance
+     Decreases
+
+ Failure Mode 4: Missing Context (Cl absent in local market)
+
+ Mathematical signature:
+
+                 Cl = ∅ in local market     ⇒   Psearch,local (N ) ↓
+
+ What it looks like: A local service business has a name that satisfies the
+ compressed Minimal Resolution Template (Os + Fa + Nc ) but does not include
+ geographic context. “Roof Repair Company,” “Pipe Installation Services.”
+ Commercial manifestation: Reduced local pack visibility. The business com-
+ petes in the national classification pool rather than the local one. In a dense
+ local market, this can mean the difference between first-page local results and
+ page-three or deeper results.
+ Diagnostic test: Search for the business’s category + city. If the business does
+ not appear in the local pack despite having active GMB presence, missing Cl is
+ a likely contributor.
+ Repair: Add the geographic context to the name, or at minimum ensure it
+ appears prominently in the GBP name field. “Roof Repair Company” →
+ “Dallas Roof Repair Company.” The geographic token creates geo-categorical
+ alignment that the algorithm treats as directly relevant to local queries.
+
+
+
+17.6 Failure Mode Five: Decorative Differentiation — ∆decorative ≈
+     0
+
+ Failure Mode 5: Decorative Differentiation
+ Mathematical signature:
+
+                        U ≈0     ⇒    ∆=U ·M ·T ≈0
+
+ What it looks like: The business has invested in brand aesthetics — design,
+ tone, story, visual identity — but the core proposition is not genuinely unique.
+ “We provide personalized service.” “We truly listen.” “We go the extra mile.”
+ These claims are made by every competitor and therefore differentiate no one.
+
+
+                                       26
+
+       17.7. FAILURE MODE SIX: NON-CONVERTIBLE DIFFERENTIATION — λ ≈ 0
+
+
+ Commercial manifestation: The business believes it is differentiated and
+ cannot understand why its marketing investment produces diminishing returns.
+ The answer is that brand investment without a unique proposition generates
+ ∆ ≈ 0 regardless of the investment amount. The spending created aesthetics,
+ not force.
+ Diagnostic test: Could three of your top competitors make exactly the same
+ claims about themselves without lying? If yes, U ≈ 0 and the differentiation is
+ decorative.
+ Repair: The repair is not a marketing change. It is a business model or po-
+ sitioning change: finding the specific, verifiable, non-substitutable thing the
+ business does that no competitor does in the same way. That thing, stated in
+ one sentence, is the differentiation worth investing in.
+
+
+
+
+17.7   Failure Mode Six: Non-Convertible Differentiation — λ ≈ 0
+
+ Failure Mode 6: Non-Convertible Differentiation
+ Mathematical signature:
+
+                        λ = Cr · Cm ≈ 0     ⇒    λ∆ ≈ 0
+
+ What it looks like: The business has genuine differentiation (∆ is real) but the
+ market does not reward it (Cr ≈ 0) or the channels used to communicate it
+ are incompatible (Cm ≈ 0). The craft brewery in the industrial supply chain.
+ The deeply personal brand story communicated through B2B procurement
+ platforms.
+ Commercial manifestation: The business has a clear, passionate proposition
+ and cannot understand why it is not converting. The proposition is good. The
+ problem is the market’s receptivity to it in that context.
+ Diagnostic test: Compare conversion rates for the differentiated proposition
+ across different customer segments or channels. If some segments respond
+ strongly and others do not, the differentiation is convertible in some contexts
+ and not others. Cr is segment-dependent, and the business is targeting low-Cr
+ segments.
+ Repair: Either shift to a market segment with higher Cr for the differentiation
+ type, or change the differentiation to something the current market rewards.
+
+
+                                       27
+
+CHAPTER 17. THE COMPLETE FAILURE MODE TAXONOMY
+
+
+ Do not change the name — the naming problem is secondary. The primary
+ failure is market-proposition fit.
+
+
+
+
+17.8 Failure Mode Seven: Ambiguity Overload — µ(1 − α)σ ≫ λ∆
+
+
+ Failure Mode 7: Ambiguity Overload
+
+ Mathematical signature:
+
+              µ(1 − α)σ ≫ λ∆      ⇒    Fm < 0 (net negative force)
+
+ What it looks like: The name has both low alignment and high drift. The
+ entity’s differentiation, however strong, cannot overcome the net negative
+ market force created by the combined ambiguity penalty.
+ Commercial manifestation: Differentiation investment produces no measur-
+ able market improvement. This is the failure mode where a business with a
+ genuinely compelling story and a recognizable brand finds that new customer
+ acquisition remains stubbornly expensive. The brand story is known. The
+ category classification is not.
+ Diagnostic test: Calculate µ(1 − α)σ and compare to λ∆. If the penalty term
+ exceeds the differentiation term, the name must change before any other in-
+ vestment will produce returns.
+ Repair: This is the only failure mode where the repair is unconditional: rename.
+ No amount of differentiation investment, execution effort, or marketing cre-
+ ativity overcomes net negative market force. The penalty must be reduced first
+ by reducing σ (fixing drift) and increasing α (adding resolution components).
+ Then differentiation investment becomes productive.
+
+
+
+
+                                       28
+
+17.9. FAILURE MODE EIGHT: THE DIMENSIONAL TEAR — ZERO FIELD PROJECTION
+
+
+17.9 Failure Mode Eight: The Dimensional Tear — Zero Field
+     Projection
+
+ Failure Mode 8: Dimensional Tear
+ Mathematical signature:
+
+             max cos(⃗vname , ⃗vFi ) < ϵmin       ⇒        α → 0, σ → undefined
+               i
+
+
+ What it looks like: Invented words, pharmaceutical-suffix portmanteaus, ab-
+ stract concept compounds with no commercial mapping. “Nexigen,” “Velorix,”
+ “Synaptix.”
+ Commercial manifestation: The entity does not appear in category searches.
+ Registry classification returns generic defaults. New customers cannot self-
+ route to the business through search. Growth is almost entirely referral-
+ dependent from day one.
+ Diagnostic test: The three-test protocol from Chapter 15: context-free recog-
+ nition fails, basin analysis returns no basin or split basin, registry returns no
+ category or wrong category.
+ Repair: Rename to a 3D Direct name. Two-Face Recovery can mitigate registry
+ misclassification but cannot repair the cognitive friction of a Torn name in
+ first-impression contexts. For established businesses with significant brand
+ equity in the torn name, the transition protocol from Chapter 16 applies: run
+ both names simultaneously during the transition period.
+
+
+
+17.10 Failure Mode Nine: The Unintended Basin — Wrong Cate-
+      gory Capture
+
+ Failure Mode 9: Unintended Basin
+ Mathematical signature:
+
+      cos(⃗vname , ⃗vwrong ) > cos(⃗vname , ⃗vintended )    ⇒    σ ↑, misclassification
+
+ What it looks like: The name resolves, but to the wrong category. “Transitions
+ Financial” resolving to social services. “Apex Consulting” resolving to Apex,
+ NC. “Legacy Partners” resolving to estate law rather than business consulting.
+
+
+                                                29
+
+CHAPTER 17. THE COMPLETE FAILURE MODE TAXONOMY
+
+
+ Commercial manifestation: The business receives traffic and inquiries from
+ the wrong audience. Registry systems assign incorrect categories. The entity
+ appears in the wrong directory sections. Customers who find the entity through
+ correctly targeted search arrive with correct intent, but a significant fraction of
+ automated discovery routes the entity to wrong-audience contexts.
+ Diagnostic test: Search for the business name with no additional context. If
+ the top results include references to a competing category (social services, a
+ geographic location, a different industry), the basin is wrong.
+ Repair: Remove or replace the drifting token. “Transitions Financial Planning”
+ → “Life Event Financial Planning” (removes “Transitions,” which carries the
+ social-services basin, and replaces it with a more specific context token). Al-
+ ternatively, “Retirement Transition Financial Planning” — re-specifying the
+ context such that “transition” is modified by a financial-domain term that
+ overrides the competing association.
+
+
+
+17.11 Failure Mode Ten: Acquired Debt — A Good Name Made
+      Ambiguous
+
+ Failure Mode 10: Acquired Debt
+
+ Mathematical signature:
+
+      α0 high,    αt = α0 + ρm,    but environment shifts: σ ↑ over time
+
+ What it looks like: A name that was a 3D Direct Stable Atom at launch has
+ accumulated ambiguity through environmental change: a competing brand
+ uses the same term, a cultural shift re-associates the term with a different
+ category, or the business expanded into new services that no longer align with
+ the original name.
+ Commercial manifestation: A business that previously had strong organic
+ acquisition begins to see organic performance decline without an obvious cause.
+ The name has not changed. The website has not changed. But the competitive
+ environment has changed in ways that have shifted the name’s effective σ.
+ Examples:
+
+  • A roofing company called “Solar Roofing” whose name made it distinct
+    in 2012, when solar roofing was uncommon, now faces a crowded market
+
+
+                                         30
+
+                17.12. DIAGNOSTIC MATRIX: IDENTIFYING YOUR FAILURE MODE
+
+
+     where “solar roofing” describes an entire commodity category rather than a
+     single distinctive company.
+
+   • A law firm that added corporate mergers practice to its originally family-law
+     focus, without updating its name, now sends mixed classification signals.
+
+   • Any business whose primary keyword has been captured by a national
+     brand, creating an unintended basin around the name.
+
+  Diagnostic test: Compare the business’s search performance today to three
+  years ago on its primary category queries. If organic performance has declined
+  without a corresponding change in the business or website, environmental σ
+  increase is the likely cause.
+  Repair: Audit the current σ of the name against the current competitive land-
+  scape. Update or expand the name to restore disambiguation. In many cases,
+  adding a specificity modifier (geographic context, service specialization, audi-
+  ence specification) restores distinction without requiring a full rename.
+
+
+
+17.12   Diagnostic Matrix: Identifying Your Failure Mode
+
+The ten failure modes can be identified quickly using a three-question routing
+matrix. Answer each question in sequence; the routing will identify the primary
+failure mode.
+
+  Three-Question Diagnostic Matrix
+
+  Question 1: When you search your business category (not your business
+  name) in your market, does your business appear on the first page?
+   • Yes, reliably → Likely not a naming failure. Check for Failure Modes 5, 6,
+     or 10.
+
+   • Sometimes / inconsistently → Proceed to Question 2.
+
+   • No, never → Proceed to Question 2.
+  Question 2: When a stranger reads your business name alone (no website,
+  no description), what do they say?
+   • They name your industry correctly → Failure Mode 2 (missing function)
+     or 3 (missing object). Check which component is absent.
+
+
+                                        31
+
+CHAPTER 17. THE COMPLETE FAILURE MODE TAXONOMY
+
+
+   • They name a different industry → Failure Mode 9 (Unintended Basin) or 7
+     (Ambiguity Overload). Check σ.
+
+   • They have no idea → Failure Mode 1 (missing category), 8 (Dimensional
+     Tear), or 3 (personal name producing Ghost State). Proceed to Question 3.
+
+  Question 3: When you enter your business name in Google Business Profile’s
+  category field, what does auto-suggest return?
+
+   • Your correct category → Failure Mode 4 (missing context) if local business.
+     Re-examine Question 2.
+
+   • A wrong but specific category → Failure Mode 9 (Unintended Basin). The
+     name is captured.
+
+   • “Business” or no suggestion → Failure Mode 8 (Dimensional Tear) or
+     Failure Mode 1 (missing Nc ). The name is projecting onto no field.
+
+
+
+
+ FM     Primary Variable   Core Symptom            Key Test                        Repair
+ 1      Nc = ∅             Registry failure        GBP auto-suggest fails          Add category n
+ 2      Fa = ∅             “What do you do?”       Platform matching fails         Add function w
+ 3      Os = ∅             Low conversion          Scope too broad                 Specify object
+ 4      Cl = ∅             No local pack           Local search invisible          Add geography
+ 5      U ≈0               Brand doesn’t convert   Claims all duplicated           Find real distin
+ 6      λ≈0                Story doesn’t land      Wrong market segment            Shift market or
+ 7      Penalty > λ∆       All investment fails    Net force negative              Rename (uncon
+ 8      Tear               No category at all      Three-test fails                Rename
+ 9      Wrong basin        Wrong audience          Search returns wrong category   Remove driftin
+ 10     Acquired drift     Organic declining       Historical search comparison    Update name f
+
+
+
+17.13    Chapter Summary
+
+Chapter 17 delivers the complete failure mode taxonomy with ten formally defined
+failure modes, each with its mathematical signature, commercial manifestation,
+diagnostic test, and repair path.
+The governing principle across all ten modes is:
+
+                                        32
+
+                                                     17.13. CHAPTER SUMMARY
+
+
+The Governing Principle of Naming Failure
+
+Naming failure is not random. It is structurally determined by the values of
+the model’s variables. Given the values of α, σ, Φ, ∆, and λ for any entity, its
+failure mode is predictable before it manifests commercially. The failure mode
+determines the repair. The repair is the minimum intervention sufficient to
+bring the relevant variable to the survival threshold.
+There is no naming problem that cannot be diagnosed. There are only naming
+problems that have not yet been examined with sufficient precision.
+
+
+The Ten Failure Mode Signatures:
+
+               FM 1: Nc = ∅    FM 2: Fa = ∅    FM 3: Os generic
+
+               FM 4: Cl = ∅ (local)   FM 5: U ≈ 0 FM 6: λ ≈ 0
+
+          FM 7: µ(1 − α)σ > λ∆ FM 8: Tear        FM 9: Wrong basin
+
+                   FM 10: Acquired drift: σ ↑ post-launch
+
+Routing matrix: Category search → Stranger test → Registry test.
+
+
+
+
+                                       33
+
+                                                                                          Contents
+
+
+
+
+VII   The Scoring Engine and Practical Application                                    2
+
+18 The Resolution Score: From Math to Measurement                                     4
+   18.1 The Viability Score Formula: V = α + λ∆ − µ(1 − α)σ . . . . . . . . .         4
+   18.2 The Four Viability Bands and What They Predict . . . . . . . . . . . .         5
+        18.2.1 Stable Atom: V ≥ 0.85 . . . . . . . . . . . . . . . . . . . . . . .    5
+        18.2.2 Transitional Entity: 0.65 ≤ V < 0.85 . . . . . . . . . . . . . . .     6
+        18.2.3 High Effort Entity: 0.45 ≤ V < 0.65 . . . . . . . . . . . . . . . .    7
+        18.2.4 Ghost Risk: V < 0.45 . . . . . . . . . . . . . . . . . . . . . . . .   8
+   18.3 Scoring α: The Alignment Coefficient Rubric . . . . . . . . . . . . . .        8
+   18.4 Scoring σ: The Drift Coefficient Rubric . . . . . . . . . . . . . . . . . . 10
+   18.5 Scoring Φ: The Sector Friction Rubric . . . . . . . . . . . . . . . . . . . 10
+   18.6 Scoring ∆: The Differentiation Force Rubric . . . . . . . . . . . . . . . 11
+   18.7 Scoring Rp : The Resolution Pressure Rubric . . . . . . . . . . . . . . . 12
+   18.8 The Complete Scoring Worksheet . . . . . . . . . . . . . . . . . . . . . 13
+
+
+19 Registry Alignment Reference Tables                                                14
+   19.1 How to Use This Chapter . . . . . . . . . . . . . . . . . . . . . . . . . 14
+
+                                          1
+
+CONTENTS
+
+
+   19.2 NAICS Code Alignment by Name Component . . . . . . . . . . . . . 15
+
+   19.3 Google Business Profile Category Matching Reference . . . . . . . . . 17
+
+   19.4 O*NET Task Verb Library . . . . . . . . . . . . . . . . . . . . . . . . . 18
+
+   19.5 TLD Resolution Guide . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+
+
+20 The Topological Audit Protocol                                                 21
+
+   20.1 Step One: Local Vector Scan and Atmospheric Audit . . . . . . . . . . 21
+
+   20.2 Step Two: Primary Search-Intent Mapping . . . . . . . . . . . . . . . 22
+
+   20.3 Step Three: Running the Master Equations . . . . . . . . . . . . . . . 22
+
+   20.4 Step Four: Basin Analysis and Dimensionality Classification . . . . . 23
+
+   20.5 Step Five: Failure Mode Identification . . . . . . . . . . . . . . . . . . 24
+
+   20.6 Step Six: Resolution and Stable Atom Generation . . . . . . . . . . . . 24
+
+   20.7 The Audit Report Format . . . . . . . . . . . . . . . . . . . . . . . . . 25
+
+
+21 Worked Case Studies                                                            26
+
+   21.1 Case Study Format and Scoring Protocol . . . . . . . . . . . . . . . . . 26
+
+   21.2 Case One: The Perfectly Resolved Name . . . . . . . . . . . . . . . . . 27
+
+   21.3 Case Two: The Clever-But-Invisible Name . . . . . . . . . . . . . . . . 28
+
+   21.4 Case Three: The Legacy Name With Acquired Alignment . . . . . . . 30
+
+   21.5 Case Four: The High-Differentiation Survivor . . . . . . . . . . . . . . 30
+
+   21.6 Case Five: The Dimensional Tear That Kills a Category Leader . . . . 31
+
+   21.7 Case Six: The Ghost State Operating at Significant Revenue . . . . . . 32
+
+   21.8 Case Seven: The Local Business That Dominates Its Vector . . . . . . 34
+
+   21.9 Chapter Summary: Patterns Across the Case Studies . . . . . . . . . . 35
+
+
+22 From Name to System: Naming as Engineering Practice                            36
+
+   22.1 The Pre-Launch Naming Checklist . . . . . . . . . . . . . . . . . . . . 36
+
+   22.2 The Rename Decision Framework . . . . . . . . . . . . . . . . . . . . 38
+
+                                         2
+
+                                                                       CONTENTS
+
+
+22.3 The Compensation Decision Framework . . . . . . . . . . . . . . . . . 39
+22.4 The Acquired Alignment Program . . . . . . . . . . . . . . . . . . . . 39
+22.5 Naming a New Category . . . . . . . . . . . . . . . . . . . . . . . . . . 40
+22.6 The Multi-Entity Portfolio . . . . . . . . . . . . . . . . . . . . . . . . . 40
+22.7 Chapter Summary: Naming as a Repeatable Engineering Discipline . 41
+
+
+
+
+                                       3
+
+             PART VII
+
+
+The Scoring Engine and Practical
+          Application
+
+
+
+
+                4
+
+ Everything above converted into a working diagnostic system.
+   Scoring rubrics, registry alignment tables, viability bands,
+the complete audit protocol, and seven fully worked case studies.
+
+
+
+
+                               5

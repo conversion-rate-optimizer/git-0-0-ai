@@ -1,0 +1,664 @@
+CHAPTER 4
+
+
+                                                                                    The
+Minimal Resolution Equation
+
+
+
+  Chapter Thesis
+
+  The four irreducible components combine into a single equation that defines the
+  optimal business name: the Minimal Resolution Template V ∗ = Cl +Os +Fa +Nc .
+  This chapter derives the equation formally, demonstrates its behavior across
+  all four resolution fields, defines the Stable Atom and Algorithmic Autonomy
+  precisely, and applies the framework to concrete examples. The chapter closes
+  with the Deterministic Naming Principle stated in its final form.
+
+
+
+
+4.1   Deriving V ∗ = Cl + Os + Fa + Nc
+
+Having established in Chapter 3 that stable simultaneous resolution across all four
+fields requires exactly the four components {Nc , Os , Fa , Cl }, we now derive the
+optimal name string that encodes all four.
+
+Definition 4.1 (Minimal Resolution Template). The Minimal Resolution Template
+V ∗ is the shortest name string that encodes all four resolution components simulta-
+neously, thereby achieving maximum resolution probability across all fields with
+
+                                        20
+
+                                             4.1. DERIVING V ∗ = Cl + Os + Fa + Nc
+
+
+minimum semantic entropy:
+
+                             V ∗ = Cl + Os + Fa + Nc                           (4.1)
+
+where + denotes semantic concatenation (ordered inclusion in the name string),
+and the ordering follows standard English noun-phrase construction.
+
+The ordering Cl → Os → Fa → Nc reflects two constraints:
+Natural language alignment: English-language business names conventionally
+place geographic context first (“Dallas Roof Repair Company” rather than “Roof
+Repair Company Dallas”). This convention is not arbitrary; it reflects the structure
+of geo-categorical queries in which the location scopes the subsequent category.
+Resolution field priority: Context reduces the search space first, allowing subse-
+quent components to operate in a smaller, more precisely defined field. Object and
+Function together anchor the transaction. Category confirms the industry identity
+at the end.
+
+
+4.1.1   The Compressed Form
+
+For businesses that do not require geographic or audience scoping, the Context
+component Cl is optional. The compressed form of the Minimal Resolution Template
+is:
+
+
+                                V ∗ = Os + Fa + Nc                             (4.2)
+
+This is the minimum viable name for a business that either operates in a non-local
+market or whose geographic scope is adequately provided by location metadata
+(GMB address, website IP, etc.).
+Examples of compressed-form names that achieve Stable Atom status:
+
+ • “Tax Preparation Services” (Os = Tax, Fa = Preparation, Nc = Services)
+
+ • “Roof Repair Company” (Os = Roof, Fa = Repair, Nc = Company)
+
+ • “Business Algorithm Consulting” (Os = Business Algorithm, Fa = implied, Nc =
+   Consulting)
+
+ • “Pipe Installation Contractors” (Os = Pipe, Fa = Installation, Nc = Contractors)
+
+                                        21
+
+CHAPTER 4. THE MINIMAL RESOLUTION EQUATION
+
+
+4.1.2   Why “Shortest String” Matters
+
+The equation specifies the shortest string satisfying the resolution conditions, not
+merely a string satisfying them. This is for two reasons:
+First, additional words beyond those required for resolution do not improve res-
+olution — they add semantic entropy without adding classification information.
+“Professional Certified Expert Roof Repair Services Company” has worse entropy
+characteristics than “Roof Repair Company” because the additional words (pro-
+fessional, certified, expert) contribute decorative noise to the system’s evaluation
+without adding new field signals.
+Second, shorter names are faster to process, easier to remember, and more transmis-
+sible (a property we formalize in Chapter 9 as the Transmissibility Coefficient T ).
+The minimum sufficient length is the optimal length.
+
+  The Minimum String Principle
+
+  The optimal name is the shortest string that satisfies all required resolution
+  variables simultaneously. Adding words beyond this minimum degrades
+  performance unless those words encode a resolution component that was
+  previously missing.
+
+
+
+4.2     The Compressed Form and When to Use It
+
+Practitioners frequently ask: should I always include the geographic context, or is it
+safe to omit? The decision rule is:
+
+
+1. Include Cl when: Your primary customers are geographically concentrated,
+   your competition is local, and local pack search visibility is a significant part of
+   your acquisition strategy.
+
+2. Omit Cl when: Your market is national or global, you operate digitally without
+   geographic constraint, or your business serves a defined audience segment
+   better described by a non-geographic context word.
+
+3. Use audience-context Cl when: Your market is defined by customer type rather
+   than geography (“Small Business Tax Preparation” rather than “Dallas Tax
+   Preparation”).
+
+                                         22
+
+                                      4.3. SYSTEM BEHAVIOR AT FULL RESOLUTION
+
+
+The compressed form V ∗ = Os + Fa + Nc is sufficient for Stable Atom status in
+national and digital markets. The full form V ∗ = Cl + Os + Fa + Nc is required for
+maximum performance in local service markets.
+
+
+
+
+4.3     System Behavior at Full Resolution
+
+We now demonstrate what happens across each resolution field when a name
+satisfies the Minimal Resolution Template.
+
+
+
+
+4.3.1   Search Resolution: P (query match | V ∗ ) → 1
+
+Proposition 4.1 (Search Resolution at V ∗ ). A name satisfying the Minimal Resolu-
+tion Template achieves near-unity query match probability in the search field because its
+component structure mirrors the natural structure of customer queries.
+
+                               P (query match | V ∗ ) → 1
+
+
+Customer search queries overwhelmingly follow the structure:
+
+        query = [action verb or nominalization] + [object] + [location/context]
+
+
+For example: “roof repair Dallas,” “tax preparation near me,” “pipe installation
+contractor.”
+The Minimal Resolution Template Cl + Os + Fa + Nc contains exactly the same
+semantic components as these queries, in a compatible ordering. The search field’s
+similarity function between the name embedding and the query embedding there-
+fore returns a high score, producing strong search visibility for the precise queries
+made by the target customer.
+This is not accidental alignment. It is structural alignment: the template was derived
+from the same field requirements that determine query structure. A name built on
+the template is maximally aligned with the queries that customers actually use.
+
+
+
+
+                                           23
+
+CHAPTER 4. THE MINIMAL RESOLUTION EQUATION
+
+
+4.3.2   Registry Resolution: P (category | V ∗ ) → 1
+
+Proposition 4.2 (Registry Resolution at V ∗ ). A name satisfying the Minimal Resolution
+Template achieves near-unity category classification probability in registry systems.
+
+                                P (category | V ∗ ) → 1
+
+
+The Category Noun Nc maps directly to registry classification categories. Combined
+with the Object Os (which provides additional industry-specificity signal) and the
+Function Fa (which confirms the operational type), the name provides registry
+systems with sufficient information to achieve unambiguous, accurate classification
+without inference.
+The result is: the entity appears in the correct categories across NAICS, GMB,
+and all derivative directory and data systems automatically, from the moment it
+enters the environment. The business owner does not need to manually correct
+misclassifications, fight with autocomplete suggestions, or spend months building
+enough reviews to overcome classification uncertainty.
+
+
+
+4.3.3   Task Resolution: P (task | V ∗ ) → 1
+
+Proposition 4.3 (Task Resolution at V ∗ ). A name satisfying the Minimal Resolution Tem-
+plate achieves near-unity task classification probability in O*NET and platform matching
+systems.
+                                     P (task | V ∗ ) → 1
+
+The Function Fa maps to O*NET task categories. Combined with the Object Os ,
+it specifies not just the category of work but the specific activity performed on a
+specific type of object. This combination produces precise task classification that
+enables accurate platform matching across contractor marketplaces, professional
+service directories, and AI-powered procurement tools.
+
+
+
+4.3.4   Intent Resolution: P (conversion | V ∗ ) → 1
+
+Proposition 4.4 (Intent Resolution at V ∗ ). A name satisfying the Minimal Resolution
+Template achieves maximum conversion clarity in the intent field, approaching unity
+conversion probability among customers who find the entity through correctly targeted
+
+                                          24
+
+                                        4.4. THE STABLE ATOM DEFINED FORMALLY
+
+
+search.
+                                P (conversion | V ∗ ) → 1
+
+The Object Os anchors the transaction. The Function Fa confirms what action is
+being performed. The Category Nc confirms the industry context. Together, these
+three components give the potential customer a complete and accurate mental
+model of the transaction before they make contact.
+The result is a name that converts at maximum efficiency among the correctly
+targeted audience. There is no inference required. No additional investigation
+before first contact. No ambiguity about whether the business does what the
+customer needs. The transaction model is encoded in the name itself.
+
+
+4.4   The Stable Atom Defined Formally
+
+We can now state the Stable Atom condition precisely in terms of the Minimal
+Resolution Template.
+
+Definition 4.2 (Stable Atom — Formal Definition). A business entity achieves Stable
+Atom status when its name satisfies the Minimal Resolution Template:
+
+                         Name ⊇ {Nc , Os , Fa }    (minimum)
+
+                    Name ⊇ {Nc , Os , Fa , Cl }   (for local markets)
+
+This produces the alignment state:
+
+                               α → 1,    σ → 0,     τi → 0
+
+where α is the semantic alignment coefficient, σ is the vector drift coefficient, and τi
+is the inference tax, all defined formally in Part III.
+
+The three mathematical conditions at Stable Atom state have the following plain-
+English interpretations:
+α → 1: The name says exactly what the business is. There is no gap between what
+the name communicates and what the resolution systems expect to find. Zero
+explanation cost.
+σ → 0: The name does not drift toward unintended categories. A potential customer
+reading the name thinks only of the intended business. Competing interpretations
+
+                                            25
+
+CHAPTER 4. THE MINIMAL RESOLUTION EQUATION
+
+
+are effectively eliminated.
+τi → 0: No system — human or automated — is spending resources inferring
+what the name means. The name resolves on first contact, in every field, without
+ambiguity.
+
+
+
+4.5   Algorithmic Autonomy: When the System Maintains You for
+      Free
+
+The deepest consequence of achieving Stable Atom status is what we call Algo-
+rithmic Autonomy: the state in which the automated systems of the commercial
+environment maintain the entity’s market presence without requiring continuous
+human intervention.
+
+Definition 4.3 (Algorithmic Autonomy). Algorithmic Autonomy is achieved when
+an entity’s name resolves completely across all fields such that search engines,
+registry systems, directory platforms, and intent evaluation systems automatically
+maintain the entity’s correct classification and visibility as part of their normal
+operation.
+Formally, Algorithmic Autonomy holds when:
+
+                      Name ≡ Category ≡ Object ≡ Function
+
+The entity becomes the system’s default answer for queries in its category, object,
+and function space.
+
+The economic value of Algorithmic Autonomy is enormous and rarely appreciated
+at the moment of naming. A business that achieves it receives a continuous, com-
+pounding benefit: every time a customer searches for the relevant service in the
+relevant context, the entity is surfaced by the algorithm without any marketing
+spend required to produce that result. The algorithm is doing the marketing.
+A business that does not achieve it must continuously spend to compensate. Every
+month in which the algorithm does not automatically surface the business is a
+month in which the marketing budget is paying for what the name should have
+provided for free.
+Over five years, the difference between a Stable Atom and a Ghost State — in
+marketing spend alone, not counting the slower growth rate, lower conversion
+
+                                        26
+
+        4.6. REAL EXAMPLES: FULLY RESOLVED VS. PARTIALLY RESOLVED NAMES
+
+
+efficiency, and missed referral opportunities — can easily exceed the entire annual
+revenue of a small business.
+This is the economic argument for naming precision. It is not a creative argument.
+It is a financial argument derived from measurable mechanics.
+
+
+4.6     Real Examples: Fully Resolved vs. Partially Resolved Names
+
+We now apply the framework to concrete cases, demonstrating how the Minimal
+Resolution Template diagnoses both well-resolved and poorly-resolved names.
+
+
+4.6.1   Dallas Roof Repair Company — Full Resolution Analysis
+
+  Full Resolution: Dallas Roof Repair Company
+
+  Component decomposition:
+
+   • Cl = “Dallas” (geographic context, Texas market)
+
+   • Os = “Roof” (object: the economic unit being acted upon)
+
+   • Fa = “Repair” (function: the operation performed)
+
+   • Nc = “Company” (category: formal business entity)
+
+  Field resolution check:
+
+   • Search field: Query “roof repair Dallas” matches name components directly.
+     Psearch → 1.
+
+   • Registry field: “Company” + “Roof” + “Repair” maps to NAICS 238160
+     (Roofing Contractors) and GMB category “Roofing contractor.” Pregistry →
+     1.
+
+   • Task field: “Repair” maps to O*NET task category 47-2181 (Roofers). Ptask →
+     1.
+
+   • Intent field: “Dallas Roof” + “Repair” confirms the transaction: roof repair
+     services in Dallas. Pintent → 1.
+
+  Resolution verdict: Stable Atom. All four fields resolve at near-unity probabil-
+  ity. Algorithmic Autonomy achieved for Dallas-area roof repair queries.
+
+
+                                        27
+
+CHAPTER 4. THE MINIMAL RESOLUTION EQUATION
+
+
+  Creative quality assessment: The name is not stylistically creative. It does not
+  require creativity to be effective. Effectiveness here is a function of precision,
+  not aesthetics.
+
+
+4.6.2   Business Algorithms — Missing Function Diagnosis
+
+  Partial Resolution: Business Algorithms
+
+  Component decomposition:
+
+   • Cl = absent
+
+   • Os = “Algorithms” (object: the economic unit — present but highly special-
+     ized)
+
+   • Fa = absent
+
+   • Nc = “Business” (functioning as domain context, very weak category signal)
+
+  Field resolution check:
+
+   • Search field: Queries like “business algorithm consulting” will not match
+     the name directly because the function (consulting) is absent. Moderate
+     search visibility for informational queries, poor visibility for commercial
+     queries. Psearch ≈ 0.4.
+
+   • Registry field: No clear industry category noun. “Business” maps to hun-
+     dreds of NAICS codes. Registry classification will be inaccurate or default.
+     Pregistry ≈ 0.2.
+
+   • Task field: No action verb. O*NET cannot classify this entity by task. Ptask ≈
+     0.1.
+
+   • Intent field: What does this business do with algorithms? Build them?
+     Sell them? Consult on them? Teach them? The transaction is completely
+     undefined. Pintent ≈ 0.2.
+
+  Failure mode: Missing Fa (Function). The entity has an interesting object but
+  no action. Every system must infer what the business does.
+  Resolution: “Business Algorithm Consulting” adds the Function (Fa = Consult-
+  ing) and also upgrades the Category (Nc = Consulting). This single addition
+  takes the entity from partial resolution to near-Stable Atom status.
+
+
+                                         28
+
+        4.6. REAL EXAMPLES: FULLY RESOLVED VS. PARTIALLY RESOLVED NAMES
+
+
+  Inference tax estimate: Without the function, this business must rely on website
+  content, business description, and accumulated reviews to communicate what
+  it does — all of which require ongoing investment to maintain. The function
+  word “Consulting” costs zero additional effort to add to the name and would
+  have provided this disambiguation for the lifetime of the business.
+
+
+
+
+4.6.3   ProfitLogic — All Components Missing
+
+  Ghost State: ProfitLogic
+
+  Component decomposition:
+
+   • Cl = absent
+
+   • Os = absent (“Profit” implies financial outcome but names no economic
+     unit)
+
+   • Fa = absent
+
+   • Nc = absent (“Logic” is not a business category in any classification system)
+
+  Field resolution check:
+
+   • Search field: No customer queries “ProfitLogic.” This name is the search
+     destination, not the search query. It can only be found by customers who
+     already know it exists. Psearch ≈ 0.05.
+
+   • Registry field: “Logic” maps to no NAICS code. Registry classification will
+     fail entirely or default to a generic category. Pregistry ≈ 0.05.
+
+   • Task field: No action verb of any kind. Completely unresolvable. Ptask ≈ 0.
+
+   • Intent field: What profit? Whose logic? For what business? The transaction
+     is completely undefined. Pintent ≈ 0.05.
+
+  Failure mode: Ghost State. All four resolution components missing. The entity
+  is structurally invisible to every automated classification system from day one.
+  Work-offset ratio: We calculate this formally in Chapter 6, but the intuition is
+  immediate: a business with α ≈ 0.05 must replace every classification function
+  the name should have performed with compensatory marketing activity. The
+
+
+                                        29
+
+CHAPTER 4. THE MINIMAL RESOLUTION EQUATION
+
+
+ work required to build market legibility for “ProfitLogic” without any support-
+ ing name architecture is not measured in months. It is measured in years and
+ hundreds of thousands of dollars in deliberate brand-building investment.
+ The painful irony: The name sounds more professional and creative than
+ “Dallas Roof Repair Company.” This is the precise nature of the creative fallacy.
+ The aesthetically superior name is the commercially inferior asset.
+
+
+
+
+4.7   Chapter Summary and the Deterministic Naming Principle
+
+Chapter 4 establishes the following:
+1. The Minimal Resolution Template V ∗ = Cl + Os + Fa + Nc is the complete formal
+expression of optimal naming. It is not a style guide. It is a closure theorem.
+2. System behavior at full resolution approaches unity probability across all four
+fields simultaneously:
+
+               Psearch → 1,   Pregistry → 1,   Ptask → 1,   Pintent → 1
+
+
+3. Stable Atom status requires the presence of all four components (three minimum
+for non-local markets) and produces the alignment state α → 1, σ → 0, τi → 0.
+4. Algorithmic Autonomy is achieved when Name ≡ Category ≡ Object ≡ Function.
+The system maintains the entity’s market presence without compensatory human
+effort.
+5. Real examples confirm the framework. Fully resolved names achieve immediate
+multi-field resolution. Partially resolved names fail in measurable, diagnosable
+ways. Ghost State names fail in all fields simultaneously and require extraordinary
+compensatory effort.
+We close this chapter with the Deterministic Naming Principle in its final form.
+
+  The Deterministic Naming Principle — Final Form
+
+  A business name is the shortest string that simultaneously satisfies all required
+  resolution conditions across the commercial resolution environment. The
+  optimal name is determined by the structure of the resolution fields, not by
+  aesthetic preference. Given the four field requirements and the four irreducible
+
+
+                                          30
+
+     4.7. CHAPTER SUMMARY AND THE DETERMINISTIC NAMING PRINCIPLE
+
+
+components, the derivation of the optimal name is a mathematical procedure,
+not a creative one.
+When Name ≡ Category ≡ Object ≡ Function:
+
+The system no longer needs to infer.
+
+The market no longer hesitates.
+
+The entity becomes the default answer.
+
+This is Algorithmic Autonomy. This is the goal.
+
+
+Core Equations from Chapter 4:
+
+                         V ∗ = Cl + Os + Fa + Nc       (full form)
+
+         V ∗ = Os + Fa + Nc        (compressed form, non-local markets)
+
+   Psearch (V ∗ ) → 1,    Pregistry (V ∗ ) → 1,   Ptask (V ∗ ) → 1,    Pintent (V ∗ ) → 1
+
+                    Stable Atom: α → 1,            σ → 0,     τi → 0
+
+     Algorithmic Autonomy:            Name ≡ Category ≡ Object ≡ Function
+
+
+
+
+                                             31
+
+                                                                                                   Contents
+
+
+
+
+III     Alignment, Drift, and the Inference Tax                                                2
+
+5     Semantic Alignment: The Alpha Coefficient                                                4
+
+      5.1   Defining α: The Degree of Match Between Name and System Expec-
+            tation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   4
+
+      5.2   How α Is Measured Across the Four Fields . . . . . . . . . . . . . . .             5
+
+      5.3   The Alignment Spectrum: From 0.0 to 1.0 . . . . . . . . . . . . . . . .            6
+
+            5.3.1   α ≥ 0.85: The Stable Atom Zone . . . . . . . . . . . . . . . . .           6
+
+            5.3.2   0.65 ≤ α < 0.85: The Transitional Entity Zone . . . . . . . . . .          7
+
+            5.3.3   0.45 ≤ α < 0.65: The High-Effort Zone . . . . . . . . . . . . . .          7
+
+            5.3.4   α < 0.45: Ghost Risk . . . . . . . . . . . . . . . . . . . . . . . .       8
+
+      5.4   The Trough Depth Equation: Dt = Φ(1 − α) . . . . . . . . . . . . . . .             9
+
+      5.5   What the Trough Means in Business Terms . . . . . . . . . . . . . . . 10
+
+      5.6   Work-Offset Ratio: W∆ = 1/α2 . . . . . . . . . . . . . . . . . . . . . . . 11
+
+      5.7   Translating W∆ into Actual Marketing Hours and Ad Spend . . . . . 12
+
+      5.8   State Persistence Over Time: Ps (t) . . . . . . . . . . . . . . . . . . . . . 13
+
+      5.9   Chapter Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+
+                                                1
+
+CONTENTS
+
+
+6 Vector Drift and the Unintended Basin                                                 16
+
+    6.1   Defining σ: Drift from the Classification Constant . . . . . . . . . . . 16
+
+    6.2   How Drift Accumulates Across Fields . . . . . . . . . . . . . . . . . . 17
+
+    6.3   The Unintended Basin Problem . . . . . . . . . . . . . . . . . . . . . . 18
+
+          6.3.1   When “Transitions” Means Social Services, Not Financial Plan-
+                  ning . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+
+          6.3.2   When “Apex” Means Mountain, Not Excellence . . . . . . . . 19
+
+          6.3.3   Basin Depth and Escape Cost . . . . . . . . . . . . . . . . . . . 19
+
+    6.4   Drift Amplification Under Pressure . . . . . . . . . . . . . . . . . . . . 20
+
+    6.5   The Drift-Adjusted Survival Threshold . . . . . . . . . . . . . . . . . . 21
+
+    6.6   Chapter Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+
+
+7 The Inference Tax                                                                     23
+
+    7.1   Defining τi : The Monthly Cost of Ambiguity . . . . . . . . . . . . . . 23
+
+    7.2   Where the Inference Tax Is Paid . . . . . . . . . . . . . . . . . . . . . . 24
+
+          7.2.1   Search Systems Inferring Missing Variables . . . . . . . . . . . 24
+
+          7.2.2   Registry Systems Requiring Manual Override . . . . . . . . . 25
+
+          7.2.3   Potential Customers Asking “What Do You Do?” . . . . . . . 25
+
+          7.2.4   Content Volume Required to Compensate for τi . . . . . . . . 26
+
+    7.3   Calculating Your Inference Tax . . . . . . . . . . . . . . . . . . . . . . 27
+
+    7.4   The State Persistence Equation and Decay . . . . . . . . . . . . . . . . 27
+
+    7.5   Chapter Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 28
+
+
+8   Sector Friction and the Competitive Field                                           30
+
+    8.1   Defining Φ: The Friction Coefficient of Your Market . . . . . . . . . . 30
+
+    8.2   How Incumbent Density Creates Atmospheric Pressure . . . . . . . . 31
+
+    8.3   Local Vector Displacement: The GMB Density Problem . . . . . . . . 32
+
+    8.4   The Atmospheric Resultant Rsn and Name Aerodynamics . . . . . . 33
+
+                                             2
+
+                                                                       CONTENTS
+
+
+8.5   Friction Mapping by Industry Category . . . . . . . . . . . . . . . . . 34
+      8.5.1   High-Friction Markets: Why Clarity Matters More, Not Less . 35
+      8.5.2   Low-Friction Markets: Where Creativity Has Headroom . . . 36
+8.6   Chapter Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 36
+
+
+
+
+                                       3
+
+              PART III
+
+
+Alignment, Drift, and the Inference
+               Tax
+
+
+
+
+                 4
+
+           Quantifying the invisible costs of poor naming.
+Every gap between what your name says and what the system expects
+  is a tax — measurable in dollars, months, and marketing hours.
+
+
+
+
+                                5

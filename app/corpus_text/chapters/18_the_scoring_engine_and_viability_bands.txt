@@ -1,0 +1,389 @@
+CHAPTER 18
+
+
+                                                                                    The
+Resolution Score: From Math to Mea-
+surement
+
+
+
+  Chapter Thesis
+
+  The viability score V = α + λ∆ − µ(1 − α)σ converts the full theoretical frame-
+  work into a single operational number. This chapter delivers the complete
+  scoring rubrics for each variable, defines the four viability bands and what
+  they predict commercially, and provides the full scoring worksheet that any
+  practitioner can complete for any named entity in under thirty minutes.
+
+
+
+
+18.1   The Viability Score Formula: V = α + λ∆ − µ(1 − α)σ
+
+Definition 18.1 (Viability Score). The Viability Score V is the operational summary
+statistic of the commercial identity model:
+
+                             V = α + λ∆ − µ(1 − α)σ                          (18.1)
+
+where µ = 0.25 is the standard ambiguity burden constant. V combines the pos-
+itive contributions of alignment and converted differentiation with the negative
+contribution of the ambiguity penalty.
+
+                                        6
+
+                     18.2. THE FOUR VIABILITY BANDS AND WHAT THEY PREDICT
+
+
+The Viability Score is a compressed form of the master equation — it does not capture
+temporal dynamics, execution effort, or Resolution Pressure. It answers a single
+practical question: Given this name and this proposition, is this entity structurally viable?
+It provides a fast, consistent, comparable score for any named entity that can be
+applied before launch, during a naming audit, or as part of a competitor analysis.
+
+
+
+
+18.2     The Four Viability Bands and What They Predict
+
+
+18.2.1   Stable Atom: V ≥ 0.85
+
+
+
+   STABLE ATOM                                                                 V ≥ 0.85
+  What it means: The entity’s naming and differentiation combination achieves
+  or approaches full resolution across all four fields. The algorithm maintains
+  the entity. Marketing investment compounds rather than compensates.
+  Commercial predictions:
+    • Organic search visibility achievable within weeks to months of launch
+
+    • Registry classification automatic and accurate
+
+    • New customer acquisition cost at category baseline or below
+
+    • Marketing investment builds compounding returns
+
+    • Entity survives 90-day marketing pauses without significant visibility loss
+   Strategic implication: Maintain. Invest in execution and differentiation to
+   raise the ceiling. Do not rename.
+
+
+
+
+                                             7
+
+CHAPTER 18. THE RESOLUTION SCORE: FROM MATH TO MEASUREMENT
+
+
+18.2.2   Transitional Entity: 0.65 ≤ V < 0.85
+
+
+
+
+  TRANSITIONAL ENTITY                                             0.65 ≤ V < 0.85
+  What it means: The entity is partially resolved. One or two components
+  are missing or weak. The entity is visible but not autonomous — it requires
+  ongoing effort to maintain visibility, and that effort produces returns, but at a
+  cost multiplier above baseline.
+  Commercial predictions:
+   • Organic visibility achievable but requires 3–12 months of consistent effort
+
+   • Registry classification partially accurate; may require manual confirmation
+
+   • Customer acquisition cost 1.5–2.5× category baseline
+
+   • Marketing investment produces returns but does not fully compound
+
+   • 90-day marketing pause causes moderate visibility decline that recovers
+     slowly
+  Strategic implication: Evaluate the cost-benefit of adding the missing resolu-
+  tion component. In most cases, a minor name refinement moves the entity to
+  Stable Atom and eliminates the ongoing cost multiplier permanently.
+
+
+
+
+                                          8
+
+                    18.2. THE FOUR VIABILITY BANDS AND WHAT THEY PREDICT
+
+
+18.2.3   High Effort Entity: 0.45 ≤ V < 0.65
+
+
+
+
+  HIGH EFFORT ENTITY                                              0.45 ≤ V < 0.65
+  What it means: The entity faces significant structural resistance. Two or more
+  resolution components are missing or the name has moderate drift. Persistence
+  is achievable but requires above-average sustained investment that never fully
+  stops.
+  Commercial predictions:
+   • Organic visibility requires 12–36 months of sustained effort
+
+   • Registry misclassification likely; ongoing platform management required
+
+   • Customer acquisition cost 2.5–5× category baseline
+
+   • Marketing investment compensates for naming deficit rather than building
+     on top of it
+
+   • 90-day marketing pause causes significant visibility collapse
+  Strategic implication: Calculate the annual Inference Tax. In virtually all cases,
+  the accumulated cost over three to five years exceeds the cost of renaming.
+  The rename conversation should happen now, not after the tax has been paid
+  for another year.
+
+
+
+
+                                          9
+
+CHAPTER 18. THE RESOLUTION SCORE: FROM MATH TO MEASUREMENT
+
+
+18.2.4   Ghost Risk: V < 0.45
+
+
+
+
+  GHOST RISK                                                           V < 0.45
+  What it means: The entity is structurally in or approaching the Ghost State.
+  Naming quality is insufficient for organic commercial viability. Persistence
+  requires extraordinary ongoing investment that cannot be reduced without
+  collapse.
+  Commercial predictions:
+   • Organic search visibility unlikely without extraordinary sustained invest-
+     ment
+
+   • Registry classification absent, wrong, or contested
+
+   • Customer acquisition cost 5–100× category baseline (depending on α)
+
+   • Marketing investment is structural overhead, not compounding investment
+
+   • Any marketing pause causes near-total visibility collapse
+  Strategic implication: Rename. The compensation threshold calculation will
+  confirm that required ∆ is above 0.70 for virtually all Ghost Risk entities
+  — achievable only by companies with the resources, patience, and market
+  conditions of DuckDuckGo. Rename to a Stable Atom and redeploy the
+  accumulated Inference Tax savings into execution.
+
+
+
+
+18.3     Scoring α: The Alignment Coefficient Rubric
+
+
+
+Score α by evaluating the name against four criteria, each scored 0–1, then averag-
+ing.
+
+                                        10
+
+                         18.3. SCORING α: THE ALIGNMENT COEFFICIENT RUBRIC
+
+
+
+ Criterion                       Weight          Scoring Guide
+ Category Noun Clarity (Nc )     25%             1.0: Clear, unambiguous category
+                                                 noun (“plumber,” “attorney”).
+                                                 0.6: Implied or moderate category
+                                                 noun.
+                                                 0.2: Generic or absent (Nc = ∅).
+ Function Word Presence (Fa )    25%             1.0: Explicit action verb or nomi-
+                                                 nalization (“repair,” “consulting”).
+                                                 0.5: Implied by category.
+                                                 0.0: Completely absent.
+ Object Specificity (Os )        25%             1.0: Precise, unambiguous object
+                                                 (“pipe,” “tax return”).
+                                                 0.5: Implied or moderately spe-
+                                                 cific.
+                                                 0.1: Generic or absent.
+ Context Clarity (Cl )           25%             1.0: Clear geographic or audience
+                                                 context (“Dallas,” “commercial”).
+                                                 0.5: Partially specified or in-
+                                                 ferrable.
+                                                 0.0: Absent (use 0.5 if non-local
+                                                 market).
+
+
+
+
+α = (average of four criterion scores). Cross-check: run the three-test diagnostic
+from Chapter 15 — scores below 0.50 on the diagnostic confirm Ghost Risk or High
+Effort zone.
+
+
+
+
+                                       11
+
+CHAPTER 18. THE RESOLUTION SCORE: FROM MATH TO MEASUREMENT
+
+
+18.4   Scoring σ: The Drift Coefficient Rubric
+
+
+  Drift Level                      Scoring Criteria
+  σ ≤ 0.10 (Negligible drift)  Every token in the name maps to a single sta-
+                               ble commercial category with no competing
+                               associations. No token activates unintended
+                               basins.
+  0.10 < σ ≤ 0.30 (Low drift)  One token has a secondary association that
+                               could be confused with another category, but
+                               the overall name is clearly within the intended
+                               field.
+  0.30 < σ ≤ 0.55 (Moderate One or two tokens pull toward competing cat-
+  drift)                       egories with moderate force. The intended
+                               classification is still recoverable from context
+                               but not automatic.
+  0.55 < σ ≤ 0.80 (High drift) One or more tokens have strong associations
+                               with a competing category. The name is as
+                               likely to be classified wrong as right on first
+                               encounter.
+  σ > 0.80 (Maximum drift)     The primary token maps to a competing cate-
+                               gory more strongly than to the intended cate-
+                               gory. Misclassification is the default outcome.
+
+
+
+
+Basin test for σ: If a name contains “Transitions,” “Apex,” “Legacy,” “Nexus,” “Cat-
+alyst,” “Pinnacle,” “Elevate,” “Transform,” “Synergy,” or similar abstraction/aspi-
+ration terms as primary tokens, assign σ ≥ 0.55 and run the basin test from Chapter
+15 to confirm.
+
+
+
+
+18.5   Scoring Φ: The Sector Friction Rubric
+
+Use the industry friction table from Chapter 8 as the primary reference. For sectors
+not listed, estimate Φ using the following framework:
+
+                                        12
+
+                         18.6. SCORING ∆: THE DIFFERENTIATION FORCE RUBRIC
+
+
+
+ Friction Indicator                                   Φ Contribution               Notes
+ Incumbent count > 500 in local market                     +0.15           Dense competitive field
+ Top 3 results dominated by national brands                +0.12          Platform position locked
+ Category has been stable > 20 years                       +0.08            Mature classification
+ Primary query term has > 100K monthly searches            +0.10           High query competition
+ Category uses paid-heavy acquisition models               +0.08            Organic displacement
+ New/emerging category (< 5 years old)                     −0.15           Thin classification field
+ Niche specialization reduces direct competitors           −0.12            Reduced local density
+ Geographic isolation (small market)                       −0.08          Lower incumbent density
+
+
+Start from a base of Φ = 0.60. Add and subtract contributions. Cap at Φ = 0.97 (no
+market is frictionless at the top or completely impenetrable at the bottom).
+
+
+18.6   Scoring ∆: The Differentiation Force Rubric
+
+Score each component of ∆ = U · M · T on the following criteria:
+Uniqueness (U = 1 − Oc ):
+
+ • U ≥ 0.80: The proposition is genuinely non-substitutable. No competitor makes
+   the same specific claim with the same specific mechanism.
+
+ • 0.50 ≤ U < 0.80: The proposition is distinctive but has some competitive
+   overlap.
+
+ • U < 0.50: The proposition is either common or easily duplicated. “Great service,”
+   “personalized attention,” and “trusted partner” all score U < 0.20.
+
+Memorability (M ):
+
+ • M ≥ 0.80: Someone who heard the proposition once could accurately restate it
+   30 days later.
+
+ • 0.50 ≤ M < 0.80: The core idea is retained but details may fade.
+
+ • M < 0.50: The proposition requires re-exposure to recall accurately.
+
+Transmissibility (T = Vs /Fc ):
+
+                                        13
+
+CHAPTER 18. THE RESOLUTION SCORE: FROM MATH TO MEASUREMENT
+
+
+ • T ≥ 0.80: The proposition can be accurately restated in one sentence with no
+   loss of meaning.
+
+
+
+
+ • 0.50 ≤ T < 0.80: Requires two to three sentences; some distortion in transmis-
+   sion.
+
+
+
+
+ • T < 0.50: Requires explanation; high distortion in word-of-mouth transmission.
+
+
+
+
+The conversion constant λ = Cr · Cm : estimate Cr from the category receptivity table
+in Chapter 9 and Cm from the medium-compatibility assessment for your primary
+acquisition channel.
+
+
+
+
+18.7   Scoring Rp : The Resolution Pressure Rubric
+
+
+Rp = N · Ur · Tc . Score each component using the tables in Chapter 12. The Rp score
+is the product of the three scores. Use the industry Rp mapping table from Chapter
+12 as a cross-check.
+
+
+
+
+                                         14
+
+                                     18.8. THE COMPLETE SCORING WORKSHEET
+
+
+18.8   The Complete Scoring Worksheet
+
+Variable                              Your Score      Source / Method
+α (alignment)                                         Four-criterion rubric above
+σ (drift)                                             Drift rubric + basin test
+Φ (sector friction)                                   Industry table + adjust-
+                                                      ments
+U (uniqueness)                                        Competitor overlap test
+M (memorability)                                      30-day recall estimate
+T (transmissibility)                                  One-sentence restate test
+∆=U ·M ·T                                             Product of above three
+λ = Cr · Cm                                           Receptivity + medium ta-
+                                                      bles
+λ∆                                                    Product
+Rp = N · Ur · Tc                                      Pressure tables
+Viability Score:                      V = α + λ∆ − 0.25(1 − α)σ =
+Trough Depth:                         Dt = Φ(1 − α) =
+Work-Offset:                          W∆ = 1/α2 =
+Atm. Resultant:                       Rsn = (α − σ)/[Φ(1 + σ)] =
+Viability Band:
+
+
+ The Score Is a Prediction, Not an Opinion
+
+ A Viability Score is not a subjective assessment of whether a name is “good.”
+ It is a model-derived prediction of the structural conditions the entity will
+ face in the commercial resolution environment. Two people applying the
+ rubric consistently to the same name will produce the same score. The score is
+ falsifiable: it predicts specific commercial outcomes that can be verified against
+ actual business performance data.
+
+
+
+
+                                        15

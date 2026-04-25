@@ -1,0 +1,307 @@
+[
+  {
+    "id": 1,
+    "title": "The Naming Problem Is Not What You Think",
+    "tags": [
+      "naming problem",
+      "creative fallacy",
+      "ghost state",
+      "stable atom",
+      "resolution environment",
+      "deterministic naming"
+    ],
+    "file": "chapters/01_the_naming_problem_is_not_what_you_think.txt",
+    "chars": 19170
+  },
+  {
+    "id": 2,
+    "title": "Tokens, Vectors, and the Machine's Eye",
+    "tags": [
+      "token",
+      "vector",
+      "embedding",
+      "dependency graph",
+      "naics",
+      "o*net",
+      "registry",
+      "search field"
+    ],
+    "file": "chapters/02_tokens_vectors_and_the_machine_s_eye.txt",
+    "chars": 24675
+  },
+  {
+    "id": 3,
+    "title": "The Four Components of a Resolved Name",
+    "tags": [
+      "category noun",
+      "object",
+      "function",
+      "context",
+      "Nc",
+      "Os",
+      "Fa",
+      "Cl",
+      "v* template"
+    ],
+    "file": "chapters/03_the_four_components_of_a_resolved_name.txt",
+    "chars": 28774
+  },
+  {
+    "id": 4,
+    "title": "The Minimal Resolution Template V*",
+    "tags": [
+      "v*",
+      "minimal resolution template",
+      "stable atom",
+      "algorithmic autonomy",
+      "fully resolved"
+    ],
+    "file": "chapters/04_the_minimal_resolution_template_v.txt",
+    "chars": 25463
+  },
+  {
+    "id": 5,
+    "title": "Alignment alpha: Trough Depth and Work-Offset",
+    "tags": [
+      "alpha",
+      "alignment",
+      "trough depth",
+      "Dt",
+      "work offset",
+      "W_delta",
+      "persistence Ps"
+    ],
+    "file": "chapters/05_alignment_alpha_trough_depth_and_work_offset.txt",
+    "chars": 22965
+  },
+  {
+    "id": 6,
+    "title": "Drift sigma: Misdirection and the Unintended Basin",
+    "tags": [
+      "sigma",
+      "drift",
+      "unintended basin",
+      "misclassification"
+    ],
+    "file": "chapters/06_drift_sigma_misdirection_and_the_unintended_basi.txt",
+    "chars": 12355
+  },
+  {
+    "id": 7,
+    "title": "The Inference Tax tau_i",
+    "tags": [
+      "inference tax",
+      "tau",
+      "ambiguity cost",
+      "monthly cost"
+    ],
+    "file": "chapters/07_the_inference_tax_tau_i.txt",
+    "chars": 12282
+  },
+  {
+    "id": 8,
+    "title": "Sector Friction Phi and the Atmospheric Resultant",
+    "tags": [
+      "phi",
+      "sector friction",
+      "atmospheric resultant",
+      "Rsn",
+      "incumbent density",
+      "GMB",
+      "google business profile"
+    ],
+    "file": "chapters/08_sector_friction_phi_and_the_atmospheric_resultan.txt",
+    "chars": 19401
+  },
+  {
+    "id": 9,
+    "title": "Differentiation Force Delta = U M T",
+    "tags": [
+      "delta",
+      "differentiation",
+      "uniqueness",
+      "memorability",
+      "transmissibility",
+      "narrative lift"
+    ],
+    "file": "chapters/09_differentiation_force_delta_u_m_t.txt",
+    "chars": 24598
+  },
+  {
+    "id": 10,
+    "title": "The Compensation Theorem",
+    "tags": [
+      "compensation theorem",
+      "lambda delta",
+      "survival threshold",
+      "ambiguity penalty",
+      "decorative differentiation"
+    ],
+    "file": "chapters/10_the_compensation_theorem.txt",
+    "chars": 19883
+  },
+  {
+    "id": 11,
+    "title": "Worked Example: DuckDuckGo",
+    "tags": [
+      "duckduckgo",
+      "case study",
+      "worked example",
+      "acquired alignment",
+      "rho_m"
+    ],
+    "file": "chapters/11_worked_example_duckduckgo.txt",
+    "chars": 21498
+  },
+  {
+    "id": 12,
+    "title": "Resolution Pressure Rp",
+    "tags": [
+      "resolution pressure",
+      "Rp",
+      "necessity",
+      "urgency",
+      "consequence of delay",
+      "activation threshold",
+      "eta",
+      "search intent emergence",
+      "Is"
+    ],
+    "file": "chapters/12_resolution_pressure_rp.txt",
+    "chars": 21159
+  },
+  {
+    "id": 13,
+    "title": "Pressure-Adjusted Trajectories",
+    "tags": [
+      "pressure adjusted",
+      "alpha_p",
+      "sigma_p",
+      "chi(Rp)",
+      "narrative lift under pressure"
+    ],
+    "file": "chapters/13_pressure_adjusted_trajectories.txt",
+    "chars": 16985
+  },
+  {
+    "id": 14,
+    "title": "The Master Equation",
+    "tags": [
+      "master equation",
+      "Sx",
+      "trajectory",
+      "execution effort",
+      "E",
+      "decay rate",
+      "Rd",
+      "crest height",
+      "time to resolution"
+    ],
+    "file": "chapters/14_the_master_equation.txt",
+    "chars": 19820
+  },
+  {
+    "id": 15,
+    "title": "Dimensional Tear and Metaphor",
+    "tags": [
+      "dimensional tear",
+      "metaphorical name",
+      "two face recovery",
+      "abstract token"
+    ],
+    "file": "chapters/15_dimensional_tear_and_metaphor.txt",
+    "chars": 19948
+  },
+  {
+    "id": 16,
+    "title": "Ghost States in Practice",
+    "tags": [
+      "ghost state",
+      "phonetic trap",
+      "escape sequence",
+      "high recall zero classification"
+    ],
+    "file": "chapters/16_ghost_states_in_practice.txt",
+    "chars": 12682
+  },
+  {
+    "id": 17,
+    "title": "The Ten Failure Modes",
+    "tags": [
+      "failure mode",
+      "FM1",
+      "FM2",
+      "FM3",
+      "FM4",
+      "FM5",
+      "FM6",
+      "FM7",
+      "FM8",
+      "FM9",
+      "FM10",
+      "missing category",
+      "missing function",
+      "missing object",
+      "missing context",
+      "ambiguity overload",
+      "acquired debt"
+    ],
+    "file": "chapters/17_the_ten_failure_modes.txt",
+    "chars": 24218
+  },
+  {
+    "id": 18,
+    "title": "The Scoring Engine and Viability Bands",
+    "tags": [
+      "scoring",
+      "viability bands",
+      "rubric",
+      "alpha rubric",
+      "sigma rubric",
+      "phi rubric",
+      "delta rubric"
+    ],
+    "file": "chapters/18_the_scoring_engine_and_viability_bands.txt",
+    "chars": 14691
+  },
+  {
+    "id": 19,
+    "title": "Registry Alignment Tables (NAICS, GMB, O*NET)",
+    "tags": [
+      "naics",
+      "gmb",
+      "google business profile",
+      "o*net",
+      "task verb",
+      "category code"
+    ],
+    "file": "chapters/19_registry_alignment_tables_naics_gmb_o_net.txt",
+    "chars": 11498
+  },
+  {
+    "id": 22,
+    "title": "Naming Workflows",
+    "tags": [
+      "compensation decision",
+      "acquired alignment program",
+      "new category",
+      "multi-entity portfolio",
+      "workflow"
+    ],
+    "file": "chapters/22_naming_workflows.txt",
+    "chars": 12867
+  },
+  {
+    "id": 23,
+    "title": "Open Problems",
+    "tags": [
+      "dynamic phi",
+      "multi-language",
+      "voice search",
+      "ai generated names",
+      "open problems"
+    ],
+    "file": "chapters/23_open_problems.txt",
+    "chars": 42907
+  }
+]

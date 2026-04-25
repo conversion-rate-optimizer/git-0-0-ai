@@ -1,0 +1,175 @@
+APPENDIX A
+
+
+                Φ ∈ [0, 1] (sector friction, from Chapter 8 table)
+
+
+
+Cost Equations
+
+                         Dt = Φ(1 − α)        (trough depth)
+                                  1
+                          W∆ = 2 (work-offset ratio)
+                                 α
+                                    
+                 monthly        1
+                τi       = E0      −1  (monthly inference tax)
+                                α2
+                             α−σ
+                    Rsn =                (atmospheric resultant)
+                            Φ(1 + σ)
+                     Rd = Rbase (1 + γ(1 − α)) (decay rate)
+
+
+
+Differentiation
+
+                                                  R1 + R7 + R30           Vs
+        ∆ = U · M · T,      U = 1 − Oc ,    M=                  ,   T =
+                                                        3                 Fc
+                                                       ∆
+                              λ = Cr · Cm ,     P∆ =
+                                                       Φ
+                         Φ(1 + σ)2 − α
+             ∆required =                 (compensation requirement)
+                                λ
+                                 ∆
+                      ∆ef f =          (saturation correction)
+                              1 + k∆
+
+
+Viability Scoring
+
+                      V = α + λ∆ − µ(1 − α)σ,          µ = 0.25
+                             Φ(1 + σ)2
+                      Be =                 (execution burden)
+                              α + λ∆
+                Dt′ = max(0, Φ(1 − (α + λ∆))) (adjusted trough)
+                                  α + λ∆
+                       Ch = L ·                 (crest height)
+                                  Φ(1 + σ)
+
+
+
+                                           12
+
+                                               MASTER EQUATION REFERENCE CARD
+
+
+Resolution Pressure
+
+                                                                  Rp
+             Rp = N · Ur · Tc ,   Is = max(0, Rp − η),     Vs =
+                                                                  Fcog
+       αp = α(1 + ωRp ),     σp = σ(1 + ψRp ),      χ(Rp ) = 1 + νRp − ζRp2
+
+
+The Master Equation
+
+
+                    Z t
+                       (E + ∆Ar Rp )(α(1 + ωRp ) + λ∆ χ(Rp ))
+         Sx (t) =                                             dt − Rd
+                     0         Φ(1 + σ(1 + ψRp ))2
+
+
+
+
+Acquired Alignment and Persistence
+
+               αt = α0 + ρm (acquired associative alignment)
+                 Z t
+                      E·α
+        Ps (t) =             2
+                               dt − Rd (state persistence, simplified)
+                  0 Φ(1 + σ)
+
+
+
+
+Viability Bands Quick Reference
+
+       V ≥ 0.85            Stable Atom     Algorithmic Autonomy
+       0.65 ≤ V < 0.85     Transitional    Moderate ongoing effort
+       0.45 ≤ V < 0.65     High Effort     Significant structural overhead
+       V < 0.45            Ghost Risk      Rename strongly indicated
+
+
+
+
+                                          13
+
+CHAPTER B
+
+
+                                                                         Complet
+Symbol Glossary
+
+
+
+
+Symbol   Name              Definition and Range
+V∗       Min. Resolution Optimal resolved name: Cl + Os + Fa + Nc
+         Template
+Nc       Category Noun   Maps to industry identity in registry systems
+Os       Object            Transaction anchor; the economic unit acted
+                           upon
+Fa       Function          Operation performed; task field signal
+Cl       Context          Geographic or audience scope; search-space re-
+                          duction
+α        Alignment        Match between name and field expectations;
+                          [0, 1]
+α0       Intrinsic Align- Alignment from name content alone at launch
+         ment
+αt       Acquired Align- Effective alignment after m messaging cycles
+         ment
+αp       Pressure-        α(1 + ωRp ); alignment amplified by urgency
+         Adjusted Align-
+         ment
+σ        Drift            Displacement of name vector from intended cat-
+                          egory; [0, 1]
+
+                               14
+
+                                              COMPLETE SYMBOL GLOSSARY
+
+
+Symbol   Name                  Definition and Range
+σp       Pressure-             σ(1 + ψRp ); drift amplified by urgency
+         Weighted Drift
+Φ        Sector Friction       Competitive resistance of market environment;
+                               [0, 1]
+τi       Inference Tax         Monthly cost of naming ambiguity in ef-
+                               fort/spend
+Dt       Trough Depth          Visibility deficit at launch: Φ(1 − α)
+Dt′      Adjusted Trough       Trough with differentiation: max(0, Φ(1 − α −
+                               λ∆))
+W∆       Work-Offset Ratio     Effort multiplier: 1/α2
+Rsn      Atmospheric Re- Net resolution force: (α − σ)/[Φ(1 + σ)]
+         sultant
+Rd       Decay Rate      Erosion rate of unreinforced market signals
+E        Execution Effort      Direct marketing and distribution force applied
+Eef f    Effective Effort      E + ∆Ar Rp ; includes narrative lift
+V        Viability Score       α + λ∆ − µ(1 − α)σ
+∆        Differentiation       U · M · T ; compensatory market power
+         Force
+∆ef f    Effective Differen-   ∆/(1 + k∆); saturation-corrected
+         tiation
+∆p       Pressure-             ∆ · χ(Rp ); differentiation under pressure
+         Convertible
+         ∆
+U        Uniqueness            1 − Oc ; non-substitutability of positioning
+M        Memorability          (R1 + R7 + R30 )/3; average recall probability
+T        Transmissibility      Vs /Fc ; ease of accurate restatement
+λ        Conversion Con-       Cr · Cm ; fraction of ∆ that converts to traction
+         stant
+Cr       Category Recep-       Degree to which market rewards this differentia-
+         tivity                tion type
+Cm       Medium Compat-        Appropriateness of communication channel
+         ibility
+P∆       Differentiation       ∆/Φ; differentiation vs. friction diagnostic
+         Pressure
+
+
+
+                                   15

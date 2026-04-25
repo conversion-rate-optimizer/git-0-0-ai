@@ -1,0 +1,644 @@
+CHAPTER 3
+
+
+                                                                                      The
+Four Irreducible Components
+
+
+
+  Chapter Thesis
+
+  The four components of a fully resolved business name — Category, Object,
+  Function, and Context — are not a naming framework invented by convention.
+  They are irreducible requirements forced by the structure of the four resolution
+  fields. Fewer than four cannot produce stable simultaneous resolution. More
+  than four decompose into these. This chapter proves that claim.
+
+
+
+
+3.1   Why Closure Requires Exactly Four Variables
+
+In Chapter 1, we established that the commercial resolution environment consists
+of four independent fields:
+
+                      F = Fsearch ∪ Fregistry ∪ Ftask ∪ Fintent
+
+
+In Chapter 2, we established that each field has a distinct internal structure and
+weights different token types differently. The registry field is noun-dominant; the
+task field is verb-dominant; the search field rewards query-alignment; the intent
+field rewards categorical clarity with geographic scope.
+
+                                         5
+
+CHAPTER 3. THE FOUR IRREDUCIBLE COMPONENTS
+
+
+The question before us is: What is the minimum set of variables that, when present in a
+name, simultaneously satisfies all four field resolution conditions?
+This is a closure problem. We are looking for the minimal set of semantic compo-
+nents that closes the resolution system across all fields. The answer, as we will show,
+is exactly four.
+
+
+
+3.1.1   The Proof from Field Structure
+
+Theorem 3.1 (Minimal Resolution Closure). The minimum set of semantic components
+required for simultaneous stable resolution across all four fields Fsearch , Fregistry , Ftask , and
+Fintent contains exactly four elements: a Category component Nc , an Object component Os ,
+a Function component Fa , and a Context component Cl .
+
+  Proof Sketch
+  We proceed by showing that each field requires at least one distinct semantic
+  variable for stable resolution, and that no single variable satisfies more than
+  one field completely.
+  Step 1 — Registry field requires a category signal. The registry field Fregistry
+  maps entities to industry categories via noun-dominant classification. For
+  resolution probability Pregistry (N ) → 1, the name must contain a signal that
+  maps to a unique industry category. We call this signal the Category Noun
+  Nc . Without Nc , the registry either misclassifies the entity or returns maximum
+  entropy across categories.
+  Step 2 — Task field requires an action signal. The task field Ftask maps entities
+  to activity classifications via verb-dominant scoring. For resolution probability
+  Ptask (N ) → 1, the name must contain a signal that maps to a specific operational
+  activity. We call this signal the Function Fa . Without Fa , the task field cannot
+  determine what the entity does.
+  Step 3 — Intent field requires a transaction anchor. The intent field Fintent
+  evaluates conversion probability at the moment of selection. For Pintent (N ) → 1,
+  the name must make the economic transaction legible: what specific thing is
+  being offered? This requires a signal that specifies the economic unit being acted
+  upon. We call this signal the Object Os . Without Os , a potential customer must
+  infer what they are actually receiving, which depresses conversion probability.
+  Step 4 — Search field requires a scope signal. The search field Fsearch resolves
+  queries that are not only categorical but contextual: people search for services
+
+
+                                                 6
+
+                        3.1. WHY CLOSURE REQUIRES EXACTLY FOUR VARIABLES
+
+
+  in specific geographies, for specific audiences, in specific circumstances. For
+  Psearch (N ) to achieve maximum performance in local and targeted search con-
+  texts, the name benefits from a Context signal Cl that reduces the search space
+  to the relevant scope. Without Cl , the entity competes in the global field rather
+  than the local one.
+  Step 5 — No variable satisfies two fields completely. Nc satisfies Fregistry but
+  does not resolve Ftask (“plumbing company” is a category but does not specify
+  the action). Fa satisfies Ftask but does not resolve Fregistry (“repair” is an action
+  but does not specify what industry). Os satisfies Fintent but does not resolve
+  Fregistry (“pipes” specifies the object but not the industry category). Cl reduces
+  search space but does not replace any of the above.
+  Conclusion: Each field requires at least one distinct component, the compo-
+  nents are not interchangeable, and their union {Nc , Os , Fa , Cl } is sufficient for
+  simultaneous resolution across all four fields. The count is exactly four. ■
+
+
+
+3.1.2   Fewer Than Four Cannot Produce Stable Resolution
+
+Let us demonstrate concretely what happens when each component is removed in
+turn, as a further verification of the theorem.
+Three components: missing Nc (Category). Name: “Dallas Pipe Repair” (Context +
+Object + Function, no Category noun). What the registry sees: the word “repair”
+activates multiple industries (automotive, home, electronics, plumbing). Without a
+category noun, the registry must choose between them with low confidence. The
+entity may be assigned to the wrong industry, may fail to appear in category-specific
+searches, and will not map correctly to Google Business Profile categories.
+Three components: missing Fa (Function). Name: “Dallas Plumbing Pipes” (Con-
+text + Category + Object, no Function). What the task field sees: the entity exists
+in the plumbing category and involves pipes, but the task is unspecified. Does it
+sell pipes? Repair them? Install them? Inspect them? The task field cannot resolve.
+O*NET classification fails. Platform-based matching systems cannot include this
+entity in contractor searches.
+Three components: missing Os (Object). Name: “Dallas Plumbing Repair” (Con-
+text + Category + Function). What the intent field sees: the entity is a Dallas
+plumbing repair business, but the object of the repair is unspecified. This is near full
+resolution and will function well in most contexts — “plumbing” is a strong enough
+category noun that the object (pipes, fixtures, systems) is implied. However, when
+
+                                           7
+
+CHAPTER 3. THE FOUR IRREDUCIBLE COMPONENTS
+
+
+the object is genuinely ambiguous (“Business Strategy Consulting” vs. “Business
+Algorithm Consulting”), the missing Os creates intent-field ambiguity.
+Three components: missing Cl (Context). Name: “Plumbing Pipe Repair Company”
+(Category + Object + Function + Category, no Context). What the search field sees:
+the entity is fully classified but geographically unscoped. In a competitive local
+market, it will rank below contextually scoped competitors. This is the weakest
+failure mode — local context is sometimes inferable from the entity’s location data
+— which is why Cl is designated the optional component in the compressed form of
+the equation.
+
+
+3.1.3   More Than Four Decomposes Into These
+
+The converse of the minimality proof: any additional semantic component in
+a business name that carries genuine resolution information will, on analysis,
+decompose into one of the four irreducible components.
+Consider the name “Certified Dallas Emergency Pipe Repair Company.” It appears
+to have more than four components. But:
+
+
+ • “Certified” is an attribute modifier — it is decorative from the resolution per-
+   spective, carrying no new field-classification signal
+
+ • “Dallas” = Cl (Context)
+
+ • “Emergency” is a specificity modifier of Cl (it narrows the urgency scope, which
+   is a sub-dimension of context)
+
+ • “Pipe” = Os (Object)
+
+ • “Repair” = Fa (Function)
+
+ • “Company” = Nc (Category)
+
+
+Every meaningful component maps to one of the four. The additional words either
+enrich an existing component’s specificity or are decorative. The four-component
+structure is the irreducible skeleton.
+
+
+
+                                         8
+
+                                3.2. COMPONENT ONE: THE CATEGORY NOUN (Nc )
+
+
+3.2   Component One: The Category Noun (Nc )
+
+Definition 3.1 (Category Noun). The Category Noun Nc is the semantic compo-
+nent of a business name that maps to a formal industry identity in classification
+systems. It is the primary signal by which registry fields, directory systems, and AI
+classification tools assign the entity to an industry category.
+
+                                Nc → industry identity
+
+
+3.2.1 Nc Maps to Industry Identity
+
+The Category Noun is the most structurally critical component of the four because it
+performs the heaviest lifting in the registry field — the field where the official record
+of what a business is gets established. Once the registry field has a firm classification,
+that classification propagates through downstream systems that rely on registry
+data: directories, maps, review platforms, business-to-business databases, industry
+statistics.
+Strong category nouns are those that map to a single, unambiguous NAICS or
+Google Business Profile category. Weak category nouns are those that either map to
+multiple categories simultaneously or fail to map to any established category.
+
+  Strong vs. Weak Category Nouns
+
+  Strong Nc (unambiguous registry mapping):
+
+   • “Plumber” → NAICS 238220, GMB: Plumber
+
+   • “Attorney” → NAICS 541110, GMB: Law firm
+
+   • “Roofer” → NAICS 238160, GMB: Roofing contractor
+
+   • “Tax Preparation” → NAICS 541213, GMB: Tax preparation service
+
+  Weak Nc (ambiguous or absent registry mapping):
+
+   • “Solutions” → maps to 40+ NAICS codes across unrelated industries
+
+   • “Services” → maps to hundreds of NAICS codes
+
+   • “Logic” → maps to no established GMB category
+
+   • “Group” → maps to no established industry identity
+
+
+                                            9
+
+CHAPTER 3. THE FOUR IRREDUCIBLE COMPONENTS
+
+
+The failure mode for a weak or absent Nc is silent but severe. The business does
+not receive an error message. It simply gets classified into whatever category the
+registry system’s algorithm decides is most likely based on the non-categorical
+signals in the name — and that guess is often wrong, leading to the business
+appearing in the wrong directory sections, receiving the wrong related-business
+recommendations, and failing to appear when customers search by category.
+
+
+3.2.2   NAICS Alignment and Google Business Category Targeting
+
+The Category Noun is the bridge between a business name and two critical infras-
+tructure systems: the NAICS code system and the Google Business Profile (GBP)
+category system.
+The NAICS (North American Industry Classification System) is the standard used
+by the U.S. Census Bureau, the BLS, the SBA, and thousands of data systems that
+build on federal economic data. A business that maps cleanly to a NAICS code
+receives correct classification in every system that consumes NAICS data.
+The Google Business Profile category system is the most commercially significant
+classification system for the majority of consumer-facing businesses. There are over
+4,000 GBP categories. The category assigned to a GBP listing determines which
+searches it appears in, which competitors are shown alongside it, and what review
+categories are available. A name that strongly implies the correct GBP category
+makes automatic category assignment accurate. A name that does not forces the
+business owner to manually navigate a 4,000-entry list — and research consistently
+shows that manually selected categories are suboptimal compared to those driven
+by strong name signals.
+
+
+3.2.3   What Happens When Nc Is Missing
+
+When the Category Noun is absent, the following failures occur in measurable
+sequence:
+
+
+1. Registry misclassification: The entity is assigned to a default or incorrect cate-
+   gory, typically based on the most common interpretation of whatever words are
+   present in the name
+
+2. Search invisibility for category queries: The entity does not appear in searches
+   like “[category] near me” because it is not registered in the correct category
+
+                                        10
+
+                                          3.3. COMPONENT TWO: THE OBJECT (Os )
+
+
+ 3. Reduced local pack visibility: Google’s local pack (the map results shown for
+    local service queries) prioritizes entities with strong category-name alignment
+
+ 4. Manual correction burden: The business owner must repeatedly and manually
+    update category assignments as platforms evolve
+
+ 5. Inference tax accumulation: Every system that encounters the entity must infer
+    its category, and each inference event is an opportunity for error
+
+  The Nc Rule
+  If the category of your business cannot be determined with high confidence
+  from the name alone — without looking at your website, your description,
+  or your service offerings — your Nc is either missing or weak. This is the
+  single most expensive naming failure in terms of long-term registry and search
+  consequences.
+
+
+
+3.3   Component Two: The Object (Os )
+
+Definition 3.2 (Object Component). The Object Os is the semantic component of a
+business name that specifies the economic unit being acted upon. It defines what,
+precisely, the business’s primary activity is directed toward: what is being repaired,
+built, managed, sold, treated, or transformed.
+
+                             Os → transaction anchor
+
+
+3.3.1 Os Defines the Economic Unit
+
+The Object component is the transaction anchor. It answers the question every
+potential customer is implicitly asking at the moment of selection: What exactly am I
+getting?
+This matters because the intent field evaluates conversion probability based on the
+clarity of the offering. When the object is specified, the customer’s mental model of
+the transaction is complete before they make contact. When the object is absent or
+vague, the customer must do additional cognitive work to understand the offering
+— and cognitive friction at the decision point reduces conversion probability.
+The Object component most commonly takes the form of a noun that names the
+specific thing the business works with or produces:
+
+                                         11
+
+CHAPTER 3. THE FOUR IRREDUCIBLE COMPONENTS
+
+
+           Business Activity         Os (Transaction Anchor)
+           Plumbing repair      Pipes / Fixtures
+           Roof installation    Roof / Shingles
+           Software development Applications / Systems
+           Business consulting  Operations / Strategy / Algorithms
+           Tax preparation      Returns / Filings
+           Hair styling         Hair
+           HVAC service         Systems / Units
+
+
+Note that the Object component sometimes overlaps with the Category Noun.
+“Roofing Contractor” uses “Roofing” as both Nc (it is the industry category) and
+implicitly as Os (roofs are the object). This is permissible and efficient — a single
+word can carry double resolution load when it functions as both category and object
+simultaneously.
+
+
+3.3.2   The Transaction Anchor and Conversion Probability
+
+The relationship between the Object component and conversion probability is direct
+and measurable.
+Consider two plumbing businesses:
+
+ • A: “Dallas Plumbing Repair”
+
+ • B: “Dallas Pipe and Fixture Repair Company”
+
+Business B’s name specifies the object precisely (pipe and fixture). A customer
+with a broken pipe fixture reads the name and immediately confirms: this is the
+right business for my problem. Business A’s name leaves the object implicit —
+plumbing is the category, but the customer must infer that pipe and fixture repair
+falls within it. In most cases this inference is fast and accurate. But in competitive
+search environments, the more precisely resolved name wins marginal selections.
+More important is the case where the Object is genuinely ambiguous. A business
+named “Business Strategy Consulting” has a vague Os — strategy is not an object, it
+is a process category. A business named “Business Operations Consulting” specifies
+the object more clearly (operations is what is being optimized). A business named
+“Business Algorithm Consulting” specifies it most precisely. The progression is not
+about creativity but about intent-field resolution precision.
+
+                                         12
+
+                                    3.4. COMPONENT THREE: THE FUNCTION (Fa )
+
+
+3.3.3   What Happens When Os Is Missing
+
+When the Object component is absent, the entity fails to fully anchor the transaction
+in the customer’s mind at the moment of selection. The specific failure modes
+depend on the industry:
+In service businesses, missing Os produces scope ambiguity: the customer cannot
+determine whether the business does what they need without additional investiga-
+tion. This is not fatal in every case, but it introduces friction at every conversion
+point.
+In professional services and consulting, missing Os is more damaging because the
+category (“consulting,” “advisory,” “strategy”) is so generic that it could apply
+to virtually any subject matter. The Object component is what differentiates one
+consulting business from another in these fields.
+In product businesses, missing Os is catastrophic: without knowing what the
+product is, neither search systems nor customers can evaluate relevance.
+
+  The Scope Ambiguity Trap
+
+  The most common form of missing Os is the use of a process noun (“strategy,”
+  “solutions,” “management,” “services”) where an object noun is required. Pro-
+  cess nouns describe how a business works, not what it works on. They satisfy
+  no resolution field and contribute significantly to semantic entropy.
+
+
+
+3.4     Component Three: The Function (Fa )
+
+Definition 3.3 (Function Component). The Function Fa is the semantic component
+of a business name that specifies what operation the business performs. It resolves
+the task field by encoding the primary action the business takes on the object.
+
+                               Fa → task resolution
+
+
+3.4.1 Fa Defines the Operation
+
+The Function component is the action variable. It answers the fundamental task-
+classification question: What does this entity do?
+In the resolution field framework, Fa is the primary variable for the task field
+
+                                         13
+
+CHAPTER 3. THE FOUR IRREDUCIBLE COMPONENTS
+
+
+(Ftask ) and makes a significant secondary contribution to the search field. Customer
+queries almost always begin with an action verb or its nominalization: “roof repair,”
+“tax preparation,” “pipe installation,” “hair styling.” A name that contains the same
+action word that appears in these queries achieves high search-field alignment by
+construction.
+Strong Fa tokens are action-specific and industry-unambiguous:
+
+
+        Action Word   Function it encodes            Disambiguation needed?
+        Repair        Restoration of broken item  Needs Nc for industry
+        Install       Physical placement/setup    Needs Os for object
+        Consult       Advisory services           Needs Os for subject
+        Design        Creation of new form        Needs Nc or Os
+        Prepare       Processing/completion       Strong: “Tax Preparation”
+        Manage        Ongoing operational control Needs Os
+        Clean         Removal of contaminants     Needs Os or Nc
+        Build         Physical construction       Needs Os
+
+
+The table reveals an important structural point: most Function tokens are strong
+in the task field but require the presence of Os or Nc to achieve specificity. This is
+why the four components work as a system — each one depends on the others to
+achieve full disambiguation.
+
+
+3.4.2    Task Resolution and Action Interpretation
+
+The task field resolves the entity into the occupational taxonomy that determines
+how it is classified in platform-based matching systems. O*NET, the most com-
+prehensive occupational classification system, organizes all work activity by task
+verb. When a business name contains a strong Fa that corresponds to an O*NET
+task category, the entity is classifiable into the relevant occupation without manual
+data entry.
+This matters most in the following commercial contexts:
+
+ • Contractor platforms (Angi, HomeAdvisor, Thumbtack): Match businesses to
+   customer requests based on task classification. Businesses with strong Fa tokens
+   are matched automatically. Businesses without them require manual category
+   selection, which reduces match accuracy.
+
+                                         14
+
+                                      3.5. COMPONENT FOUR: THE CONTEXT (Cl )
+
+
+ • B2B procurement platforms: Classify vendors by service type for procurement
+   matching. Fa is the primary classification signal.
+
+ • AI-powered search tools: Next-generation search (AI assistants, conversational
+   search) interprets queries by task intent. A business whose name contains the
+   task verb that matches the user’s query intent is significantly more likely to be
+   surfaced.
+
+ • Voice search: Voice queries are almost entirely action-phrase structured (“find
+   someone to repair my roof”). The Fa token in the business name determines
+   whether it matches the query’s action component.
+
+
+3.4.3   What Happens When Fa Is Missing
+
+The absence of Fa produces inference tax (τi ) of a particular character: the market
+must infer what the business does by examining all available signals outside the
+name itself. This requires reading the website, examining reviews, visiting the
+profile — all of which introduce friction, time cost, and the opportunity for the
+customer to choose a competitor who is more immediately legible.
+The inference tax for missing Fa is especially high in the following scenario: a
+customer who is under time pressure (high Resolution Pressure, which we formalize
+in Part V) has minimal patience for investigating what a business does. They need
+to know immediately. A name that requires them to click through before they
+can assess relevance loses a disproportionate share of high-urgency customers —
+precisely the customers with the highest conversion probability.
+Consider the name “Business Algorithms.” It has a strong Os (algorithms) and a
+reasonable Nc (business, functioning as domain category). But it has no Fa . The
+market must infer: does this business build algorithms? Sell them? Consult on
+them? Train people in them? Audit them? Without Fa , the answer is unknown. The
+name requires investigation before the transaction can even be considered.
+Add the function: “Business Algorithm Consulting.” Now the transaction is legible.
+The market does not need to investigate.
+
+
+3.5     Component Four: The Context (Cl )
+
+Definition 3.4 (Context Component). The Context Cl is the semantic component
+of a business name that defines the scope within which the entity operates. Most
+
+                                        15
+
+CHAPTER 3. THE FOUR IRREDUCIBLE COMPONENTS
+
+
+commonly this is a geographic locality, but it can also specify the target audience,
+market segment, or operational domain.
+
+                            Cl → search-space reduction
+
+
+
+3.5.1   Cl as Search-Space Reduction
+
+The Context component performs a specific and measurable function in the resolu-
+tion environment: it reduces the search space from global to local, from generic to
+specific, from every potential customer to the right potential customer.
+From the perspective of the search field, geographic context is the difference between
+ranking in the local pack (the map results shown to customers in your geographic
+area, which generates the highest-intent traffic for local service businesses) and
+ranking in the global search pool (where you compete against every business in
+your category nationwide or worldwide).
+From the perspective of the intent field, audience context (“small business,” “com-
+mercial,” “residential,” “enterprise”) tells potential customers whether the offering
+is designed for them, reducing the cognitive step of self-selection.
+
+  The Power of Geographic Context
+
+  Without Cl : “Roof Repair Company” — ranks against every roofing company
+  indexed. Without location data, even a Google Business Profile with accurate
+  address information is less competitive than a name that contains the location
+  explicitly.
+  With Cl : “Dallas Roof Repair Company” — the geographic token “Dallas”
+  creates an immediate local vector alignment. The search field treats this as a
+  locally-scoped entity. The local pack algorithm gives it priority for Dallas-area
+  searches. A customer in Dallas searching for roof repair sees an entity whose
+  name confirms it serves their market.
+  The measurable difference: For a service business operating in a defined
+  geographic market, a name containing the market’s primary geographic identi-
+  fier achieves local pack visibility faster, with less accumulated review volume
+  and GMB activity, than an equivalent business with identical services but a
+  geographically non-specific name.
+
+
+
+
+                                         16
+
+                                       3.5. COMPONENT FOUR: THE CONTEXT (Cl )
+
+
+3.5.2   Local Dominance and the Geography of Intent
+
+The geography of intent refers to the structural fact that most consumer service
+decisions are locally constrained. A customer needing a plumber does not want
+a national average; they want someone who can come to their house. The intent
+field for local services is therefore not simply categorical but geo-categorical: the
+resolution requires both industry classification and geographic proximity.
+A name that encodes both the category noun and the geographic context satisfies
+the geo-categorical intent query by construction. This is why “Austin HVAC Re-
+pair” outperforms “Climate Solutions” in Austin-area HVAC searches even if the
+second business has been in business longer, has better reviews, and has invested
+significantly more in marketing. The first name resolves the geo-categorical intent
+directly. The second requires everything except the name to do that work.
+
+
+3.5.3   When Context Is Optional and When It Is Not
+
+Cl is listed in the compressed form of the Minimal Resolution Template as optional
+because its contribution to resolution depends on the business type:
+When Cl is critical:
+
+ • Local service businesses (any business serving a defined geographic area)
+
+ • Professional services with regional licensing or market scope
+
+ • Any business competing in a dense local market where geographic disambigua-
+   tion is necessary for local pack visibility
+
+When Cl can be omitted:
+
+ • Digital-native businesses serving national or global markets
+
+ • Platforms, software products, and SaaS tools
+
+ • Businesses where geographic scope is irrelevant to the customer’s selection
+   decision
+
+When Cl takes non-geographic form:
+
+ • “Commercial Roof Repair” (Cl = “Commercial,” scoping to the B2B segment)
+
+                                         17
+
+CHAPTER 3. THE FOUR IRREDUCIBLE COMPONENTS
+
+
+ • “Small Business Algorithm Consulting” (Cl = “Small Business,” scoping the
+   audience)
+
+
+
+
+ • “Enterprise Security Solutions” (Cl = “Enterprise,” scoping the market tier)
+
+
+
+
+The rule for Cl is: if your target customer is a subset of all possible customers in
+your category, and that subset has a clear label, that label belongs in your name.
+
+
+
+
+3.6   Chapter Summary
+
+
+Chapter 3 establishes the following:
+1. The four components are forced by the field structure. They are not a nam-
+ing convention. They are the minimum closure set for the four-field resolution
+environment.
+2. Nc (Category Noun) maps to industry identity and is the primary signal for
+registry classification. Without it, formal classification fails.
+3. Os (Object) defines the transaction anchor and is the primary driver of intent-
+field conversion probability. Without it, the market cannot determine what it is
+buying.
+4. Fa (Function) specifies the operation and resolves the task field. Without it,
+platform matching and action-intent search fail.
+5. Cl (Context) reduces the search space and enables local or audience-specific
+resolution. It is the optional component but is critical for local businesses.
+6. No set of three components can achieve full simultaneous resolution. Each
+field requires its own distinct semantic signal. The four components are the minimal
+sufficient set.
+
+                                        18
+
+                                                       3.6. CHAPTER SUMMARY
+
+
+Core Equations from Chapter 3:
+
+             Nc → industry identity      (registry field signal)
+
+             Os → transaction anchor      (intent field signal)
+
+                Fa → task resolution     (task field signal)
+
+           Cl → search-space reduction      (search field signal)
+
+                 Minimal closure set: {Nc , Os , Fa , Cl }
+
+
+
+
+                                    19

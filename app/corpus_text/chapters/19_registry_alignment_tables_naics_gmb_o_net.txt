@@ -1,0 +1,263 @@
+CHAPTER 19
+
+
+                                                                                         Registry
+Alignment Reference Tables
+
+
+
+  Chapter Purpose
+
+  This chapter provides the practical reference layer of the resolution framework.
+  It maps name components to NAICS codes, Google Business Profile categories,
+  O*NET task classifications, and domain suffix recommendations. These tables
+  are the data substrate for the audit protocol and the scoring engine. They are
+  also the reference used by the tool at intent-tensor-theory.com to automate
+  registry alignment scoring.
+
+
+
+19.1   How to Use This Chapter
+
+Each section of this chapter provides alignment guidance for a specific classification
+system. For any named entity under analysis:
+
+1. Identify the entity’s primary NAICS code using Section 19.2.
+
+2. Confirm and map to the Google Business Profile primary category using Section
+   19.3.
+
+3. Identify the primary O*NET task verb for the entity’s core activity using Section
+   19.5.
+
+                                         16
+
+                         19.2. NAICS CODE ALIGNMENT BY NAME COMPONENT
+
+
+4. Verify domain suffix alignment using Section 19.8.
+
+
+Full registry alignment means the entity’s name contains tokens that map directly
+to entries in all four systems. Gaps indicate the missing resolution components
+identified in Chapter 3.
+
+
+19.2   NAICS Code Alignment by Name Component
+
+The following table maps strong category noun tokens to their primary NAICS
+codes. A name containing any of these tokens achieves immediate registry field
+alignment for that category.
+
+ Category Token       NAICS         Industry Description
+Plumber / Plumb-      238220        Plumbing, Heating, A/C Contractors
+ing
+Electrician / Elec-   238210        Electrical Contractors
+trical
+Roofer / Roofing      238160        Roofing Contractors
+HVAC / Heating /      238220        Plumbing, Heating, A/C Contractors
+Cooling
+Landscaping       /   561730        Landscaping Services
+Landscaper
+Painter / Painting    238320        Painting and Wall Covering
+Flooring / Floor      238330        Flooring Contractors
+Concrete / Mason /    238140        Masonry Contractors
+Masonry
+Cleaning / Cleaner    561720        Janitorial Services
+Attorney / Law /      541110        Offices of Lawyers
+Legal
+Accountant / Ac-      541211        Offices of Certified Public Accountants
+counting
+Tax Preparation       541213        Tax Preparation Services
+Bookkeeping           541214        Payroll Services / Bookkeeping
+Financial Planning    523930        Investment Advice
+/ Advisor
+Insurance             524210        Insurance Agencies and Brokerages
+Real Estate           531210        Offices of Real Estate Agents
+
+                                       17
+
+CHAPTER 19. REGISTRY ALIGNMENT REFERENCE TABLES
+
+
+ Category Token        NAICS         Industry Description
+ Property Manage-      531311        Residential Property Managers
+ ment
+ Consulting / Con-     541611        Admin & General Mgmt Consulting
+ sultant
+ IT Services / Tech-   541512        Computer Systems Design Services
+ nology
+ Software / Devel-     511210        Software Publishers
+ opment
+ Marketing / Adver-    541810        Advertising Agencies
+ tising
+ Public Relations /    541820        Public Relations Agencies
+ PR
+ Staffing / Recruit-   561311        Employment Placement Agencies
+ ing
+ Engineering           541330        Engineering Services
+ Architecture          541310        Architectural Services
+ Trucking / Freight    484110        General Freight Trucking
+ Auto Repair / Me-     811111        General Automotive Repair
+ chanic
+ Auto Body             811121        Automotive Body, Paint, Repair
+ Dental / Dentist      621210        Offices of Dentists
+ Chiropractic          621310        Offices of Chiropractors
+ Physical Therapy      621340        Offices of Physical Therapists
+ Veterinary / Vet      541940        Veterinary Services
+ Restaurant / Food     722511        Full-Service Restaurants
+ Service
+ Catering              722320        Caterers
+ Bakery                311811        Retail Bakeries
+ Retail (general)      441–459       Various Retail Trade codes
+ Salon / Hair          812112        Beauty Salons
+ Gym / Fitness         713940        Fitness and Recreational Sports Centers
+
+
+Using this table: If the name under analysis contains a token listed in the left
+column, the NAICS alignment score for that component is 1.0. If the token is absent
+and the NAICS code must be inferred from context, reduce the α registry component
+score proportionally.
+
+                                        18
+
+            19.3. GOOGLE BUSINESS PROFILE CATEGORY MATCHING REFERENCE
+
+
+19.3   Google Business Profile Category Matching Reference
+
+Google Business Profile (GBP) is the most commercially significant registry for
+consumer-facing businesses. The following table maps the most common service
+categories to their GBP primary category strings and their alignment trigger tokens.
+
+ GBP Primary Category          High-Alignment Trigger Low-Alignment To-
+                               Tokens                 kens
+ Roofing contractor            Roof, Roofing, Shingle        “Apex,” “Summit,”
+                                                             “Shield”
+ Plumber                       Plumb, Plumbing, Pipe         “Flow,”       “Aqua,”
+                                                             “Stream”
+ Electrician                   Electric, Electrical, Wiring  “Spark,”        “Volt,”
+                                                             “Bright”
+ HVAC contractor               HVAC, Heating, Cooling, “Comfort,”              “Cli-
+                               Air                           mate,” “Breeze”
+ Law firm                      Law,      Legal,    Attorney, “Justice,”     “Advo-
+                               Lawyer                        cate,” “Shield”
+ Accountant                    Accounting, CPA, Tax, “Numbers,” “Clar-
+                               Bookkeeping                   ity,” “Precision”
+ Financial planner             Financial, Finance, Plan- “Prosperity,” “Hori-
+                               ning, Wealth                  zon,” “Legacy”
+ Management consultant         Consulting, Consultant, Ad- “Solutions,” “Strat-
+                               visory                        egy,” “Catalyst”
+ Marketing agency              Marketing,       Advertising, “Creative,” “Vision,”
+                               Agency                        “Spark”
+ IT service provider           IT Services, Technology, “Digital,”          “Tech,”
+                               Systems                       “Network”
+ Real estate agent             Real Estate, Realty, Prop- “Key,”         “Haven,”
+                               erty                          “Harbor”
+ General contractor            Contractor, Construction, “Build,”          “Craft,”
+                               Build                         “Structure”
+ Auto repair shop              Auto Repair, Mechanic, Au- “Fast,” “Pro,” “Ser-
+                               tomotive                      vice”
+ Restaurant                    Restaurant, Dining, Kitchen “Table,”         “Fork,”
+                                                             “Hearth”
+
+
+
+
+                                        19
+
+CHAPTER 19. REGISTRY ALIGNMENT REFERENCE TABLES
+
+
+ GBP Primary Category           High-Alignment Trigger Low-Alignment To-
+                                Tokens                 kens
+ Hair salon                     Hair, Salon, Barber, Stylist   “Style,”     “Glow,”
+                                                               “Shear”
+
+
+
+
+Key insight from this table: The “Low-Alignment Tokens” column lists the words
+that naming consultants commonly recommend as creative alternatives to direct
+category terms. Every one of them reduces GBP auto-classification accuracy. The
+creative vocabulary of professional naming is, systematically, a list of low-alignment
+tokens.
+
+
+
+
+19.4   O*NET Task Verb Library
+
+
+
+The O*NET function component Fa maps to the following action verb families. A
+name containing a verb from the high-signal column achieves strong task field
+alignment. Verbs from the low-signal column convey activity but not specific
+occupational classification.
+
+                                         20
+
+                                                        19.5. TLD RESOLUTION GUIDE
+
+
+
+ Task Category             High-Signal Verbs       O*NET Classification
+ Physical restoration      Repair, Restore, Fix,   Construction / Maintenance (47,
+                           Rebuild                 49)
+ Installation              Install,    Deploy,     Construction / Installation (47)
+                           Mount, Place
+ Preparation / Process-    Prepare, Process,       Administrative / Financial (43, 13)
+ ing                       File, Compile
+ Consultation / Advi-      Consult, Advise,        Management / Business (11, 13)
+ sory                      Counsel, Analyze
+ Design / Creation         Design, Create, De-     Architecture / Arts (17, 27)
+                           velop, Build
+ Management / Over-        Manage, Oversee,        Management (11)
+ sight                     Direct, Coordinate
+ Cleaning / Mainte-        Clean, Maintain,        Building / Grounds (37)
+ nance                     Service, Sanitize
+ Transportation / De-      Deliver, Transport,     Transportation (53)
+ livery                    Move, Ship
+ Medical / Therapeu-       Treat, Diagnose, Re-    Healthcare (29, 31)
+ tic                       habilitate
+ Teaching / Training       Teach,        Train,    Education (25)
+                           Coach, Educate
+ Low-Signal Verbs (avoid as primary Fa token):
+ Transform, Elevate, Empower, Enable, Leverage, Innovate, Optimize, Pivot, Disrupt
+ (These verbs are general management metaphors with no specific O*NET task mapping)
+
+
+
+
+19.5    TLD Resolution Guide
+
+
+The domain suffix (Top-Level Domain) carries a small but measurable resolution
+signal. TLD selection that aligns with the entity’s classification reinforces the registry
+signal; misaligned TLD selection contributes marginally to drift.
+
+                                           21
+
+CHAPTER 19. REGISTRY ALIGNMENT REFERENCE TABLES
+
+
+
+TLD                  Classification Signal                    Optimal For
+.com                 Universal commercial intent              Any for-profit entity
+.co                  Modern commercial, startup connotation   Digital-native, global businesses
+.agency              Explicit category signal for agencies    Marketing, PR, staffing agencies
+.consulting          Explicit category signal                 Consulting firms
+.law                 Explicit category signal                 Law firms
+.dental / .health    Category signal                          Healthcare providers
+.construction        Category signal                          Construction firms
+.tax / .accountant   Category signal                          Tax and accounting firms
+.solutions           Generic, low category signal             Avoid — activates drift
+.group               Generic, low category signal             Avoid for small entities
+.partners            Moderate category signal                 Professional partnerships
+.io                  Technology connotation                   SaaS, software products
+.org                 Non-profit signal                        Non-profits only
+
+
+
+
+                                       22

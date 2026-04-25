@@ -1,0 +1,472 @@
+CHAPTER 15
+
+
+                                                                                        Dimensi
+3D, 2D, and the Dimensional Tear
+
+
+
+  Chapter Thesis
+
+  Every business name occupies a position in what we call the dimensionality
+  spectrum: from fully three-dimensional names that directly encode Category,
+  Object, and Function, through two-dimensional metaphorical names that en-
+  code some components symbolically, to names that have torn entirely free of
+  the resolution grid and project onto no stable commercial field at all. The Di-
+  mensional Tear is not a creative choice. It is a structural failure with measurable
+  consequences that begin the moment the name is registered.
+
+
+
+
+15.1   The Three Dimensionality Classes
+
+The resolution framework established in Parts I and II operates on a name’s se-
+mantic content. But not all semantic content participates in the resolution process
+equally. Some names encode their resolution components directly: the word is the
+component. Others encode them symbolically: the word implies the component
+through association. Others encode them not at all: the word projects onto resolution
+fields with near-zero amplitude.
+These three conditions define the three dimensionality classes.
+
+                                          5
+
+CHAPTER 15. DIMENSIONALITY: 3D, 2D, AND THE DIMENSIONAL TEAR
+
+
+Definition 15.1 (Dimensionality Classes). The dimensionality of a business name
+describes the degree and directness with which it encodes the four resolution
+components:
+
+ • 3D Direct: All required resolution components (Nc , Os , Fa , and optionally Cl )
+   are encoded explicitly and unambiguously in the name string.
+
+ • 2D Metaphorical: One or more required components are encoded symbolically
+   — present through implication and association rather than direct statement.
+
+ • Dimensional Tear: One or more components are absent and cannot be recovered
+   through association. The name projects onto no stable commercial classification
+   field.
+
+The naming “dimensionality” is not a metaphor. It reflects a precise geometric
+reality about how the name’s composite vector projects onto the resolution field
+structure. A 3D name projects strongly onto all four fields. A 2D name projects
+strongly onto some fields and weakly onto others. A Dimensional Tear name has
+near-zero projection amplitude across all fields, making it effectively invisible to
+automated classification.
+
+
+15.1.1   3D Direct: Category + Object + Function Fully Present
+
+A 3D Direct name carries the full resolution template explicitly. Every system that
+evaluates it — search, registry, task, intent — receives the complete classification
+information it needs from the name string itself. No inference required. No context
+needed.
+
+  3D Direct Names
+
+   Name                                      Nc            Os              Fa
+   Dallas Roof Repair Company            Company           Roof            Repair
+   Austin Tax Preparation Services       Services          Tax             Preparation
+   Houston Pipe Installation Contractors Contractors       Pipe            Installation
+   Chicago Business Law Firm             Firm              Business Law    [implied]
+   Seattle Home Inspection Service       Service           Home            Inspection
+
+  Characteristics of 3D Direct names:
+
+   • α ≥ 0.82 in virtually all cases
+
+
+                                         6
+
+                                       15.1. THE THREE DIMENSIONALITY CLASSES
+
+
+   • σ ≤ 0.15 in virtually all cases
+
+   • Registry classification: automatic and accurate
+
+   • Search field: query-mirroring — the name contains the same words cus-
+     tomers type
+
+   • Aesthetics: often judged “boring” or “generic” by creative standards
+
+   • Commercial performance: consistently superior to all other dimensionality
+     classes
+
+The “boring” judgment is the creative fallacy identified in Chapter 1 in its purest
+form. “Dallas Roof Repair Company” is not boring to the search engine that returns
+it for “roof repair Dallas.” It is not boring to the Google Business Profile system that
+classifies it correctly in under 100 milliseconds. It is not boring to the homeowner
+with a leaking roof who calls the first clearly-named company in the results. It
+is boring only to someone evaluating it as an aesthetic artifact rather than as a
+computational input.
+
+
+15.1.2   2D Metaphorical: One Component Encoded Symbolically
+
+A 2D Metaphorical name encodes one or more resolution components through
+implication, analogy, or cultural association rather than direct statement. The
+component is present in the name, but it requires an additional cognitive step — a
+semantic lookup in shared cultural knowledge — to decode.
+
+  2D Metaphorical Names
+
+   Name                  Direct                  Symbolic                                  Missing
+   Allstate Insurance    Nc : Insurance          Os : “All states” → broad coverage        Fa (implied)
+   H&R Block             Nc (implied: tax)       Os /Fa through brand history              Initially nothing
+   Jiffy Lube            Fa : speed implied      Os : Lube → automotive                    Nc implied
+   Angie’s List          Nc : List → directory   Os /Fa through brand context              Initially absent
+   Dollar Shave Club     Os : Shave products     Nc : Club → subscription                  Fa (razor, implie
+
+
+  Characteristics of 2D Metaphorical names:
+
+   • α typically in the range 0.55–0.82
+
+
+                                           7
+
+CHAPTER 15. DIMENSIONALITY: 3D, 2D, AND THE DIMENSIONAL TEAR
+
+
+   • σ variable: low when the metaphor is culturally stable, high when it drifts
+
+   • Registry classification: often requires supplemental data or manual confir-
+     mation
+
+   • Search field: partial query-matching, strong for branded queries, weaker
+     for category queries
+
+   • Cost structure: higher than 3D Direct but manageable with consistent mes-
+     saging
+
+   • Survival path: must invest in associative alignment to “teach” the missing
+     component
+
+
+The key structural difference between 2D Metaphorical and 3D Direct is the cultural
+dependency of the symbolic encoding. A 2D name works as long as its cultural
+reference is stable and widely shared. “Jiffy” successfully implies speed in early
+21st century American English. But the reference ages. Younger generations may
+not carry the same “jiffy = very fast” association that made the name work originally.
+The 3D Direct name “Quick Oil Change” does not age — “quick” and “oil change”
+are stable denotative terms, not cultural references.
+
+
+
+
+15.1.3   Dimensional Tear: Abstract Token With No Stable Projection
+
+
+The Dimensional Tear is the pathological limit of the dimensionality spectrum. A
+name has torn dimensionally when its composite semantic vector has no stable
+projection onto any commercial classification field. The words in the name carry
+some meaning in general language, but that meaning does not map to any of the
+four resolution fields for the business’s intended category.
+
+Definition 15.2 (Dimensional Tear). A business name has undergone a Dimensional
+Tear when:
+                            max cos(⃗vname , ⃗vFi ) < ϵmin                (15.1)
+                               i
+
+for all four resolution fields Fi , where ϵmin is the minimum projection threshold
+required for field classification. The name’s vector has no field it belongs to.
+
+
+
+                                          8
+
+                                15.2. THE COST OF EACH DIMENSIONALITY CLASS
+
+
+  The Dimensional Tear — What It Looks Like
+  A name has torn dimensionally when you can read it aloud to a stranger and
+  they cannot make a confident guess about what the business does. Not a vague
+  guess. Not a wrong guess. No guess. The tokens activate general vocabulary
+  associations but produce no commercial classification signal.
+  Examples of Dimensional Tears:
+
+   • “Nexigen” — prefix “Nexi” activates next/nexus/network, suffix “gen”
+     activates generation/generic/genetics. No commercial field.
+
+   • “Synaptix” — neuroscience association (synapse), technology suffix (-tix).
+     Projects onto biotech AND consumer tech AND marketing agency simulta-
+     neously, with low amplitude in all three.
+
+   • “Velorix” — Latin-root velocity + pharmaceutical-suffix. Could be a drug, a
+     cycling brand, a logistics company, or a financial product.
+
+   • “Luminary Collective” — abstract noun (luminary = distinguished person)
+     + vague collective noun. Projects weakly onto consulting, media, and
+     nonprofit fields simultaneously.
+
+   • “The Pivot Agency” — metaphor (pivot = strategic change direction) +
+     generic category noun (Agency). “Agency” is so broad it covers advertising,
+     staffing, government, and real estate. “Pivot” adds drift, not specificity.
+
+
+The Dimensional Tear is not merely a naming problem. It is a structural fracture
+in the entity’s relationship with the classification infrastructure. Every automated
+system that encounters a Torn name faces the same evaluation failure: the name does
+not map to any known category. The system must either misclassify it (assigning
+it to the closest available category, which may be wrong) or fail to classify it at all
+(leaving it in a default or uncategorized state).
+
+
+
+
+15.2    The Cost of Each Dimensionality Class
+
+The dimensionality classification provides a first-pass cost estimate before any
+detailed scoring is required.
+
+                                          9
+
+CHAPTER 15. DIMENSIONALITY: 3D, 2D, AND THE DIMENSIONAL TEAR
+
+
+        Class                Typical α   Typical Dt   Relative Cost Index
+        3D Direct            0.82–0.97    0.03–0.18       1.0 (baseline)
+        2D Metaphorical      0.55–0.82    0.18–0.45         1.5–3.5×
+        Dimensional Tear     0.03–0.25    0.75–0.97         10–100×
+
+The Relative Cost Index is the multiplier applied to the baseline marketing invest-
+ment required for a 3D Direct name to achieve equivalent market visibility. A
+Dimensional Tear name may require 10 to 100 times the baseline investment — and
+that investment must be maintained indefinitely, because the Tear never heals on its
+own. The entity never achieves the classification clarity that the 3D Direct name has
+from day one.
+
+
+15.3   When Metaphor Works and When It Does Not
+
+The 2D Metaphorical class is not uniformly harmful. Some metaphorical names
+perform well commercially because their symbolic encoding is precise, culturally
+stable, and consistently reinforced. The conditions under which metaphor works
+are specific and testable.
+Metaphor works when:
+
+1. The metaphorical term maps to exactly one commercial interpretation in the
+   target market. “Jiffy Lube” — “Jiffy” maps to speed in American English, and
+   speed is the most important selection criterion for drive-through oil changes.
+   The metaphor carries a single, relevant, stable meaning.
+
+2. The company has significant resources for the brand-building investment re-
+   quired to teach the missing components. “Allstate” worked because the com-
+   pany spent decades building the association “Allstate = reliable insurance.”
+   Without that investment, the name is just two words.
+
+3. The metaphorical component enriches a name that is otherwise fully direct.
+   Adding a metaphorical modifier to a 3D Direct base (“Rapid Roof Repair” —
+   “Rapid” is metaphorical for speed but does not replace any required component)
+   is low-risk. Replacing a required component with a metaphor is high-risk.
+
+4. The competitive environment is low-friction. In thin markets with few estab-
+   lished incumbents, metaphorical names have more room to operate because the
+   classification infrastructure is less saturated.
+
+                                         10
+
+                     15.4. DETECTING AND DIAGNOSING A DIMENSIONAL TEAR
+
+
+Metaphor fails when:
+
+
+1. The metaphorical term is polysemous — it has multiple plausible commercial
+   interpretations. “Apex” (excellence / mountain / city / video game) fails as a
+   metaphor because the machine cannot identify which interpretation applies.
+
+2. The company lacks resources for sustained associative alignment investment.
+   A local service business cannot afford to teach a metaphorical name the way
+   Allstate or Nike could.
+
+3. The metaphorical term drifts toward an unintended category. “Transitions” as
+   a metaphor for financial planning drifts toward social services. The metaphor
+   works against the entity.
+
+4. The category is high-friction and high-pressure. In emergency services, pro-
+   fessional services under deadline, or any category where buyers need instant
+   recognition, metaphor introduces fatal cognitive friction.
+
+
+
+15.4     Detecting and Diagnosing a Dimensional Tear
+
+The three-test protocol for identifying a Dimensional Tear is fast, requires no spe-
+cialized tools, and can be applied to any name.
+
+
+15.4.1   Test One: Can the Name Resolve Without Context?
+
+Method: Remove all context — the website, the service description, the location,
+the industry tag. Show the name alone to five people outside your industry. Ask:
+“What does this business do?”
+Scoring:
+
+
+ • If 4–5 people give the same correct answer: 3D Direct. No Tear.
+
+ • If 3–4 people give approximately correct or plausible answers: 2D Metaphorical.
+   Moderate risk.
+
+ • If fewer than 3 people give correct answers, or answers are spread across unre-
+   lated categories: Dimensional Tear confirmed.
+
+                                        11
+
+CHAPTER 15. DIMENSIONALITY: 3D, 2D, AND THE DIMENSIONAL TEAR
+
+
+The “Bro, you are a dimension off” diagnostic: In the language of the resolution
+solver framework, this is the moment you tell the founder directly: the name is not
+resolving. It is not a matter of taste. The machine cannot classify it, and humans
+cannot classify it either. The name has torn free of the commercial resolution grid.
+
+
+15.4.2   Test Two: Which Basin Does the Token Fall Into?
+
+Method: For each meaningful token in the name, identify its primary semantic
+associations in general language. Determine whether those associations map to the
+intended commercial category or to competing, unrelated categories.
+Examples:
+
+
+ Token            Primary Association        Intended Category      Basin Status
+ “Repair”      Fixing broken things     Home services         Correct basin
+ “Roof”        Top covering of building Roofing               Correct basin
+ “Transitions” Life changes, eyewear    Financial planning    Wrong basin
+ “Apex”        Mountain peak, game      Professional services Wrong basin
+ “Nexigen”     None stable              Any commercial        No basin
+ “Synaptix”    Neuroscience / tech      Any commercial        Split basin
+
+
+Any token that falls in the No Basin or Split Basin category is a Dimensional Tear
+indicator for that component.
+
+
+15.4.3   Test Three: What Does the Registry Return?
+
+Method: Attempt to assign the name to a Google Business Profile category using
+only the name, with no additional description. Observe what category the auto-
+suggest system proposes.
+Interpretation:
+
+ • Correct category proposed on first suggestion: Strong 3D Direct signal
+
+ • Related but imprecise category proposed: 2D Metaphorical signal
+
+ • Unrelated category proposed (wrong basin): Dimensional Tear with drift
+
+ • No suggestion or generic “Business” category: Dimensional Tear with no basin
+
+                                        12
+
+                    15.5. THE TWO-FACE RECOVERY PRINCIPLE: CLOSING A TEAR
+
+
+The registry test is the most commercially significant of the three, because it directly
+measures the outcome of the most consequential automated classification event:
+the initial GMB category assignment that determines the entity’s visibility in local
+search.
+
+
+15.5    The Two-Face Recovery Principle: Closing a Tear
+
+A Dimensional Tear is not always permanent. Under certain conditions, additional
+context anchors can close the tear by providing the missing projection dimensions
+from supplementary sources.
+
+Definition 15.3 (Two-Face Recovery). A Torn name achieves partial recovery when
+two orthogonal context anchors — typically the business description and the cat-
+egory tag, or the domain name and the tagline — provide the missing resolution
+components that the name itself cannot supply:
+
+Recovery condition:     Context1 ⊥ Context2 ,    both mapping to intended category
+
+
+The Two-Face Recovery is analogous to the mathematical result in the ITT sub-
+library work, where a Dimensional Tear in mode recovery was closed by using
+two orthogonal faces of the boundary rather than one. In the commercial context:
+one context source recovers the category component, a second orthogonal source
+recovers the function component, and together they provide the classification
+information the name cannot.
+Examples of Two-Face Recovery in practice:
+
+ • Domain name + Tagline: “Nexigen.com — Business Algorithm Consulting” —
+   the domain carries the tear; the tagline provides the 3D Direct resolution. The
+   tagline is Face One. If the entity also has a GMB description explicitly stating the
+   category and function, that is Face Two. Together they recover the classification.
+
+ • Category tag + Business description: A GBP listing tagged “Management
+   consulting” with a description containing “We provide algorithm-based busi-
+   ness process consulting” recovers category and function from two independent
+   sources.
+
+The critical limitation of Two-Face Recovery: It provides classification recovery
+in structured systems (GMB, formal directories) but does not recover the name’s
+
+                                          13
+
+CHAPTER 15. DIMENSIONALITY: 3D, 2D, AND THE DIMENSIONAL TEAR
+
+
+cognitive friction problem. A potential customer encountering the name “Nexigen”
+in a search result does not have access to the tagline or the description in the 0.3
+seconds they spend deciding whether to click. The cognitive friction of the torn
+name remains. Two-Face Recovery fixes the registry. It does not fix the searcher’s
+first impression.
+
+
+  Recovery Does Not Equal Resolution
+
+  Two-Face Recovery is a damage-mitigation strategy, not a naming solution. It
+  reduces the classification penalty but cannot eliminate the cognitive friction
+  penalty or the first-impression ambiguity. The correct solution for a Dimen-
+  sional Tear is to rename. Two-Face Recovery buys time while that decision is
+  made.
+
+
+
+
+15.6    Chapter Summary
+
+
+Chapter 15 establishes the following:
+1. The three dimensionality classes — 3D Direct, 2D Metaphorical, Dimensional
+Tear — describe the structural quality of a name’s relationship with the resolution
+environment.
+2. 3D Direct names achieve full projection on all resolution fields and require the
+minimum ongoing marketing investment.
+3. 2D Metaphorical names achieve partial projection and require sustained asso-
+ciative investment to teach missing components. They can work under specific
+conditions but never achieve the efficiency of 3D Direct names.
+4. Dimensional Tears have near-zero field projection. They are structurally incom-
+patible with automated classification and impose permanent cognitive friction in
+human evaluation.
+5. The three-test diagnostic (context-free recognition, basin analysis, registry return)
+identifies Dimensional Tears quickly and reliably.
+6. Two-Face Recovery can partially close a Tear at the registry level but cannot
+eliminate cognitive friction.
+
+                                          14
+
+                                                      15.6. CHAPTER SUMMARY
+
+
+Core Equations and Diagnostics from Chapter 15:
+
+              Dimensional Tear:    max cos(⃗vname , ⃗vFi ) < ϵmin
+                                     i
+
+
+  3D Direct: α ≥ 0.82   2D Metaphorical: 0.55 ≤ α < 0.82 Tear: α < 0.25
+
+Three-Test Diagnostic: Context-free recognition + Basin analysis + Registry
+return
+
+
+
+
+                                    15

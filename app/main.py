@@ -17,6 +17,7 @@ from app.scoring import (
     format_score_report
 )
 from app.prompts import ITT_SYSTEM_PROMPT
+from app.corpus import build_corpus_context, CHAPTERS, MASTER_EQUATION_CARD
 
 STATIC_DIR = Path(__file__).parent / "static"
 
@@ -82,7 +83,31 @@ def root():
 
 @app.get("/health")
 def health():
-    return {"status": "field nominal", "service": "ITT Business Name Resolver"}
+    return {
+        "status": "field nominal",
+        "service": "ITT Business Name Resolver",
+        "corpus_chapters": len(CHAPTERS),
+        "corpus_loaded": bool(MASTER_EQUATION_CARD),
+    }
+
+
+@app.get("/corpus")
+def corpus_index():
+    return {
+        "master_equation_card_chars": len(MASTER_EQUATION_CARD),
+        "chapters": [
+            {"id": c.id, "title": c.title, "chars": len(c.text)}
+            for c in CHAPTERS
+        ],
+    }
+
+
+@app.get("/corpus/{chapter_id}")
+def corpus_chapter(chapter_id: int):
+    for c in CHAPTERS:
+        if c.id == chapter_id:
+            return {"id": c.id, "title": c.title, "text": c.text}
+    raise HTTPException(404, f"Chapter {chapter_id} not found")
 
 
 @app.post("/score")
@@ -106,21 +131,13 @@ def score_endpoint(req: ScoreRequest):
     }
 
 
-@app.post("/chat/stream")
-async def chat_stream(req: ChatRequest):
-    """
-    Streaming chat with ITT framework injected as system context.
-    If business_name + sector provided, pre-computes the score
-    and injects the full report into the system prompt.
-    """
-    groq = get_groq()
-
-    # Build system prompt — inject pre-computed score if available
-    system = ITT_SYSTEM_PROMPT
-
+def _build_system_prompt(req: ChatRequest) -> str:
+    """Compose the chat system prompt: distilled framework + retrieved
+    corpus chapters + the pre-computed score report (if a name was given)."""
+    band: str | None = None
+    score_block = ""
     if req.business_name and req.sector:
         phi = get_phi_for_sector(req.sector)
-        # Use provided scores or sensible defaults for AI to refine
         inputs = ScoringInputs(
             name=req.business_name,
             sector=req.sector,
@@ -131,9 +148,30 @@ async def chat_stream(req: ChatRequest):
             lam=req.lam if req.lam is not None else 0.55,
         )
         outputs = score(inputs)
-        report = format_score_report(inputs, outputs)
-        system += f"\n\n## PRE-COMPUTED SCORE (use these exact numbers)\n{report}"
+        band = outputs.band
+        score_block = (
+            "\n\n## PRE-COMPUTED SCORE (use these exact numbers)\n"
+            + format_score_report(inputs, outputs)
+        )
 
+    # Use the most recent user turn for retrieval — that's what they're
+    # actually asking about right now.
+    last_user = next((m.content for m in reversed(req.messages)
+                      if m.role == "user"), "")
+    corpus_block = build_corpus_context(
+        f"{req.business_name} {req.sector} {last_user}", band)
+
+    return ITT_SYSTEM_PROMPT + "\n\n" + corpus_block + score_block
+
+
+@app.post("/chat/stream")
+async def chat_stream(req: ChatRequest):
+    """
+    Streaming chat with ITT framework + book corpus + pre-computed score
+    injected as system context.
+    """
+    groq = get_groq()
+    system = _build_system_prompt(req)
     messages = [{"role": "system", "content": system}]
     messages += [{"role": m.role, "content": m.content} for m in req.messages]
 
@@ -169,22 +207,7 @@ async def chat_stream(req: ChatRequest):
 async def chat(req: ChatRequest):
     """Non-streaming fallback."""
     groq = get_groq()
-
-    system = ITT_SYSTEM_PROMPT
-    if req.business_name and req.sector:
-        phi = get_phi_for_sector(req.sector)
-        inputs = ScoringInputs(
-            name=req.business_name,
-            sector=req.sector,
-            alpha=req.alpha or 0.5,
-            sigma=req.sigma or 0.25,
-            phi=phi,
-            delta=req.delta or 0.35,
-            lam=req.lam or 0.55,
-        )
-        outputs = score(inputs)
-        system += f"\n\n## PRE-COMPUTED SCORE\n{format_score_report(inputs, outputs)}"
-
+    system = _build_system_prompt(req)
     messages = [{"role": "system", "content": system}]
     messages += [{"role": m.role, "content": m.content} for m in req.messages]
 
