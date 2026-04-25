@@ -86,9 +86,15 @@ jobs:
           echo "  ✓ env vars updated"
 
           echo "→ Triggering deploy"
-          DEPLOY_ID=$(curl -sf -X POST -H "$AUTH" -H "Content-Type: application/json" \
+          # Render returns 201 with a body on cold trigger, 202 with empty body
+          # if a deploy is already in flight — tolerate both.
+          RESP=$(curl -sf -X POST -H "$AUTH" -H "Content-Type: application/json" \
             -d '{"clearCache": "do_not_clear"}' \
-            "${API}/services/${SERVICE_ID}/deploys" \
-            | python -c "import sys,json; print(json.load(sys.stdin)['id'])")
-          echo "  ✓ deploy queued: ${DEPLOY_ID}"
-          echo "Watch it: https://dashboard.render.com/web/${SERVICE_ID}/deploys/${DEPLOY_ID}"
+            "${API}/services/${SERVICE_ID}/deploys")
+          DEPLOY_ID=$(python -c "import sys,json; d=json.loads(sys.argv[1] or '{}'); print(d.get('id',''))" "$RESP")
+          if [ -n "$DEPLOY_ID" ]; then
+            echo "  ✓ deploy queued: ${DEPLOY_ID}"
+            echo "Watch it: https://dashboard.render.com/web/${SERVICE_ID}/deploys/${DEPLOY_ID}"
+          else
+            echo "  ✓ deploy accepted (existing build already in flight will pick up the new env)"
+          fi
