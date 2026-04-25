@@ -180,6 +180,120 @@
     color: var(--muted);
   }
   .footer a { color: var(--accent); text-decoration: none; }
+
+  /* ── Trajectory panel ─────────────────────────────────────────────────── */
+  .trajectory {
+    width: 100%;
+    max-width: 780px;
+    margin: 1.75rem auto 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.25rem;
+  }
+  .traj-head {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 1rem; margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border); padding-bottom: 0.85rem;
+  }
+  .traj-head h2 {
+    font-size: 1.05rem; font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 0.2rem;
+  }
+  .traj-head p {
+    color: var(--muted); font-size: 0.7rem;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  .traj-meta { text-align: right; min-width: 110px; }
+  .traj-meta .lbl { font-size: 0.6rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; }
+  .traj-meta .val { font-size: 1.1rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--text); }
+  .traj-meta .val small { font-size: 0.65rem; color: var(--muted); font-weight: 400; margin-left: 0.2rem; }
+
+  .traj-cards {
+    display: grid; gap: 0.6rem; margin-bottom: 1rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) {
+    .traj-cards { grid-template-columns: repeat(3, 1fr); }
+  }
+  .traj-card {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 10px; padding: 0.85rem; transition: border-color 0.2s;
+  }
+  .traj-card:hover { border-color: var(--accent); }
+  .traj-card .row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 0.6rem;
+  }
+  .traj-card h4 {
+    font-size: 0.82rem; font-weight: 700; letter-spacing: 0.02em;
+  }
+  .traj-card.dk h4 { color: #c4b5fd; }
+  .traj-card.ar h4 { color: var(--accent2); }
+  .traj-card.sp h4 { color: #4ade80; }
+  .traj-card .pill {
+    font-size: 0.58rem; padding: 2px 8px; border-radius: 10px;
+    background: var(--border); color: var(--muted); font-family: 'JetBrains Mono', monospace;
+  }
+  .traj-card .help {
+    font-size: 0.66rem; color: var(--muted); line-height: 1.4;
+    margin-bottom: 0.7rem;
+  }
+  .traj-card label {
+    font-size: 0.66rem; color: var(--muted); display: flex;
+    justify-content: space-between; margin: 0.5rem 0 0.25rem;
+  }
+  .traj-card label span {
+    color: var(--text); font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+  }
+  .traj-card.dk label span { color: #c4b5fd; }
+  .traj-card.ar label span { color: var(--accent2); }
+  .traj-card.sp label span { color: #4ade80; }
+  .traj-card input[type=range] {
+    width: 100%; height: 4px; appearance: none; background: var(--border);
+    border-radius: 4px; outline: none;
+  }
+  .traj-card input[type=range]::-webkit-slider-thumb {
+    appearance: none; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--accent); cursor: pointer; border: 2px solid var(--bg);
+  }
+  .traj-card.dk input[type=range]::-webkit-slider-thumb { background: #a78bfa; }
+  .traj-card.ar input[type=range]::-webkit-slider-thumb { background: var(--accent2); }
+  .traj-card.sp input[type=range]::-webkit-slider-thumb { background: #4ade80; }
+
+  .traj-graph-wrap {
+    position: relative; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 10px; padding: 0.85rem 0.85rem 0.5rem;
+  }
+  .traj-status {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    font-size: 0.65rem; color: var(--muted); margin-bottom: 0.5rem;
+  }
+  .traj-status .mono { font-family: 'JetBrains Mono', monospace; color: var(--accent2); }
+  .traj-status #traj-activation { font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  #traj-svg { width: 100%; height: auto; display: block; }
+  .traj-legend {
+    display: flex; gap: 1rem; flex-wrap: wrap; font-size: 0.65rem;
+    color: var(--muted); margin-top: 0.4rem; justify-content: center;
+  }
+  .traj-legend .swatch {
+    display: inline-block; width: 14px; height: 3px; vertical-align: middle;
+    margin-right: 0.35rem; border-radius: 2px;
+  }
+  .traj-legend .swatch.primary { background: var(--accent2); }
+  .traj-legend .swatch.ref { background: var(--muted); height: 2px; border-top: 1px dashed var(--muted); background: transparent; }
+
+  .traj-actions {
+    display: flex; justify-content: center; gap: 0.5rem; margin-top: 0.85rem;
+  }
+  .traj-actions button {
+    flex: 0 0 auto; padding: 0.55rem 1.25rem; border-radius: 8px;
+    background: var(--accent); color: white; border: none; cursor: pointer;
+    font-size: 0.78rem; font-weight: 600;
+  }
+  .traj-actions button.ghost { background: var(--border); color: var(--text); }
 </style>
 </head>
 <body>
@@ -246,6 +360,64 @@
     © Armstrong Knight
   </div>
 </div>
+
+<!-- ── Trajectory Forecast ─────────────────────────────────────────────── -->
+<section class="trajectory" id="traj-capture">
+  <div class="traj-head">
+    <div>
+      <h2>Trajectory Forecast</h2>
+      <p>Master Equation · Sx(t) = ∫₀ᵗ (E + ΔAᵣRₚ)(α(1+ωRₚ) + λΔχ(Rₚ)) / [Φ(1+σ(1+ψRₚ))²] dt − Rᵈt</p>
+    </div>
+    <div class="traj-meta">
+      <div class="lbl">Weekly Effort</div>
+      <div class="val"><span id="traj-hours">0.0</span><small>hrs</small></div>
+    </div>
+  </div>
+
+  <div class="traj-cards">
+    <div class="traj-card dk">
+      <div class="row"><h4>Deep Knowledge</h4><span class="pill">Mass: High</span></div>
+      <div class="help">Books, whitepapers, peer-reviewed releases. High resolution mass, slow decay. Multiplies α over time.</div>
+      <label>Units per cycle <span id="dk-units-val">1</span></label>
+      <input id="dk-units" type="range" min="0" max="10" value="1">
+      <label>Cadence <span id="dk-freq-val">Monthly</span></label>
+      <input id="dk-freq" type="range" min="0" max="4" value="1">
+    </div>
+    <div class="traj-card ar">
+      <div class="row"><h4>Articles &amp; Blogs</h4><span class="pill">Mass: Medium</span></div>
+      <div class="help">Long-form indexable pages. Steady contribution to E, moderate decay.</div>
+      <label>Articles per batch <span id="ar-units-val">1</span></label>
+      <input id="ar-units" type="range" min="0" max="10" value="1">
+      <label>Batches per week <span id="ar-freq-val">1/wk</span></label>
+      <input id="ar-freq" type="range" min="0" max="7" value="1">
+    </div>
+    <div class="traj-card sp">
+      <div class="row"><h4>Social &amp; Paid</h4><span class="pill">Mass: Low</span></div>
+      <div class="help">Posts, ad creatives. High velocity, fast decay — pump E early.</div>
+      <label>Campaign scale <span id="sp-units-val">1</span></label>
+      <input id="sp-units" type="range" min="0" max="10" value="1">
+      <label>Frequency <span id="sp-freq-val">1/wk</span></label>
+      <input id="sp-freq" type="range" min="0" max="10" value="1">
+    </div>
+  </div>
+
+  <div class="traj-graph-wrap">
+    <div class="traj-status">
+      <div>α=<span id="traj-alpha" class="mono">—</span> · σ=<span id="traj-sigma" class="mono">—</span> · Φ=<span id="traj-phi" class="mono">—</span> · Rᵈ=<span id="traj-decay" class="mono">—</span></div>
+      <div id="traj-activation">Awaiting analysis</div>
+    </div>
+    <svg id="traj-svg" viewBox="0 0 800 360" preserveAspectRatio="xMidYMid meet"></svg>
+    <div class="traj-legend">
+      <span><span class="swatch primary"></span>Your name's trajectory</span>
+      <span><span class="swatch ref"></span>Stable Atom benchmark (α=0.85, σ=0.10)</span>
+      <span><span class="swatch" style="background:#f87171; height:2px; border-top:1px dashed #f87171;"></span>Activation threshold</span>
+    </div>
+  </div>
+
+  <div class="traj-actions">
+    <button id="traj-export">Export trajectory PNG</button>
+  </div>
+</section>
 
 <script>
 // ── Config ────────────────────────────────────────────────────────────────────
@@ -321,17 +493,27 @@ async function startAnalysis() {
 
   // Get quick score first
   try {
+    const scoreReq = {
+      name: currentName,
+      sector: currentSector,
+      alpha: 0.5, sigma: 0.25, delta: 0.35, lam: 0.55
+    };
     const scoreResp = await fetch(`${API_BASE}/score`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: currentName,
-        sector: currentSector,
-        alpha: 0.5, sigma: 0.25, delta: 0.35, lam: 0.55
-      })
+      body: JSON.stringify(scoreReq)
     });
     const scoreData = await scoreResp.json();
     updateScoreBar(scoreData);
+    // Drive the trajectory graph with the same numbers that drove the score.
+    currentScoreInputs = {
+      alpha: scoreData.inputs.alpha,
+      sigma: scoreData.inputs.sigma,
+      phi:   scoreData.inputs.phi,
+      lam:   scoreData.inputs.lam,
+      delta: scoreData.inputs.delta,
+    };
+    plotTrajectory();
   } catch(e) {
     console.warn('Score endpoint not available, continuing with chat only');
   }
@@ -413,6 +595,190 @@ async function streamResponse() {
 
   sendBtn.disabled = false;
 }
+
+// ── Trajectory Forecast (Master Equation) ────────────────────────────────────
+//
+// Sx(t) = ∫₀ᵗ (E + Δ·Aᵣ·Rₚ)·(α(1+ωRₚ) + λΔχ(Rₚ)) / [Φ(1+σ(1+ψRₚ))²] dt − Rᵈt
+//
+// Defaults below are the ITT constants from Appendix A of the corpus.
+const TRAJ = {
+  omega: 0.6,         // pressure sensitivity of α
+  psi:   0.5,         // pressure amplifier for σ
+  nu:    0.4,         // χ(Rp) linear term
+  zeta:  0.1,         // χ(Rp) quadratic term
+  Ar:    0.7,         // audience resonance default
+  Rp:    0.5,         // resolution pressure default (sector-agnostic)
+  Rbase: 0.05,        // baseline decay
+  gamma: 0.8,         // decay's penalty for low α
+  weeks: 24,
+  // Per-medium "indexed mass" weights and decay multipliers
+  weight:  { dk: 5.0, ar: 1.5, sp: 0.4 },
+  decayK:  { dk: 0.3, ar: 1.0, sp: 3.0 },
+  // Hours per unit-week (rough planning load)
+  hours:   { dk: 8.0, ar: 2.0, sp: 0.7 },
+};
+const CADENCE_PER_WEEK = [0, 0.25, 0.5, 1, 2.5];   // None / Monthly / Bi-Weekly / Weekly / Multi
+const CADENCE_LABEL    = ['None', 'Monthly', 'Bi-Weekly', 'Weekly', 'Multi/wk'];
+
+function readTrajInputs() {
+  const I = id => parseInt(document.getElementById(id).value);
+  return {
+    dk_u: I('dk-units'), dk_f: I('dk-freq'),
+    ar_u: I('ar-units'), ar_f: I('ar-freq'),
+    sp_u: I('sp-units'), sp_f: I('sp-freq'),
+  };
+}
+
+function fluxFromInputs(ein) {
+  const dk_pw = ein.dk_u * CADENCE_PER_WEEK[ein.dk_f];
+  const ar_pw = ein.ar_u * ein.ar_f;
+  const sp_pw = ein.sp_u * ein.sp_f;
+  const E = TRAJ.weight.dk*dk_pw + TRAJ.weight.ar*ar_pw + TRAJ.weight.sp*sp_pw;
+  const total = dk_pw + ar_pw + sp_pw + 1e-6;
+  const decay_mix = (TRAJ.decayK.dk*dk_pw + TRAJ.decayK.ar*ar_pw + TRAJ.decayK.sp*sp_pw) / total;
+  const hours = TRAJ.hours.dk*dk_pw + TRAJ.hours.ar*ar_pw + TRAJ.hours.sp*sp_pw;
+  return { E, decay_mix, hours, dk_pw, ar_pw, sp_pw };
+}
+
+function computeCurve(score, ein) {
+  const a = score.alpha, s = score.sigma;
+  const p = Math.max(0.05, score.phi);
+  const l = score.lam ?? 0.55;
+  const d = score.delta ?? 0.35;
+  const ap = a * (1 + TRAJ.omega * TRAJ.Rp);
+  const sp = s * (1 + TRAJ.psi   * TRAJ.Rp);
+  const chi = 1 + TRAJ.nu*TRAJ.Rp - TRAJ.zeta*TRAJ.Rp*TRAJ.Rp;
+
+  const flux = fluxFromInputs(ein);
+  const numerator = (flux.E + d*TRAJ.Ar*TRAJ.Rp) * (ap + l*d*chi);
+  const denominator = p * Math.pow(1 + sp, 2);
+  const flux_rate = numerator / Math.max(denominator, 1e-3);    // weekly Sx flux
+  const Rd = TRAJ.Rbase * (1 + TRAJ.gamma*(1 - a)) * flux.decay_mix;
+
+  // Discrete cumulative: Sx[t] = Sx[t-1] + flux_rate − Rd_per_week_scaled
+  // Rd is rate-of-erosion; scale to flux units for visibility on the same axis.
+  const RD_VISIBLE = Rd * 100;
+  const points = [0];
+  let Sx = 0;
+  for (let t = 1; t <= TRAJ.weeks; t++) {
+    Sx = Math.max(0, Sx + flux_rate - RD_VISIBLE);
+    points.push(Sx);
+  }
+  return { points, Rd, flux_rate, hours: flux.hours };
+}
+
+function plotTrajectory() {
+  const score = currentScoreInputs || { alpha: 0.5, sigma: 0.25, phi: 0.69, lam: 0.55, delta: 0.35 };
+  const ein = readTrajInputs();
+  const primary  = computeCurve(score, ein);
+  const reference = computeCurve({ ...score, alpha: 0.85, sigma: 0.10 }, ein);
+
+  // Cadence + hours readouts
+  document.getElementById('dk-units-val').textContent = ein.dk_u;
+  document.getElementById('dk-freq-val').textContent  = CADENCE_LABEL[ein.dk_f];
+  document.getElementById('ar-units-val').textContent = ein.ar_u;
+  document.getElementById('ar-freq-val').textContent  = ein.ar_f + '/wk';
+  document.getElementById('sp-units-val').textContent = ein.sp_u;
+  document.getElementById('sp-freq-val').textContent  = ein.sp_f + '/wk';
+  document.getElementById('traj-hours').textContent = primary.hours.toFixed(1);
+
+  document.getElementById('traj-alpha').textContent = score.alpha.toFixed(2);
+  document.getElementById('traj-sigma').textContent = score.sigma.toFixed(2);
+  document.getElementById('traj-phi').textContent   = score.phi.toFixed(2);
+  document.getElementById('traj-decay').textContent = primary.Rd.toFixed(3);
+
+  // ── SVG render ────────────────────────────────────────────────────────────
+  const svg = document.getElementById('traj-svg');
+  const W = 800, H = 360, M = { l: 50, r: 30, t: 24, b: 40 };
+  const yMax = Math.max(...reference.points, ...primary.points, 10) * 1.1;
+  const xScale = i => M.l + (i / TRAJ.weeks) * (W - M.l - M.r);
+  const yScale = v => (H - M.b) - (v / yMax) * (H - M.b - M.t);
+
+  // Activation threshold = the value the reference curve reaches at week 12
+  // (a "halfway-to-foothold" line for a Stable Atom).
+  const threshold = reference.points[Math.floor(TRAJ.weeks / 2)] * 0.9;
+  const yThresh = yScale(threshold);
+
+  const gridY = [0, yMax/4, yMax/2, 3*yMax/4, yMax].map(yScale);
+  const gridLines = gridY.map(y =>
+    `<line x1="${M.l}" x2="${W - M.r}" y1="${y}" y2="${y}" stroke="#1e1e2e" stroke-width="1"/>`
+  ).join('');
+  const xTicks = [0, 6, 12, 18, 24].map(t => {
+    const x = xScale(t);
+    return `<line x1="${x}" x2="${x}" y1="${H-M.b}" y2="${H-M.b+5}" stroke="#6b6b8a" stroke-width="1"/>` +
+           `<text x="${x}" y="${H-M.b+18}" text-anchor="middle" fill="#6b6b8a" font-size="10" font-family="JetBrains Mono">w${t}</text>`;
+  }).join('');
+
+  const pathD = pts => 'M ' + pts.map((v,i) => `${xScale(i).toFixed(1)},${yScale(v).toFixed(1)}`).join(' L ');
+  const refPath = `<path d="${pathD(reference.points)}" fill="none" stroke="#6b6b8a" stroke-width="1.5" stroke-dasharray="6 6"/>`;
+  const primaryPath = `<path d="${pathD(primary.points)}" fill="none" stroke="#4fc3f7" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+
+  const threshLine = `<line x1="${M.l}" x2="${W-M.r}" y1="${yThresh}" y2="${yThresh}" stroke="#f87171" stroke-width="1" stroke-dasharray="5 5"/>` +
+                     `<text x="${W-M.r-4}" y="${yThresh-4}" text-anchor="end" fill="#f87171" font-size="10" font-family="JetBrains Mono">activation η</text>`;
+
+  // Find the week the user's curve first crosses activation
+  let actWeek = -1;
+  for (let i = 0; i < primary.points.length; i++) {
+    if (primary.points[i] >= threshold) { actWeek = i; break; }
+  }
+  let actMarker = '';
+  let actText = '';
+  if (actWeek > 0) {
+    const ax = xScale(actWeek), ay = yScale(primary.points[actWeek]);
+    actMarker = `<circle cx="${ax}" cy="${ay}" r="6" fill="#4fc3f7" stroke="#0a0a0f" stroke-width="2"/>` +
+                `<text x="${ax}" y="${ay-12}" text-anchor="middle" fill="#4fc3f7" font-size="10" font-family="JetBrains Mono" font-weight="700">FOOTHOLD · WK ${actWeek}</text>`;
+    actText = `Foothold at week ${actWeek}`;
+  } else {
+    actText = 'Insufficient mass — never crosses activation';
+  }
+  const actEl = document.getElementById('traj-activation');
+  actEl.textContent = actText;
+  actEl.style.color = actWeek > 0 ? '#4ade80' : '#f87171';
+
+  const yAxis = `<line x1="${M.l}" x2="${M.l}" y1="${M.t}" y2="${H-M.b}" stroke="#8b8ba0" stroke-width="1.5"/>` +
+                `<text x="${M.l-8}" y="${M.t+10}" text-anchor="end" fill="#6b6b8a" font-size="10" font-family="JetBrains Mono">Sx</text>`;
+  const xAxis = `<line x1="${M.l}" x2="${W-M.r}" y1="${H-M.b}" y2="${H-M.b}" stroke="#8b8ba0" stroke-width="1.5"/>`;
+
+  svg.innerHTML = gridLines + xTicks + threshLine + yAxis + xAxis +
+                  refPath + primaryPath + actMarker;
+}
+
+let currentScoreInputs = null;  // captures the alpha/sigma/phi/lam/delta we sent
+
+// Hook sliders + initial draw
+document.querySelectorAll('#traj-capture input[type=range]').forEach(el => {
+  el.addEventListener('input', plotTrajectory);
+});
+
+// Lazy-load html2canvas only when the user actually exports.
+async function loadHtml2Canvas() {
+  if (window.html2canvas) return window.html2canvas;
+  await new Promise((res, rej) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+    s.onload = res; s.onerror = rej;
+    document.head.appendChild(s);
+  });
+  return window.html2canvas;
+}
+document.getElementById('traj-export').addEventListener('click', async () => {
+  const btn = document.getElementById('traj-export');
+  btn.disabled = true; btn.textContent = 'Rendering…';
+  try {
+    const h2c = await loadHtml2Canvas();
+    const canvas = await h2c(document.getElementById('traj-capture'),
+      { backgroundColor: '#12121a', scale: 2 });
+    const link = document.createElement('a');
+    link.download = `itt-trajectory-${(currentName||'name').replace(/\s+/g,'_')}.png`;
+    link.href = canvas.toDataURL();
+    link.click();
+  } finally {
+    btn.disabled = false; btn.textContent = 'Export trajectory PNG';
+  }
+});
+
+// Draw once on load with defaults, then refresh every time analysis runs.
+plotTrajectory();
 
 // ── Reset ────────────────────────────────────────────────────────────────────
 function resetChat() {
