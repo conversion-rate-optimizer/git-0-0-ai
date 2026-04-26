@@ -151,7 +151,28 @@
   .msg .body {
     font-size: 0.88rem;
     line-height: 1.65;
-    white-space: pre-wrap;
+  }
+  .msg.user .body { white-space: pre-wrap; }
+  /* Rendered markdown inside assistant messages */
+  .msg.assistant .body p { margin: 0 0 0.6rem; }
+  .msg.assistant .body p:last-child { margin-bottom: 0; }
+  .msg.assistant .body h2,
+  .msg.assistant .body h3,
+  .msg.assistant .body h4 {
+    color: var(--text); margin: 0.85rem 0 0.35rem; line-height: 1.3;
+  }
+  .msg.assistant .body h2 { font-size: 1rem; }
+  .msg.assistant .body h3 { font-size: 0.92rem; color: var(--accent2); }
+  .msg.assistant .body h4 { font-size: 0.85rem; color: var(--accent); }
+  .msg.assistant .body ul,
+  .msg.assistant .body ol { margin: 0.35rem 0 0.7rem 1.25rem; padding: 0; }
+  .msg.assistant .body li { margin-bottom: 0.3rem; }
+  .msg.assistant .body strong { color: var(--text); font-weight: 700; }
+  .msg.assistant .body em { color: var(--accent2); font-style: italic; }
+  .msg.assistant .body code {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    background: var(--bg); padding: 1px 5px; border-radius: 4px;
+    font-size: 0.82rem; color: var(--accent2);
   }
 
   .typing { color: var(--muted); font-size: 0.82rem; font-style: italic; }
@@ -471,9 +492,68 @@ function appendMessage(role, content, isStreaming = false) {
     win.appendChild(el);
   }
 
-  el.querySelector('.body').textContent = content;
+  const body = el.querySelector('.body');
+  if (role === 'assistant') {
+    body.innerHTML = renderMarkdown(content);
+  } else {
+    body.textContent = content;
+  }
   win.scrollTop = win.scrollHeight;
   return el;
+}
+
+// ── Minimal markdown renderer (no external deps) ─────────────────────────────
+// Handles the subset the model actually emits: ###/##/#### headings,
+// **bold**, *italic*, `code`, - and 1. lists, paragraphs.
+function renderMarkdown(src) {
+  // 1. HTML-escape first so the model can't inject tags.
+  let s = src.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  // 2. Inline: bold before italic so '**x**' doesn't get eaten as italic.
+  s = s.replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>');
+  s = s.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+  s = s.replace(/`([^`\n]+)`/g, '<code>$1</code>');
+
+  // 3. Block-level: walk lines, collapse lists, promote headings, paragraphs.
+  const lines = s.split('\n');
+  const out = [];
+  let inList = null;     // 'ul' | 'ol' | null
+  let para = [];
+
+  const flushPara = () => {
+    if (para.length) { out.push(`<p>${para.join('<br>')}</p>`); para = []; }
+  };
+  const closeList = () => {
+    if (inList) { out.push(`</${inList}>`); inList = null; }
+  };
+
+  for (const raw of lines) {
+    const line = raw.trimEnd();
+    const h = /^(#{1,6})\s+(.*)$/.exec(line);
+    const ul = /^[-*]\s+(.+)$/.exec(line);
+    const ol = /^\d+\.\s+(.+)$/.exec(line);
+
+    if (h) {
+      flushPara(); closeList();
+      const lvl = Math.min(6, h[1].length);
+      out.push(`<h${lvl}>${h[2]}</h${lvl}>`);
+    } else if (ul) {
+      flushPara();
+      if (inList !== 'ul') { closeList(); out.push('<ul>'); inList = 'ul'; }
+      out.push(`<li>${ul[1]}</li>`);
+    } else if (ol) {
+      flushPara();
+      if (inList !== 'ol') { closeList(); out.push('<ol>'); inList = 'ol'; }
+      out.push(`<li>${ol[1]}</li>`);
+    } else if (line === '') {
+      flushPara(); closeList();
+    } else {
+      closeList();
+      para.push(line);
+    }
+  }
+  flushPara(); closeList();
+  return out.join('\n');
 }
 
 function finalizeStream() {
@@ -578,7 +658,7 @@ async function streamResponse() {
           const parsed = JSON.parse(payload);
           if (parsed.token) {
             accumulated += parsed.token;
-            streamEl.querySelector('.body').textContent = accumulated;
+            streamEl.querySelector('.body').innerHTML = renderMarkdown(accumulated);
             document.getElementById('chat-window').scrollTop = 9999;
           }
         } catch {}
