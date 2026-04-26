@@ -106,8 +106,11 @@ def select_chapters(message: str, band: str | None, k: int = 2) -> list[Chapter]
 CHAPTER_CHAR_BUDGET = 18_000  # cap per chapter to keep total context sane
 
 
-def build_corpus_context(message: str, band: str | None) -> str:
-    """Compose the corpus block for injection into the system prompt."""
+def build_corpus_context(message: str, band: str | None, k: int = 1,
+                         per_chapter_chars: int = 12_000) -> str:
+    """Compose the corpus block for injection into the system prompt.
+    Keeps total injected context around ~10k tokens so multi-turn
+    conversations don't drift into context-limit territory."""
     parts: list[str] = []
     if MASTER_EQUATION_CARD:
         parts.append(
@@ -115,11 +118,10 @@ def build_corpus_context(message: str, band: str | None) -> str:
             "Use these exact equations. Do not paraphrase the algebra.\n\n"
             + MASTER_EQUATION_CARD
         )
-    picks = select_chapters(message, band, k=2)
-    for ch in picks:
+    for ch in select_chapters(message, band, k=k):
         body = ch.text
-        if len(body) > CHAPTER_CHAR_BUDGET:
-            body = body[:CHAPTER_CHAR_BUDGET] + "\n[…chapter truncated…]"
+        if len(body) > per_chapter_chars:
+            body = body[:per_chapter_chars] + "\n[…chapter truncated…]"
         parts.append(
             f"## CORPUS EXCERPT — Chapter {ch.id}: {ch.title}\n"
             f"(quoted verbatim from Thermodynamics of Commercial Identity)\n\n"

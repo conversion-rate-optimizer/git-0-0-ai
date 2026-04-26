@@ -656,6 +656,14 @@ async function streamResponse() {
 
         try {
           const parsed = JSON.parse(payload);
+          if (parsed.error) {
+            // Surface server errors instead of leaving the spinner forever.
+            streamEl.querySelector('.body').innerHTML = renderMarkdown(
+              `**Server error:** ${parsed.error}\n\nIf this keeps happening, refresh and try a shorter follow-up.`
+            );
+            accumulated = '';  // don't push the error into chat history
+            continue;
+          }
           if (parsed.token) {
             accumulated += parsed.token;
             streamEl.querySelector('.body').innerHTML = renderMarkdown(accumulated);
@@ -666,7 +674,7 @@ async function streamResponse() {
     }
 
     finalizeStream();
-    chatHistory.push({ role: 'assistant', content: accumulated });
+    if (accumulated) chatHistory.push({ role: 'assistant', content: accumulated });
 
   } catch(e) {
     streamEl.querySelector('.body').textContent = `Connection error: ${e.message}\n\nMake sure the ITT service is running at ${API_BASE}`;
