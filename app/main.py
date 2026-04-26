@@ -78,7 +78,12 @@ class ScoreRequest(BaseModel):
 
 @app.get("/")
 def root():
-    return FileResponse(STATIC_DIR / "index.html")
+    # no-cache so users always get the latest UI after a deploy without
+    # having to hard-refresh.
+    return FileResponse(
+        STATIC_DIR / "index.html",
+        headers={"Cache-Control": "no-cache, must-revalidate"},
+    )
 
 
 @app.get("/health")

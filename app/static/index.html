@@ -402,11 +402,124 @@
     text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
   }
   .traj-actions button:active { box-shadow: var(--press-sm); transform: translateY(1px); }
+
+  /* ── Pulsating "$500 value, free" badge in the header ───────────────────── */
+  @keyframes pulse-money {
+    0%, 100% { box-shadow: var(--raise-xs), 0 0 0 0 rgba(22, 163, 74, 0.55); }
+    50%      { box-shadow: var(--raise-xs), 0 0 0 14px rgba(22, 163, 74, 0); }
+  }
+  .value-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #4ade80, #15803d);
+    color: white;
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.22);
+    box-shadow: var(--raise-xs);
+    animation: pulse-money 2.4s infinite;
+    margin-bottom: 1rem;
+  }
+  .value-badge .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 6px rgba(255,255,255,0.9);
+  }
+
+  /* ── About / Why this exists section ────────────────────────────────────── */
+  .about {
+    width: 100%; max-width: 780px;
+    margin: 0 auto 2rem;
+    background: var(--surface);
+    border-radius: 20px;
+    padding: 1.75rem;
+    box-shadow: var(--raise);
+  }
+  .about-hero { text-align: center; margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border); }
+  .about-hero h2 {
+    font-size: 1.35rem; font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+  }
+  .about-hero p { color: var(--muted); font-size: 0.92rem; line-height: 1.55; max-width: 580px; margin: 0 auto; }
+
+  .about h3 {
+    font-size: 0.92rem; font-weight: 700;
+    color: var(--accent2);
+    letter-spacing: 0.04em; text-transform: uppercase;
+    margin: 1.5rem 0 0.85rem;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+  }
+  .about p { color: var(--text); font-size: 0.9rem; line-height: 1.7; margin-bottom: 0.7rem; }
+  .about p .muted { color: var(--muted); }
+  .about a { color: var(--accent2); text-decoration: none; border-bottom: 1px dotted currentColor; }
+
+  /* Stat grid */
+  .stat-grid {
+    display: grid; gap: 0.85rem;
+    grid-template-columns: 1fr;
+    margin: 0 0 0.5rem;
+  }
+  @media (min-width: 640px) {
+    .stat-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  .stat-card {
+    background: var(--bg);
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    box-shadow: var(--press-sm);
+  }
+  .stat-card .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.55rem; font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 0.2rem;
+  }
+  .stat-card .lbl { font-size: 0.74rem; color: var(--text); font-weight: 600; line-height: 1.35; margin-bottom: 0.3rem; }
+  .stat-card .src { font-size: 0.62rem; color: var(--muted); font-style: italic; }
+
+  /* Capability + scope cards (raised mini-cards in a 2-col grid) */
+  .feat-grid {
+    display: grid; gap: 0.7rem;
+    grid-template-columns: 1fr;
+    margin-bottom: 0.5rem;
+  }
+  @media (min-width: 640px) {
+    .feat-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .feat-card {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    box-shadow: var(--raise-xs);
+  }
+  .feat-card.does { border-left: 3px solid var(--success); }
+  .feat-card.does-not { border-left: 3px solid var(--muted); }
+  .feat-card h4 { font-size: 0.86rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
+  .feat-card p { font-size: 0.78rem; color: var(--muted); line-height: 1.5; margin: 0; }
+
+  .fingerprint-block {
+    background: var(--bg);
+    border-radius: 14px;
+    padding: 1rem 1.15rem;
+    box-shadow: var(--press-sm);
+    margin: 0.5rem 0;
+  }
+  .fingerprint-block p { font-size: 0.86rem; line-height: 1.65; }
+  .fingerprint-block strong { color: var(--accent2); }
 </style>
 </head>
 <body>
 <div class="container">
   <header>
+    <div class="value-badge"><span class="dot"></span>$500–$50,000 value · free</div>
     <h1>ITT Business Name Resolver</h1>
     <p>Thermodynamics of Commercial Identity · Field-theoretic scoring · <a href="https://intent-tensor-theory.com" target="_blank">intent-tensor-theory.com</a></p>
   </header>
@@ -525,6 +638,105 @@
   <div class="traj-actions">
     <button id="traj-export">Export trajectory PNG</button>
   </div>
+</section>
+
+<!-- ── About / Why this exists ──────────────────────────────────────────── -->
+<section class="about">
+  <div class="about-hero">
+    <h2>Why this exists</h2>
+    <p>Naming is the most consequential decision a business makes — and the one most often made by amateurs in a single afternoon. This tool is a free, math-grounded second opinion on the choice that will quietly shape every search, registry, and conversion event for the life of the company.</p>
+  </div>
+
+  <h3>What good naming actually costs</h3>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="num">$5K – $50K</div>
+      <div class="lbl">Typical mid-range naming agency fee</div>
+      <div class="src">Industry pricing aggregators (Clutch, Tungsten, WeAreTenet, 2026)</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">$50K – $250K+</div>
+      <div class="lbl">High-end / global naming engagements</div>
+      <div class="src">Lexicon, Interbrand, WANT Branding pricing tiers</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">~11%</div>
+      <div class="lbl">of small-business owners actually work with a marketing/branding agency</div>
+      <div class="src">LinkedIn SMB marketing report</div>
+    </div>
+  </div>
+  <p class="muted">Translation: roughly nine out of ten owners pick the most expensive branding decision they'll ever make at the kitchen table — at the moment they have the least information about how the resolution environment will treat it.</p>
+
+  <h3>What a wrong name costs after the fact</h3>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="num">$100K – $180K</div>
+      <div class="lbl">Average full rebrand for a small business</div>
+      <div class="src">Frontify, Ofspace rebranding studies</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">74%</div>
+      <div class="lbl">of S&amp;P 100 companies rebrand within their first 7 years</div>
+      <div class="src">Smashbrand industry analysis</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">$120K – $750K</div>
+      <div class="lbl">Typical legal fees in a single trademark dispute</div>
+      <div class="src">Frontify rebranding cost guide</div>
+    </div>
+  </div>
+  <p class="muted">A name that fails resolution doesn't just cost the rebrand. It charges an <em>Inference Tax</em> every month it's in market — paid as slow indexing, mis-classified registry entries, marketing budgets that compensate for an alignment deficit instead of compounding on top of one. Over the life of a company that bill runs to thousands of hours and tens-to-hundreds of thousands of dollars before anyone files a single trademark.</p>
+
+  <h3>Two halves of a transaction fingerprint</h3>
+  <div class="fingerprint-block">
+    <p>The market has a fingerprint. It is the actual graph of who buys what from whom — captured in things like the <strong>BEA Input-Output accounts</strong>, NAICS classifications, O*NET task definitions, and the queries people type into search engines. That graph has crests and troughs, spirals and basins, ridges and friction zones. It exists whether you acknowledge it or not.</p>
+    <p>Your business name is the other half of that fingerprint — the handle you press into the substrate so the market can find you. When the two halves match, classification is automatic, conversion compounds, and marketing spend builds on a foundation. When they don't match, you spend the rest of the company's life paying inference cost in the gap.</p>
+    <p>This tool exists to show you, before you commit, whether the two halves line up — and exactly how much the gap will cost you in hours and dollars across the next 24 weeks.</p>
+  </div>
+
+  <h3>What this tool does</h3>
+  <div class="feat-grid">
+    <div class="feat-card does">
+      <h4>Scores α, σ, Φ for your name</h4>
+      <p>Alignment with the four resolution fields, drift from the intended category, and the friction your sector imposes on every entrant.</p>
+    </div>
+    <div class="feat-card does">
+      <h4>Computes V, Dt, W<sub>Δ</sub>, R<sub>sn</sub></h4>
+      <p>Viability score, launch trough depth, the work-offset multiplier (literally how much extra effort the name forces on you), and the atmospheric resultant.</p>
+    </div>
+    <div class="feat-card does">
+      <h4>Projects Sx(t) — your 24-week trajectory</h4>
+      <p>The Master Equation from the textbook, fed by your real numbers and three sliders for the marketing channels you actually use.</p>
+    </div>
+    <div class="feat-card does">
+      <h4>Cites the chapter</h4>
+      <p>Every chat answer is grounded in the relevant chapter of the 293-page corpus, not paraphrased from training data.</p>
+    </div>
+  </div>
+
+  <h3>What this tool does <em>not</em> do (yet)</h3>
+  <div class="feat-grid">
+    <div class="feat-card does-not">
+      <h4>Domain availability</h4>
+      <p>Take the candidate names to <a href="https://www.namecheap.com/" target="_blank" rel="noopener">Namecheap</a> or any registrar to check.</p>
+    </div>
+    <div class="feat-card does-not">
+      <h4>LLC / entity name search</h4>
+      <p>Each state's Secretary of State runs its own database. We position the name; you confirm availability.</p>
+    </div>
+    <div class="feat-card does-not">
+      <h4>Trademark clearance</h4>
+      <p>Search <a href="https://tmsearch.uspto.gov/" target="_blank" rel="noopener">USPTO TESS</a> or hire counsel. We're solving the resolution problem, not the legal one.</p>
+    </div>
+    <div class="feat-card does-not">
+      <h4>Random name generation</h4>
+      <p>This is the opposite of that. Random generators produce noise; we produce a deterministic audit against measurable field criteria.</p>
+    </div>
+  </div>
+
+  <h3>Built on a 293-page derivation</h3>
+  <p>The framework underneath this tool is published in full as <em>The Thermodynamics of Commercial Identity</em> by Armstrong Knight — 21 chapters and an appendix card of equations, every one of them used by the engine you just interacted with. The book is open-access at <a href="https://intent-tensor-theory.com" target="_blank" rel="noopener">intent-tensor-theory.com</a> and the corpus PDFs are on this repo: <a href="https://github.com/conversion-rate-optimizer/git-0-0-ai/blob/main/corpus/Thermodynamics_of_Commercial_Identity_COMPLETE.pdf" target="_blank" rel="noopener">complete</a> · <a href="https://github.com/conversion-rate-optimizer/git-0-0-ai/blob/main/corpus/Thermodynamics_of_Commercial_Identity_BackMatter.pdf" target="_blank" rel="noopener">back matter</a>.</p>
+  <p class="muted">If naming were creative the way the industry insists it is, none of this math would compress it. The math compresses it. That tells you which view of the problem is the right one.</p>
 </section>
 
 <script>
