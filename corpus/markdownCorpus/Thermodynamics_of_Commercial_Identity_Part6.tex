@@ -1,0 +1,839 @@
+\documentclass[12pt, openany]{book}
+
+% ── PACKAGES ──────────────────────────────────────────────────────────────────
+\usepackage[
+  paperwidth=8.5in, paperheight=11in,
+  top=1.1in, bottom=1.1in, left=1.25in, right=1.25in
+]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage[most, breakable]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+\usepackage[hidelinks]{hyperref}
+
+% ── COLORS ────────────────────────────────────────────────────────────────────
+\definecolor{navy}{RGB}{26, 58, 92}
+\definecolor{midblue}{RGB}{46, 109, 164}
+\definecolor{lightblue}{RGB}{220, 235, 248}
+\definecolor{accentgray}{RGB}{100, 100, 110}
+\definecolor{boxbg}{RGB}{245, 249, 253}
+\definecolor{warningbg}{RGB}{255, 250, 235}
+\definecolor{warningborder}{RGB}{180, 130, 30}
+\definecolor{ghostgray}{RGB}{210, 210, 215}
+\definecolor{ghostbg}{RGB}{248, 248, 250}
+\definecolor{tearred}{RGB}{160, 35, 35}
+\definecolor{tearbg}{RGB}{255, 244, 244}
+\definecolor{failbg}{RGB}{252, 246, 235}
+\definecolor{failborder}{RGB}{170, 110, 30}
+\definecolor{diagbg}{RGB}{240, 248, 240}
+\definecolor{diagborder}{RGB}{40, 120, 60}
+
+% ── THEOREM ENVIRONMENTS ──────────────────────────────────────────────────────
+\newtheoremstyle{thmstyle}{12pt}{8pt}{\itshape}{}{\bfseries\color{navy}}{.}{.5em}{}
+\theoremstyle{thmstyle}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\newtheoremstyle{defstyle}{12pt}{8pt}{\normalfont}{}{\bfseries\color{midblue}}{.}{.5em}{}
+\theoremstyle{defstyle}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{example}{Example}[chapter]
+
+% ── BOXES ─────────────────────────────────────────────────────────────────────
+\newtcolorbox{keybox}[1][Key Principle]{
+  enhanced, breakable, colback=boxbg, colframe=midblue,
+  fonttitle=\bfseries\color{navy}, title={#1},
+  arc=3pt, boxrule=0.8pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+\newtcolorbox{equationbox}{
+  enhanced, colback=lightblue!50, colframe=navy,
+  arc=4pt, boxrule=1pt, left=12pt, right=12pt, top=8pt, bottom=8pt
+}
+\newtcolorbox{examplebox}[1][Example]{
+  enhanced, breakable, colback=white, colframe=accentgray!50,
+  fonttitle=\bfseries\color{accentgray}, title={#1},
+  arc=3pt, boxrule=0.6pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+\newtcolorbox{warnbox}[1][Important]{
+  enhanced, breakable, colback=warningbg, colframe=warningborder,
+  fonttitle=\bfseries\color{warningborder}, title={#1},
+  arc=3pt, boxrule=0.8pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+\newtcolorbox{calcbox}[1][Calculation]{
+  enhanced, breakable, colback=lightblue!20, colframe=midblue!60,
+  fonttitle=\bfseries\color{midblue}, title={#1},
+  arc=3pt, boxrule=0.6pt, left=10pt, right=10pt, top=8pt, bottom=8pt
+}
+\newtcolorbox{ghostbox}[1][Ghost State]{
+  enhanced, breakable, colback=ghostbg, colframe=ghostgray,
+  fonttitle=\bfseries\color{accentgray}, title={#1},
+  arc=3pt, boxrule=0.8pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+\newtcolorbox{tearbox}[1][Dimensional Tear]{
+  enhanced, breakable, colback=tearbg, colframe=tearred,
+  fonttitle=\bfseries\color{tearred}, title={#1},
+  arc=3pt, boxrule=0.8pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+\newtcolorbox{failbox}[1][Failure Mode]{
+  enhanced, breakable, colback=failbg, colframe=failborder,
+  fonttitle=\bfseries\color{failborder}, title={#1},
+  arc=3pt, boxrule=0.8pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+\newtcolorbox{diagbox}[1][Diagnostic]{
+  enhanced, breakable, colback=diagbg, colframe=diagborder,
+  fonttitle=\bfseries\color{diagborder}, title={#1},
+  arc=3pt, boxrule=0.8pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+
+% ── SECTION FORMATTING ────────────────────────────────────────────────────────
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{navy}}
+  {\large\color{midblue}\MakeUppercase{\chaptername}\ \thechapter}
+  {10pt}
+  {\rule{\textwidth}{1.5pt}\vspace{4pt}}
+  [\vspace{2pt}\rule{\textwidth}{0.4pt}\vspace{6pt}]
+
+\titleformat{\section}{\normalfont\large\bfseries\color{navy}}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries\color{midblue}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\itshape\color{accentgray}}{\thesubsubsection}{1em}{}
+
+\titleformat{\part}[display]
+  {\normalfont\Huge\bfseries\color{navy}\centering}
+  {\large\color{midblue}\MakeUppercase{\partname}\ \thepart}
+  {16pt}{}[\vspace{6pt}\color{midblue}\rule{0.5\textwidth}{2pt}]
+
+% ── HEADERS ───────────────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\color{accentgray}\leftmark}
+\fancyhead[RO]{\small\color{accentgray}\rightmark}
+\fancyfoot[C]{\small\color{accentgray}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+% ── SPACING ───────────────────────────────────────────────────────────────────
+\setstretch{1.15}
+\setlength{\parskip}{7pt}
+\setlength{\parindent}{0pt}
+
+% ── COUNTERS ──────────────────────────────────────────────────────────────────
+\setcounter{chapter}{14}
+\setcounter{part}{5}
+
+% ── MATH MACROS ───────────────────────────────────────────────────────────────
+\newcommand{\vstar}{V^{*}}
+\newcommand{\Rp}{R_p}
+\newcommand{\Dt}{D_t}
+\newcommand{\taui}{\tau_i}
+\newcommand{\Wdelta}{W_{\Delta}}
+\newcommand{\Fm}{F_m}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+% ──────────────────────────────────────────────────────────────────────────────
+\begin{document}
+\tableofcontents
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  PART VI OPENER
+% ══════════════════════════════════════════════════════════════════════════════
+\part{Dimensional Topology and Failure Modes}
+
+\vspace{16pt}
+\begin{center}
+\color{accentgray}\itshape
+Names do not just fail --- they fail in specific, classifiable,\\
+diagnosable ways. This section gives you the topology of commercial\\
+failure and the audit protocol that identifies it before it costs you.
+\end{center}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  CHAPTER 15
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{Dimensionality: 3D, 2D, and the Dimensional Tear}
+
+\begin{keybox}[Chapter Thesis]
+Every business name occupies a position in what we call the dimensionality spectrum: from fully three-dimensional names that directly encode Category, Object, and Function, through two-dimensional metaphorical names that encode some components symbolically, to names that have torn entirely free of the resolution grid and project onto no stable commercial field at all. The Dimensional Tear is not a creative choice. It is a structural failure with measurable consequences that begin the moment the name is registered.
+\end{keybox}
+
+\section{The Three Dimensionality Classes}
+
+The resolution framework established in Parts I and II operates on a name's semantic content. But not all semantic content participates in the resolution process equally. Some names encode their resolution components \textit{directly}: the word is the component. Others encode them \textit{symbolically}: the word implies the component through association. Others encode them \textit{not at all}: the word projects onto resolution fields with near-zero amplitude.
+
+These three conditions define the three dimensionality classes.
+
+\begin{definition}[Dimensionality Classes]
+The dimensionality of a business name describes the degree and directness with which it encodes the four resolution components:
+\begin{itemize}[leftmargin=1.5em]
+  \item \textbf{3D Direct}: All required resolution components ($N_c$, $O_s$, $F_a$, and optionally $C_l$) are encoded explicitly and unambiguously in the name string.
+  \item \textbf{2D Metaphorical}: One or more required components are encoded symbolically --- present through implication and association rather than direct statement.
+  \item \textbf{Dimensional Tear}: One or more components are absent and cannot be recovered through association. The name projects onto no stable commercial classification field.
+\end{itemize}
+\end{definition}
+
+The naming ``dimensionality'' is not a metaphor. It reflects a precise geometric reality about how the name's composite vector projects onto the resolution field structure. A 3D name projects strongly onto all four fields. A 2D name projects strongly onto some fields and weakly onto others. A Dimensional Tear name has near-zero projection amplitude across all fields, making it effectively invisible to automated classification.
+
+\subsection{3D Direct: Category + Object + Function Fully Present}
+
+A 3D Direct name carries the full resolution template explicitly. Every system that evaluates it --- search, registry, task, intent --- receives the complete classification information it needs from the name string itself. No inference required. No context needed.
+
+\begin{examplebox}[3D Direct Names]
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+\textbf{Name} & \textbf{$N_c$} & \textbf{$O_s$} & \textbf{$F_a$} \\
+\midrule
+Dallas Roof Repair Company & Company & Roof & Repair \\
+Austin Tax Preparation Services & Services & Tax & Preparation \\
+Houston Pipe Installation Contractors & Contractors & Pipe & Installation \\
+Chicago Business Law Firm & Firm & Business Law & [implied] \\
+Seattle Home Inspection Service & Service & Home & Inspection \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{6pt}
+\textbf{Characteristics of 3D Direct names:}
+\begin{itemize}[leftmargin=1.5em]
+  \item $\alpha \geq 0.82$ in virtually all cases
+  \item $\sigma \leq 0.15$ in virtually all cases
+  \item Registry classification: automatic and accurate
+  \item Search field: query-mirroring --- the name contains the same words customers type
+  \item Aesthetics: often judged ``boring'' or ``generic'' by creative standards
+  \item Commercial performance: consistently superior to all other dimensionality classes
+\end{itemize}
+\end{examplebox}
+
+The ``boring'' judgment is the creative fallacy identified in Chapter 1 in its purest form. ``Dallas Roof Repair Company'' is not boring to the search engine that returns it for ``roof repair Dallas.'' It is not boring to the Google Business Profile system that classifies it correctly in under 100 milliseconds. It is not boring to the homeowner with a leaking roof who calls the first clearly-named company in the results. It is boring only to someone evaluating it as an aesthetic artifact rather than as a computational input.
+
+\subsection{2D Metaphorical: One Component Encoded Symbolically}
+
+A 2D Metaphorical name encodes one or more resolution components through implication, analogy, or cultural association rather than direct statement. The component is present in the name, but it requires an additional cognitive step --- a semantic lookup in shared cultural knowledge --- to decode.
+
+\begin{examplebox}[2D Metaphorical Names]
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+\textbf{Name} & \textbf{Direct} & \textbf{Symbolic} & \textbf{Missing} \\
+\midrule
+Allstate Insurance & $N_c$: Insurance & $O_s$: ``All states'' $\to$ broad coverage & $F_a$ (implied) \\
+H\&R Block & $N_c$ (implied: tax) & $O_s$/$F_a$ through brand history & Initially nothing \\
+Jiffy Lube & $F_a$: speed implied & $O_s$: Lube $\to$ automotive & $N_c$ implied \\
+Angie's List & $N_c$: List $\to$ directory & $O_s$/$F_a$ through brand context & Initially absent \\
+Dollar Shave Club & $O_s$: Shave products & $N_c$: Club $\to$ subscription & $F_a$ (razor, implied) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{6pt}
+\textbf{Characteristics of 2D Metaphorical names:}
+\begin{itemize}[leftmargin=1.5em]
+  \item $\alpha$ typically in the range $0.55$--$0.82$
+  \item $\sigma$ variable: low when the metaphor is culturally stable, high when it drifts
+  \item Registry classification: often requires supplemental data or manual confirmation
+  \item Search field: partial query-matching, strong for branded queries, weaker for category queries
+  \item Cost structure: higher than 3D Direct but manageable with consistent messaging
+  \item Survival path: must invest in associative alignment to ``teach'' the missing component
+\end{itemize}
+\end{examplebox}
+
+The key structural difference between 2D Metaphorical and 3D Direct is the \textit{cultural dependency} of the symbolic encoding. A 2D name works as long as its cultural reference is stable and widely shared. ``Jiffy'' successfully implies speed in early 21st century American English. But the reference ages. Younger generations may not carry the same ``jiffy = very fast'' association that made the name work originally. The 3D Direct name ``Quick Oil Change'' does not age --- ``quick'' and ``oil change'' are stable denotative terms, not cultural references.
+
+\subsection{Dimensional Tear: Abstract Token With No Stable Projection}
+
+The Dimensional Tear is the pathological limit of the dimensionality spectrum. A name has torn dimensionally when its composite semantic vector has no stable projection onto any commercial classification field. The words in the name carry some meaning in general language, but that meaning does not map to any of the four resolution fields for the business's intended category.
+
+\begin{definition}[Dimensional Tear]
+A business name has undergone a Dimensional Tear when:
+\begin{equation}
+\max_i \cos(\vec{v}_{name}, \vec{v}_{\mathcal{F}_i}) < \epsilon_{min}
+\label{eq:tear}
+\end{equation}
+for all four resolution fields $\mathcal{F}_i$, where $\epsilon_{min}$ is the minimum projection threshold required for field classification. The name's vector has no field it belongs to.
+\end{definition}
+
+\begin{tearbox}[The Dimensional Tear --- What It Looks Like]
+A name has torn dimensionally when you can read it aloud to a stranger and they cannot make a confident guess about what the business does. Not a vague guess. Not a wrong guess. \textit{No} guess. The tokens activate general vocabulary associations but produce no commercial classification signal.
+
+\textbf{Examples of Dimensional Tears:}
+\begin{itemize}[leftmargin=1.5em]
+  \item ``Nexigen'' --- prefix ``Nexi'' activates next/nexus/network, suffix ``gen'' activates generation/generic/genetics. No commercial field.
+  \item ``Synaptix'' --- neuroscience association (synapse), technology suffix (-tix). Projects onto biotech AND consumer tech AND marketing agency simultaneously, with low amplitude in all three.
+  \item ``Velorix'' --- Latin-root velocity + pharmaceutical-suffix. Could be a drug, a cycling brand, a logistics company, or a financial product.
+  \item ``Luminary Collective'' --- abstract noun (luminary = distinguished person) + vague collective noun. Projects weakly onto consulting, media, and nonprofit fields simultaneously.
+  \item ``The Pivot Agency'' --- metaphor (pivot = strategic change direction) + generic category noun (Agency). ``Agency'' is so broad it covers advertising, staffing, government, and real estate. ``Pivot'' adds drift, not specificity.
+\end{itemize}
+\end{tearbox}
+
+The Dimensional Tear is not merely a naming problem. It is a structural fracture in the entity's relationship with the classification infrastructure. Every automated system that encounters a Torn name faces the same evaluation failure: the name does not map to any known category. The system must either misclassify it (assigning it to the closest available category, which may be wrong) or fail to classify it at all (leaving it in a default or uncategorized state).
+
+\section{The Cost of Each Dimensionality Class}
+
+The dimensionality classification provides a first-pass cost estimate before any detailed scoring is required.
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Class} & \textbf{Typical $\alpha$} & \textbf{Typical $D_t$} & \textbf{Relative Cost Index} \\
+\midrule
+3D Direct & 0.82--0.97 & 0.03--0.18 & 1.0 (baseline) \\
+2D Metaphorical & 0.55--0.82 & 0.18--0.45 & 1.5--3.5$\times$ \\
+Dimensional Tear & 0.03--0.25 & 0.75--0.97 & 10--100$\times$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The Relative Cost Index is the multiplier applied to the baseline marketing investment required for a 3D Direct name to achieve equivalent market visibility. A Dimensional Tear name may require 10 to 100 times the baseline investment --- and that investment must be maintained indefinitely, because the Tear never heals on its own. The entity never achieves the classification clarity that the 3D Direct name has from day one.
+
+\section{When Metaphor Works and When It Does Not}
+
+The 2D Metaphorical class is not uniformly harmful. Some metaphorical names perform well commercially because their symbolic encoding is precise, culturally stable, and consistently reinforced. The conditions under which metaphor works are specific and testable.
+
+\textbf{Metaphor works when:}
+\begin{enumerate}[leftmargin=1.5em]
+  \item The metaphorical term maps to \textit{exactly one} commercial interpretation in the target market. ``Jiffy Lube'' --- ``Jiffy'' maps to speed in American English, and speed is the most important selection criterion for drive-through oil changes. The metaphor carries a single, relevant, stable meaning.
+  \item The company has significant resources for the brand-building investment required to teach the missing components. ``Allstate'' worked because the company spent decades building the association ``Allstate = reliable insurance.'' Without that investment, the name is just two words.
+  \item The metaphorical component enriches a name that is otherwise fully direct. Adding a metaphorical modifier to a 3D Direct base (``Rapid Roof Repair'' --- ``Rapid'' is metaphorical for speed but does not replace any required component) is low-risk. Replacing a required component with a metaphor is high-risk.
+  \item The competitive environment is low-friction. In thin markets with few established incumbents, metaphorical names have more room to operate because the classification infrastructure is less saturated.
+\end{enumerate}
+
+\textbf{Metaphor fails when:}
+\begin{enumerate}[leftmargin=1.5em]
+  \item The metaphorical term is polysemous --- it has multiple plausible commercial interpretations. ``Apex'' (excellence / mountain / city / video game) fails as a metaphor because the machine cannot identify which interpretation applies.
+  \item The company lacks resources for sustained associative alignment investment. A local service business cannot afford to teach a metaphorical name the way Allstate or Nike could.
+  \item The metaphorical term drifts toward an unintended category. ``Transitions'' as a metaphor for financial planning drifts toward social services. The metaphor works against the entity.
+  \item The category is high-friction and high-pressure. In emergency services, professional services under deadline, or any category where buyers need instant recognition, metaphor introduces fatal cognitive friction.
+\end{enumerate}
+
+\section{Detecting and Diagnosing a Dimensional Tear}
+
+The three-test protocol for identifying a Dimensional Tear is fast, requires no specialized tools, and can be applied to any name.
+
+\subsection{Test One: Can the Name Resolve Without Context?}
+
+\textbf{Method:} Remove all context --- the website, the service description, the location, the industry tag. Show the name alone to five people outside your industry. Ask: ``What does this business do?''
+
+\textbf{Scoring:}
+\begin{itemize}[leftmargin=1.5em]
+  \item If 4--5 people give the same correct answer: 3D Direct. No Tear.
+  \item If 3--4 people give approximately correct or plausible answers: 2D Metaphorical. Moderate risk.
+  \item If fewer than 3 people give correct answers, or answers are spread across unrelated categories: Dimensional Tear confirmed.
+\end{itemize}
+
+\textbf{The ``Bro, you are a dimension off'' diagnostic:} In the language of the resolution solver framework, this is the moment you tell the founder directly: the name is not resolving. It is not a matter of taste. The machine cannot classify it, and humans cannot classify it either. The name has torn free of the commercial resolution grid.
+
+\subsection{Test Two: Which Basin Does the Token Fall Into?}
+
+\textbf{Method:} For each meaningful token in the name, identify its primary semantic associations in general language. Determine whether those associations map to the intended commercial category or to competing, unrelated categories.
+
+\textbf{Examples:}
+
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+\textbf{Token} & \textbf{Primary Association} & \textbf{Intended Category} & \textbf{Basin Status} \\
+\midrule
+``Repair'' & Fixing broken things & Home services & Correct basin \\
+``Roof'' & Top covering of building & Roofing & Correct basin \\
+``Transitions'' & Life changes, eyewear & Financial planning & Wrong basin \\
+``Apex'' & Mountain peak, game & Professional services & Wrong basin \\
+``Nexigen'' & None stable & Any commercial & No basin \\
+``Synaptix'' & Neuroscience / tech & Any commercial & Split basin \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Any token that falls in the \textit{No Basin} or \textit{Split Basin} category is a Dimensional Tear indicator for that component.
+
+\subsection{Test Three: What Does the Registry Return?}
+
+\textbf{Method:} Attempt to assign the name to a Google Business Profile category using only the name, with no additional description. Observe what category the auto-suggest system proposes.
+
+\textbf{Interpretation:}
+\begin{itemize}[leftmargin=1.5em]
+  \item Correct category proposed on first suggestion: Strong 3D Direct signal
+  \item Related but imprecise category proposed: 2D Metaphorical signal
+  \item Unrelated category proposed (wrong basin): Dimensional Tear with drift
+  \item No suggestion or generic ``Business'' category: Dimensional Tear with no basin
+\end{itemize}
+
+The registry test is the most commercially significant of the three, because it directly measures the outcome of the most consequential automated classification event: the initial GMB category assignment that determines the entity's visibility in local search.
+
+\section{The Two-Face Recovery Principle: Closing a Tear}
+
+A Dimensional Tear is not always permanent. Under certain conditions, additional context anchors can close the tear by providing the missing projection dimensions from supplementary sources.
+
+\begin{definition}[Two-Face Recovery]
+A Torn name achieves partial recovery when two orthogonal context anchors --- typically the business description and the category tag, or the domain name and the tagline --- provide the missing resolution components that the name itself cannot supply:
+\[
+\text{Recovery condition:} \quad \text{Context}_1 \perp \text{Context}_2, \quad \text{both mapping to intended category}
+\]
+\end{definition}
+
+The Two-Face Recovery is analogous to the mathematical result in the ITT sub-library work, where a Dimensional Tear in mode recovery was closed by using two orthogonal faces of the boundary rather than one. In the commercial context: one context source recovers the category component, a second orthogonal source recovers the function component, and together they provide the classification information the name cannot.
+
+\textbf{Examples of Two-Face Recovery in practice:}
+\begin{itemize}[leftmargin=1.5em]
+  \item \textbf{Domain name + Tagline:} ``Nexigen.com --- Business Algorithm Consulting'' --- the domain carries the tear; the tagline provides the 3D Direct resolution. The tagline is \textit{Face One}. If the entity also has a GMB description explicitly stating the category and function, that is \textit{Face Two}. Together they recover the classification.
+  \item \textbf{Category tag + Business description:} A GBP listing tagged ``Management consulting'' with a description containing ``We provide algorithm-based business process consulting'' recovers category and function from two independent sources.
+\end{itemize}
+
+\textbf{The critical limitation of Two-Face Recovery:} It provides classification recovery in structured systems (GMB, formal directories) but does not recover the name's cognitive friction problem. A potential customer encountering the name ``Nexigen'' in a search result does not have access to the tagline or the description in the 0.3 seconds they spend deciding whether to click. The cognitive friction of the torn name remains. Two-Face Recovery fixes the registry. It does not fix the searcher's first impression.
+
+\begin{warnbox}[Recovery Does Not Equal Resolution]
+Two-Face Recovery is a damage-mitigation strategy, not a naming solution. It reduces the classification penalty but cannot eliminate the cognitive friction penalty or the first-impression ambiguity. The correct solution for a Dimensional Tear is to rename. Two-Face Recovery buys time while that decision is made.
+\end{warnbox}
+
+\section{Chapter Summary}
+
+Chapter 15 establishes the following:
+
+\textbf{1.} The three dimensionality classes --- 3D Direct, 2D Metaphorical, Dimensional Tear --- describe the structural quality of a name's relationship with the resolution environment.
+
+\textbf{2.} 3D Direct names achieve full projection on all resolution fields and require the minimum ongoing marketing investment.
+
+\textbf{3.} 2D Metaphorical names achieve partial projection and require sustained associative investment to teach missing components. They can work under specific conditions but never achieve the efficiency of 3D Direct names.
+
+\textbf{4.} Dimensional Tears have near-zero field projection. They are structurally incompatible with automated classification and impose permanent cognitive friction in human evaluation.
+
+\textbf{5.} The three-test diagnostic (context-free recognition, basin analysis, registry return) identifies Dimensional Tears quickly and reliably.
+
+\textbf{6.} Two-Face Recovery can partially close a Tear at the registry level but cannot eliminate cognitive friction.
+
+\begin{equationbox}
+\textbf{Core Equations and Diagnostics from Chapter 15:}
+\[
+\text{Dimensional Tear:} \quad \max_i \cos(\vec{v}_{name}, \vec{v}_{\mathcal{F}_i}) < \epsilon_{min}
+\]
+\[
+\text{3D Direct: } \alpha \geq 0.82 \quad \text{2D Metaphorical: } 0.55 \leq \alpha < 0.82 \quad \text{Tear: } \alpha < 0.25
+\]
+\textbf{Three-Test Diagnostic:} Context-free recognition + Basin analysis + Registry return
+\end{equationbox}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  CHAPTER 16
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{The Ghost State: Names That Haunt Without Resolve}
+
+\begin{keybox}[Chapter Thesis]
+The Ghost State is the most commercially damaging naming condition precisely because it is the least visible. A Ghost State business is present in the market --- it has a website, customers, revenue, and activity --- but is structurally invisible to the classification systems that govern organic discovery. It exists, but the systems that control who gets found cannot see it clearly. Understanding the Ghost State means understanding why some businesses work harder than they should for results that disappear the moment they stop pushing.
+\end{keybox}
+
+\section{Ghost State Defined: High Recall, Zero Classification}
+
+The Ghost State was introduced briefly in Chapter 1. We now define it with precision.
+
+\begin{definition}[Ghost State]
+A business entity occupies the Ghost State when its name achieves some level of human recall (people can remember having heard of it) but achieves near-zero automated classification probability in the primary resolution fields:
+\begin{equation}
+\text{Ghost State:} \quad P_{recall}(N) > 0 \quad \text{but} \quad \max_i P_i(N) \approx 0
+\label{eq:ghost}
+\end{equation}
+The entity is remembered by humans who have been directly exposed to it, but is invisible to the systems that govern initial discovery.
+\end{definition}
+
+The defining characteristic of the Ghost State --- and the feature that makes it so insidious --- is the \textit{gap between human recall and system classification}. A Ghost State business is not unknown. If you ask its existing customers about it, they will tell you positively about their experience. If you ask its employees, they will describe a thriving operation. The business knows it exists. Its customers know it exists.
+
+But the classification systems that govern who gets found by \textit{new} customers --- people who have not yet been directly introduced to the business --- do not know what it is. From the perspective of search engines, registries, and automated recommendation systems, the business is a signal-noise boundary: present but not classifiable, visible but not sortable.
+
+The result is a business that grows almost exclusively through direct referral, personal networking, and paid advertising. The moment those channels stop --- the moment marketing spending drops, or the primary referral network stops growing, or the founder stops making sales calls --- the business's new-customer acquisition collapses. Not because the business got worse. Because it never had organic classification to fall back on.
+
+\section{How Ghost States Form}
+
+Ghost States form through four distinct pathways, each with different implications for resolution:
+
+\textbf{Pathway 1: The Invented Name.}
+The business was named with an invented or abstract word that has no semantic mapping to any commercial classification category. ``Nexigen,'' ``Synaptix,'' ``Velorix'' --- these names create Ghost States from day one because the resolution environment has no prior probability distribution for them. The system encounters the token, finds no classification anchor, and assigns near-zero probability to every category simultaneously.
+
+\textbf{Pathway 2: The Generic Name.}
+The business was named with words so broadly applicable that they convey no useful classification information. ``Premier Services,'' ``Solutions Group,'' ``The Company'' --- these names produce Ghost States by the opposite mechanism: not by being foreign to the classification system but by being equally applicable to everything. The system assigns near-uniform probability across all categories, which is operationally equivalent to no classification at all.
+
+\textbf{Pathway 3: The Personal-Name Business.}
+The business was named after its founder: ``Smith \& Associates,'' ``Johnson Consulting,'' ``Williams Group.'' Personal names carry no industry signal whatsoever. They produce Ghost States for all four resolution fields simultaneously and require extraordinary investment in associative alignment to eventually escape the state. Law firms and financial advisory practices are disproportionately represented in this category, for cultural reasons that have nothing to do with commercial efficiency.
+
+\textbf{Pathway 4: The Aspirational Name.}
+The business was named after what it aspires to be, what it values, or what it wants customers to feel --- rather than what it does. ``Elevate,'' ``Empower,'' ``Illuminate,'' ``Transform.'' These are aspiration words. They convey intent and values, but they convey no category, object, or function. The resolution system evaluates them and finds: motivation, but no industry. Aspiration, but no transaction. They produce high-entropy Ghost States because the words are not meaningless but point in directions that have nothing to do with commercial classification.
+
+\section{The Phonetic Trap: Memorable Names That Mean Nothing}
+
+A particularly dangerous subset of the Ghost State is the \textit{Phonetically Memorable Ghost}: a name that is highly memorable, easily pronounced, and genuinely pleasant to hear or read --- but still achieves near-zero classification resolution.
+
+DuckDuckGo is the canonical example from Chapter 11. But many less-famous businesses fall into this category: names that stick in memory because of their rhythm, their alliteration, or their pleasant sound, while providing zero classification signal.
+
+\begin{warnbox}[The Phonetic Trap]
+Memorability and classification are independent variables. A name can score high on $M$ (Memorability Coefficient) while scoring low on $\alpha$ (Semantic Alignment). The Phonetically Memorable Ghost creates a particularly expensive commercial condition: the business invests in awareness (people remember the name) while still paying the full Inference Tax (people cannot self-classify what the business does based on the name alone).
+
+\textbf{The cost:} All the investment that created phonetic memorability must be re-spent building semantic association. The memory slot is occupied, but it is occupied with a sound, not with a classification. The business must now \textit{also} teach that sound what it means.
+
+This is precisely the DuckDuckGo situation: $M = 0.88$ (highly memorable name), $\alpha = 0.08$ (near-zero classification). The memory was there. The meaning had to be manufactured at enormous expense over a decade.
+\end{warnbox}
+
+\section{Ghost State Persistence vs. Stable Atom Persistence}
+
+The persistence dynamics of Ghost State entities are structurally different from those of Stable Atoms in ways that are not immediately obvious from the master equation alone. The difference becomes visible when we compare their \textit{recovery curves} after a reduction in marketing effort.
+
+\textbf{Stable Atom recovery curve:}
+A Stable Atom entity that reduces its marketing effort by 50\% for three months experiences modest visibility reduction, followed by gradual recovery when effort resumes. The entity's classification confidence was built through \textit{structural alignment}: the name provides a persistent signal that requires no reinforcement. The recovery curve is shallow and fast.
+
+\textbf{Ghost State recovery curve:}
+A Ghost State entity that reduces its marketing effort by 50\% for three months experiences significant visibility collapse. Whatever classification signals were built through content, reviews, and advertising were contested signals --- some pointing toward the correct category, some pointing elsewhere. Without reinforcement, the contested signals decay toward their neutral state (roughly uniform probability across categories) much faster than the structural signals of a Stable Atom.
+
+The recovery curve for a Ghost State entity after marketing resumption is longer and more expensive than the initial visibility build, because the system must re-establish classification confidence that has partially decayed.
+
+\begin{calcbox}[Modeling Ghost State vs. Stable Atom Decay]
+Using the pressure-adjusted decay rate $R_d = R_{base}(1 + \gamma(1-\alpha))$ from Chapter 7:
+
+\textbf{Stable Atom} ($\alpha = 0.92$, $R_{base} = 0.05$, $\gamma = 0.30$):
+\[
+R_d = 0.05 \times (1 + 0.30 \times 0.08) = 0.05 \times 1.024 = 0.0512
+\]
+\textit{2.4\% amplification over baseline decay. Stability is near-structural.}
+
+\textbf{Ghost State} ($\alpha = 0.10$, same parameters):
+\[
+R_d = 0.05 \times (1 + 0.30 \times 0.90) = 0.05 \times 1.27 = 0.0635
+\]
+\textit{27\% amplification over baseline decay. Every period of reduced effort erases 27\% more accumulated classification signal than it would for a Stable Atom.}
+
+\textit{Over a year of irregular marketing (6 months active, 6 months reduced), the Ghost State entity loses approximately $0.0635 \times 6 = 38\%$ more classification signal than the Stable Atom. This gap compounds each year.}
+\end{calcbox}
+
+\section{The Escape Sequence: Moving a Ghost State to Stable Atom}
+
+Escaping the Ghost State is possible but requires a specific sequence of actions. The order matters. Executing them out of sequence wastes resources.
+
+\textbf{Step 1: Diagnosis.} Confirm the Ghost State using the three-test diagnostic from Chapter 15. Identify which resolution components are missing or weak. Identify whether the failure mode is an invented name, generic name, personal name, or aspirational name --- each requires a different repair approach.
+
+\textbf{Step 2: Name decision.} Evaluate the cost of renaming versus the cost of sustained compensatory investment. Use the compensation requirement equation:
+\[
+\Delta_{required} = \frac{\Phi(1+\sigma)^2 - \alpha}{\lambda}
+\]
+If $\Delta_{required} > 0.70$ (requiring near-elite differentiation to sustain the Ghost State), renaming is almost always the economically superior choice. If $\Delta_{required} < 0.40$ (moderate differentiation sufficient), sustained investment can work.
+
+\textbf{Step 3: If renaming, transition protocol.} A name change for an established business requires managing acquired associative alignment:
+\begin{itemize}[leftmargin=1.5em]
+  \item The old name has accumulated some ($\alpha_t = \alpha_0 + \rho m$) acquired alignment that will be lost
+  \item The transition period requires running both names simultaneously (``Formerly known as...'') to transfer associative alignment
+  \item The new name should be chosen to satisfy the Minimal Resolution Template so that the post-transition entity immediately begins accumulating structural alignment
+\end{itemize}
+
+\textbf{Step 4: If sustaining, differentiation protocol.} If renaming is not viable, the compensation path requires:
+\begin{itemize}[leftmargin=1.5em]
+  \item Building genuine Differentiation Force (not decorative) to clear the compensation threshold
+  \item Sustained, high-frequency repetition of the classification message in every channel
+  \item Two-Face Recovery implementation: tagline, description, domain, and all metadata carry the classification information the name cannot
+  \item Patience: acquired associative alignment grows at $\rho m$ per cycle; the process takes years, not months
+\end{itemize}
+
+\section{Chapter Summary}
+
+Chapter 16 establishes the following:
+
+\textbf{1.} The Ghost State is defined by high human recall but near-zero automated classification --- the entity is remembered by those who know it and invisible to those who do not.
+
+\textbf{2.} Four formation pathways: Invented names, Generic names, Personal-name businesses, Aspirational names.
+
+\textbf{3.} The Phonetic Trap is the most expensive variant: memorable names that still require full associative alignment investment to teach their classification.
+
+\textbf{4.} Ghost State entities decay faster than Stable Atoms due to the $\gamma(1-\alpha)$ amplification of the decay rate.
+
+\textbf{5.} The escape sequence (diagnosis $\to$ name decision $\to$ transition or differentiation protocol) provides a structured path out of the Ghost State.
+
+\begin{equationbox}
+\textbf{Core Equations from Chapter 16:}
+\[
+\text{Ghost State:} \quad P_{recall}(N) > 0 \text{ but } \max_i P_i(N) \approx 0
+\]
+\[
+R_d = R_{base}(1 + \gamma(1-\alpha)) \quad \text{(amplified decay)}
+\]
+\[
+\Delta_{required} = \frac{\Phi(1+\sigma)^2 - \alpha}{\lambda} \quad \text{(escape threshold)}
+\]
+\[
+\alpha_t = \alpha_0 + \rho m \quad \text{(acquired associative alignment)}
+\]
+\end{equationbox}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  CHAPTER 17
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{The Complete Failure Mode Taxonomy}
+
+\begin{keybox}[Chapter Thesis]
+Commercial naming failures are not random. They are structurally determined, reproducible across industries, and diagnosable from the model's variables. This chapter presents the complete taxonomy of ten failure modes, each defined formally with its mathematical signature, its commercial manifestation, its diagnostic test, and its repair path. The taxonomy closes with a decision matrix that routes any named entity to its failure mode in three questions.
+\end{keybox}
+
+\section{Introduction: Why Failure Is Classifiable}
+
+Every naming failure leaves a specific signature in the variables of the model. Not all failures look alike from the outside --- a business losing market share, failing to grow, spending too much on marketing, or receiving confused customer inquiries are all different surface symptoms. But when the model's variables are examined, the underlying failure mode is identifiable with precision.
+
+There are exactly ten failure modes in the taxonomy. They are organized by the primary variable that drives the failure. Some failures are pure (driven by a single variable in an extreme state). Others are compound (driven by two or more variables interacting).
+
+\section{Failure Mode One: Missing Category --- $\alpha\downarrow$, Classification Fails}
+
+\begin{failbox}[Failure Mode 1: Missing Category ($N_c$ absent)]
+\textbf{Mathematical signature:}
+\[
+N_c = \emptyset \quad \Rightarrow \quad P_{registry}(N) \approx 0, \quad \alpha \downarrow
+\]
+
+\textbf{What it looks like:} The business has a name that sounds like a business name but does not contain a category noun that maps to any industry classification. ``Vertex,'' ``Pinnacle Group,'' ``Blue Sky Ventures.''
+
+\textbf{Commercial manifestation:} The business does not appear in category searches. It is misassigned in directories. Customers who find it through other means cannot quickly determine what industry it serves. New customers arriving through search enter with the wrong expectations.
+
+\textbf{Diagnostic test:} Enter the name into Google Business Profile's category auto-suggest. If the system proposes an unrelated category or returns ``Business,'' $N_c$ is absent.
+
+\textbf{Repair:} Add a category noun to the name. Not as a tagline. In the name itself. ``Vertex'' becomes ``Vertex Roof Repair'' or ``Vertex Financial Planning.'' The category noun does the registry work.
+\end{failbox}
+
+\section{Failure Mode Two: Missing Function --- $\tau_i\uparrow$, Action Unclear}
+
+\begin{failbox}[Failure Mode 2: Missing Function ($F_a$ absent)]
+\textbf{Mathematical signature:}
+\[
+F_a = \emptyset \quad \Rightarrow \quad P_{task}(N) \approx 0, \quad \tau_i \uparrow
+\]
+
+\textbf{What it looks like:} The name contains a category and possibly an object but no action verb or verb nominalization. ``Business Algorithms,'' ``Dallas Roofing,'' ``Smith Financial.''
+
+\textbf{Commercial manifestation:} The Inference Tax is highest here because the scope ambiguity is most active. Platform matching fails. Voice search fails. The first question every new customer asks: ``So what exactly do you do?'' This question, multiplied across every new customer interaction for the life of the business, is the tax in its most visible form.
+
+\textbf{Diagnostic test:} A customer who can name the industry but cannot identify the service the business provides has diagnosed this failure mode in real time.
+
+\textbf{Repair:} Add the function word. ``Business Algorithms'' $\to$ ``Business Algorithm Consulting.'' ``Dallas Roofing'' $\to$ ``Dallas Roof Repair'' or ``Dallas Roof Installation.'' The function word simultaneously fixes the task field and reduces the Inference Tax to near zero.
+\end{failbox}
+
+\section{Failure Mode Three: Missing Object --- Conversion Probability Decreases}
+
+\begin{failbox}[Failure Mode 3: Missing Object ($O_s$ absent or generic)]
+\textbf{Mathematical signature:}
+\[
+O_s = \emptyset \quad \Rightarrow \quad P_{intent}(N) \downarrow
+\]
+
+\textbf{What it looks like:} The name describes the function and category but not what is being acted upon. ``Strategy Consulting,'' ``Management Services,'' ``Advisory Group.''
+
+\textbf{Commercial manifestation:} Conversion probability decreases because the transaction is not anchored. The buyer cannot confirm that the service applies to their specific problem. This failure mode is most damaging in professional services, where ``strategy consulting'' could apply to a dozen different objects (operations, marketing, technology, finance, HR, legal, supply chain).
+
+\textbf{Diagnostic test:} Ask: ``Could this name describe a business serving a completely different client type with the same name?'' If yes, $O_s$ is absent or generic.
+
+\textbf{Repair:} Specify the object. ``Strategy Consulting'' $\to$ ``Supply Chain Strategy Consulting'' or ``Marketing Strategy Consulting.'' The object reduction does not limit the market --- it clarifies it, which increases conversion from the specific clients who need what the business actually provides.
+\end{failbox}
+
+\section{Failure Mode Four: Missing Context --- Local Dominance Decreases}
+
+\begin{failbox}[Failure Mode 4: Missing Context ($C_l$ absent in local market)]
+\textbf{Mathematical signature:}
+\[
+C_l = \emptyset \text{ in local market} \quad \Rightarrow \quad P_{search,local}(N) \downarrow
+\]
+
+\textbf{What it looks like:} A local service business has a name that satisfies the compressed Minimal Resolution Template ($O_s + F_a + N_c$) but does not include geographic context. ``Roof Repair Company,'' ``Pipe Installation Services.''
+
+\textbf{Commercial manifestation:} Reduced local pack visibility. The business competes in the national classification pool rather than the local one. In a dense local market, this can mean the difference between first-page local results and page-three or deeper results.
+
+\textbf{Diagnostic test:} Search for the business's category + city. If the business does not appear in the local pack despite having active GMB presence, missing $C_l$ is a likely contributor.
+
+\textbf{Repair:} Add the geographic context to the name, or at minimum ensure it appears prominently in the GBP name field. ``Roof Repair Company'' $\to$ ``Dallas Roof Repair Company.'' The geographic token creates geo-categorical alignment that the algorithm treats as directly relevant to local queries.
+\end{failbox}
+
+\section{Failure Mode Five: Decorative Differentiation --- $\Delta_{decorative} \approx 0$}
+
+\begin{failbox}[Failure Mode 5: Decorative Differentiation]
+\textbf{Mathematical signature:}
+\[
+U \approx 0 \quad \Rightarrow \quad \Delta = U \cdot M \cdot T \approx 0
+\]
+
+\textbf{What it looks like:} The business has invested in brand aesthetics --- design, tone, story, visual identity --- but the core proposition is not genuinely unique. ``We provide personalized service.'' ``We truly listen.'' ``We go the extra mile.'' These claims are made by every competitor and therefore differentiate no one.
+
+\textbf{Commercial manifestation:} The business believes it is differentiated and cannot understand why its marketing investment produces diminishing returns. The answer is that brand investment without a unique proposition generates $\Delta \approx 0$ regardless of the investment amount. The spending created aesthetics, not force.
+
+\textbf{Diagnostic test:} Could three of your top competitors make exactly the same claims about themselves without lying? If yes, $U \approx 0$ and the differentiation is decorative.
+
+\textbf{Repair:} The repair is not a marketing change. It is a business model or positioning change: finding the specific, verifiable, non-substitutable thing the business does that no competitor does in the same way. That thing, stated in one sentence, is the differentiation worth investing in.
+\end{failbox}
+
+\section{Failure Mode Six: Non-Convertible Differentiation --- $\lambda \approx 0$}
+
+\begin{failbox}[Failure Mode 6: Non-Convertible Differentiation]
+\textbf{Mathematical signature:}
+\[
+\lambda = C_r \cdot C_m \approx 0 \quad \Rightarrow \quad \lambda\Delta \approx 0
+\]
+
+\textbf{What it looks like:} The business has genuine differentiation ($\Delta$ is real) but the market does not reward it ($C_r \approx 0$) or the channels used to communicate it are incompatible ($C_m \approx 0$). The craft brewery in the industrial supply chain. The deeply personal brand story communicated through B2B procurement platforms.
+
+\textbf{Commercial manifestation:} The business has a clear, passionate proposition and cannot understand why it is not converting. The proposition is good. The problem is the market's receptivity to it in that context.
+
+\textbf{Diagnostic test:} Compare conversion rates for the differentiated proposition across different customer segments or channels. If some segments respond strongly and others do not, the differentiation is convertible in some contexts and not others. $C_r$ is segment-dependent, and the business is targeting low-$C_r$ segments.
+
+\textbf{Repair:} Either shift to a market segment with higher $C_r$ for the differentiation type, or change the differentiation to something the current market rewards. Do not change the name --- the naming problem is secondary. The primary failure is market-proposition fit.
+\end{failbox}
+
+\section{Failure Mode Seven: Ambiguity Overload --- $\mu(1-\alpha)\sigma \gg \lambda\Delta$}
+
+\begin{failbox}[Failure Mode 7: Ambiguity Overload]
+\textbf{Mathematical signature:}
+\[
+\mu(1-\alpha)\sigma \gg \lambda\Delta \quad \Rightarrow \quad F_m < 0 \text{ (net negative force)}
+\]
+
+\textbf{What it looks like:} The name has both low alignment and high drift. The entity's differentiation, however strong, cannot overcome the net negative market force created by the combined ambiguity penalty.
+
+\textbf{Commercial manifestation:} Differentiation investment produces no measurable market improvement. This is the failure mode where a business with a genuinely compelling story and a recognizable brand finds that new customer acquisition remains stubbornly expensive. The brand story is known. The category classification is not.
+
+\textbf{Diagnostic test:} Calculate $\mu(1-\alpha)\sigma$ and compare to $\lambda\Delta$. If the penalty term exceeds the differentiation term, the name must change before any other investment will produce returns.
+
+\textbf{Repair:} This is the only failure mode where the repair is unconditional: rename. No amount of differentiation investment, execution effort, or marketing creativity overcomes net negative market force. The penalty must be reduced first by reducing $\sigma$ (fixing drift) and increasing $\alpha$ (adding resolution components). Then differentiation investment becomes productive.
+\end{failbox}
+
+\section{Failure Mode Eight: The Dimensional Tear --- Zero Field Projection}
+
+\begin{failbox}[Failure Mode 8: Dimensional Tear]
+\textbf{Mathematical signature:}
+\[
+\max_i \cos(\vec{v}_{name}, \vec{v}_{\mathcal{F}_i}) < \epsilon_{min} \quad \Rightarrow \quad \alpha \to 0, \;\sigma \to \text{undefined}
+\]
+
+\textbf{What it looks like:} Invented words, pharmaceutical-suffix portmanteaus, abstract concept compounds with no commercial mapping. ``Nexigen,'' ``Velorix,'' ``Synaptix.''
+
+\textbf{Commercial manifestation:} The entity does not appear in category searches. Registry classification returns generic defaults. New customers cannot self-route to the business through search. Growth is almost entirely referral-dependent from day one.
+
+\textbf{Diagnostic test:} The three-test protocol from Chapter 15: context-free recognition fails, basin analysis returns no basin or split basin, registry returns no category or wrong category.
+
+\textbf{Repair:} Rename to a 3D Direct name. Two-Face Recovery can mitigate registry misclassification but cannot repair the cognitive friction of a Torn name in first-impression contexts. For established businesses with significant brand equity in the torn name, the transition protocol from Chapter 16 applies: run both names simultaneously during the transition period.
+\end{failbox}
+
+\section{Failure Mode Nine: The Unintended Basin --- Wrong Category Capture}
+
+\begin{failbox}[Failure Mode 9: Unintended Basin]
+\textbf{Mathematical signature:}
+\[
+\cos(\vec{v}_{name}, \vec{v}_{wrong}) > \cos(\vec{v}_{name}, \vec{v}_{intended}) \quad \Rightarrow \quad \sigma \uparrow, \text{ misclassification}
+\]
+
+\textbf{What it looks like:} The name resolves, but to the wrong category. ``Transitions Financial'' resolving to social services. ``Apex Consulting'' resolving to Apex, NC. ``Legacy Partners'' resolving to estate law rather than business consulting.
+
+\textbf{Commercial manifestation:} The business receives traffic and inquiries from the wrong audience. Registry systems assign incorrect categories. The entity appears in the wrong directory sections. Customers who find the entity through correctly targeted search arrive with correct intent, but a significant fraction of automated discovery routes the entity to wrong-audience contexts.
+
+\textbf{Diagnostic test:} Search for the business name with no additional context. If the top results include references to a competing category (social services, a geographic location, a different industry), the basin is wrong.
+
+\textbf{Repair:} Remove or replace the drifting token. ``Transitions Financial Planning'' $\to$ ``Life Event Financial Planning'' (removes ``Transitions,'' which carries the social-services basin, and replaces it with a more specific context token). Alternatively, ``Retirement Transition Financial Planning'' --- re-specifying the context such that ``transition'' is modified by a financial-domain term that overrides the competing association.
+\end{failbox}
+
+\section{Failure Mode Ten: Acquired Debt --- A Good Name Made Ambiguous}
+
+\begin{failbox}[Failure Mode 10: Acquired Debt]
+\textbf{Mathematical signature:}
+\[
+\alpha_0 \text{ high}, \quad \alpha_t = \alpha_0 + \rho m, \quad \text{but environment shifts:} \quad \sigma \uparrow \text{ over time}
+\]
+
+\textbf{What it looks like:} A name that was a 3D Direct Stable Atom at launch has accumulated ambiguity through environmental change: a competing brand uses the same term, a cultural shift re-associates the term with a different category, or the business expanded into new services that no longer align with the original name.
+
+\textbf{Commercial manifestation:} A business that previously had strong organic acquisition begins to see organic performance decline without an obvious cause. The name has not changed. The website has not changed. But the competitive environment has changed in ways that have shifted the name's effective $\sigma$.
+
+\textbf{Examples:}
+\begin{itemize}[leftmargin=1.5em]
+  \item A roofing company called ``Solar Roofing'' whose name made it distinct in 2012, when solar roofing was uncommon, now faces a crowded market where ``solar roofing'' describes an entire commodity category rather than a single distinctive company.
+  \item A law firm that added corporate mergers practice to its originally family-law focus, without updating its name, now sends mixed classification signals.
+  \item Any business whose primary keyword has been captured by a national brand, creating an unintended basin around the name.
+\end{itemize}
+
+\textbf{Diagnostic test:} Compare the business's search performance today to three years ago on its primary category queries. If organic performance has declined without a corresponding change in the business or website, environmental $\sigma$ increase is the likely cause.
+
+\textbf{Repair:} Audit the current $\sigma$ of the name against the current competitive landscape. Update or expand the name to restore disambiguation. In many cases, adding a specificity modifier (geographic context, service specialization, audience specification) restores distinction without requiring a full rename.
+\end{failbox}
+
+\section{Diagnostic Matrix: Identifying Your Failure Mode}
+
+The ten failure modes can be identified quickly using a three-question routing matrix. Answer each question in sequence; the routing will identify the primary failure mode.
+
+\begin{diagbox}[Three-Question Diagnostic Matrix]
+\textbf{Question 1: When you search your business category (not your business name) in your market, does your business appear on the first page?}
+
+\begin{itemize}[leftmargin=1.5em]
+  \item \textbf{Yes, reliably} $\to$ Likely not a naming failure. Check for Failure Modes 5, 6, or 10.
+  \item \textbf{Sometimes / inconsistently} $\to$ Proceed to Question 2.
+  \item \textbf{No, never} $\to$ Proceed to Question 2.
+\end{itemize}
+
+\textbf{Question 2: When a stranger reads your business name alone (no website, no description), what do they say?}
+
+\begin{itemize}[leftmargin=1.5em]
+  \item \textbf{They name your industry correctly} $\to$ Failure Mode 2 (missing function) or 3 (missing object). Check which component is absent.
+  \item \textbf{They name a different industry} $\to$ Failure Mode 9 (Unintended Basin) or 7 (Ambiguity Overload). Check $\sigma$.
+  \item \textbf{They have no idea} $\to$ Failure Mode 1 (missing category), 8 (Dimensional Tear), or 3 (personal name producing Ghost State). Proceed to Question 3.
+\end{itemize}
+
+\textbf{Question 3: When you enter your business name in Google Business Profile's category field, what does auto-suggest return?}
+
+\begin{itemize}[leftmargin=1.5em]
+  \item \textbf{Your correct category} $\to$ Failure Mode 4 (missing context) if local business. Re-examine Question 2.
+  \item \textbf{A wrong but specific category} $\to$ Failure Mode 9 (Unintended Basin). The name is captured.
+  \item \textbf{``Business'' or no suggestion} $\to$ Failure Mode 8 (Dimensional Tear) or Failure Mode 1 (missing $N_c$). The name is projecting onto no field.
+\end{itemize}
+\end{diagbox}
+
+\begin{center}
+\begin{tabular}{lllll}
+\toprule
+\textbf{FM} & \textbf{Primary Variable} & \textbf{Core Symptom} & \textbf{Key Test} & \textbf{Repair} \\
+\midrule
+1 & $N_c = \emptyset$ & Registry failure & GBP auto-suggest fails & Add category noun \\
+2 & $F_a = \emptyset$ & ``What do you do?'' & Platform matching fails & Add function word \\
+3 & $O_s = \emptyset$ & Low conversion & Scope too broad & Specify object \\
+4 & $C_l = \emptyset$ & No local pack & Local search invisible & Add geography \\
+5 & $U \approx 0$ & Brand doesn't convert & Claims all duplicated & Find real distinction \\
+6 & $\lambda \approx 0$ & Story doesn't land & Wrong market segment & Shift market or message \\
+7 & Penalty $>$ $\lambda\Delta$ & All investment fails & Net force negative & Rename (unconditional) \\
+8 & Tear & No category at all & Three-test fails & Rename \\
+9 & Wrong basin & Wrong audience & Search returns wrong category & Remove drifting token \\
+10 & Acquired drift & Organic declining & Historical search comparison & Update name for current market \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Chapter Summary}
+
+Chapter 17 delivers the complete failure mode taxonomy with ten formally defined failure modes, each with its mathematical signature, commercial manifestation, diagnostic test, and repair path.
+
+The governing principle across all ten modes is:
+
+\begin{keybox}[The Governing Principle of Naming Failure]
+Naming failure is not random. It is structurally determined by the values of the model's variables. Given the values of $\alpha$, $\sigma$, $\Phi$, $\Delta$, and $\lambda$ for any entity, its failure mode is predictable before it manifests commercially. The failure mode determines the repair. The repair is the minimum intervention sufficient to bring the relevant variable to the survival threshold.
+
+There is no naming problem that cannot be diagnosed. There are only naming problems that have not yet been examined with sufficient precision.
+\end{keybox}
+
+\begin{equationbox}
+\textbf{The Ten Failure Mode Signatures:}
+\[
+\text{FM 1: } N_c = \emptyset \quad \text{FM 2: } F_a = \emptyset \quad \text{FM 3: } O_s \text{ generic}
+\]
+\[
+\text{FM 4: } C_l = \emptyset \text{ (local)} \quad \text{FM 5: } U \approx 0 \quad \text{FM 6: } \lambda \approx 0
+\]
+\[
+\text{FM 7: } \mu(1-\alpha)\sigma > \lambda\Delta \quad \text{FM 8: Tear} \quad \text{FM 9: Wrong basin}
+\]
+\[
+\text{FM 10: Acquired drift: } \sigma \uparrow \text{ post-launch}
+\]
+\textbf{Routing matrix:} Category search $\to$ Stranger test $\to$ Registry test.
+\end{equationbox}
+
+\end{document}

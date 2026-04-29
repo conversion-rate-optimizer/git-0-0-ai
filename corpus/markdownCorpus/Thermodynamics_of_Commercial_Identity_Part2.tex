@@ -1,0 +1,814 @@
+\documentclass[12pt, openany]{book}
+
+% ── PACKAGES ──────────────────────────────────────────────────────────────────
+\usepackage[
+  paperwidth=8.5in, paperheight=11in,
+  top=1.1in, bottom=1.1in, left=1.25in, right=1.25in
+]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage[most, breakable]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+\usepackage[hidelinks]{hyperref}
+
+% ── COLORS ────────────────────────────────────────────────────────────────────
+\definecolor{navy}{RGB}{26, 58, 92}
+\definecolor{midblue}{RGB}{46, 109, 164}
+\definecolor{lightblue}{RGB}{220, 235, 248}
+\definecolor{accentgray}{RGB}{100, 100, 110}
+\definecolor{rulecolor}{RGB}{180, 200, 220}
+\definecolor{boxbg}{RGB}{245, 249, 253}
+\definecolor{successgreen}{RGB}{30, 120, 60}
+\definecolor{failred}{RGB}{160, 40, 40}
+\definecolor{warningbg}{RGB}{255, 250, 235}
+\definecolor{warningborder}{RGB}{180, 130, 30}
+
+% ── THEOREM ENVIRONMENTS ──────────────────────────────────────────────────────
+\newtheoremstyle{thmstyle}{12pt}{8pt}{\itshape}{}{\bfseries\color{navy}}{.}{.5em}{}
+\theoremstyle{thmstyle}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\newtheoremstyle{defstyle}{12pt}{8pt}{\normalfont}{}{\bfseries\color{midblue}}{.}{.5em}{}
+\theoremstyle{defstyle}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{example}{Example}[chapter]
+
+% ── BOXES ─────────────────────────────────────────────────────────────────────
+\newtcolorbox{keybox}[1][Key Principle]{
+  enhanced, breakable, colback=boxbg, colframe=midblue,
+  fonttitle=\bfseries\color{navy}, title={#1},
+  arc=3pt, boxrule=0.8pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+
+\newtcolorbox{equationbox}{
+  enhanced, colback=lightblue!50, colframe=navy,
+  arc=4pt, boxrule=1pt, left=12pt, right=12pt, top=8pt, bottom=8pt
+}
+
+\newtcolorbox{proofbox}[1][Proof]{
+  enhanced, breakable, colback=white, colframe=navy!40,
+  fonttitle=\bfseries\color{navy}, title={#1},
+  arc=3pt, boxrule=0.6pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+
+\newtcolorbox{examplebox}[1][Example]{
+  enhanced, breakable, colback=white, colframe=accentgray!50,
+  fonttitle=\bfseries\color{accentgray}, title={#1},
+  arc=3pt, boxrule=0.6pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+
+\newtcolorbox{warnbox}[1][Important]{
+  enhanced, breakable, colback=warningbg, colframe=warningborder,
+  fonttitle=\bfseries\color{warningborder}, title={#1},
+  arc=3pt, boxrule=0.8pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+
+% ── SECTION FORMATTING ────────────────────────────────────────────────────────
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{navy}}
+  {\large\color{midblue}\MakeUppercase{\chaptername}\ \thechapter}
+  {10pt}
+  {\rule{\textwidth}{1.5pt}\vspace{4pt}}
+  [\vspace{2pt}\rule{\textwidth}{0.4pt}\vspace{6pt}]
+
+\titleformat{\section}{\normalfont\large\bfseries\color{navy}}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries\color{midblue}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\itshape\color{accentgray}}{\thesubsubsection}{1em}{}
+
+\titleformat{\part}[display]
+  {\normalfont\Huge\bfseries\color{navy}\centering}
+  {\large\color{midblue}\MakeUppercase{\partname}\ \thepart}
+  {16pt}{}[\vspace{6pt}\color{midblue}\rule{0.5\textwidth}{2pt}]
+
+% ── HEADERS ───────────────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\color{accentgray}\leftmark}
+\fancyhead[RO]{\small\color{accentgray}\rightmark}
+\fancyfoot[C]{\small\color{accentgray}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+% ── SPACING ───────────────────────────────────────────────────────────────────
+\setstretch{1.15}
+\setlength{\parskip}{7pt}
+\setlength{\parindent}{0pt}
+
+% ── SET CHAPTER COUNTER to start at 3 ─────────────────────────────────────────
+\setcounter{chapter}{2}
+\setcounter{part}{1}
+
+% ── MATH MACROS ───────────────────────────────────────────────────────────────
+\newcommand{\vstar}{V^{*}}
+\newcommand{\Nc}{N_c}
+\newcommand{\Os}{O_s}
+\newcommand{\Fa}{F_a}
+\newcommand{\Cl}{C_l}
+\newcommand{\Rp}{R_p}
+\newcommand{\Dt}{D_t}
+\newcommand{\taui}{\tau_i}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+% ──────────────────────────────────────────────────────────────────────────────
+\begin{document}
+\tableofcontents
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  PART II OPENER
+% ══════════════════════════════════════════════════════════════════════════════
+\part{The Minimal Resolution Structure}
+
+\vspace{16pt}
+\begin{center}
+\color{accentgray}\itshape
+Proving that a fully resolved commercial identity requires exactly\\
+four irreducible components --- not three, not five ---\\
+derived from the structure of the resolution fields themselves.
+\end{center}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  CHAPTER 3
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{The Four Irreducible Components}
+
+\begin{keybox}[Chapter Thesis]
+The four components of a fully resolved business name --- Category, Object, Function, and Context --- are not a naming framework invented by convention. They are irreducible requirements forced by the structure of the four resolution fields. Fewer than four cannot produce stable simultaneous resolution. More than four decompose into these. This chapter proves that claim.
+\end{keybox}
+
+\section{Why Closure Requires Exactly Four Variables}
+
+In Chapter 1, we established that the commercial resolution environment consists of four independent fields:
+\[
+\mathcal{F} = \mathcal{F}_{search} \cup \mathcal{F}_{registry} \cup \mathcal{F}_{task} \cup \mathcal{F}_{intent}
+\]
+
+In Chapter 2, we established that each field has a distinct internal structure and weights different token types differently. The registry field is noun-dominant; the task field is verb-dominant; the search field rewards query-alignment; the intent field rewards categorical clarity with geographic scope.
+
+The question before us is: \textit{What is the minimum set of variables that, when present in a name, simultaneously satisfies all four field resolution conditions?}
+
+This is a closure problem. We are looking for the minimal set of semantic components that closes the resolution system across all fields. The answer, as we will show, is exactly four.
+
+\subsection{The Proof from Field Structure}
+
+\begin{theorem}[Minimal Resolution Closure]
+The minimum set of semantic components required for simultaneous stable resolution across all four fields $\mathcal{F}_{search}$, $\mathcal{F}_{registry}$, $\mathcal{F}_{task}$, and $\mathcal{F}_{intent}$ contains exactly four elements: a Category component $\Nc$, an Object component $\Os$, a Function component $\Fa$, and a Context component $\Cl$.
+\end{theorem}
+
+\begin{proofbox}[Proof Sketch]
+We proceed by showing that each field requires at least one distinct semantic variable for stable resolution, and that no single variable satisfies more than one field completely.
+
+\textbf{Step 1 --- Registry field requires a category signal.}
+The registry field $\mathcal{F}_{registry}$ maps entities to industry categories via noun-dominant classification. For resolution probability $P_{registry}(N) \to 1$, the name must contain a signal that maps to a unique industry category. We call this signal the Category Noun $\Nc$. Without $\Nc$, the registry either misclassifies the entity or returns maximum entropy across categories.
+
+\textbf{Step 2 --- Task field requires an action signal.}
+The task field $\mathcal{F}_{task}$ maps entities to activity classifications via verb-dominant scoring. For resolution probability $P_{task}(N) \to 1$, the name must contain a signal that maps to a specific operational activity. We call this signal the Function $\Fa$. Without $\Fa$, the task field cannot determine what the entity does.
+
+\textbf{Step 3 --- Intent field requires a transaction anchor.}
+The intent field $\mathcal{F}_{intent}$ evaluates conversion probability at the moment of selection. For $P_{intent}(N) \to 1$, the name must make the economic transaction legible: what specific thing is being offered? This requires a signal that specifies the economic unit being acted upon. We call this signal the Object $\Os$. Without $\Os$, a potential customer must infer what they are actually receiving, which depresses conversion probability.
+
+\textbf{Step 4 --- Search field requires a scope signal.}
+The search field $\mathcal{F}_{search}$ resolves queries that are not only categorical but contextual: people search for services in specific geographies, for specific audiences, in specific circumstances. For $P_{search}(N)$ to achieve maximum performance in local and targeted search contexts, the name benefits from a Context signal $\Cl$ that reduces the search space to the relevant scope. Without $\Cl$, the entity competes in the global field rather than the local one.
+
+\textbf{Step 5 --- No variable satisfies two fields completely.}
+$\Nc$ satisfies $\mathcal{F}_{registry}$ but does not resolve $\mathcal{F}_{task}$ (``plumbing company'' is a category but does not specify the action). $\Fa$ satisfies $\mathcal{F}_{task}$ but does not resolve $\mathcal{F}_{registry}$ (``repair'' is an action but does not specify what industry). $\Os$ satisfies $\mathcal{F}_{intent}$ but does not resolve $\mathcal{F}_{registry}$ (``pipes'' specifies the object but not the industry category). $\Cl$ reduces search space but does not replace any of the above.
+
+\textbf{Conclusion:} Each field requires at least one distinct component, the components are not interchangeable, and their union $\{\Nc, \Os, \Fa, \Cl\}$ is sufficient for simultaneous resolution across all four fields. The count is exactly four. $\blacksquare$
+\end{proofbox}
+
+\subsection{Fewer Than Four Cannot Produce Stable Resolution}
+
+Let us demonstrate concretely what happens when each component is removed in turn, as a further verification of the theorem.
+
+\textbf{Three components: missing $\Nc$ (Category).}
+Name: ``Dallas Pipe Repair'' (Context + Object + Function, no Category noun).
+What the registry sees: the word ``repair'' activates multiple industries (automotive, home, electronics, plumbing). Without a category noun, the registry must choose between them with low confidence. The entity may be assigned to the wrong industry, may fail to appear in category-specific searches, and will not map correctly to Google Business Profile categories.
+
+\textbf{Three components: missing $\Fa$ (Function).}
+Name: ``Dallas Plumbing Pipes'' (Context + Category + Object, no Function).
+What the task field sees: the entity exists in the plumbing category and involves pipes, but the task is unspecified. Does it sell pipes? Repair them? Install them? Inspect them? The task field cannot resolve. O*NET classification fails. Platform-based matching systems cannot include this entity in contractor searches.
+
+\textbf{Three components: missing $\Os$ (Object).}
+Name: ``Dallas Plumbing Repair'' (Context + Category + Function).
+What the intent field sees: the entity is a Dallas plumbing repair business, but the object of the repair is unspecified. This is near full resolution and will function well in most contexts --- ``plumbing'' is a strong enough category noun that the object (pipes, fixtures, systems) is implied. However, when the object is genuinely ambiguous (``Business Strategy Consulting'' vs. ``Business Algorithm Consulting''), the missing $\Os$ creates intent-field ambiguity.
+
+\textbf{Three components: missing $\Cl$ (Context).}
+Name: ``Plumbing Pipe Repair Company'' (Category + Object + Function + Category, no Context).
+What the search field sees: the entity is fully classified but geographically unscoped. In a competitive local market, it will rank below contextually scoped competitors. This is the weakest failure mode --- local context is sometimes inferable from the entity's location data --- which is why $\Cl$ is designated the optional component in the compressed form of the equation.
+
+\subsection{More Than Four Decomposes Into These}
+
+The converse of the minimality proof: any additional semantic component in a business name that carries genuine resolution information will, on analysis, decompose into one of the four irreducible components.
+
+Consider the name ``Certified Dallas Emergency Pipe Repair Company.'' It appears to have more than four components. But:
+\begin{itemize}[leftmargin=1.5em]
+  \item ``Certified'' is an attribute modifier --- it is decorative from the resolution perspective, carrying no new field-classification signal
+  \item ``Dallas'' = $\Cl$ (Context)
+  \item ``Emergency'' is a specificity modifier of $\Cl$ (it narrows the urgency scope, which is a sub-dimension of context)
+  \item ``Pipe'' = $\Os$ (Object)
+  \item ``Repair'' = $\Fa$ (Function)
+  \item ``Company'' = $\Nc$ (Category)
+\end{itemize}
+
+Every meaningful component maps to one of the four. The additional words either enrich an existing component's specificity or are decorative. The four-component structure is the irreducible skeleton.
+
+\section{Component One: The Category Noun ($N_c$)}
+
+\begin{definition}[Category Noun]
+The Category Noun $\Nc$ is the semantic component of a business name that maps to a formal industry identity in classification systems. It is the primary signal by which registry fields, directory systems, and AI classification tools assign the entity to an industry category.
+\[
+\Nc \rightarrow \text{industry identity}
+\]
+\end{definition}
+
+\subsection{$N_c$ Maps to Industry Identity}
+
+The Category Noun is the most structurally critical component of the four because it performs the heaviest lifting in the registry field --- the field where the official record of what a business is gets established. Once the registry field has a firm classification, that classification propagates through downstream systems that rely on registry data: directories, maps, review platforms, business-to-business databases, industry statistics.
+
+Strong category nouns are those that map to a single, unambiguous NAICS or Google Business Profile category. Weak category nouns are those that either map to multiple categories simultaneously or fail to map to any established category.
+
+\begin{examplebox}[Strong vs. Weak Category Nouns]
+\textbf{Strong $\Nc$ (unambiguous registry mapping):}
+\begin{itemize}[leftmargin=1.5em]
+  \item ``Plumber'' $\rightarrow$ NAICS 238220, GMB: Plumber
+  \item ``Attorney'' $\rightarrow$ NAICS 541110, GMB: Law firm
+  \item ``Roofer'' $\rightarrow$ NAICS 238160, GMB: Roofing contractor
+  \item ``Tax Preparation'' $\rightarrow$ NAICS 541213, GMB: Tax preparation service
+\end{itemize}
+
+\textbf{Weak $\Nc$ (ambiguous or absent registry mapping):}
+\begin{itemize}[leftmargin=1.5em]
+  \item ``Solutions'' $\rightarrow$ maps to 40+ NAICS codes across unrelated industries
+  \item ``Services'' $\rightarrow$ maps to hundreds of NAICS codes
+  \item ``Logic'' $\rightarrow$ maps to no established GMB category
+  \item ``Group'' $\rightarrow$ maps to no established industry identity
+\end{itemize}
+\end{examplebox}
+
+The failure mode for a weak or absent $\Nc$ is silent but severe. The business does not receive an error message. It simply gets classified into whatever category the registry system's algorithm decides is most likely based on the non-categorical signals in the name --- and that guess is often wrong, leading to the business appearing in the wrong directory sections, receiving the wrong related-business recommendations, and failing to appear when customers search by category.
+
+\subsection{NAICS Alignment and Google Business Category Targeting}
+
+The Category Noun is the bridge between a business name and two critical infrastructure systems: the NAICS code system and the Google Business Profile (GBP) category system.
+
+The \textbf{NAICS} (North American Industry Classification System) is the standard used by the U.S. Census Bureau, the BLS, the SBA, and thousands of data systems that build on federal economic data. A business that maps cleanly to a NAICS code receives correct classification in every system that consumes NAICS data.
+
+The \textbf{Google Business Profile} category system is the most commercially significant classification system for the majority of consumer-facing businesses. There are over 4,000 GBP categories. The category assigned to a GBP listing determines which searches it appears in, which competitors are shown alongside it, and what review categories are available. A name that strongly implies the correct GBP category makes automatic category assignment accurate. A name that does not forces the business owner to manually navigate a 4,000-entry list --- and research consistently shows that manually selected categories are suboptimal compared to those driven by strong name signals.
+
+\subsection{What Happens When $N_c$ Is Missing}
+
+When the Category Noun is absent, the following failures occur in measurable sequence:
+
+\begin{enumerate}[leftmargin=1.5em]
+  \item \textbf{Registry misclassification}: The entity is assigned to a default or incorrect category, typically based on the most common interpretation of whatever words are present in the name
+  \item \textbf{Search invisibility for category queries}: The entity does not appear in searches like ``[category] near me'' because it is not registered in the correct category
+  \item \textbf{Reduced local pack visibility}: Google's local pack (the map results shown for local service queries) prioritizes entities with strong category-name alignment
+  \item \textbf{Manual correction burden}: The business owner must repeatedly and manually update category assignments as platforms evolve
+  \item \textbf{Inference tax accumulation}: Every system that encounters the entity must infer its category, and each inference event is an opportunity for error
+\end{enumerate}
+
+\begin{keybox}[The $N_c$ Rule]
+If the category of your business cannot be determined with high confidence from the name alone --- without looking at your website, your description, or your service offerings --- your $\Nc$ is either missing or weak. This is the single most expensive naming failure in terms of long-term registry and search consequences.
+\end{keybox}
+
+\section{Component Two: The Object ($O_s$)}
+
+\begin{definition}[Object Component]
+The Object $\Os$ is the semantic component of a business name that specifies the economic unit being acted upon. It defines what, precisely, the business's primary activity is directed toward: what is being repaired, built, managed, sold, treated, or transformed.
+\[
+\Os \rightarrow \text{transaction anchor}
+\]
+\end{definition}
+
+\subsection{$O_s$ Defines the Economic Unit}
+
+The Object component is the transaction anchor. It answers the question every potential customer is implicitly asking at the moment of selection: \textit{What exactly am I getting?}
+
+This matters because the intent field evaluates conversion probability based on the clarity of the offering. When the object is specified, the customer's mental model of the transaction is complete before they make contact. When the object is absent or vague, the customer must do additional cognitive work to understand the offering --- and cognitive friction at the decision point reduces conversion probability.
+
+The Object component most commonly takes the form of a noun that names the specific thing the business works with or produces:
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Business Activity} & \textbf{$\Os$ (Transaction Anchor)} \\
+\midrule
+Plumbing repair & Pipes / Fixtures \\
+Roof installation & Roof / Shingles \\
+Software development & Applications / Systems \\
+Business consulting & Operations / Strategy / Algorithms \\
+Tax preparation & Returns / Filings \\
+Hair styling & Hair \\
+HVAC service & Systems / Units \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Note that the Object component sometimes overlaps with the Category Noun. ``Roofing Contractor'' uses ``Roofing'' as both $\Nc$ (it is the industry category) and implicitly as $\Os$ (roofs are the object). This is permissible and efficient --- a single word can carry double resolution load when it functions as both category and object simultaneously.
+
+\subsection{The Transaction Anchor and Conversion Probability}
+
+The relationship between the Object component and conversion probability is direct and measurable.
+
+Consider two plumbing businesses:
+\begin{itemize}[leftmargin=1.5em]
+  \item \textbf{A}: ``Dallas Plumbing Repair''
+  \item \textbf{B}: ``Dallas Pipe and Fixture Repair Company''
+\end{itemize}
+
+Business B's name specifies the object precisely (pipe and fixture). A customer with a broken pipe fixture reads the name and immediately confirms: this is the right business for my problem. Business A's name leaves the object implicit --- plumbing is the category, but the customer must infer that pipe and fixture repair falls within it. In most cases this inference is fast and accurate. But in competitive search environments, the more precisely resolved name wins marginal selections.
+
+More important is the case where the Object is genuinely ambiguous. A business named ``Business Strategy Consulting'' has a vague $\Os$ --- strategy is not an object, it is a process category. A business named ``Business Operations Consulting'' specifies the object more clearly (operations is what is being optimized). A business named ``Business Algorithm Consulting'' specifies it most precisely. The progression is not about creativity but about intent-field resolution precision.
+
+\subsection{What Happens When $O_s$ Is Missing}
+
+When the Object component is absent, the entity fails to fully anchor the transaction in the customer's mind at the moment of selection. The specific failure modes depend on the industry:
+
+In service businesses, missing $\Os$ produces \textbf{scope ambiguity}: the customer cannot determine whether the business does what they need without additional investigation. This is not fatal in every case, but it introduces friction at every conversion point.
+
+In professional services and consulting, missing $\Os$ is more damaging because the category (``consulting,'' ``advisory,'' ``strategy'') is so generic that it could apply to virtually any subject matter. The Object component is what differentiates one consulting business from another in these fields.
+
+In product businesses, missing $\Os$ is catastrophic: without knowing what the product is, neither search systems nor customers can evaluate relevance.
+
+\begin{warnbox}[The Scope Ambiguity Trap]
+The most common form of missing $\Os$ is the use of a process noun (``strategy,'' ``solutions,'' ``management,'' ``services'') where an object noun is required. Process nouns describe how a business works, not what it works on. They satisfy no resolution field and contribute significantly to semantic entropy.
+\end{warnbox}
+
+\section{Component Three: The Function ($F_a$)}
+
+\begin{definition}[Function Component]
+The Function $\Fa$ is the semantic component of a business name that specifies what operation the business performs. It resolves the task field by encoding the primary action the business takes on the object.
+\[
+\Fa \rightarrow \text{task resolution}
+\]
+\end{definition}
+
+\subsection{$F_a$ Defines the Operation}
+
+The Function component is the action variable. It answers the fundamental task-classification question: \textit{What does this entity do?}
+
+In the resolution field framework, $\Fa$ is the primary variable for the task field ($\mathcal{F}_{task}$) and makes a significant secondary contribution to the search field. Customer queries almost always begin with an action verb or its nominalization: ``roof repair,'' ``tax preparation,'' ``pipe installation,'' ``hair styling.'' A name that contains the same action word that appears in these queries achieves high search-field alignment by construction.
+
+Strong $\Fa$ tokens are action-specific and industry-unambiguous:
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Action Word} & \textbf{Function it encodes} & \textbf{Disambiguation needed?} \\
+\midrule
+Repair & Restoration of broken item & Needs $\Nc$ for industry \\
+Install & Physical placement/setup & Needs $\Os$ for object \\
+Consult & Advisory services & Needs $\Os$ for subject \\
+Design & Creation of new form & Needs $\Nc$ or $\Os$ \\
+Prepare & Processing/completion & Strong: ``Tax Preparation'' \\
+Manage & Ongoing operational control & Needs $\Os$ \\
+Clean & Removal of contaminants & Needs $\Os$ or $\Nc$ \\
+Build & Physical construction & Needs $\Os$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The table reveals an important structural point: most Function tokens are strong in the task field but require the presence of $\Os$ or $\Nc$ to achieve specificity. This is why the four components work as a system --- each one depends on the others to achieve full disambiguation.
+
+\subsection{Task Resolution and Action Interpretation}
+
+The task field resolves the entity into the occupational taxonomy that determines how it is classified in platform-based matching systems. O*NET, the most comprehensive occupational classification system, organizes all work activity by task verb. When a business name contains a strong $\Fa$ that corresponds to an O*NET task category, the entity is classifiable into the relevant occupation without manual data entry.
+
+This matters most in the following commercial contexts:
+\begin{itemize}[leftmargin=1.5em]
+  \item \textbf{Contractor platforms} (Angi, HomeAdvisor, Thumbtack): Match businesses to customer requests based on task classification. Businesses with strong $\Fa$ tokens are matched automatically. Businesses without them require manual category selection, which reduces match accuracy.
+  \item \textbf{B2B procurement platforms}: Classify vendors by service type for procurement matching. $\Fa$ is the primary classification signal.
+  \item \textbf{AI-powered search tools}: Next-generation search (AI assistants, conversational search) interprets queries by task intent. A business whose name contains the task verb that matches the user's query intent is significantly more likely to be surfaced.
+  \item \textbf{Voice search}: Voice queries are almost entirely action-phrase structured (``find someone to repair my roof''). The $\Fa$ token in the business name determines whether it matches the query's action component.
+\end{itemize}
+
+\subsection{What Happens When $F_a$ Is Missing}
+
+The absence of $\Fa$ produces inference tax ($\taui$) of a particular character: the market must infer what the business does by examining all available signals outside the name itself. This requires reading the website, examining reviews, visiting the profile --- all of which introduce friction, time cost, and the opportunity for the customer to choose a competitor who is more immediately legible.
+
+The inference tax for missing $\Fa$ is especially high in the following scenario: a customer who is under time pressure (high Resolution Pressure, which we formalize in Part V) has minimal patience for investigating what a business does. They need to know immediately. A name that requires them to click through before they can assess relevance loses a disproportionate share of high-urgency customers --- precisely the customers with the highest conversion probability.
+
+Consider the name ``Business Algorithms.'' It has a strong $\Os$ (algorithms) and a reasonable $\Nc$ (business, functioning as domain category). But it has no $\Fa$. The market must infer: does this business build algorithms? Sell them? Consult on them? Train people in them? Audit them? Without $\Fa$, the answer is unknown. The name requires investigation before the transaction can even be considered.
+
+Add the function: ``Business Algorithm Consulting.'' Now the transaction is legible. The market does not need to investigate.
+
+\section{Component Four: The Context ($C_l$)}
+
+\begin{definition}[Context Component]
+The Context $\Cl$ is the semantic component of a business name that defines the scope within which the entity operates. Most commonly this is a geographic locality, but it can also specify the target audience, market segment, or operational domain.
+\[
+\Cl \rightarrow \text{search-space reduction}
+\]
+\end{definition}
+
+\subsection{$C_l$ as Search-Space Reduction}
+
+The Context component performs a specific and measurable function in the resolution environment: it reduces the search space from global to local, from generic to specific, from every potential customer to the right potential customer.
+
+From the perspective of the search field, geographic context is the difference between ranking in the local pack (the map results shown to customers in your geographic area, which generates the highest-intent traffic for local service businesses) and ranking in the global search pool (where you compete against every business in your category nationwide or worldwide).
+
+From the perspective of the intent field, audience context (``small business,'' ``commercial,'' ``residential,'' ``enterprise'') tells potential customers whether the offering is designed for them, reducing the cognitive step of self-selection.
+
+\begin{examplebox}[The Power of Geographic Context]
+\textbf{Without $\Cl$:}
+``Roof Repair Company'' --- ranks against every roofing company indexed. Without location data, even a Google Business Profile with accurate address information is less competitive than a name that contains the location explicitly.
+
+\textbf{With $\Cl$:}
+``Dallas Roof Repair Company'' --- the geographic token ``Dallas'' creates an immediate local vector alignment. The search field treats this as a locally-scoped entity. The local pack algorithm gives it priority for Dallas-area searches. A customer in Dallas searching for roof repair sees an entity whose name confirms it serves their market.
+
+\textbf{The measurable difference:}
+For a service business operating in a defined geographic market, a name containing the market's primary geographic identifier achieves local pack visibility faster, with less accumulated review volume and GMB activity, than an equivalent business with identical services but a geographically non-specific name.
+\end{examplebox}
+
+\subsection{Local Dominance and the Geography of Intent}
+
+The geography of intent refers to the structural fact that most consumer service decisions are locally constrained. A customer needing a plumber does not want a national average; they want someone who can come to their house. The intent field for local services is therefore not simply categorical but geo-categorical: the resolution requires both industry classification and geographic proximity.
+
+A name that encodes both the category noun and the geographic context satisfies the geo-categorical intent query by construction. This is why ``Austin HVAC Repair'' outperforms ``Climate Solutions'' in Austin-area HVAC searches even if the second business has been in business longer, has better reviews, and has invested significantly more in marketing. The first name resolves the geo-categorical intent directly. The second requires everything except the name to do that work.
+
+\subsection{When Context Is Optional and When It Is Not}
+
+$\Cl$ is listed in the compressed form of the Minimal Resolution Template as optional because its contribution to resolution depends on the business type:
+
+\textbf{When $\Cl$ is critical:}
+\begin{itemize}[leftmargin=1.5em]
+  \item Local service businesses (any business serving a defined geographic area)
+  \item Professional services with regional licensing or market scope
+  \item Any business competing in a dense local market where geographic disambiguation is necessary for local pack visibility
+\end{itemize}
+
+\textbf{When $\Cl$ can be omitted:}
+\begin{itemize}[leftmargin=1.5em]
+  \item Digital-native businesses serving national or global markets
+  \item Platforms, software products, and SaaS tools
+  \item Businesses where geographic scope is irrelevant to the customer's selection decision
+\end{itemize}
+
+\textbf{When $\Cl$ takes non-geographic form:}
+\begin{itemize}[leftmargin=1.5em]
+  \item ``Commercial Roof Repair'' ($\Cl$ = ``Commercial,'' scoping to the B2B segment)
+  \item ``Small Business Algorithm Consulting'' ($\Cl$ = ``Small Business,'' scoping the audience)
+  \item ``Enterprise Security Solutions'' ($\Cl$ = ``Enterprise,'' scoping the market tier)
+\end{itemize}
+
+The rule for $\Cl$ is: if your target customer is a subset of all possible customers in your category, and that subset has a clear label, that label belongs in your name.
+
+\section{Chapter Summary}
+
+Chapter 3 establishes the following:
+
+\textbf{1. The four components are forced by the field structure.} They are not a naming convention. They are the minimum closure set for the four-field resolution environment.
+
+\textbf{2. $N_c$ (Category Noun)} maps to industry identity and is the primary signal for registry classification. Without it, formal classification fails.
+
+\textbf{3. $O_s$ (Object)} defines the transaction anchor and is the primary driver of intent-field conversion probability. Without it, the market cannot determine what it is buying.
+
+\textbf{4. $F_a$ (Function)} specifies the operation and resolves the task field. Without it, platform matching and action-intent search fail.
+
+\textbf{5. $C_l$ (Context)} reduces the search space and enables local or audience-specific resolution. It is the optional component but is critical for local businesses.
+
+\textbf{6. No set of three components can achieve full simultaneous resolution.} Each field requires its own distinct semantic signal. The four components are the minimal sufficient set.
+
+\begin{equationbox}
+\textbf{Core Equations from Chapter 3:}
+\[
+\Nc \rightarrow \text{industry identity} \quad \text{(registry field signal)}
+\]
+\[
+\Os \rightarrow \text{transaction anchor} \quad \text{(intent field signal)}
+\]
+\[
+\Fa \rightarrow \text{task resolution} \quad \text{(task field signal)}
+\]
+\[
+\Cl \rightarrow \text{search-space reduction} \quad \text{(search field signal)}
+\]
+\[
+\text{Minimal closure set:} \quad \{\Nc, \Os, \Fa, \Cl\}
+\]
+\end{equationbox}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  CHAPTER 4
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{The Minimal Resolution Equation}
+
+\begin{keybox}[Chapter Thesis]
+The four irreducible components combine into a single equation that defines the optimal business name: the Minimal Resolution Template $\vstar = \Cl + \Os + \Fa + \Nc$. This chapter derives the equation formally, demonstrates its behavior across all four resolution fields, defines the Stable Atom and Algorithmic Autonomy precisely, and applies the framework to concrete examples. The chapter closes with the Deterministic Naming Principle stated in its final form.
+\end{keybox}
+
+\section{Deriving $V^* = C_l + O_s + F_a + N_c$}
+
+Having established in Chapter 3 that stable simultaneous resolution across all four fields requires exactly the four components $\{\Nc, \Os, \Fa, \Cl\}$, we now derive the optimal name string that encodes all four.
+
+\begin{definition}[Minimal Resolution Template]
+The Minimal Resolution Template $\vstar$ is the shortest name string that encodes all four resolution components simultaneously, thereby achieving maximum resolution probability across all fields with minimum semantic entropy:
+\begin{equation}
+\vstar = \Cl + \Os + \Fa + \Nc
+\label{eq:vstar}
+\end{equation}
+where $+$ denotes semantic concatenation (ordered inclusion in the name string), and the ordering follows standard English noun-phrase construction.
+\end{definition}
+
+The ordering $\Cl \to \Os \to \Fa \to \Nc$ reflects two constraints:
+
+\textbf{Natural language alignment:} English-language business names conventionally place geographic context first (``Dallas Roof Repair Company'' rather than ``Roof Repair Company Dallas''). This convention is not arbitrary; it reflects the structure of geo-categorical queries in which the location scopes the subsequent category.
+
+\textbf{Resolution field priority:} Context reduces the search space first, allowing subsequent components to operate in a smaller, more precisely defined field. Object and Function together anchor the transaction. Category confirms the industry identity at the end.
+
+\subsection{The Compressed Form}
+
+For businesses that do not require geographic or audience scoping, the Context component $\Cl$ is optional. The compressed form of the Minimal Resolution Template is:
+
+\begin{equation}
+\vstar = \Os + \Fa + \Nc
+\label{eq:vstar_compressed}
+\end{equation}
+
+This is the minimum viable name for a business that either operates in a non-local market or whose geographic scope is adequately provided by location metadata (GMB address, website IP, etc.).
+
+Examples of compressed-form names that achieve Stable Atom status:
+\begin{itemize}[leftmargin=1.5em]
+  \item ``Tax Preparation Services'' ($\Os$ = Tax, $\Fa$ = Preparation, $\Nc$ = Services)
+  \item ``Roof Repair Company'' ($\Os$ = Roof, $\Fa$ = Repair, $\Nc$ = Company)
+  \item ``Business Algorithm Consulting'' ($\Os$ = Business Algorithm, $\Fa$ = implied, $\Nc$ = Consulting)
+  \item ``Pipe Installation Contractors'' ($\Os$ = Pipe, $\Fa$ = Installation, $\Nc$ = Contractors)
+\end{itemize}
+
+\subsection{Why ``Shortest String'' Matters}
+
+The equation specifies the \textit{shortest} string satisfying the resolution conditions, not merely \textit{a} string satisfying them. This is for two reasons:
+
+First, additional words beyond those required for resolution do not improve resolution --- they add semantic entropy without adding classification information. ``Professional Certified Expert Roof Repair Services Company'' has worse entropy characteristics than ``Roof Repair Company'' because the additional words (professional, certified, expert) contribute decorative noise to the system's evaluation without adding new field signals.
+
+Second, shorter names are faster to process, easier to remember, and more transmissible (a property we formalize in Chapter 9 as the Transmissibility Coefficient $T$). The minimum sufficient length is the optimal length.
+
+\begin{keybox}[The Minimum String Principle]
+The optimal name is the shortest string that satisfies all required resolution variables simultaneously. Adding words beyond this minimum degrades performance unless those words encode a resolution component that was previously missing.
+\end{keybox}
+
+\section{The Compressed Form and When to Use It}
+
+Practitioners frequently ask: should I always include the geographic context, or is it safe to omit? The decision rule is:
+
+\begin{enumerate}[leftmargin=1.5em]
+  \item \textbf{Include $\Cl$ when:} Your primary customers are geographically concentrated, your competition is local, and local pack search visibility is a significant part of your acquisition strategy.
+  \item \textbf{Omit $\Cl$ when:} Your market is national or global, you operate digitally without geographic constraint, or your business serves a defined audience segment better described by a non-geographic context word.
+  \item \textbf{Use audience-context $\Cl$ when:} Your market is defined by customer type rather than geography (``Small Business Tax Preparation'' rather than ``Dallas Tax Preparation'').
+\end{enumerate}
+
+The compressed form $\vstar = \Os + \Fa + \Nc$ is sufficient for Stable Atom status in national and digital markets. The full form $\vstar = \Cl + \Os + \Fa + \Nc$ is required for maximum performance in local service markets.
+
+\section{System Behavior at Full Resolution}
+
+We now demonstrate what happens across each resolution field when a name satisfies the Minimal Resolution Template.
+
+\subsection{Search Resolution: $P(\text{query match} \mid V^*) \to 1$}
+
+\begin{proposition}[Search Resolution at $\vstar$]
+A name satisfying the Minimal Resolution Template achieves near-unity query match probability in the search field because its component structure mirrors the natural structure of customer queries.
+\[
+P(\text{query match} \mid \vstar) \to 1
+\]
+\end{proposition}
+
+Customer search queries overwhelmingly follow the structure:
+\[
+\text{query} = [\text{action verb or nominalization}] + [\text{object}] + [\text{location/context}]
+\]
+
+For example: ``roof repair Dallas,'' ``tax preparation near me,'' ``pipe installation contractor.''
+
+The Minimal Resolution Template $\Cl + \Os + \Fa + \Nc$ contains exactly the same semantic components as these queries, in a compatible ordering. The search field's similarity function between the name embedding and the query embedding therefore returns a high score, producing strong search visibility for the precise queries made by the target customer.
+
+This is not accidental alignment. It is structural alignment: the template was derived from the same field requirements that determine query structure. A name built on the template is maximally aligned with the queries that customers actually use.
+
+\subsection{Registry Resolution: $P(\text{category} \mid V^*) \to 1$}
+
+\begin{proposition}[Registry Resolution at $\vstar$]
+A name satisfying the Minimal Resolution Template achieves near-unity category classification probability in registry systems.
+\[
+P(\text{category} \mid \vstar) \to 1
+\]
+\end{proposition}
+
+The Category Noun $\Nc$ maps directly to registry classification categories. Combined with the Object $\Os$ (which provides additional industry-specificity signal) and the Function $\Fa$ (which confirms the operational type), the name provides registry systems with sufficient information to achieve unambiguous, accurate classification without inference.
+
+The result is: the entity appears in the correct categories across NAICS, GMB, and all derivative directory and data systems automatically, from the moment it enters the environment. The business owner does not need to manually correct misclassifications, fight with autocomplete suggestions, or spend months building enough reviews to overcome classification uncertainty.
+
+\subsection{Task Resolution: $P(\text{task} \mid V^*) \to 1$}
+
+\begin{proposition}[Task Resolution at $\vstar$]
+A name satisfying the Minimal Resolution Template achieves near-unity task classification probability in O*NET and platform matching systems.
+\[
+P(\text{task} \mid \vstar) \to 1
+\]
+\end{proposition}
+
+The Function $\Fa$ maps to O*NET task categories. Combined with the Object $\Os$, it specifies not just the category of work but the specific activity performed on a specific type of object. This combination produces precise task classification that enables accurate platform matching across contractor marketplaces, professional service directories, and AI-powered procurement tools.
+
+\subsection{Intent Resolution: $P(\text{conversion} \mid V^*) \to 1$}
+
+\begin{proposition}[Intent Resolution at $\vstar$]
+A name satisfying the Minimal Resolution Template achieves maximum conversion clarity in the intent field, approaching unity conversion probability among customers who find the entity through correctly targeted search.
+\[
+P(\text{conversion} \mid \vstar) \to 1
+\]
+\end{proposition}
+
+The Object $\Os$ anchors the transaction. The Function $\Fa$ confirms what action is being performed. The Category $\Nc$ confirms the industry context. Together, these three components give the potential customer a complete and accurate mental model of the transaction before they make contact.
+
+The result is a name that converts at maximum efficiency among the correctly targeted audience. There is no inference required. No additional investigation before first contact. No ambiguity about whether the business does what the customer needs. The transaction model is encoded in the name itself.
+
+\section{The Stable Atom Defined Formally}
+
+We can now state the Stable Atom condition precisely in terms of the Minimal Resolution Template.
+
+\begin{definition}[Stable Atom --- Formal Definition]
+A business entity achieves Stable Atom status when its name satisfies the Minimal Resolution Template:
+\[
+\text{Name} \supseteq \{\Nc, \Os, \Fa\} \quad (\text{minimum})
+\]
+\[
+\text{Name} \supseteq \{\Nc, \Os, \Fa, \Cl\} \quad (\text{for local markets})
+\]
+This produces the alignment state:
+\[
+\alpha \to 1, \quad \sigma \to 0, \quad \tau_i \to 0
+\]
+where $\alpha$ is the semantic alignment coefficient, $\sigma$ is the vector drift coefficient, and $\taui$ is the inference tax, all defined formally in Part III.
+\end{definition}
+
+The three mathematical conditions at Stable Atom state have the following plain-English interpretations:
+
+$\alpha \to 1$: The name says exactly what the business is. There is no gap between what the name communicates and what the resolution systems expect to find. Zero explanation cost.
+
+$\sigma \to 0$: The name does not drift toward unintended categories. A potential customer reading the name thinks only of the intended business. Competing interpretations are effectively eliminated.
+
+$\taui \to 0$: No system --- human or automated --- is spending resources inferring what the name means. The name resolves on first contact, in every field, without ambiguity.
+
+\section{Algorithmic Autonomy: When the System Maintains You for Free}
+
+The deepest consequence of achieving Stable Atom status is what we call \textbf{Algorithmic Autonomy}: the state in which the automated systems of the commercial environment maintain the entity's market presence without requiring continuous human intervention.
+
+\begin{definition}[Algorithmic Autonomy]
+Algorithmic Autonomy is achieved when an entity's name resolves completely across all fields such that search engines, registry systems, directory platforms, and intent evaluation systems automatically maintain the entity's correct classification and visibility as part of their normal operation.
+
+Formally, Algorithmic Autonomy holds when:
+\[
+\text{Name} \equiv \text{Category} \equiv \text{Object} \equiv \text{Function}
+\]
+The entity becomes the system's default answer for queries in its category, object, and function space.
+\end{definition}
+
+The economic value of Algorithmic Autonomy is enormous and rarely appreciated at the moment of naming. A business that achieves it receives a continuous, compounding benefit: every time a customer searches for the relevant service in the relevant context, the entity is surfaced by the algorithm without any marketing spend required to produce that result. The algorithm is doing the marketing.
+
+A business that does not achieve it must continuously spend to compensate. Every month in which the algorithm does not automatically surface the business is a month in which the marketing budget is paying for what the name should have provided for free.
+
+Over five years, the difference between a Stable Atom and a Ghost State --- in marketing spend alone, not counting the slower growth rate, lower conversion efficiency, and missed referral opportunities --- can easily exceed the entire annual revenue of a small business.
+
+\textbf{This is the economic argument for naming precision.} It is not a creative argument. It is a financial argument derived from measurable mechanics.
+
+\section{Real Examples: Fully Resolved vs. Partially Resolved Names}
+
+We now apply the framework to concrete cases, demonstrating how the Minimal Resolution Template diagnoses both well-resolved and poorly-resolved names.
+
+\subsection{Dallas Roof Repair Company --- Full Resolution Analysis}
+
+\begin{examplebox}[Full Resolution: Dallas Roof Repair Company]
+\textbf{Component decomposition:}
+\begin{itemize}[leftmargin=1.5em]
+  \item $\Cl$ = ``Dallas'' (geographic context, Texas market)
+  \item $\Os$ = ``Roof'' (object: the economic unit being acted upon)
+  \item $\Fa$ = ``Repair'' (function: the operation performed)
+  \item $\Nc$ = ``Company'' (category: formal business entity)
+\end{itemize}
+
+\textbf{Field resolution check:}
+\begin{itemize}[leftmargin=1.5em]
+  \item Search field: Query ``roof repair Dallas'' matches name components directly. $P_{search} \to 1$.
+  \item Registry field: ``Company'' + ``Roof'' + ``Repair'' maps to NAICS 238160 (Roofing Contractors) and GMB category ``Roofing contractor.'' $P_{registry} \to 1$.
+  \item Task field: ``Repair'' maps to O*NET task category 47-2181 (Roofers). $P_{task} \to 1$.
+  \item Intent field: ``Dallas Roof'' + ``Repair'' confirms the transaction: roof repair services in Dallas. $P_{intent} \to 1$.
+\end{itemize}
+
+\textbf{Resolution verdict:} Stable Atom. All four fields resolve at near-unity probability. Algorithmic Autonomy achieved for Dallas-area roof repair queries.
+
+\textbf{Creative quality assessment:} The name is not stylistically creative. It does not require creativity to be effective. Effectiveness here is a function of precision, not aesthetics.
+\end{examplebox}
+
+\subsection{Business Algorithms --- Missing Function Diagnosis}
+
+\begin{examplebox}[Partial Resolution: Business Algorithms]
+\textbf{Component decomposition:}
+\begin{itemize}[leftmargin=1.5em]
+  \item $\Cl$ = absent
+  \item $\Os$ = ``Algorithms'' (object: the economic unit --- present but highly specialized)
+  \item $\Fa$ = \textbf{absent}
+  \item $\Nc$ = ``Business'' (functioning as domain context, very weak category signal)
+\end{itemize}
+
+\textbf{Field resolution check:}
+\begin{itemize}[leftmargin=1.5em]
+  \item Search field: Queries like ``business algorithm consulting'' will not match the name directly because the function (consulting) is absent. Moderate search visibility for informational queries, poor visibility for commercial queries. $P_{search} \approx 0.4$.
+  \item Registry field: No clear industry category noun. ``Business'' maps to hundreds of NAICS codes. Registry classification will be inaccurate or default. $P_{registry} \approx 0.2$.
+  \item Task field: No action verb. O*NET cannot classify this entity by task. $P_{task} \approx 0.1$.
+  \item Intent field: What does this business do with algorithms? Build them? Sell them? Consult on them? Teach them? The transaction is completely undefined. $P_{intent} \approx 0.2$.
+\end{itemize}
+
+\textbf{Failure mode:} Missing $\Fa$ (Function). The entity has an interesting object but no action. Every system must infer what the business does.
+
+\textbf{Resolution:} ``Business Algorithm Consulting'' adds the Function ($\Fa$ = Consulting) and also upgrades the Category ($\Nc$ = Consulting). This single addition takes the entity from partial resolution to near-Stable Atom status.
+
+\textbf{Inference tax estimate:} Without the function, this business must rely on website content, business description, and accumulated reviews to communicate what it does --- all of which require ongoing investment to maintain. The function word ``Consulting'' costs zero additional effort to add to the name and would have provided this disambiguation for the lifetime of the business.
+\end{examplebox}
+
+\subsection{ProfitLogic --- All Components Missing}
+
+\begin{examplebox}[Ghost State: ProfitLogic]
+\textbf{Component decomposition:}
+\begin{itemize}[leftmargin=1.5em]
+  \item $\Cl$ = absent
+  \item $\Os$ = absent (``Profit'' implies financial outcome but names no economic unit)
+  \item $\Fa$ = absent
+  \item $\Nc$ = absent (``Logic'' is not a business category in any classification system)
+\end{itemize}
+
+\textbf{Field resolution check:}
+\begin{itemize}[leftmargin=1.5em]
+  \item Search field: No customer queries ``ProfitLogic.'' This name is the search destination, not the search query. It can only be found by customers who already know it exists. $P_{search} \approx 0.05$.
+  \item Registry field: ``Logic'' maps to no NAICS code. Registry classification will fail entirely or default to a generic category. $P_{registry} \approx 0.05$.
+  \item Task field: No action verb of any kind. Completely unresolvable. $P_{task} \approx 0$.
+  \item Intent field: What profit? Whose logic? For what business? The transaction is completely undefined. $P_{intent} \approx 0.05$.
+\end{itemize}
+
+\textbf{Failure mode:} Ghost State. All four resolution components missing. The entity is structurally invisible to every automated classification system from day one.
+
+\textbf{Work-offset ratio:} We calculate this formally in Chapter 6, but the intuition is immediate: a business with $\alpha \approx 0.05$ must replace every classification function the name should have performed with compensatory marketing activity. The work required to build market legibility for ``ProfitLogic'' without any supporting name architecture is not measured in months. It is measured in years and hundreds of thousands of dollars in deliberate brand-building investment.
+
+\textbf{The painful irony:} The name sounds more professional and creative than ``Dallas Roof Repair Company.'' This is the precise nature of the creative fallacy. The aesthetically superior name is the commercially inferior asset.
+\end{examplebox}
+
+\section{Chapter Summary and the Deterministic Naming Principle}
+
+Chapter 4 establishes the following:
+
+\textbf{1. The Minimal Resolution Template} $\vstar = \Cl + \Os + \Fa + \Nc$ is the complete formal expression of optimal naming. It is not a style guide. It is a closure theorem.
+
+\textbf{2. System behavior at full resolution} approaches unity probability across all four fields simultaneously:
+\[
+P_{search} \to 1, \quad P_{registry} \to 1, \quad P_{task} \to 1, \quad P_{intent} \to 1
+\]
+
+\textbf{3. Stable Atom status} requires the presence of all four components (three minimum for non-local markets) and produces the alignment state $\alpha \to 1, \sigma \to 0, \taui \to 0$.
+
+\textbf{4. Algorithmic Autonomy} is achieved when Name $\equiv$ Category $\equiv$ Object $\equiv$ Function. The system maintains the entity's market presence without compensatory human effort.
+
+\textbf{5. Real examples confirm the framework.} Fully resolved names achieve immediate multi-field resolution. Partially resolved names fail in measurable, diagnosable ways. Ghost State names fail in all fields simultaneously and require extraordinary compensatory effort.
+
+We close this chapter with the Deterministic Naming Principle in its final form.
+
+\begin{keybox}[The Deterministic Naming Principle --- Final Form]
+A business name is the shortest string that simultaneously satisfies all required resolution conditions across the commercial resolution environment. The optimal name is determined by the structure of the resolution fields, not by aesthetic preference. Given the four field requirements and the four irreducible components, the derivation of the optimal name is a mathematical procedure, not a creative one.
+
+\textbf{When Name $\equiv$ Category $\equiv$ Object $\equiv$ Function:}
+\begin{itemize}[leftmargin=0em, label={}]
+  \item The system no longer needs to infer.
+  \item The market no longer hesitates.
+  \item The entity becomes the default answer.
+\end{itemize}
+
+This is Algorithmic Autonomy. This is the goal.
+\end{keybox}
+
+\begin{equationbox}
+\textbf{Core Equations from Chapter 4:}
+\[
+\vstar = \Cl + \Os + \Fa + \Nc \quad \text{(full form)}
+\]
+\[
+\vstar = \Os + \Fa + \Nc \quad \text{(compressed form, non-local markets)}
+\]
+\[
+P_{search}(\vstar) \to 1, \quad P_{registry}(\vstar) \to 1, \quad P_{task}(\vstar) \to 1, \quad P_{intent}(\vstar) \to 1
+\]
+\[
+\text{Stable Atom:} \quad \alpha \to 1, \quad \sigma \to 0, \quad \tau_i \to 0
+\]
+\[
+\text{Algorithmic Autonomy:} \quad \text{Name} \equiv \text{Category} \equiv \text{Object} \equiv \text{Function}
+\]
+\end{equationbox}
+
+\end{document}

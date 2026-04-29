@@ -1,0 +1,947 @@
+\documentclass[12pt, openany]{book}
+
+% ── PACKAGES ──────────────────────────────────────────────────────────────────
+\usepackage[
+  paperwidth=8.5in, paperheight=11in,
+  top=1.1in, bottom=1.1in, left=1.25in, right=1.25in
+]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage[most, breakable]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+\usepackage[hidelinks]{hyperref}
+
+% ── COLORS ────────────────────────────────────────────────────────────────────
+\definecolor{navy}{RGB}{26, 58, 92}
+\definecolor{midblue}{RGB}{46, 109, 164}
+\definecolor{lightblue}{RGB}{220, 235, 248}
+\definecolor{accentgray}{RGB}{100, 100, 110}
+\definecolor{rulecolor}{RGB}{180, 200, 220}
+\definecolor{boxbg}{RGB}{245, 249, 253}
+\definecolor{successgreen}{RGB}{30, 120, 60}
+\definecolor{failred}{RGB}{160, 40, 40}
+\definecolor{warningbg}{RGB}{255, 250, 235}
+\definecolor{warningborder}{RGB}{180, 130, 30}
+
+% ── THEOREM ENVIRONMENTS ──────────────────────────────────────────────────────
+\newtheoremstyle{thmstyle}{12pt}{8pt}{\itshape}{}{\bfseries\color{navy}}{.}{.5em}{}
+\theoremstyle{thmstyle}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\newtheoremstyle{defstyle}{12pt}{8pt}{\normalfont}{}{\bfseries\color{midblue}}{.}{.5em}{}
+\theoremstyle{defstyle}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{example}{Example}[chapter]
+
+% ── BOXES ─────────────────────────────────────────────────────────────────────
+\newtcolorbox{keybox}[1][Key Principle]{
+  enhanced, breakable, colback=boxbg, colframe=midblue,
+  fonttitle=\bfseries\color{navy}, title={#1},
+  arc=3pt, boxrule=0.8pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+\newtcolorbox{equationbox}{
+  enhanced, colback=lightblue!50, colframe=navy,
+  arc=4pt, boxrule=1pt, left=12pt, right=12pt, top=8pt, bottom=8pt
+}
+\newtcolorbox{examplebox}[1][Example]{
+  enhanced, breakable, colback=white, colframe=accentgray!50,
+  fonttitle=\bfseries\color{accentgray}, title={#1},
+  arc=3pt, boxrule=0.6pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+\newtcolorbox{warnbox}[1][Important]{
+  enhanced, breakable, colback=warningbg, colframe=warningborder,
+  fonttitle=\bfseries\color{warningborder}, title={#1},
+  arc=3pt, boxrule=0.8pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+\newtcolorbox{calcbox}[1][Calculation]{
+  enhanced, breakable, colback=lightblue!20, colframe=midblue!60,
+  fonttitle=\bfseries\color{midblue}, title={#1},
+  arc=3pt, boxrule=0.6pt, left=10pt, right=10pt, top=8pt, bottom=8pt
+}
+
+% ── SECTION FORMATTING ────────────────────────────────────────────────────────
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{navy}}
+  {\large\color{midblue}\MakeUppercase{\chaptername}\ \thechapter}
+  {10pt}
+  {\rule{\textwidth}{1.5pt}\vspace{4pt}}
+  [\vspace{2pt}\rule{\textwidth}{0.4pt}\vspace{6pt}]
+
+\titleformat{\section}{\normalfont\large\bfseries\color{navy}}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries\color{midblue}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\itshape\color{accentgray}}{\thesubsubsection}{1em}{}
+
+\titleformat{\part}[display]
+  {\normalfont\Huge\bfseries\color{navy}\centering}
+  {\large\color{midblue}\MakeUppercase{\partname}\ \thepart}
+  {16pt}{}[\vspace{6pt}\color{midblue}\rule{0.5\textwidth}{2pt}]
+
+% ── HEADERS ───────────────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\color{accentgray}\leftmark}
+\fancyhead[RO]{\small\color{accentgray}\rightmark}
+\fancyfoot[C]{\small\color{accentgray}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+% ── SPACING ───────────────────────────────────────────────────────────────────
+\setstretch{1.15}
+\setlength{\parskip}{7pt}
+\setlength{\parindent}{0pt}
+
+% ── COUNTERS ──────────────────────────────────────────────────────────────────
+\setcounter{chapter}{4}
+\setcounter{part}{2}
+
+% ── MATH MACROS ───────────────────────────────────────────────────────────────
+\newcommand{\vstar}{V^{*}}
+\newcommand{\Nc}{N_c}
+\newcommand{\Os}{O_s}
+\newcommand{\Fa}{F_a}
+\newcommand{\Cl}{C_l}
+\newcommand{\Rp}{R_p}
+\newcommand{\Dt}{D_t}
+\newcommand{\taui}{\tau_i}
+\newcommand{\Wdelta}{W_{\Delta}}
+\newcommand{\Ps}{P_s}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+% ──────────────────────────────────────────────────────────────────────────────
+\begin{document}
+\tableofcontents
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  PART III OPENER
+% ══════════════════════════════════════════════════════════════════════════════
+\part{Alignment, Drift, and the Inference Tax}
+
+\vspace{16pt}
+\begin{center}
+\color{accentgray}\itshape
+Quantifying the invisible costs of poor naming.\\
+Every gap between what your name says and what the system expects\\
+is a tax --- measurable in dollars, months, and marketing hours.
+\end{center}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  CHAPTER 5
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{Semantic Alignment: The Alpha Coefficient}
+
+\begin{keybox}[Chapter Thesis]
+Semantic alignment $\alpha$ is the single most important variable in the commercial resolution model. It measures the degree to which a business name matches the expectation structure of the resolution environment. Everything else in the model either amplifies $\alpha$, compensates for low $\alpha$, or measures the cost of insufficient $\alpha$. This chapter defines $\alpha$ precisely, shows how it is measured across all four fields, introduces the viability spectrum, and derives the trough depth and work-offset equations that translate $\alpha$ into concrete business costs.
+\end{keybox}
+
+\section{Defining $\alpha$: The Degree of Match Between Name and System Expectation}
+
+Every resolution field has an expectation structure: a distribution over the kinds of name components that it is calibrated to classify accurately. The search field expects names that mirror the structure of customer queries. The registry field expects names containing strong category nouns. The task field expects names containing clear action verbs. The intent field expects names that make the transaction immediately legible.
+
+Semantic alignment $\alpha$ measures how well a specific name matches the aggregate expectation structure of the resolution environment.
+
+\begin{definition}[Semantic Alignment Coefficient]
+The semantic alignment coefficient $\alpha \in [0, 1]$ measures the degree of match between a business name's semantic content and the expectation structure of the commercial resolution environment:
+\[
+\alpha = \frac{1}{|\mathcal{F}|} \sum_{i \in \mathcal{F}} P_i(N)
+\]
+where $P_i(N)$ is the resolution probability of name $N$ in field $\mathcal{F}_i$, and $|\mathcal{F}| = 4$ is the number of fields.
+
+In practice, $\alpha$ is the weighted average of a name's resolution probabilities across all four fields.
+\end{definition}
+
+\textbf{Plain English:} $\alpha$ answers the question: ``How much of what the system needs to classify and surface this entity is present in the name itself?'' A name with $\alpha = 1.0$ contains everything the system needs. A name with $\alpha = 0.1$ contains almost nothing the system needs, and the system must find that information elsewhere --- or fail.
+
+The range from 0 to 1 reflects a practical reality: no name scores exactly 0 (even random strings produce some probabilistic associations) and very few names score exactly 1 (there is always some residual ambiguity in natural language). The useful operating range is:
+
+\begin{itemize}[leftmargin=1.5em]
+  \item $\alpha \geq 0.85$: Stable Atom zone. The name is doing the heavy lifting.
+  \item $0.65 \leq \alpha < 0.85$: Transitional zone. The name is mostly working.
+  \item $0.45 \leq \alpha < 0.65$: High-effort zone. Significant compensatory investment required.
+  \item $\alpha < 0.45$: Ghost Risk. The name is working against the business.
+\end{itemize}
+
+\section{How $\alpha$ Is Measured Across the Four Fields}
+
+In a computational implementation (which the tool at intent-tensor-theory.com applies), $\alpha$ is calculated by running the name through each field's classification mechanism and aggregating the confidence scores. For the purposes of manual scoring and diagnostic analysis, we provide a rubric-based measurement approach in Chapter 18.
+
+For conceptual understanding, the following describes how each field contributes to $\alpha$:
+
+\textbf{Search field contribution:} The search field contribution to $\alpha$ is determined by the cosine similarity between the name's composite embedding vector and the embedding vectors of the most common customer queries in the relevant category. High cosine similarity means the name's words appear in the same semantic neighborhoods as the words customers actually type. Low similarity means there is a semantic gap between what the name says and what customers search for.
+
+\textbf{Registry field contribution:} The registry field contribution is determined by whether the name contains a token that maps to a single, unambiguous NAICS or GMB category. A name with a strong category noun scores near 1.0 on this dimension. A name with no category noun, or one whose primary noun is ambiguous across categories, scores near 0.
+
+\textbf{Task field contribution:} The task field contribution is determined by whether the name contains an action verb or verb nominalization that maps to a specific O*NET task category. ``Repair,'' ``Installation,'' ``Consulting,'' ``Preparation'' are high-scoring task signals. Abstract nouns, invented words, and attribute modifiers score near 0.
+
+\textbf{Intent field contribution:} The intent field contribution is determined by the completeness of the transaction model encoded in the name. A name that answers \textit{what}, \textit{how}, and \textit{where/for whom} scores near 1.0. A name that answers only one of these questions scores proportionally lower.
+
+\section{The Alignment Spectrum: From 0.0 to 1.0}
+
+\subsection{$\alpha \geq 0.85$: The Stable Atom Zone}
+
+Names in the Stable Atom zone satisfy the Minimal Resolution Template either completely or nearly completely. They contain a clear category noun, a clear action function, and either an explicit object or one so strongly implied by the category that disambiguation is unnecessary. The resolution environment classifies them accurately and automatically on first encounter.
+
+\begin{examplebox}[Stable Atom Zone --- $\alpha \geq 0.85$]
+\begin{itemize}[leftmargin=1.5em]
+  \item ``Dallas Roof Repair Company'' --- $\alpha \approx 0.92$
+  \item ``Austin Tax Preparation Services'' --- $\alpha \approx 0.94$
+  \item ``Chicago Pipe Installation Contractors'' --- $\alpha \approx 0.91$
+  \item ``Business Algorithm Consulting'' --- $\alpha \approx 0.86$
+  \item ``Houston HVAC Repair'' --- $\alpha \approx 0.88$
+\end{itemize}
+These names achieve near-complete field resolution without compensatory marketing infrastructure. The algorithm maintains them.
+\end{examplebox}
+
+\subsection{$0.65 \leq \alpha < 0.85$: The Transitional Entity Zone}
+
+Transitional entities have names that partially satisfy the resolution template. They are missing one component, have one weak component, or use a component that is less precise than optimal. They are visible but not fully autonomous --- they require some ongoing investment to maintain visibility, but that investment is modest compared to lower-$\alpha$ entities.
+
+\begin{examplebox}[Transitional Zone --- $0.65 \leq \alpha < 0.85$]
+\begin{itemize}[leftmargin=1.5em]
+  \item ``Roof Repair Company'' (no context, competes nationally) --- $\alpha \approx 0.78$
+  \item ``Dallas Roofing'' (no function word, implied) --- $\alpha \approx 0.74$
+  \item ``Smith Plumbing Services'' (personal name adds no resolution signal) --- $\alpha \approx 0.71$
+  \item ``Commercial Cleaning Solutions'' (``Solutions'' is a weak $\Nc$) --- $\alpha \approx 0.68$
+\end{itemize}
+These names work, but they are carrying unnecessary costs that compound over years.
+\end{examplebox}
+
+\subsection{$0.45 \leq \alpha < 0.65$: The High-Effort Zone}
+
+High-effort entities have names that satisfy at most two resolution components, leaving two or more fields operating on inference. They require significant ongoing compensatory investment: strong website SEO, consistent content production, review accumulation, and paid search presence to substitute for the resolution information the name fails to provide.
+
+\begin{examplebox}[High-Effort Zone --- $0.45 \leq \alpha < 0.65$]
+\begin{itemize}[leftmargin=1.5em]
+  \item ``Apex Services'' (category noun is generic, no function, no object) --- $\alpha \approx 0.48$
+  \item ``Business Algorithms'' (no function, weak category) --- $\alpha \approx 0.52$
+  \item ``Premier Solutions Group'' (three generic words, zero field signal) --- $\alpha \approx 0.31$ \\
+    \textit{Note: This actually falls into Ghost Risk --- included here to show how rapidly generic compounds degrade $\alpha$}
+  \item ``NextLevel Consulting'' (metaphorical modifier, generic category) --- $\alpha \approx 0.55$
+\end{itemize}
+\end{examplebox}
+
+\subsection{$\alpha < 0.45$: Ghost Risk}
+
+Ghost Risk entities have names so misaligned with the resolution environment that no amount of ordinary marketing effort can fully compensate. They require either a name change or an extraordinary long-term brand-building investment equivalent to creating a new category association from scratch.
+
+\begin{examplebox}[Ghost Risk --- $\alpha < 0.45$]
+\begin{itemize}[leftmargin=1.5em]
+  \item ``ProfitLogic'' --- $\alpha \approx 0.08$
+  \item ``Nexigen'' (invented compound, no field signals) --- $\alpha \approx 0.04$
+  \item ``Synaptix'' (invented word, phonetically memorable but semantically empty) --- $\alpha \approx 0.03$
+  \item ``BlueOcean Ventures'' (metaphorical, no commercial field signals) --- $\alpha \approx 0.22$
+  \item ``The Experience Company'' (article + abstract noun + generic category) --- $\alpha \approx 0.15$
+\end{itemize}
+These names are commercially handicapped from day one and remain so until either the name changes or multi-year brand-building investment creates acquired associative alignment (Chapter 12).
+\end{examplebox}
+
+\section{The Trough Depth Equation: $D_t = \Phi(1 - \alpha)$}
+
+The trough depth $\Dt$ is the visibility deficit a business occupies at launch --- the gap between where the entity is in the resolution environment and where it needs to be for organic discoverability. It is a direct function of alignment and sector friction.
+
+\begin{definition}[Trough Depth]
+The trough depth $\Dt$ measures the magnitude of the visibility deficit an entity occupies at the start of commercial operation, before any compensatory marketing effort has been applied:
+\begin{equation}
+D_t = \Phi(1 - \alpha)
+\label{eq:trough}
+\end{equation}
+where $\Phi \in [0, 1]$ is the sector friction coefficient (defined fully in Chapter 8) and $\alpha$ is the semantic alignment coefficient.
+\end{definition}
+
+\textbf{Interpretation of the equation:} The trough is the product of two factors. The first factor $\Phi$ represents the resistance of the market --- how hard it is to become visible in this category regardless of the name. The second factor $(1 - \alpha)$ represents the fraction of the resolution problem that the name \textit{fails} to solve. A name with perfect alignment ($\alpha = 1$) produces a trough of zero: the entity enters the environment already resolved. A name with zero alignment ($\alpha = 0$) in a maximally frictionful market ($\Phi = 1$) produces a trough of 1.0: the entity is completely invisible to the resolution environment.
+
+\begin{calcbox}[Trough Depth Examples]
+\textbf{Dallas Roof Repair Company} ($\alpha = 0.92$, $\Phi = 0.70$ for local roofing):
+\[
+D_t = 0.70 \times (1 - 0.92) = 0.70 \times 0.08 = 0.056
+\]
+\textit{Near-zero trough. The entity enters the market nearly fully resolved. Minimal compensatory effort required.}
+
+\vspace{8pt}
+\textbf{NextLevel Consulting} ($\alpha = 0.55$, $\Phi = 0.85$ for business consulting):
+\[
+D_t = 0.85 \times (1 - 0.55) = 0.85 \times 0.45 = 0.383
+\]
+\textit{Significant trough. The entity starts 38\% below the visibility surface. Months of content, reviews, and SEO work required before organic discoverability begins.}
+
+\vspace{8pt}
+\textbf{ProfitLogic} ($\alpha = 0.08$, $\Phi = 0.85$ for business consulting):
+\[
+D_t = 0.85 \times (1 - 0.08) = 0.85 \times 0.92 = 0.782
+\]
+\textit{Deep trough. The entity starts 78\% below the visibility surface. This trough is so deep that ordinary SEO and content strategies cannot reach the surface unaided. Paid advertising must substitute for organic resolution indefinitely.}
+\end{calcbox}
+
+The trough depth has a direct physical interpretation that practitioners find immediately useful: it represents the fraction of the entity's potential organic visibility that must be recovered through compensatory effort before the entity achieves natural discoverability. A trough of 0.38 means the entity must climb 38\% of the way from zero to full organic visibility before any search engine or directory begins surfacing it for relevant queries.
+
+\section{What the Trough Means in Business Terms}
+
+The trough depth equation translates the abstract mathematics of alignment into concrete business outcomes. Three specific translations are worth making explicit.
+
+\textbf{Time in the trough.} The time required to escape the trough is proportional to its depth and inversely proportional to the effort applied. A business with a deep trough and low marketing investment may spend years at the bottom, never achieving the organic visibility that a well-named competitor achieves in its first month. This is perhaps the most costly hidden consequence of poor naming: not just higher costs, but delayed revenue, delayed cash flow, and delayed market position compounded over the critical early years of a business.
+
+\textbf{Minimum effective advertising threshold.} Until the trough is escaped, paid advertising is not optional --- it is structural. A business in a deep trough cannot rely on organic search to generate new customers because the organic resolution process has not completed. Every dollar of paid advertising during this period is not building anything; it is temporarily substituting for resolution that the name should have provided permanently. The trough depth defines the minimum advertising commitment the business must make until natural resolution is achieved.
+
+\textbf{Competitive asymmetry.} When a low-$\alpha$ business competes with a high-$\alpha$ business in the same category, the structural disadvantage compounds every month. The high-$\alpha$ business is receiving organic traffic and accumulating reviews, authority, and classification confidence while the low-$\alpha$ business is spending money to achieve the same result. Over time, the gap widens, and what started as a naming difference becomes a market position difference that is genuinely difficult to overcome.
+
+\begin{keybox}[The Trough as Sunk Cost]
+Every dollar spent on marketing while inside the trough is replacing the resolution value that the name should have provided for free. This is not investment. It is a tax on a naming decision made before the business launched. The tax continues until either the trough is escaped through accumulated market signals or the name is changed and resolution rebuilt.
+\end{keybox}
+
+\section{Work-Offset Ratio: $W_\Delta = 1/\alpha^2$}
+
+The trough depth tells us how deep the visibility deficit is. The work-offset ratio tells us how much total effort is required to escape that deficit as a function of alignment alone.
+
+\begin{definition}[Work-Offset Ratio]
+The work-offset ratio $\Wdelta$ measures the total compensatory effort required to achieve market legibility as a multiple of the effort required by a perfectly aligned entity:
+\begin{equation}
+W_{\Delta} = \frac{1}{\alpha^2}
+\label{eq:wdelta}
+\end{equation}
+\end{definition}
+
+The inverse-square relationship is not arbitrary. It reflects the compounding nature of resolution failure: not only does the entity need to compensate for its own poor alignment, it must do so in an environment that is simultaneously rewarding its better-aligned competitors. The gap does not close linearly --- it must be overcome against an increasing competitive baseline.
+
+\begin{calcbox}[Work-Offset Ratio Across the Alignment Spectrum]
+\begin{center}
+\begin{tabular}{clcc}
+\toprule
+$\alpha$ & \textbf{Zone} & $W_\Delta = 1/\alpha^2$ & \textbf{Interpretation} \\
+\midrule
+0.95 & Stable Atom & 1.11 & 11\% more effort than perfect alignment \\
+0.85 & Stable Atom & 1.38 & 38\% more effort \\
+0.75 & Transitional & 1.78 & 78\% more effort \\
+0.65 & Transitional & 2.37 & 137\% more effort \\
+0.55 & High Effort & 3.31 & 231\% more effort \\
+0.45 & High Effort & 4.94 & 394\% more effort \\
+0.30 & Ghost Risk & 11.1 & 1,011\% more effort \\
+0.10 & Ghost Risk & 100 & 9,900\% more effort \\
+0.08 & Ghost Risk & 156 & 15,525\% more effort \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{calcbox}
+
+The DuckDuckGo case study in Chapter 11 applies this equation to a real company and finds $\Wdelta \approx 156$ --- meaning DuckDuckGo required approximately 156 times the marketing effort of a perfectly aligned competitor to achieve the same level of market legibility. That number is not a criticism of DuckDuckGo. It is a measurement. And it explains why the company needed years of sustained investment, distribution partnerships, and relentless messaging repetition to become understood.
+
+\section{Translating $W_\Delta$ into Actual Marketing Hours and Ad Spend}
+
+The work-offset ratio becomes maximally useful when it is translated from a dimensionless multiplier into actual resource costs.
+
+Let $E_0$ be the monthly marketing effort required for a perfectly aligned entity ($\alpha = 1$) in a given sector to maintain and grow its organic visibility. This baseline effort represents the irreducible minimum: the occasional review response, the periodic content refresh, the routine profile updates. For most local service businesses, $E_0$ is modest --- perhaps 8--12 hours per month of active marketing work.
+
+The actual monthly effort required for an entity with alignment $\alpha$ is:
+\begin{equation}
+E_{required}(\alpha) = E_0 \cdot W_\Delta = \frac{E_0}{\alpha^2}
+\label{eq:effort_required}
+\end{equation}
+
+\begin{calcbox}[Translating Work-Offset to Monthly Hours]
+\textbf{Scenario:} A local service business in a moderately competitive market. Baseline effort $E_0 = 10$ hours/month.
+
+\vspace{6pt}
+\begin{center}
+\begin{tabular}{clcc}
+\toprule
+$\alpha$ & \textbf{Zone} & \textbf{Monthly Hours} & \textbf{Extra Hours/Month} \\
+\midrule
+0.92 & Stable Atom & 11.8 & 1.8 \\
+0.75 & Transitional & 17.8 & 7.8 \\
+0.55 & High Effort & 33.1 & 23.1 \\
+0.35 & Ghost Risk & 81.6 & 71.6 \\
+0.08 & Ghost Risk & 1,562 & 1,552 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{6pt}
+\textit{A Ghost Risk entity at $\alpha = 0.08$ would require 1,562 hours per month to achieve the organic visibility that a Stable Atom achieves with 12. This is not achievable, which is why Ghost Risk entities do not escape the trough through effort alone --- they require either acquired associative alignment (Chapter 12) or a name change.}
+\end{calcbox}
+
+The practical implication: for businesses in the $\alpha = 0.55$ to $\alpha = 0.75$ range, the work-offset translates to an extra 8 to 24 hours of marketing work per month, every month, for the lifetime of the business. If a marketing professional's time costs \$75/hour, the annual cost of a name in the High-Effort zone is:
+
+\[
+\text{Annual naming cost} = 12 \times \Delta E \times \$75 = 12 \times 20 \times \$75 = \$18{,}000/\text{year}
+\]
+
+This is the Inference Tax in dollar terms. It is paid every year, compounding. A business that operates for ten years with a name in the High-Effort zone has paid approximately \$180,000 in naming costs --- money that was invisible at the moment of naming, when the only decision on the table was what to call the company.
+
+\section{State Persistence Over Time: $P_s(t)$}
+
+The preceding analysis has been static --- it describes the alignment state at a single point in time. But commercial resolution is a dynamic process. Entities accumulate reviews, content, and classification signals over time. Low-$\alpha$ entities can climb out of the trough through sustained effort. High-$\alpha$ entities may decay if they stop investing.
+
+We model the dynamic behavior of market persistence using the state persistence function $\Ps(t)$.
+
+\begin{definition}[State Persistence Function]
+The state persistence function $P_s(t)$ measures the probability that an entity maintains recognizable, classifiable market presence at time $t$:
+\begin{equation}
+P_s(t) = \int_0^t \left(\frac{E \cdot \alpha}{\Phi(1+\sigma)^2}\right) dt - R_d
+\label{eq:persistence}
+\end{equation}
+where:
+\begin{itemize}[leftmargin=1.5em]
+  \item $E$ = execution effort (marketing and distribution force applied per unit time)
+  \item $\alpha$ = semantic alignment coefficient
+  \item $\Phi$ = sector friction coefficient
+  \item $\sigma$ = vector drift coefficient (introduced in Chapter 6)
+  \item $R_d$ = decay rate (the rate at which unreinforced recognition erodes)
+\end{itemize}
+\end{definition}
+
+\textbf{Reading the equation:} The numerator $E \cdot \alpha$ is the productive force being applied to the resolution problem: execution effort multiplied by semantic alignment. High alignment makes every unit of effort more productive. The denominator $\Phi(1+\sigma)^2$ is the total resistance the entity faces: sector friction multiplied by the squared amplification of drift. The integral accumulates the net productive force over time. The subtracted $R_d$ represents decay --- the market forgetting and competitors displacing.
+
+\textbf{The key structural insight:} $\alpha$ does not add to persistence --- it \textit{multiplies} the productivity of execution effort. A business with $\alpha = 0.9$ and $E = 1.0$ produces the same persistence force as a business with $\alpha = 0.45$ and $E = 2.0$. The first business achieves the same result with half the effort by virtue of its name alone. Over the lifetime of the business, this multiplicative advantage compounds into a profound structural gap.
+
+\section{Chapter Summary}
+
+Chapter 5 establishes the following core equations and principles:
+
+\textbf{1.} $\alpha$ is the primary variable governing resolution efficiency. It measures the match between name content and field expectation structure.
+
+\textbf{2.} The four viability bands --- Stable Atom ($\geq 0.85$), Transitional ($0.65$--$0.85$), High Effort ($0.45$--$0.65$), Ghost Risk ($< 0.45$) --- define the strategic situation facing any named entity.
+
+\textbf{3.} Trough depth $D_t = \Phi(1-\alpha)$ translates alignment failure into a measurable visibility deficit at launch.
+
+\textbf{4.} Work-offset ratio $\Wdelta = 1/\alpha^2$ translates alignment failure into a total effort multiplier that compounds over the business's lifetime.
+
+\textbf{5.} The state persistence function $P_s(t)$ reveals that $\alpha$ multiplies the productivity of every unit of execution effort --- making good naming not just a cost-reduction strategy but a force multiplier.
+
+\begin{equationbox}
+\textbf{Core Equations from Chapter 5:}
+\[
+\alpha = \frac{1}{|\mathcal{F}|} \sum_{i \in \mathcal{F}} P_i(N)
+\]
+\[
+D_t = \Phi(1 - \alpha)
+\]
+\[
+W_{\Delta} = \frac{1}{\alpha^2}
+\]
+\[
+E_{required}(\alpha) = \frac{E_0}{\alpha^2}
+\]
+\[
+P_s(t) = \int_0^t \left(\frac{E \cdot \alpha}{\Phi(1+\sigma)^2}\right) dt - R_d
+\]
+\end{equationbox}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  CHAPTER 6
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{Vector Drift and the Unintended Basin}
+
+\begin{keybox}[Chapter Thesis]
+Vector drift $\sigma$ measures how far a name's semantic vector points away from its intended classification. Where $\alpha$ measures the absence of resolution signal, $\sigma$ measures the presence of the \textit{wrong} signal --- words and associations that actively pull the entity toward an unintended category. Drift is invisible at naming time and expensive to discover after it has settled into classification systems.
+\end{keybox}
+
+\section{Defining $\sigma$: Drift from the Classification Constant}
+
+A name can fail to resolve in two distinct ways. The first way is absence: the name simply does not contain enough information for the system to classify it. This is captured by low $\alpha$. The second way is misdirection: the name contains information that points the system toward the \textit{wrong} classification. This is captured by high $\sigma$.
+
+\begin{definition}[Vector Drift Coefficient]
+The vector drift coefficient $\sigma \geq 0$ measures the degree to which a business name's composite semantic vector is displaced from the vector position of its intended classification in the resolution field:
+\[
+\sigma = \|\vec{v}_{name} - \vec{v}_{intended}\|
+\]
+where $\vec{v}_{name}$ is the composite embedding of the name and $\vec{v}_{intended}$ is the centroid of vectors for correctly named entities in the same category.
+
+In practice, $\sigma$ is bounded for scoring purposes: $\sigma \in [0, 1]$ where $\sigma = 0$ is zero drift (the name points directly at the intended classification) and $\sigma = 1$ is maximum drift (the name points as far as possible from the intended classification).
+\end{definition}
+
+\textbf{Plain English:} $\sigma$ answers the question: ``When the machine evaluates this name, does it point confidently toward the right category, or does it wander toward the wrong one?''
+
+A name like ``Dallas Roof Repair Company'' has $\sigma \approx 0.05$: virtually no drift. Every word in the name either confirms the roofing category or is neutral. Nothing pulls the system's interpretation away from roofing.
+
+A name like ``Transitions Financial Planning'' has $\sigma \approx 0.70$: high drift. The word ``Transitions'' is strongly associated --- in the embedding space of every major language model --- with either social services (life transitions, gender transition support, rehab programs) or eyewear (Transitions lenses). Both associations actively pull the system's classification away from financial planning. The word is not neutral noise; it is a misdirection signal.
+
+\section{How Drift Accumulates Across Fields}
+
+Drift does not just reduce the probability of correct classification. It increases the probability of incorrect classification, which has consequences beyond simple invisibility.
+
+In the registry field, drift produces \textbf{active misclassification}: the entity is assigned to the wrong industry category. This is worse than no classification because the system is now confidently wrong. The entity appears in the wrong directory sections, receives the wrong related-business recommendations, and fails to appear when customers search for the correct category because the system believes it is a different category.
+
+In the search field, drift produces \textbf{query mismatch}: the system surfaces the entity for queries made by people who want something entirely different. This generates traffic without conversion --- people arrive at the entity's presence expecting one thing and finding another. This traffic pattern actively harms the entity's search performance because high bounce rates signal to the search engine that the entity is not relevant to the queries it is appearing for, producing a downranking effect.
+
+In the intent field, drift produces \textbf{selection confusion}: potential customers encounter the entity and cannot quickly determine whether it serves their need. Some fraction of them, rather than investigating, simply move to a competitor whose name is unambiguous.
+
+\section{The Unintended Basin Problem}
+
+The most severe form of vector drift is what we call the \textbf{Unintended Basin}: a condition in which the name's semantic vector has fallen so deeply into a competing category's classification region that the entity is treated as a member of that competing category by default.
+
+\begin{definition}[Unintended Basin]
+An Unintended Basin is a region of semantic space dominated by a classification that is not the entity's intended category. A business name falls into an Unintended Basin when its composite vector has higher cosine similarity to the centroid of a competing category than to the centroid of its intended category:
+\[
+\text{Unintended Basin condition:} \quad \cos(\vec{v}_{name}, \vec{v}_{wrong}) > \cos(\vec{v}_{name}, \vec{v}_{intended})
+\]
+\end{definition}
+
+\subsection{When ``Transitions'' Means Social Services, Not Financial Planning}
+
+Consider a financial planning firm named ``Transitions Financial.'' The word ``Transitions'' appears frequently in the following contexts in the training data of every major language model and in the category associations of every registry system:
+
+\begin{itemize}[leftmargin=1.5em]
+  \item Life transition counseling (social services)
+  \item Gender transition support organizations
+  \item Substance abuse rehabilitation programs (``transitions to sober living'')
+  \item Educational transition programs (high school to college, etc.)
+  \item Transitions Optical (the eyewear brand --- a major corporate presence in the embedding space)
+\end{itemize}
+
+The word ``Financial'' in ``Transitions Financial'' partially offsets this drift, but it does not fully overcome it. The composite vector of the name falls between the financial planning cluster and the social services cluster in semantic space, creating persistent classification uncertainty.
+
+In practice, this manifests as: GMB auto-suggesting ``Social services organization'' as the category. Directory listings appearing in support-services sections. AI-powered search surfacing the company for social transition queries. Potential customers seeing the name and --- before reading any description --- forming a mental model of a social services organization rather than a financial advisory firm.
+
+\subsection{When ``Apex'' Means Mountain, Not Excellence}
+
+The word ``Apex'' is a common naming choice intended to convey excellence, pinnacle achievement, and market leadership. Its semantic vector, however, is positioned near the following clusters:
+
+\begin{itemize}[leftmargin=1.5em]
+  \item Geographic location (Apex, North Carolina --- a rapidly growing city with a strong data presence)
+  \item Predator biology (apex predator --- strong association in natural language)
+  \item Geometric term (the apex of a triangle)
+  \item The video game Apex Legends (enormous data presence post-2019)
+\end{itemize}
+
+A business named ``Apex Services'' or ``Apex Consulting'' therefore faces drift toward multiple competing basins simultaneously, none of which are the intended classification. The intended meaning (excellence, top-tier quality) is a human interpretation that requires cultural context to decode; the machine has no access to that context and classifies based on statistical association.
+
+\subsection{Basin Depth and Escape Cost}
+
+The deeper an entity has fallen into an Unintended Basin, the higher the cost of escape. Unlike trough depth (which measures absence of signal), basin depth measures the strength of the competing signal that must be overcome.
+
+\begin{equation}
+\text{Basin depth} = \max_j \cos(\vec{v}_{name}, \vec{v}_{wrong,j}) - \cos(\vec{v}_{name}, \vec{v}_{intended})
+\label{eq:basin_depth}
+\end{equation}
+
+When this value is positive, the entity is in an Unintended Basin. The magnitude of the positive value measures how far the entity must be pulled back toward the correct classification.
+
+Escaping a basin requires not just adding correct classification signals (which addresses $\alpha$) but actively overriding the competing association signals (which addresses $\sigma$). This typically requires either renaming (removing the offending token) or an extraordinary content investment that overwhelms the competing association through sheer volume of correctly classified material.
+
+\section{Drift Amplification Under Pressure}
+
+An important property of drift is that its cost is not constant. Drift becomes more expensive as Resolution Pressure ($\Rp$) increases --- a relationship we formalize in Part V. The intuition is simple: when a customer is under time pressure, emotional pressure, or urgency of need, they have no patience for a name that requires them to second-guess what the business does. They select the most immediately legible option and move on.
+
+Formally, under high pressure conditions, the effective drift penalty becomes:
+\begin{equation}
+\sigma_p = \sigma(1 + \psi R_p)
+\label{eq:drift_pressure}
+\end{equation}
+where $\psi$ is the pressure amplification constant and $R_p$ is the Resolution Pressure variable. This equation, derived fully in Chapter 13, tells us that drift is tolerable in a calm, browsing market environment and becomes increasingly fatal in an urgent, high-stakes selection environment.
+
+\textbf{The practical implication:} businesses in high-pressure categories (emergency services, medical services, financial crisis services, legal services) pay a dramatically higher price for drift than businesses in low-pressure categories (decorative home services, hobby supplies, entertainment). A roofing company with a drifting name loses some organic traffic. An emergency plumber with a drifting name loses customers who are in active crisis and cannot afford to spend cognitive effort parsing an ambiguous name.
+
+\section{The Drift-Adjusted Survival Threshold}
+
+Incorporating drift into the survival analysis from Chapter 5, the minimum alignment required for market viability becomes:
+
+\begin{equation}
+\alpha_{min}(\sigma) = \frac{\Phi(1+\sigma)^2}{1 + \lambda\Delta}
+\label{eq:survival_drift}
+\end{equation}
+
+where $\lambda\Delta$ is the differentiation compensation term introduced in Part IV. In the absence of differentiation compensation ($\Delta = 0$), the survival threshold simplifies to:
+
+\[
+\alpha_{min}(\sigma) = \Phi(1+\sigma)^2
+\]
+
+This reveals a critical structural relationship: \textbf{drift and friction multiply, not add}. A business in a high-friction sector ($\Phi = 0.90$) with moderate drift ($\sigma = 0.40$) faces a survival threshold of:
+\[
+\alpha_{min} = 0.90 \times (1.40)^2 = 0.90 \times 1.96 = 1.764
+\]
+
+This value exceeds 1.0, which means no achievable alignment score --- no matter how good the name --- can survive in that combination of friction and drift without differentiation compensation. The $(1+\sigma)^2$ term is why drift is not a minor inconvenience. In high-friction markets, even moderate drift can make the survival condition mathematically impossible to satisfy through naming quality alone.
+
+\section{Chapter Summary}
+
+Chapter 6 establishes the following:
+
+\textbf{1.} $\sigma$ measures active misdirection --- the presence of wrong signals --- as distinct from $\alpha$'s measure of absent correct signals.
+
+\textbf{2.} Drift accumulates across all four fields, producing misclassification (registry), query mismatch (search), and selection confusion (intent).
+
+\textbf{3.} The Unintended Basin is the most severe form of drift --- a condition in which the name has been captured by a competing category's classification region.
+
+\textbf{4.} Drift cost amplifies with Resolution Pressure: $\sigma_p = \sigma(1 + \psi R_p)$.
+
+\textbf{5.} In high-friction markets, moderate drift can make viability mathematically impossible without differentiation compensation, due to the $(1+\sigma)^2$ term in the survival threshold.
+
+\begin{equationbox}
+\textbf{Core Equations from Chapter 6:}
+\[
+\sigma = \|\vec{v}_{name} - \vec{v}_{intended}\|
+\]
+\[
+\text{Unintended Basin:} \quad \cos(\vec{v}_{name}, \vec{v}_{wrong}) > \cos(\vec{v}_{name}, \vec{v}_{intended})
+\]
+\[
+\sigma_p = \sigma(1 + \psi R_p) \quad \text{(pressure-amplified drift)}
+\]
+\[
+\alpha_{min}(\sigma) = \Phi(1+\sigma)^2 \quad \text{(survival threshold, no differentiation)}
+\]
+\end{equationbox}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  CHAPTER 7
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{The Inference Tax}
+
+\begin{keybox}[Chapter Thesis]
+The Inference Tax $\taui$ is the recurring monthly cost imposed by naming ambiguity. It is not a one-time cost at launch. It is a structural overhead that every business with a sub-optimal name pays continuously, in marketing hours, advertising spend, content investment, and extended sales cycles. This chapter makes the invisible visible by formalizing exactly what the Inference Tax is, where it is paid, and how to calculate it.
+\end{keybox}
+
+\section{Defining $\tau_i$: The Monthly Cost of Ambiguity}
+
+Every time any system --- human or automated --- encounters a business name and cannot immediately resolve what the business is, that moment of inference is a cost event. The Inference Tax is the aggregate of all those cost events per unit time.
+
+\begin{definition}[Inference Tax]
+The Inference Tax $\taui$ is the recurring cost per unit time imposed on a business entity by the ambiguity of its name. It quantifies the total resources that must be expended --- by the business and by the systems evaluating it --- to compensate for the classification information that the name fails to provide:
+\begin{equation}
+\tau_i = W_\Delta \cdot C_{unit} \cdot f_{encounter}
+\label{eq:inference_tax}
+\end{equation}
+where:
+\begin{itemize}[leftmargin=1.5em]
+  \item $W_\Delta = 1/\alpha^2$ is the work-offset ratio from Chapter 5
+  \item $C_{unit}$ is the cost per unit of compensatory effort (time, money, or attention)
+  \item $f_{encounter}$ is the encounter frequency --- how often per unit time the entity's name is evaluated by resolution systems
+\end{itemize}
+\end{definition}
+
+The encounter frequency $f_{encounter}$ may surprise readers who think of ``name evaluation'' as something that happens only when a human reads the business name. In reality, a business name is evaluated by automated systems continuously and at high frequency: every time a search index is refreshed, every time a directory syncs its data, every time an AI recommendation system scans available entities, every time a potential customer performs a category search. For an active business, the name is being evaluated hundreds of times per day.
+
+Each of those evaluations, for a low-$\alpha$ name, either produces a wrong answer (misclassification) or no answer (failure to classify), and each such outcome is a cost event that the business will eventually pay for --- in lower search rank, in wrong category placement, in missed impressions.
+
+\section{Where the Inference Tax Is Paid}
+
+The Inference Tax manifests in five distinct locations. Understanding all five is essential because the costs are often attributed to the wrong cause at the time they are incurred.
+
+\subsection{Search Systems Inferring Missing Variables}
+
+When a search engine encounters a business name that does not contain clear category and function signals, it enters an inference loop: it attempts to determine the entity's category by examining the website content, the backlink profile, the review text, and the category associations of co-located businesses. This inference loop takes time --- measured in weeks to months for new businesses.
+
+During the inference period, the business is ranked poorly or not at all for its primary category queries, even if it has a fully functional website and accurate business information. This is not an SEO failure. It is an inference delay caused by the name failing to provide the classification information that would have resolved the entity immediately.
+
+The measurable cost: the average delay in achieving first-page search visibility for primary category queries, compared to an equivalent business with a high-$\alpha$ name. Research on local business SEO consistently shows that name-category alignment is one of the strongest predictors of time-to-first-page-ranking, independent of website quality, review count, and advertising spend.
+
+\subsection{Registry Systems Requiring Manual Override}
+
+When a business registers with a platform --- Google Business Profile, Bing Places, Yelp, Angi, any industry directory --- the platform's auto-classification system attempts to assign a category based on the business name. For high-$\alpha$ names, this assignment is accurate and automatic. For low-$\alpha$ names, the assignment is either wrong or returns maximum uncertainty, requiring the business owner to manually select categories.
+
+The manual selection problem is worse than it first appears. Platforms with 4,000+ category options (GBP has more than 4,200) are difficult to navigate. Business owners frequently select imprecise or suboptimal categories, resulting in ongoing classification disadvantage. Furthermore, when platforms periodically re-index or update their category systems, manual overrides may be reset to the algorithmically-determined category --- returning the low-$\alpha$ business to its misclassified state.
+
+The measurable cost: ongoing platform management overhead, periodic reclassification errors, and suboptimal category placement throughout the business's lifetime.
+
+\subsection{Potential Customers Asking ``What Do You Do?''}
+
+Every time a potential customer encounters the business name and cannot determine what the business does, one of three things happens:
+\begin{enumerate}[leftmargin=1.5em]
+  \item They investigate further (website visit, profile read): costs the customer time and costs the business the attention of a customer who is now also evaluating competitors during the investigation time
+  \item They ask directly (phone call, email): costs the business staff time to explain and delays the conversion process
+  \item They move on: the business loses the customer to a competitor whose name answered the question immediately
+\end{enumerate}
+
+All three outcomes are Inference Tax events. The third is the most costly and the most invisible --- the business never knows it happened.
+
+\subsection{Content Volume Required to Compensate for $\tau_i$}
+
+For businesses that pursue content marketing as a strategy, the Inference Tax manifests as a requirement to produce significantly more content than a high-$\alpha$ competitor to achieve equivalent search visibility.
+
+A high-$\alpha$ business name provides the search field with the primary classification signals it needs to rank the entity for category queries. The name does the foundational work, and content marketing builds on that foundation. A low-$\alpha$ business name provides none of that foundational work, so the content strategy must not only build the authority layer but also construct the foundation that the name failed to provide.
+
+\begin{calcbox}[Content Volume Multiplier]
+A useful approximation for practitioners: the content volume required to achieve equivalent search visibility for a low-$\alpha$ entity relative to a high-$\alpha$ entity scales approximately with the work-offset ratio:
+
+\[
+\text{Content volume required} \approx \Wdelta \times \text{Baseline content volume}
+\]
+
+For a business with $\alpha = 0.55$ ($\Wdelta = 3.31$): approximately 3 times as many blog posts, service pages, local landing pages, and review responses as a Stable Atom competitor to achieve the same search visibility.
+
+For a business with $\alpha = 0.35$ ($\Wdelta = 8.16$): approximately 8 times the content volume.
+
+These are not theoretical estimates. They are working approximations that experienced SEO practitioners recognize in practice, without necessarily having a formal framework to explain them.
+\end{calcbox}
+
+\section{Calculating Your Inference Tax}
+
+The Inference Tax can be estimated for any business using the following procedure:
+
+\textbf{Step 1: Determine your $\alpha$ score.} Use the viability bands from Chapter 5 or the full scoring rubric from Chapter 18. For this calculation, a rough estimate is sufficient.
+
+\textbf{Step 2: Calculate your work-offset ratio.} $\Wdelta = 1/\alpha^2$.
+
+\textbf{Step 3: Establish your baseline marketing investment.} What would a well-named competitor in your category need to spend monthly to maintain and grow its organic visibility? This is $E_0$, expressed in hours or dollars.
+
+\textbf{Step 4: Calculate your required investment.} $E_{required} = E_0 \times \Wdelta$.
+
+\textbf{Step 5: Calculate your monthly Inference Tax.} $\taui = E_{required} - E_0 = E_0(\Wdelta - 1)$.
+
+\begin{calcbox}[Inference Tax Calculation: A Worked Example]
+\textbf{Business:} A marketing consulting firm named ``Nexus Strategy Group''\\
+\textbf{Estimated $\alpha$:} 0.45 (High Effort / Ghost Risk boundary)\\
+\textbf{$\Wdelta$:} $1/0.45^2 = 4.94$\\
+\textbf{Baseline $E_0$:} \$2,000/month (typical for a well-named marketing consultancy)\\
+\textbf{Required investment:} $\$2,000 \times 4.94 = \$9,880$/month\\
+\textbf{Monthly Inference Tax:} $\$9,880 - \$2,000 = \$7,880$/month\\
+\textbf{Annual Inference Tax:} $\$7,880 \times 12 = \$94,560$/year\\
+
+\textit{This business is paying approximately \$94,560 per year in excess marketing costs --- purely due to its name. An alternative name like ``Small Business Marketing Consulting'' would reduce this tax to approximately \$500/year (the residual tax at $\alpha \approx 0.88$).}
+
+\textit{The difference: \$94,060/year. Compounded over ten years: \$940,600 in avoidable marketing costs.}
+\end{calcbox}
+
+\section{The State Persistence Equation and Decay}
+
+The Inference Tax is not only a cost. It also interacts with the decay term $R_d$ in the persistence equation to create a structural vulnerability: low-$\alpha$ entities that stop investing in compensatory marketing experience accelerated decay back toward the trough.
+
+\begin{definition}[Decay Rate]
+The decay rate $R_d$ is the rate at which an entity's market recognition and classification signals erode in the absence of reinforcing activity:
+\[
+R_d = R_{base} \cdot (1 + \gamma(1-\alpha))
+\]
+where $R_{base}$ is the baseline decay rate common to all entities (reflecting normal competitive displacement and platform algorithm changes) and $\gamma(1-\alpha)$ is the amplification of decay for low-alignment entities.
+\end{definition}
+
+The amplification term $\gamma(1-\alpha)$ reflects a critical asymmetry: high-$\alpha$ entities build classification confidence over time that resists decay, because their accumulated signals all consistently reinforce the correct category. Low-$\alpha$ entities build \textit{contested} classification signals --- some pointing toward the correct category (from content and reviews) and some pointing toward competing categories (from the name itself and all systems that have indexed it). This contested state erodes faster because competing signals do not reinforce each other.
+
+Practically: a Stable Atom business that pauses marketing for three months will experience modest visibility erosion that recovers quickly when marketing resumes. A Ghost Risk business that pauses marketing for three months may experience near-complete visibility collapse, because the foundation provided by the name is too weak to sustain the classification confidence built up by prior marketing effort.
+
+\section{Chapter Summary}
+
+Chapter 7 establishes the following:
+
+\textbf{1.} The Inference Tax $\taui$ is the recurring, measurable monthly cost of naming ambiguity --- paid in marketing hours, advertising spend, content volume, and lost customers.
+
+\textbf{2.} The tax is paid in five locations: search system inference delays, registry misclassification, customer ``what do you do?'' friction, excess content requirements, and platform management overhead.
+
+\textbf{3.} The calculation procedure translates the abstract $\alpha$ score into a concrete annual dollar cost, making the naming decision a quantifiable financial decision.
+
+\textbf{4.} Decay is asymmetric: high-$\alpha$ entities build durable classification confidence; low-$\alpha$ entities build contested signals that erode faster in the absence of reinforcement.
+
+\begin{equationbox}
+\textbf{Core Equations from Chapter 7:}
+\[
+\tau_i = W_\Delta \cdot C_{unit} \cdot f_{encounter}
+\]
+\[
+E_{required}(\alpha) = \frac{E_0}{\alpha^2}
+\]
+\[
+\tau_i^{monthly} = E_0\left(\frac{1}{\alpha^2} - 1\right) \quad \text{(monthly inference tax in effort units)}
+\]
+\[
+R_d = R_{base} \cdot (1 + \gamma(1-\alpha)) \quad \text{(decay amplified by low alignment)}
+\]
+\end{equationbox}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  CHAPTER 8
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{Sector Friction and the Competitive Field}
+
+\begin{keybox}[Chapter Thesis]
+Sector friction $\Phi$ is the environmental variable that determines how hard the market itself makes visibility, independent of naming quality. It reflects the density of incumbents, the intensity of established category signals, and the competitive pressure that any new entity must overcome simply by existing in that field. $\Phi$ modulates the cost of every other variable in the model: it multiplies the trough, amplifies the drift penalty, and sets the floor for the survival threshold.
+\end{keybox}
+
+\section{Defining $\Phi$: The Friction Coefficient of Your Market}
+
+Two businesses can have identical names, identical alignment scores, and identical differentiation, yet face completely different resolution challenges because of the categories they operate in. A plumbing company enters a market where the category is well-established, the query patterns are clear, and the classification infrastructure is mature. A blockchain consulting firm enters a market where the category is contested, the query patterns are evolving, and the classification infrastructure is still being built.
+
+Sector friction $\Phi$ captures this difference formally.
+
+\begin{definition}[Sector Friction Coefficient]
+The sector friction coefficient $\Phi \in [0, 1]$ measures the aggregate resistance of a market sector to the classification and surfacing of new entities. It is a function of:
+\begin{itemize}[leftmargin=1.5em]
+  \item Incumbent density: how many established entities already occupy the resolution space
+  \item Category maturity: how well-established the classification infrastructure is for this category
+  \item Query competition: the intensity of competition for the primary query terms in the category
+  \item Platform dominance: the degree to which existing entities have locked in favorable classification positions
+\end{itemize}
+\end{definition}
+
+$\Phi$ appears in the denominator of the persistence equation and as a direct multiplier of the trough depth. A business in a high-friction market ($\Phi \approx 0.95$) faces roughly twice the resolution resistance of a business in a low-friction market ($\Phi \approx 0.45$) at equivalent alignment. The friction coefficient does not punish poor naming specifically; it makes \textit{everything} harder and therefore amplifies the cost of every other variable.
+
+\section{How Incumbent Density Creates Atmospheric Pressure}
+
+The friction concept in commercial resolution is directly analogous to atmospheric pressure in physical systems: the denser the medium, the more energy required for an object to move through it.
+
+In a category with 1,000 established incumbents, each of whom has accumulated years of classification signals, review volume, and backlink authority, a new entity is attempting to establish classification presence in a space that is already saturated with competing signals. Every search engine query in the category is already being answered by the existing entities. Every directory listing slot is occupied. Every ``related businesses'' recommendation surfaces existing players.
+
+The new entity must not just achieve classification --- it must achieve classification at a level sufficient to displace the existing signal density and earn visible positioning. This is the atmospheric pressure of the market. In a thin market (few incumbents, low signal density), achieving visibility is relatively straightforward. In a dense market (many incumbents, high signal density), it requires sustained effort even for a perfectly aligned name.
+
+\begin{calcbox}[Atmospheric Pressure and Time-to-Visibility]
+\textbf{Low-friction market ($\Phi = 0.40$):} A new Stable Atom entity ($\alpha = 0.90$)
+\[
+D_t = 0.40 \times (1 - 0.90) = 0.04
+\]
+Near-zero trough. The entity can achieve first-page category visibility within weeks of launch with minimal marketing effort.
+
+\vspace{8pt}
+\textbf{High-friction market ($\Phi = 0.92$):} Same Stable Atom entity ($\alpha = 0.90$)
+\[
+D_t = 0.92 \times (1 - 0.90) = 0.092
+\]
+Still modest for a well-named entity. But now consider a Ghost Risk name ($\alpha = 0.15$):
+\[
+D_t = 0.92 \times (1 - 0.15) = 0.782
+\]
+\textit{The same Ghost Risk name that would merely struggle in a thin market is functionally trapped in a dense one.}
+\end{calcbox}
+
+\section{Local Vector Displacement: The GMB Density Problem}
+
+At the local level, friction takes a specific form that practitioners encounter directly: the Google Maps Pack density problem.
+
+The local search results for any category in any market show a maximum of three businesses in the default ``local pack'' view. In a market with 500 plumbing companies, only 3 can occupy those positions for any given query. The competition for those positions is governed by a combination of GMB factors: category alignment, review volume, proximity, and name-to-query match.
+
+\begin{definition}[Local Vector Displacement]
+Local vector displacement $\delta_l$ measures the degree to which a business must overcome the established positional dominance of existing local competitors:
+\[
+\delta_l = \Phi \cdot \rho_l \cdot (1 - \alpha)
+\]
+where $\rho_l$ is the local density of established competitors with high classification confidence in the same category.
+\end{definition}
+
+In dense local markets, a new entity with a weak name is not just competing against the category's natural friction --- it is competing against businesses that have been accumulating GMB signals for years and have achieved stable classification positions that are very difficult to displace. The effective trough in these conditions is not $\Phi(1-\alpha)$ but the expanded form that accounts for local displacement.
+
+This has a direct implication for naming strategy in competitive local markets: geographic specificity in the name ($\Cl$ component) combined with strong category alignment ($\Nc$) is the most efficient path to overcoming local vector displacement, because it creates a geo-categorical match that the algorithm treats as directly relevant to local queries in a way that identical names without geographic context cannot achieve.
+
+\section{The Atmospheric Resultant $R_{sn}$ and Name Aerodynamics}
+
+The concept of name aerodynamics refers to how efficiently a name moves through the friction environment of its market. A name that is aerodynamically optimized for its sector cuts through the friction with minimum resistance. A name that is not aerodynamically suited to its sector experiences drag at every point of contact with the resolution environment.
+
+\begin{definition}[Atmospheric Resultant]
+The atmospheric resultant $R_{sn}$ measures the net resolution force available to an entity after sector friction is applied:
+\[
+R_{sn} = \frac{\alpha - \sigma}{\Phi(1+\sigma)}
+\]
+When $R_{sn} > 1$: the entity has sufficient resolution force to overcome sector friction. The name is aerodynamic for this market.\\
+When $R_{sn} < 1$: the entity's resolution force is insufficient for its market environment. Compensatory effort is required.\\
+When $R_{sn} \leq 0$: the entity is in net negative resolution --- the name actively creates friction that exceeds its positive contributions.
+\end{definition}
+
+The atmospheric resultant is a fast diagnostic tool. Compute it for any name-market combination, and you immediately know whether the name is structurally viable in that specific market without any additional analysis.
+
+\begin{calcbox}[Atmospheric Resultant Examples]
+\textbf{Dallas Roof Repair Company in Dallas roofing ($\Phi = 0.70, \alpha = 0.92, \sigma = 0.05$):}
+\[
+R_{sn} = \frac{0.92 - 0.05}{0.70 \times 1.05} = \frac{0.87}{0.735} = 1.18
+\]
+\textit{$R_{sn} > 1$: Aerodynamic. The name clears sector friction. Stable Atom status is achievable.}
+
+\vspace{8pt}
+\textbf{Transitions Financial in financial planning ($\Phi = 0.88, \alpha = 0.52, \sigma = 0.65$):}
+\[
+R_{sn} = \frac{0.52 - 0.65}{0.88 \times 1.65} = \frac{-0.13}{1.452} = -0.089
+\]
+\textit{$R_{sn} < 0$: Net negative resolution. The name's drift exceeds its alignment. Even without sector friction, this name works against classification. In a high-friction financial services market, it creates structural drag at every touchpoint.}
+
+\vspace{8pt}
+\textbf{Nexigen Consulting in business consulting ($\Phi = 0.85, \alpha = 0.04, \sigma = 0.80$):}
+\[
+R_{sn} = \frac{0.04 - 0.80}{0.85 \times 1.80} = \frac{-0.76}{1.53} = -0.497
+\]
+\textit{Severely negative $R_{sn}$. The invented name has no alignment signal and high drift (it activates technology/pharmaceutical associations that are irrelevant to consulting). The entity faces compounding drag from all three variables simultaneously.}
+\end{calcbox}
+
+\section{Friction Mapping by Industry Category}
+
+To make the friction coefficient practically applicable, we provide estimated $\Phi$ ranges for major industry sectors. These estimates are derived from the aggregate competitive density, search volume competition, and GMB classification maturity of each sector.
+
+\begin{center}
+\begin{longtable}{lcc}
+\toprule
+\textbf{Industry Sector} & \textbf{$\Phi$ Range} & \textbf{Classification} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Industry Sector} & \textbf{$\Phi$ Range} & \textbf{Classification} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\small\textit{continued on next page}}
+\endfoot
+\bottomrule
+\endlastfoot
+Personal injury law & 0.93--0.97 & Very High Friction \\
+Search engine optimization & 0.91--0.95 & Very High Friction \\
+Financial planning / wealth management & 0.87--0.92 & Very High Friction \\
+Business consulting (general) & 0.82--0.88 & High Friction \\
+Real estate services & 0.82--0.90 & High Friction \\
+Digital marketing agencies & 0.83--0.89 & High Friction \\
+IT services / managed services & 0.80--0.87 & High Friction \\
+Health coaching & 0.78--0.85 & High Friction \\
+Residential roofing & 0.68--0.76 & Medium-High Friction \\
+Plumbing services & 0.65--0.73 & Medium Friction \\
+HVAC services & 0.63--0.71 & Medium Friction \\
+Electrical contractors & 0.62--0.70 & Medium Friction \\
+Landscaping & 0.60--0.68 & Medium Friction \\
+Commercial cleaning & 0.58--0.66 & Medium Friction \\
+Auto body repair & 0.57--0.65 & Medium Friction \\
+Pet grooming & 0.52--0.62 & Medium-Low Friction \\
+Specialty food retail & 0.48--0.58 & Medium-Low Friction \\
+Personal training & 0.45--0.55 & Medium-Low Friction \\
+Niche B2B services (emerging) & 0.30--0.50 & Low Friction \\
+New digital categories & 0.20--0.40 & Low Friction \\
+\end{longtable}
+\end{center}
+
+\textbf{Key insight from this table:} The categories with the highest friction are also the categories most populated by poorly named businesses. Legal, financial, consulting, and marketing firms are overrepresented in Ghost Risk naming territory, yet they operate in the highest-friction markets where Ghost Risk is most expensive. This is not coincidence. These are the categories where naming conventions encourage creative, distinctive, non-descriptive names --- and those conventions have been generating unnecessary expense for decades.
+
+\subsection{High-Friction Markets: Why Clarity Matters More, Not Less}
+
+A counterintuitive but mathematically necessary conclusion: in the highest-friction markets, descriptive names are \textit{more} valuable, not less valuable. The conventional wisdom in professional services is that creative names differentiate. The mathematics says the opposite: in a market where every entity is fighting for the same resolution positions against hundreds of established competitors, the entity that is most immediately classifiable gains the greatest advantage.
+
+The legal profession provides the clearest example. Firms named ``Smith Johnson \& Associates'' (Ghost Risk: two personal names and a generic collective noun) proliferate, while firms named ``Dallas Business Contract Law'' would achieve Stable Atom status immediately. The reason creative naming persists in these fields is cultural --- professional service norms favor personal-name firms and sophisticated-sounding branding. The mathematics is indifferent to cultural norms. The Inference Tax is paid regardless.
+
+\subsection{Low-Friction Markets: Where Creativity Has Headroom}
+
+In genuinely low-friction markets (new categories, emerging digital services, niche B2B), the alignment requirements relax. With fewer competing classification signals, a slightly less precise name can still achieve adequate resolution because the algorithm has less difficulty identifying the correct category --- there are simply fewer categories to confuse it with.
+
+This is why creative naming works tolerably well for genuinely novel businesses: the novelty itself reduces competition in the resolution space. But the window for creative naming closes as the category matures and friction rises. A brand built on a creative name in a low-friction period may find itself in a high-friction situation years later, carrying a naming penalty it never needed to incur.
+
+\section{Chapter Summary}
+
+Chapter 8 establishes the following:
+
+\textbf{1.} $\Phi$ is the market-level friction coefficient that modulates the cost of every other variable. It is not something a business can change through naming choices, but understanding it is essential for estimating the real cost of any naming decision.
+
+\textbf{2.} Incumbent density creates atmospheric pressure that new entities must overcome in addition to their baseline resolution challenge.
+
+\textbf{3.} Local vector displacement compounds friction for businesses competing in the Google local pack.
+
+\textbf{4.} The atmospheric resultant $R_{sn} = (\alpha - \sigma)/[\Phi(1+\sigma)]$ provides a single-number diagnostic for name aerodynamics in a specific market.
+
+\textbf{5.} The highest-friction markets --- legal, financial, consulting --- are also the markets most populated by poorly named businesses, creating a persistent and unnecessary structural disadvantage for the industry.
+
+\begin{equationbox}
+\textbf{Core Equations from Chapter 8:}
+\[
+D_t = \Phi(1 - \alpha) \quad \text{(sector friction in trough depth)}
+\]
+\[
+\delta_l = \Phi \cdot \rho_l \cdot (1 - \alpha) \quad \text{(local vector displacement)}
+\]
+\[
+R_{sn} = \frac{\alpha - \sigma}{\Phi(1+\sigma)} \quad \text{(atmospheric resultant)}
+\]
+\[
+P_s(t) = \int_0^t \left(\frac{E \cdot \alpha}{\Phi(1+\sigma)^2}\right) dt - R_d \quad \text{(full persistence equation)}
+\]
+\textbf{Diagnostic:} $R_{sn} > 1$ = aerodynamic; $R_{sn} < 1$ = compensatory effort required; $R_{sn} \leq 0$ = net negative resolution.
+\end{equationbox}
+
+\end{document}

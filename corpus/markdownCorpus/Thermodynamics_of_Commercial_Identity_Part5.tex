@@ -1,0 +1,998 @@
+\documentclass[12pt, openany]{book}
+
+% ── PACKAGES ──────────────────────────────────────────────────────────────────
+\usepackage[
+  paperwidth=8.5in, paperheight=11in,
+  top=1.1in, bottom=1.1in, left=1.25in, right=1.25in
+]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage[most, breakable]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+\usepackage[hidelinks]{hyperref}
+
+% ── COLORS ────────────────────────────────────────────────────────────────────
+\definecolor{navy}{RGB}{26, 58, 92}
+\definecolor{midblue}{RGB}{46, 109, 164}
+\definecolor{lightblue}{RGB}{220, 235, 248}
+\definecolor{accentgray}{RGB}{100, 100, 110}
+\definecolor{boxbg}{RGB}{245, 249, 253}
+\definecolor{warningbg}{RGB}{255, 250, 235}
+\definecolor{warningborder}{RGB}{180, 130, 30}
+\definecolor{pressurered}{RGB}{170, 40, 40}
+\definecolor{pressurebg}{RGB}{255, 245, 245}
+
+% ── THEOREM ENVIRONMENTS ──────────────────────────────────────────────────────
+\newtheoremstyle{thmstyle}{12pt}{8pt}{\itshape}{}{\bfseries\color{navy}}{.}{.5em}{}
+\theoremstyle{thmstyle}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\newtheoremstyle{defstyle}{12pt}{8pt}{\normalfont}{}{\bfseries\color{midblue}}{.}{.5em}{}
+\theoremstyle{defstyle}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{example}{Example}[chapter]
+
+% ── BOXES ─────────────────────────────────────────────────────────────────────
+\newtcolorbox{keybox}[1][Key Principle]{
+  enhanced, breakable, colback=boxbg, colframe=midblue,
+  fonttitle=\bfseries\color{navy}, title={#1},
+  arc=3pt, boxrule=0.8pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+\newtcolorbox{equationbox}{
+  enhanced, colback=lightblue!50, colframe=navy,
+  arc=4pt, boxrule=1pt, left=12pt, right=12pt, top=8pt, bottom=8pt
+}
+\newtcolorbox{examplebox}[1][Example]{
+  enhanced, breakable, colback=white, colframe=accentgray!50,
+  fonttitle=\bfseries\color{accentgray}, title={#1},
+  arc=3pt, boxrule=0.6pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+\newtcolorbox{warnbox}[1][Important]{
+  enhanced, breakable, colback=warningbg, colframe=warningborder,
+  fonttitle=\bfseries\color{warningborder}, title={#1},
+  arc=3pt, boxrule=0.8pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+\newtcolorbox{calcbox}[1][Calculation]{
+  enhanced, breakable, colback=lightblue!20, colframe=midblue!60,
+  fonttitle=\bfseries\color{midblue}, title={#1},
+  arc=3pt, boxrule=0.6pt, left=10pt, right=10pt, top=8pt, bottom=8pt
+}
+\newtcolorbox{pressurebox}[1][Resolution Pressure]{
+  enhanced, breakable, colback=pressurebg, colframe=pressurered,
+  fonttitle=\bfseries\color{pressurered}, title={#1},
+  arc=3pt, boxrule=0.8pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+\newtcolorbox{theorembox}[1][Theorem]{
+  enhanced, breakable, colback=boxbg, colframe=navy,
+  fonttitle=\bfseries\color{navy}, title={#1},
+  arc=4pt, boxrule=1.2pt, left=10pt, right=10pt, top=8pt, bottom=8pt
+}
+\newtcolorbox{masterbox}{
+  enhanced, colback=navy!6, colframe=navy,
+  arc=5pt, boxrule=1.5pt, left=14pt, right=14pt, top=12pt, bottom=12pt
+}
+
+% ── SECTION FORMATTING ────────────────────────────────────────────────────────
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{navy}}
+  {\large\color{midblue}\MakeUppercase{\chaptername}\ \thechapter}
+  {10pt}
+  {\rule{\textwidth}{1.5pt}\vspace{4pt}}
+  [\vspace{2pt}\rule{\textwidth}{0.4pt}\vspace{6pt}]
+
+\titleformat{\section}{\normalfont\large\bfseries\color{navy}}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries\color{midblue}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\itshape\color{accentgray}}{\thesubsubsection}{1em}{}
+
+\titleformat{\part}[display]
+  {\normalfont\Huge\bfseries\color{navy}\centering}
+  {\large\color{midblue}\MakeUppercase{\partname}\ \thepart}
+  {16pt}{}[\vspace{6pt}\color{midblue}\rule{0.5\textwidth}{2pt}]
+
+% ── HEADERS ───────────────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\color{accentgray}\leftmark}
+\fancyhead[RO]{\small\color{accentgray}\rightmark}
+\fancyfoot[C]{\small\color{accentgray}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+% ── SPACING ───────────────────────────────────────────────────────────────────
+\setstretch{1.15}
+\setlength{\parskip}{7pt}
+\setlength{\parindent}{0pt}
+
+% ── COUNTERS ──────────────────────────────────────────────────────────────────
+\setcounter{chapter}{11}
+\setcounter{part}{4}
+
+% ── MATH MACROS ───────────────────────────────────────────────────────────────
+\newcommand{\vstar}{V^{*}}
+\newcommand{\Rp}{R_p}
+\newcommand{\Dt}{D_t}
+\newcommand{\taui}{\tau_i}
+\newcommand{\Wdelta}{W_{\Delta}}
+\newcommand{\Sx}{S_x}
+\newcommand{\Fm}{F_m}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+% ──────────────────────────────────────────────────────────────────────────────
+\begin{document}
+\tableofcontents
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  PART V OPENER
+% ══════════════════════════════════════════════════════════════════════════════
+\part{Resolution Pressure and Market Activation}
+
+\vspace{16pt}
+\begin{center}
+\color{accentgray}\itshape
+Why markets move at all. The missing causal bridge between human necessity\\
+and business selection --- formalized as a field force that amplifies\\
+every other variable in the model.
+\end{center}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  CHAPTER 12
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{Necessity, Urgency, and the Activation Threshold}
+
+\begin{keybox}[Chapter Thesis]
+The model developed through Part IV explains how names resolve, how alignment is measured, and how differentiation compensates. But it cannot yet answer the most fundamental commercial question: why does anyone move at all? A name can be perfectly aligned. A proposition can be powerfully differentiated. And the market can still sit still. This chapter introduces Resolution Pressure $R_p$ --- the activation force that converts latent need into active search and active search into market selection. It is the missing causal variable that completes the chain from necessity to transaction.
+\end{keybox}
+
+\section{The Problem the Prior Model Cannot Solve}
+
+Return to the market success equation from Part IV:
+\[
+S_x(t) = \int_0^t \left(\frac{(E + \Delta A_r)(\alpha + \lambda\Delta)}{\Phi(1+\sigma)^2}\right) dt - R_d
+\]
+
+This equation describes how productive force accumulates over time against resistance. It assumes that effort $E$ is being applied and that the market is being engaged. But it does not explain \textit{why} a specific customer, at a specific moment, transitions from someone who might theoretically need a service to someone who is actively searching, comparing, and selecting.
+
+Consider two scenarios for a tax preparation business:
+
+\textbf{Scenario A --- January.} A potential customer knows abstractly that taxes need to be filed eventually. They are aware of the business. The name resolves clearly. The differentiation is strong. They do nothing.
+
+\textbf{Scenario B --- April 12th.} The same customer. The same name. The same differentiation. They call immediately, select on the first call, and commit to the engagement.
+
+Nothing changed in the model variables between January and April 12th. $\alpha$, $\sigma$, $\Delta$, $\Phi$ --- all identical. Yet the commercial outcome is completely different. The variable that changed is not captured anywhere in the prior equations.
+
+What changed is \textit{the intensity of the problem}. In January, the problem exists but does not press. On April 12th, the problem is urgent, consequential, and immediate. The customer has been activated by something the model has not yet named.
+
+That something is Resolution Pressure.
+
+\section{Need $\neq$ Action: The Fundamental Gap}
+
+The gap between need and action is one of the most important and least formalized phenomena in commercial behavior. Every marketer who has ever wondered why a well-positioned, well-priced, well-known product fails to generate sales in a market of people who demonstrably need it is encountering this gap without a formal framework to analyze it.
+
+\begin{keybox}[The Need-Action Gap]
+The existence of a need does not produce action. Action requires that the need be activated by sufficient pressure --- urgency, consequence, and intensity --- to overcome the activation threshold.
+\[
+\text{Need} \neq \text{Action}
+\]
+\[
+\text{Action} = f(\text{Need}, R_p) \quad \text{only when } R_p > \eta
+\]
+where $\eta$ is the activation threshold.
+\end{keybox}
+
+This gap is not irrational consumer behavior. It is a structural feature of how human beings allocate cognitive and logistical resources. Problems that can be deferred without immediate consequence are deferred. Problems that cannot be deferred, or whose deferral carries a mounting cost, generate the urgency that converts passive need into active search.
+
+The commercial implication is profound: a business does not merely compete on the quality of its resolution. It operates in a field of varying pressure gradients that determine, independent of everything else, when customers enter the market. Understanding those pressure gradients is not a soft marketing insight --- it is a hard mechanical variable that predicts market velocity.
+
+\section{Defining Resolution Pressure: $R_p = N \cdot U_r \cdot T_c$}
+
+\begin{definition}[Resolution Pressure]
+Resolution Pressure $R_p$ is the activation force that converts latent need into active market behavior. It is the product of three independent dimensions of problem intensity:
+\begin{equation}
+R_p = N \cdot U_r \cdot T_c
+\label{eq:rp}
+\end{equation}
+where:
+\begin{itemize}[leftmargin=1.5em]
+  \item $N$ = Necessity Intensity: how essential the problem is to the buyer
+  \item $U_r$ = Urgency of Resolution: how quickly the need must be acted on
+  \item $T_c$ = Consequence of Delay: the penalty cost incurred by not acting
+\end{itemize}
+All three components are scored in $[0, 1]$.
+\end{definition}
+
+The multiplicative structure is deliberate. A problem that is highly necessary but carries no urgency and no consequence of delay does not generate action. A problem that is extremely urgent but carries no real consequence does not generate committed action. Only when all three dimensions are simultaneously elevated does $R_p$ reach the activation threshold.
+
+\subsection{Necessity Intensity $N$: How Badly Is It Needed?}
+
+\begin{definition}[Necessity Intensity]
+$N \in [0, 1]$ measures the degree to which the problem being solved is essential to the buyer's well-being, operations, or objectives --- independent of timing.
+\end{definition}
+
+Necessity is the baseline importance of the problem, divorced from urgency. It answers the question: \textit{If this problem were never solved, how much would it matter?}
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Problem} & \textbf{$N$ Estimate} & \textbf{Notes} \\
+\midrule
+Emergency plumbing failure & 0.98 & Property damage without resolution \\
+Tax filing (IRS deadline) & 0.92 & Legal obligation, financial penalty \\
+Roof leak during storm season & 0.88 & Structural damage, habitability \\
+Business contract legal review & 0.82 & Financial and legal exposure \\
+Financial planning for retirement & 0.75 & Long-term material consequence \\
+Marketing strategy review & 0.55 & Important but not existential \\
+Website redesign & 0.45 & Improvement, not urgent need \\
+Decorative home refresh & 0.22 & Preference, not necessity \\
+Logo redesign (healthy company) & 0.18 & Aesthetic preference \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Urgency of Resolution $U_r$: How Soon Must It Be Solved?}
+
+\begin{definition}[Urgency of Resolution]
+$U_r \in [0, 1]$ measures the time pressure on the resolution of the need --- how quickly action must be taken.
+\end{definition}
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Time Frame} & \textbf{$U_r$ Estimate} & \textbf{Example Trigger} \\
+\midrule
+Immediate (minutes to hours) & 0.95--1.0 & Active leak, system failure \\
+Same day & 0.85--0.95 & Deadline today, critical outage \\
+This week & 0.70--0.85 & Filing due Friday, inspection coming \\
+This month & 0.50--0.70 & Upcoming contract, seasonal prep \\
+This quarter & 0.30--0.50 & Growth planning, process improvement \\
+This year & 0.15--0.30 & Strategic review, long-term project \\
+Someday & 0.05--0.15 & Aspirational, no firm timeline \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Consequence of Delay $T_c$: What Happens If They Wait?}
+
+\begin{definition}[Consequence of Delay]
+$T_c \in [0, 1]$ measures the penalty cost --- financial, emotional, physical, operational --- that accumulates if the need is not resolved within its urgent window.
+\end{definition}
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Delay Consequence} & \textbf{$T_c$ Estimate} & \textbf{Nature of Cost} \\
+\midrule
+Property destruction & 0.92--0.98 & Direct financial loss \\
+Legal/regulatory penalty & 0.88--0.95 & IRS penalty, compliance fine \\
+Health or safety risk & 0.90--0.98 & Physical harm \\
+Business revenue loss & 0.75--0.90 & Contract missed, customer lost \\
+Emotional distress & 0.60--0.80 & Ongoing anxiety, relationship strain \\
+Competitive disadvantage & 0.50--0.70 & Market position erosion \\
+Missed opportunity & 0.35--0.55 & Optional upside forfeited \\
+Minor inconvenience & 0.10--0.25 & Mild discomfort, suboptimal outcome \\
+No consequence & 0.02--0.10 & Purely discretionary decision \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{The Activation Threshold $\eta$: When Latent Need Becomes Search}
+
+Not all pressure produces search behavior. Below a certain intensity level, the problem remains in what we call the \textbf{latent state} --- the customer is aware of the need but does not actively pursue resolution. Above the activation threshold $\eta$, the problem crosses into the \textbf{active state} and produces observable market behavior: search queries, social requests for recommendations, direct vendor contact.
+
+\begin{definition}[Activation Threshold]
+The activation threshold $\eta$ is the minimum Resolution Pressure required to trigger active search behavior:
+\begin{equation}
+\text{Search behavior emerges when: } R_p > \eta
+\label{eq:activation}
+\end{equation}
+When $R_p \leq \eta$, the need remains latent. No search behavior is generated regardless of naming quality or differentiation.
+\end{definition}
+
+The activation threshold varies by individual, context, and category. A highly organized person with strong financial discipline may reach the activation threshold for retirement planning at $\eta = 0.30$ --- earlier and with lower pressure than the average person. Someone accustomed to procrastinating on financial matters may require $\eta = 0.65$ before the same objective need produces action.
+
+For commercial modeling purposes, we typically use the \textit{population-level} activation threshold --- the pressure level at which a meaningful fraction of the addressable market begins exhibiting active search behavior. Population-level thresholds are relatively stable within categories and can be estimated from search volume seasonality data.
+
+\textbf{The critical commercial insight:} A business cannot make the phone ring faster simply by improving its name or differentiation, if the population-level $R_p$ for its category has not yet crossed $\eta$. This explains why some perfectly well-positioned businesses have slow months that no amount of marketing can fix. The pressure hasn't activated the market. The solution is not better positioning --- it is either waiting for natural pressure cycles or engineering events that raise $R_p$ (promotions tied to seasonal deadlines, urgency-creating offers, consequential framing of delays).
+
+\section{Search Intent Emergence Function: $I_s = \max(0, R_p - \eta)$}
+
+Once $R_p$ exceeds the activation threshold, the excess pressure above $\eta$ generates proportional search intensity.
+
+\begin{definition}[Search Intent Emergence]
+The Search Intent Emergence function $I_s$ measures the intensity of active search behavior generated by Resolution Pressure above the activation threshold:
+\begin{equation}
+I_s = \max(0,\; R_p - \eta)
+\label{eq:search_emergence}
+\end{equation}
+\end{definition}
+
+This function is zero for all $R_p \leq \eta$ (latent state) and rises linearly above $\eta$. The implication is that there is no gradual ``warming up'' of search behavior. Below the threshold, the market is effectively inert. Above it, intent generates active behavior proportional to the excess pressure.
+
+For a business, $I_s$ determines the \textit{pool of activated buyers} available at any given moment. This pool fluctuates with seasonal patterns, news events, regulatory calendars, and the natural rhythms of the problems the business solves.
+
+\begin{examplebox}[$I_s$ Across the Tax Preparation Calendar]
+\textbf{Tax preparation business, population-level $\eta = 0.55$:}
+
+\begin{center}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Month} & \textbf{$N$} & \textbf{$U_r$} & \textbf{$R_p$} & \textbf{$I_s$} \\
+\midrule
+January & 0.92 & 0.25 & 0.23 & 0 (latent) \\
+February & 0.92 & 0.50 & 0.46 & 0 (latent) \\
+March & 0.92 & 0.80 & 0.74 & 0.19 (activating) \\
+April 1--12 & 0.92 & 0.95 & 0.87 & 0.32 (high intensity) \\
+April 13--15 & 0.92 & 0.99 & 0.91 & 0.36 (maximum) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textit{(Assuming $T_c = 0.92$ for IRS penalty consequences throughout)}
+
+\textit{The business does not become more visible, better priced, or better differentiated between January and April. The market activates because $R_p$ crosses $\eta$ in March and rises sharply toward the filing deadline. Marketing spend in January is largely wasted because $I_s = 0$. Marketing spend in early April has maximum leverage because $I_s$ is at its peak.}
+\end{examplebox}
+
+\section{Searcher Velocity: $V_s = R_p / F_{cog}$}
+
+When Resolution Pressure activates search, it also determines the speed at which searchers move through the selection process. High-pressure buyers are fast. They have limited patience for ambiguity, investigation, and complexity. They want the fastest path from search query to solution.
+
+\begin{definition}[Searcher Velocity]
+Searcher Velocity $V_s$ measures how quickly an activated buyer moves through the selection process:
+\begin{equation}
+V_s = \frac{R_p}{F_{cog}}
+\label{eq:searcher_velocity}
+\end{equation}
+where $F_{cog}$ is the cognitive friction required to understand the offer --- the mental effort a buyer must invest to determine whether the entity serves their need.
+\end{definition}
+
+The ratio structure is revealing. High pressure divided by low cognitive friction produces very fast selection. The buyer identifies the right entity instantly and moves to contact. High pressure divided by high cognitive friction produces frustrated abandonment. The buyer needs a solution urgently, encounters a name they cannot quickly parse, and moves to the next result.
+
+\textbf{The naming implication:} Cognitive friction $F_{cog}$ is almost entirely determined by naming quality. A Stable Atom name with $\alpha \approx 0.90$ produces $F_{cog} \approx 0.05$. A Ghost State name with $\alpha \approx 0.10$ produces $F_{cog} \approx 0.90$. The ratio changes by a factor of 18. In high-pressure markets, this 18x difference in cognitive friction is a direct 18x difference in the probability that a high-urgency buyer selects the entity before abandoning the search.
+
+\begin{pressurebox}[Why High-Pressure Markets Brutally Punish Ambiguous Names]
+In a low-pressure market (someone browsing for a home decorator), the buyer has time. They will investigate. They will click through multiple pages. A confusing name might cost a second click, but it does not lose the sale.
+
+In a high-pressure market (someone with a burst pipe at 11pm), the buyer has no time. They scan the first results. They read the names. The first name that tells them ``this is exactly what I need, in my location, right now'' gets the call. The second and third results get nothing.
+
+Searcher Velocity $V_s = R_p / F_{cog}$ formalizes this: maximum pressure multiplied by minimum friction produces near-instant selection. The plumber with $\alpha = 0.92$ and $F_{cog} = 0.05$ captures that customer. The plumber with $\alpha = 0.15$ and $F_{cog} = 0.85$ does not.
+
+This is not a search ranking issue. It is a naming issue operating at the speed of human emergency response.
+\end{pressurebox}
+
+\section{$R_p$ as an Industry Diagnostic Tool}
+
+Resolution Pressure is not just a variable in the market activation equation. It is a powerful industry diagnostic that tells you, before you name a business, what kind of commercial environment you are entering and what naming requirements follow from that environment.
+
+\subsection{Emergency Plumber: $R_p \approx 1.0$ --- What This Means}
+
+\begin{calcbox}[Emergency Plumbing $R_p$]
+$N = 0.98$ (property damage if unresolved)\\
+$U_r = 0.98$ (needs resolution in hours)\\
+$T_c = 0.95$ (water damage accumulates every minute of delay)
+\[
+R_p = 0.98 \times 0.98 \times 0.95 = \mathbf{0.912}
+\]
+\textit{Resolution Pressure is near-maximum.}
+
+\textbf{What this means for naming:}
+\begin{itemize}[leftmargin=1.5em]
+  \item Searcher velocity is near-maximum: $V_s = 0.912 / F_{cog}$
+  \item A name with $F_{cog} = 0.05$ (Stable Atom): $V_s = 18.2$ (instant selection)
+  \item A name with $F_{cog} = 0.80$ (Ghost State): $V_s = 1.14$ (slow, likely abandonment)
+  \item The naming requirement: zero cognitive friction. The name must resolve to ``plumber, my area'' in the shortest possible time.
+  \item Creativity penalty: in this category, a creative name is not just unhelpful. It is a direct revenue loss instrument. Every millisecond of cognitive friction at $R_p = 0.91$ is a lost call.
+\end{itemize}
+\end{calcbox}
+
+\subsection{Home Renovation: $R_p \approx 0.3$ --- What This Means}
+
+\begin{calcbox}[Home Renovation $R_p$]
+$N = 0.55$ (improvement, not necessity)\\
+$U_r = 0.30$ (timeline is flexible, months away)\\
+$T_c = 0.18$ (low consequence for delay)
+\[
+R_p = 0.55 \times 0.30 \times 0.18 = \mathbf{0.030}
+\]
+\textit{Resolution Pressure is very low.}
+
+\textbf{What this means for naming:}
+\begin{itemize}[leftmargin=1.5em]
+  \item The buyer is browsing, not activating. They have time to investigate.
+  \item Cognitive friction is less punishing. A slightly creative name will not lose the sale --- the buyer will click through.
+  \item Narrative and differentiation have more room to operate. The buyer has time to absorb a story.
+  \item \textit{However:} even at low $R_p$, the Stable Atom still outperforms the Ghost State. Low-pressure buying does not eliminate the naming premium; it merely reduces its magnitude.
+\end{itemize}
+\end{calcbox}
+
+\subsection{Mapping $R_p$ Across Industry Sectors}
+
+\begin{center}
+\begin{longtable}{lccc}
+\toprule
+\textbf{Industry / Service} & \textbf{$R_p$ Range} & \textbf{$V_s$ Implication} & \textbf{Naming Priority} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Industry / Service} & \textbf{$R_p$ Range} & \textbf{$V_s$ Implication} & \textbf{Naming Priority} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+Emergency plumbing & 0.85--0.98 & Instant selection & Critical \\
+Emergency electrical & 0.83--0.96 & Instant selection & Critical \\
+Emergency HVAC & 0.80--0.94 & Instant selection & Critical \\
+Tax preparation (deadline) & 0.75--0.91 & Fast, low patience & Critical \\
+Personal injury legal & 0.72--0.88 & Fast, emotional & Critical \\
+Urgent medical services & 0.78--0.95 & Immediate & Critical \\
+Roof repair (active leak) & 0.70--0.88 & Fast & Very High \\
+Debt resolution & 0.68--0.85 & Urgent, stressed & Very High \\
+Business contract review & 0.60--0.78 & Moderate-fast & High \\
+Estate planning (crisis) & 0.62--0.80 & Moderate-fast & High \\
+IT support (outage) & 0.65--0.85 & Fast & High \\
+General financial planning & 0.35--0.55 & Moderate & Moderate \\
+Marketing services & 0.28--0.50 & Browsing & Moderate \\
+Business consulting & 0.25--0.48 & Research phase & Moderate \\
+Website design & 0.20--0.38 & Research phase & Moderate \\
+Home renovation & 0.05--0.20 & Browsing & Lower \\
+Decorative services & 0.03--0.15 & Exploration & Lower \\
+Luxury/aspirational goods & 0.04--0.18 & Discovery & Lower \\
+\end{longtable}
+\end{center}
+
+\textbf{The strategic insight from this table:} The higher the $R_p$ of a category, the higher the naming premium. Businesses in critical $R_p$ categories that operate with Ghost State names are not just losing organic traffic --- they are losing emergency revenue from the highest-intent buyers at the exact moment those buyers are ready to commit.
+
+\section{Chapter Summary}
+
+Chapter 12 establishes the following:
+
+\textbf{1.} Resolution Pressure $R_p = N \cdot U_r \cdot T_c$ is the activation force that converts latent need into active market behavior. It is the missing variable in the prior model.
+
+\textbf{2.} The activation threshold $\eta$ defines the pressure level at which latent need becomes active search. Below $\eta$, markets are inert regardless of naming or differentiation quality.
+
+\textbf{3.} Search Intent Emergence $I_s = \max(0, R_p - \eta)$ measures the intensity of activated buyer behavior above the threshold.
+
+\textbf{4.} Searcher Velocity $V_s = R_p / F_{cog}$ formalizes the brutal truth of high-pressure markets: maximum urgency multiplied by maximum cognitive friction produces abandonment. Naming quality is the direct control variable for $F_{cog}$.
+
+\textbf{5.} $R_p$ mapping across industries provides a strategic framework for naming priority: the higher the category pressure, the higher the naming premium.
+
+\begin{equationbox}
+\textbf{Core Equations from Chapter 12:}
+\[
+R_p = N \cdot U_r \cdot T_c
+\]
+\[
+\text{Activation condition: } R_p > \eta
+\]
+\[
+I_s = \max(0,\; R_p - \eta) \quad \text{(search intent emergence)}
+\]
+\[
+V_s = \frac{R_p}{F_{cog}} \quad \text{(searcher velocity)}
+\]
+\end{equationbox}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  CHAPTER 13
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{Pressure and the Full Market Equation}
+
+\begin{keybox}[Chapter Thesis]
+Resolution Pressure does not merely activate the market. Once active, it amplifies every other variable in the model: alignment becomes more valuable, drift becomes more costly, differentiation is reweighted toward utility, and narrative lift accelerates. This chapter integrates $R_p$ into each term of the market equation, derives the fully pressure-adjusted forms of the alignment, drift, differentiation, and trajectory variables, and states the Resolution Pressure Theorem in its complete form.
+\end{keybox}
+
+\section{Selection Bias Toward Clarity: $B_c = R_p(1-\sigma)$}
+
+The first effect of elevated Resolution Pressure on the market selection process is a systematic bias toward entities that are immediately legible. As pressure rises, buyers have less cognitive bandwidth for ambiguity. They make faster decisions, rely more heavily on name-level signals, and are less willing to investigate entities whose names require interpretation.
+
+\begin{definition}[Selection Bias Toward Clarity]
+The Selection Bias $B_c$ measures the degree to which elevated Resolution Pressure shifts buyer selection toward entities with low drift:
+\begin{equation}
+B_c = R_p(1 - \sigma)
+\label{eq:selection_bias}
+\end{equation}
+\end{definition}
+
+\textbf{Interpretation:} An entity with zero drift ($\sigma = 0$) captures the full benefit of pressure-driven clarity bias: $B_c = R_p$. An entity with maximum drift ($\sigma = 1$) captures zero clarity benefit regardless of pressure: $B_c = 0$. The intermediate cases scale proportionally.
+
+This equation formalizes something practitioners observe but rarely articulate precisely: in high-urgency markets, the clearest name wins, not the most creative name. Selection bias is not a preference. It is a mechanical consequence of how human cognition handles time pressure. When buyers are stressed, their heuristic becomes: find the thing that most immediately and unambiguously matches what I need. The name that activates the correct category recognition fastest wins.
+
+\section{Pressure-Adjusted Alignment: $\alpha_p = \alpha(1 + \omega R_p)$}
+
+Resolution Pressure does not change the intrinsic alignment of a name. But it changes the \textit{value} of whatever alignment exists. In a low-pressure browsing environment, the gap between $\alpha = 0.85$ and $\alpha = 0.92$ is commercially modest. In a high-pressure selection environment, that same gap translates directly into differential call rates.
+
+\begin{definition}[Pressure-Adjusted Alignment]
+The Pressure-Adjusted Alignment $\alpha_p$ measures the effective alignment value of a name under live market pressure conditions:
+\begin{equation}
+\alpha_p = \alpha(1 + \omega R_p)
+\label{eq:pressure_alignment}
+\end{equation}
+where $\omega$ is the pressure sensitivity coefficient --- the rate at which market pressure amplifies the value of naming clarity.
+\end{definition}
+
+\textbf{Interpretation:} In a zero-pressure environment ($R_p = 0$), $\alpha_p = \alpha$: alignment has its baseline value. As $R_p$ rises, the premium on alignment rises proportionally. For categories with $R_p \approx 0.90$ and $\omega \approx 0.40$:
+
+\begin{calcbox}[Pressure-Adjusted Alignment: Emergency Plumbing]
+$\alpha = 0.92$ (Stable Atom plumber), $R_p = 0.91$, $\omega = 0.40$:
+\[
+\alpha_p = 0.92 \times (1 + 0.40 \times 0.91) = 0.92 \times 1.364 = \mathbf{1.255}
+\]
+
+$\alpha = 0.15$ (Ghost State plumber), same conditions:
+\[
+\alpha_p = 0.15 \times (1 + 0.40 \times 0.91) = 0.15 \times 1.364 = \mathbf{0.205}
+\]
+
+\textit{The gap between these two names, in alignment units, has grown from $0.92 - 0.15 = 0.77$ under zero pressure to $1.255 - 0.205 = 1.05$ under emergency pressure conditions.}
+
+\textit{The naming premium is $36\%$ larger in the emergency moment than in a calm evaluation. High-pressure markets do not forgive naming weaknesses --- they amplify them.}
+\end{calcbox}
+
+\section{Pressure-Weighted Drift Penalty: $\sigma_p = \sigma(1 + \psi R_p)$}
+
+The symmetric consequence of pressure amplifying the value of clarity is that pressure amplifies the cost of ambiguity. Drift, which represents active misdirection of the system's classification, becomes more damaging when the buyer is under time pressure and cannot afford to navigate competing associations.
+
+\begin{definition}[Pressure-Weighted Drift]
+The Pressure-Weighted Drift $\sigma_p$ measures the effective drift penalty under live market pressure:
+\begin{equation}
+\sigma_p = \sigma(1 + \psi R_p)
+\label{eq:pressure_drift}
+\end{equation}
+where $\psi$ is the pressure amplification constant for drift.
+\end{definition}
+
+\textbf{The mechanism in plain English:} In a calm browsing environment, a buyer who encounters a name that drifts toward an unintended category will slow down, read more carefully, and possibly still arrive at the correct interpretation. In a high-pressure environment, the same drift triggers abandonment. The buyer does not have the cognitive bandwidth to resolve the competing associations. They move to the next result.
+
+Drift is tolerable in a calm market. Drift is fatal in an urgent one.
+
+\begin{examplebox}[Drift Penalty Under Pressure: Two Scenarios]
+\textbf{A financial advisor named ``Transitions Financial Planning'':}\\
+$\sigma \approx 0.70$ (strong drift toward social services)
+
+In a calm market ($R_p = 0.15$, $\psi = 0.35$):
+\[
+\sigma_p = 0.70 \times (1 + 0.35 \times 0.15) = 0.70 \times 1.053 = 0.737
+\]
+\textit{Drift penalty: 5\% worse than baseline. Annoying but manageable.}
+
+In a crisis context ($R_p = 0.80$, same firm, client facing divorce):
+\[
+\sigma_p = 0.70 \times (1 + 0.35 \times 0.80) = 0.70 \times 1.280 = 0.896
+\]
+\textit{Drift penalty: 28\% worse than baseline. The drift toward ``social services'' is now actively misleading a buyer who is in emotional distress and needs a financial specialist, not a counselor. The name loses the sale at precisely the moment the buyer most needs the service.}
+\end{examplebox}
+
+\section{Pressure-Convertible Differentiation: $\Delta_p$ and $\chi(R_p)$}
+
+Resolution Pressure reweights not just alignment and drift but also the type of differentiation that generates market force. Under low pressure, all forms of differentiation can contribute: narrative, aesthetic, positional, ethical. Under high pressure, only \textit{utility-relevant} differentiation generates force. Ornamental differentiation --- brand story, visual identity, tone of voice --- collapses under the weight of urgency.
+
+\begin{definition}[Pressure-Convertible Differentiation]
+The Pressure-Convertible Differentiation $\Delta_p$ is the effective differentiation force under pressure conditions:
+\begin{equation}
+\Delta_p = \Delta \cdot \chi(R_p)
+\label{eq:pressure_diff}
+\end{equation}
+where $\chi(R_p)$ is the pressure conversion function:
+\begin{equation}
+\chi(R_p) = 1 + \nu R_p - \zeta R_p^2
+\label{eq:chi}
+\end{equation}
+Here $\nu$ governs positive gain from urgency-relevant distinction, and $\zeta$ governs the collapse of ornamental differentiation under high pressure.
+\end{definition}
+
+The quadratic form of $\chi(R_p)$ captures two effects simultaneously. At low to moderate $R_p$, the linear term $\nu R_p$ dominates: pressure amplifies the value of relevant differentiation (``faster response,'' ``same-day guarantee,'' ``no contract cancellation fee''). At very high $R_p$, the quadratic term $\zeta R_p^2$ begins to dominate, pulling $\chi$ back downward as extreme urgency collapses the buyer's evaluation to a single criterion: \textit{who can solve this right now?}
+
+\textbf{Practical translation:} A differentiation that answers ``I can solve this faster and more reliably than anyone else'' is \textit{pressure-convertible}. A differentiation that answers ``our brand story is rooted in three generations of family craftsmanship'' is \textit{pressure-non-convertible}. The first gains value as urgency rises. The second loses value.
+
+\section{Narrative Lift Under Pressure: $N_{lp} = \Delta A_r R_p$}
+
+When Resolution Pressure is high and differentiation is utility-relevant, the propagation of the proposition through social networks accelerates. People experiencing urgent problems actively seek and share recommendations for reliable solutions.
+
+\begin{definition}[Pressure-Amplified Narrative Lift]
+The Pressure-Amplified Narrative Lift $N_{lp}$ extends the basic Narrative Lift from Chapter 9 to incorporate Resolution Pressure as an amplifier:
+\begin{equation}
+N_{lp} = \Delta \cdot A_r \cdot R_p
+\label{eq:narrative_lift_pressure}
+\end{equation}
+Effective execution effort under pressure becomes:
+\begin{equation}
+E_{eff} = E + \Delta A_r R_p
+\label{eq:eff_effort_pressure}
+\end{equation}
+\end{definition}
+
+\textbf{Why high-pressure recommendations spread faster:} When someone's pipe bursts and a friend recommends ``call Dallas Pipe Repair Company --- they came in 45 minutes and fixed it cleanly,'' that recommendation is transmitted with high velocity and high fidelity. The urgency of the original problem encodes the recommendation with emotional salience. The recommender repeats it readily. The receiver acts on it immediately.
+
+This is a quantitatively different propagation dynamic than a calm recommendation (``I've been meaning to try that restaurant for months''). The $R_p$ multiplier in the Narrative Lift equation captures this: high pressure amplifies the word-of-mouth velocity of utility-relevant propositions.
+
+\section{The Full Pressure-Adjusted Trajectory Equation}
+
+Integrating all pressure effects into the market equation produces the fully expanded form:
+
+\begin{masterbox}
+\begin{center}
+\textbf{The Full Pressure-Adjusted Market Equation}
+\end{center}
+\begin{equation}
+S_x(t) = \int_0^t
+\frac{
+\left(E + \Delta A_r R_p\right)
+\left(\alpha(1 + \omega R_p) + \lambda\Delta\,\chi(R_p)\right)
+}{
+\Phi\left(1 + \sigma(1 + \psi R_p)\right)^2
+}
+\, dt \; - R_d
+\label{eq:master}
+\end{equation}
+\end{masterbox}
+
+This is the most complete form of the commercial identity model. Every term has been derived from first principles. Let us read through it once, term by term.
+
+\subsection{The Numerator, First Factor: $(E + \Delta A_r R_p)$}
+
+This is the total effective execution force. The first term $E$ is the business's direct marketing effort. The second term $\Delta A_r R_p$ is the pressure-amplified Narrative Lift: the degree to which the market is voluntarily propagating the business's proposition, amplified by the urgency of the problems being solved.
+
+\textbf{Plain English:} Your marketing effort plus the organic distribution generated by a resonant proposition in an urgent market.
+
+\subsection{The Numerator, Second Factor: $\alpha(1 + \omega R_p) + \lambda\Delta\,\chi(R_p)$}
+
+This is the total pressure-adjusted resolution force. The first term $\alpha(1 + \omega R_p)$ is the alignment contribution, amplified by pressure. The second term $\lambda\Delta\,\chi(R_p)$ is the differentiation contribution, weighted by its pressure-convertibility.
+
+\textbf{Plain English:} How clearly your name resolves (amplified by urgency) plus how much your differentiation proposition adds (weighted by whether it is the kind of differentiation that matters under pressure).
+
+\subsection{The Denominator: $\Phi(1 + \sigma(1 + \psi R_p))^2$}
+
+This is the total pressure-weighted resistance. $\Phi$ is the baseline sector friction. The drift term $\sigma$ is amplified by $(1 + \psi R_p)$: as pressure rises, the cost of pointing in the wrong direction compounds. The entire resistance term is squared, reflecting the nonlinear amplification of combined friction and drift.
+
+\textbf{Plain English:} How hard your market is to enter, multiplied by how much harder your name's ambiguity makes it --- with both penalties amplified by urgency.
+
+\subsection{The Subtracted Term: $-R_d$}
+
+Decay. The market forgets, competitors improve, platforms shift. All persistence must be maintained through ongoing effort. This term is unchanged by pressure.
+
+\section{Pressure-Adjusted Trough and Crest}
+
+The full pressure-adjusted forms of the trough and crest equations complete the dynamic picture.
+
+\textbf{Pressure-adjusted trough:}
+\begin{equation}
+D_{tp} = \max\!\left(0,\; \Phi\!\left(1 - \left[\alpha(1+\omega R_p) + \lambda\Delta\,\chi(R_p)\right]\right)\right)
+\label{eq:pressure_trough}
+\end{equation}
+
+For a Stable Atom entity in a high-pressure market, the pressure amplification of $\alpha$ can drive $D_{tp}$ very close to zero or even to zero (bounded by the max function) --- meaning the entity starts at or near the visibility surface from day one. For a Ghost State entity in the same market, the unamplified $\alpha$ fails to close the trough, and the pressure amplification of the drift penalty widens it further.
+
+\textbf{Pressure-adjusted crest:}
+\begin{equation}
+C_{hp} = L \cdot \frac{\alpha(1+\omega R_p) + \lambda\Delta\,\chi(R_p)}{\Phi(1 + \sigma(1+\psi R_p))}
+\label{eq:pressure_crest}
+\end{equation}
+
+In high-pressure markets with well-named entities, both amplifications work in the entity's favor: the numerator is boosted by $\omega R_p$ and the denominator is not dramatically worsened (since low drift means the $\psi R_p$ amplification is small). The result is a higher crest than would be achievable in the same market under zero pressure.
+
+High-pressure markets are not just faster. They are higher-ceiling. The businesses that are correctly named in urgent categories achieve market positions that low-pressure categories cannot produce.
+
+\section{Time-to-Resolution: $T_r$}
+
+The full pressure-aware form of the time-to-understanding equation integrates all pressure effects:
+
+\begin{equation}
+T_r = \beta + \frac{\Phi}{(E + \Delta A_r R_p)\left(\alpha(1+\omega R_p) + \lambda\Delta\,\chi(R_p)\right)}
+\label{eq:time_resolution}
+\end{equation}
+
+\textbf{What this says:} Time to market understanding shrinks when:
+\begin{itemize}[leftmargin=1.5em]
+  \item Execution effort $E$ is high
+  \item Differentiation resonates with an urgent audience ($\Delta A_r R_p$ large)
+  \item Alignment is strong and amplified by pressure ($\alpha(1 + \omega R_p)$ large)
+  \item Differentiation is pressure-convertible ($\lambda\Delta\,\chi(R_p)$ large)
+\end{itemize}
+
+Time to market understanding expands when friction is high, when effort is low, and when neither alignment nor differentiation is pressure-relevant.
+
+The fastest possible time to resolution occurs when all favorable conditions coincide: $\alpha$ near 1, $\Delta$ high and pressure-convertible, $E$ sustained, $R_p$ elevated. A well-named business in a high-urgency category with a strong utility proposition can achieve market legibility in a fraction of the time required by a poorly named entity in the same category.
+
+\section{The Resolution Pressure Theorem}
+
+\begin{theorembox}[Resolution Pressure Theorem]
+\textbf{Theorem 13.1 (Resolution Pressure Theorem).}
+
+A business entity enters accelerated market adoption when the combined pressure-adjusted productive force exceeds the pressure-adjusted resistance:
+
+\begin{equation}
+\frac{
+(E + \Delta A_r R_p)(\alpha(1+\omega R_p) + \lambda\Delta\,\chi(R_p))
+}{
+\Phi(1+\sigma(1+\psi R_p))^2
+}
+> R_d^{floor}
+\label{eq:rp_theorem}
+\end{equation}
+
+where $R_d^{floor}$ is the threshold-adjusted decay floor.
+
+\textbf{Consequences:}
+
+\begin{enumerate}[leftmargin=1.5em]
+  \item Entities with high $\alpha$ and high $R_p$ in their category enter accelerated adoption faster than any other configuration.
+  \item Entities with high $\Delta$ (utility-relevant, pressure-convertible) also enter accelerated adoption when $R_p$ is elevated.
+  \item Entities with high $\sigma$ in high-$R_p$ categories face a self-compounding resistance that cannot be overcome by effort alone.
+  \item Low-$R_p$ categories are structurally slower regardless of naming or differentiation quality.
+\end{enumerate}
+\end{theorembox}
+
+\section{Chapter Summary}
+
+Chapter 13 establishes the complete pressure-integrated market model:
+
+\textbf{1.} Selection Bias $B_c = R_p(1-\sigma)$ formalizes pressure-driven selection toward clarity.
+
+\textbf{2.} Pressure-Adjusted Alignment $\alpha_p = \alpha(1+\omega R_p)$ shows that naming premiums grow with urgency.
+
+\textbf{3.} Pressure-Weighted Drift $\sigma_p = \sigma(1+\psi R_p)$ shows that naming penalties also grow with urgency.
+
+\textbf{4.} Pressure-Convertible Differentiation $\Delta_p = \Delta \cdot \chi(R_p)$ reweights differentiation toward utility under pressure.
+
+\textbf{5.} The Full Master Equation integrates all forces into a single expression governing commercial success.
+
+\textbf{6.} The Resolution Pressure Theorem formally states the conditions for accelerated market adoption.
+
+\begin{equationbox}
+\textbf{Core Equations from Chapter 13:}
+\[
+B_c = R_p(1 - \sigma), \quad \alpha_p = \alpha(1 + \omega R_p), \quad \sigma_p = \sigma(1 + \psi R_p)
+\]
+\[
+\Delta_p = \Delta \cdot \chi(R_p), \quad \chi(R_p) = 1 + \nu R_p - \zeta R_p^2
+\]
+\[
+S_x(t) = \int_0^t
+\frac{(E + \Delta A_r R_p)(\alpha(1+\omega R_p)+\lambda\Delta\,\chi(R_p))}
+{\Phi(1+\sigma(1+\psi R_p))^2}\,dt - R_d
+\]
+\end{equationbox}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  CHAPTER 14
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{The Full Unified Equation}
+
+\begin{keybox}[Chapter Thesis]
+This chapter assembles every variable derived across Parts I through V into a single unified expression, provides a complete plain-English translation of each term, demonstrates the equation as a working diagnostic, identifies what the numerator and denominator each reveal about a business, formalizes the decay term, and states the General Activation Model of Market Behavior --- the final theoretical claim of Part V and the capstone of the mathematical framework.
+\end{keybox}
+
+\section{Assembling All Forces Into One Expression}
+
+Over the course of fourteen chapters, we have introduced a sequence of variables:
+
+\begin{itemize}[leftmargin=1.5em]
+  \item $\alpha$: semantic alignment --- the fraction of resolution the name provides by itself
+  \item $\sigma$: vector drift --- the degree to which the name misdirects classification
+  \item $\Phi$: sector friction --- the resistance of the competitive environment
+  \item $\tau_i$: inference tax --- the recurring cost of naming ambiguity
+  \item $\Delta$: differentiation force --- compensatory market power from the proposition
+  \item $\lambda$: differentiation conversion constant --- the fraction that converts to traction
+  \item $E$: execution effort --- active marketing and distribution force
+  \item $R_d$: decay rate --- the erosion of unreinforced market signals
+  \item $A_r$: audience resonance --- the degree to which the proposition activates the target market
+  \item $R_p$: resolution pressure --- the activation force from necessity, urgency, and consequence
+  \item $\omega$, $\psi$, $\nu$, $\zeta$: pressure sensitivity coefficients governing amplification
+\end{itemize}
+
+Each variable was derived from the structure of the resolution environment, not chosen by convention. Each equation was built to capture a specific, real, measurable commercial phenomenon.
+
+The full equation that integrates all of them is:
+
+\begin{masterbox}
+\begin{center}
+\textbf{The Master Equation of Commercial Identity}
+\end{center}
+\vspace{6pt}
+\begin{equation}
+\boxed{
+S_x(t) = \int_0^t
+\frac{
+\left(E + \Delta A_r R_p\right)
+\left(\alpha(1 + \omega R_p) + \lambda\Delta\,\chi(R_p)\right)
+}{
+\Phi\left(1 + \sigma(1 + \psi R_p)\right)^2
+}
+\, dt \; - \; R_d
+}
+\label{eq:master_final}
+\end{equation}
+\vspace{2pt}
+\end{masterbox}
+
+This is the Thermodynamics of Commercial Identity, expressed in one line. Everything in this textbook is either a derivation of one of its terms, a diagnostic corollary of its structure, or an application of its predictions.
+
+\section{Plain-English Translation of Every Term}
+
+Every term in the master equation corresponds to a real commercial force. Here is the complete translation.
+
+\subsection{Numerator First Factor: $(E + \Delta A_r R_p)$}
+
+\textbf{$E$ --- Execution Effort:} The direct, deliberate marketing and distribution work the business applies to the market. Blog posts, advertising, sales calls, partnerships, PR, events. Whatever the business actively does to be found.
+
+\textbf{$\Delta A_r R_p$ --- Pressure-Amplified Narrative Lift:} The organic, voluntary distribution generated when a resonant proposition ($\Delta A_r$) meets an urgent market ($R_p$). When customers are actively solving problems and the business has a clear, transmissible value proposition, the market becomes a distribution partner. This term is the mathematized form of the word-of-mouth flywheel.
+
+\textbf{Together:} The total effective force being applied to the commercial resolution problem --- what the business intentionally does, plus what the market does on its behalf.
+
+\subsection{Numerator Second Factor: $\alpha(1 + \omega R_p) + \lambda\Delta\,\chi(R_p)$}
+
+\textbf{$\alpha(1 + \omega R_p)$ --- Pressure-Amplified Alignment:} The resolution power of the name itself, amplified by market urgency. A clear name that directly resolves the urgent query of a high-pressure buyer captures that buyer with near-zero additional effort. The $\omega R_p$ amplification quantifies exactly how much more valuable clarity becomes as urgency rises.
+
+\textbf{$\lambda\Delta\,\chi(R_p)$ --- Pressure-Converted Differentiation:} The market power generated by the business's unique proposition, converted by the market's receptivity and medium compatibility, and filtered by the pressure-convertibility function. Only differentiation that matters under the buyer's actual conditions --- utility, speed, reliability, specificity --- contributes positively here.
+
+\textbf{Together:} The total resolution fitness of the entity --- how well it answers the market's question, from the name level through the proposition level, weighted by the urgency of that question.
+
+\subsection{Denominator: $\Phi(1 + \sigma(1 + \psi R_p))^2$}
+
+\textbf{$\Phi$ --- Sector Friction:} The baseline resistance of the market. How many established competitors, how saturated the classification space, how high the barriers to achieving visible positioning. Fixed for a given market; not controllable through naming.
+
+\textbf{$\sigma(1 + \psi R_p)$ --- Pressure-Weighted Drift:} The active misdirection imposed by naming ambiguity, amplified by urgency. In high-pressure markets, drift is not merely a nuisance --- it actively directs buyers toward competitors whose names do not generate confusion.
+
+\textbf{The squaring:} The entire drift-adjusted resistance is squared, reflecting the nonlinear amplification of combined friction and misdirection. A market with moderate friction ($\Phi = 0.7$) and moderate drift ($\sigma = 0.4$) produces resistance of $0.7 \times 1.4^2 = 1.372$. This squared term is why the model predicts that combined friction-and-drift scenarios are disproportionately damaging.
+
+\textbf{Together:} The total structural resistance the entity must overcome to achieve positive market persistence. Not changeable through effort --- only through naming (reducing $\sigma$), market selection (choosing lower $\Phi$), or differentiation compensation.
+
+\subsection{The Integral and Subtracted Decay: $\int_0^t \cdots\, dt - R_d$}
+
+\textbf{The integral:} Net productive force accumulates over time. This is the key insight about commercial persistence: it is not a snapshot but a trajectory. A business that applies consistent effort with strong alignment and relevant differentiation accumulates increasing market position over time. A business that applies inconsistent effort, or that relies on alignment and differentiation without execution, stalls.
+
+\textbf{$-R_d$ --- Decay:} All market position erodes in the absence of reinforcement. Competitors improve, platforms update algorithms, search indices refresh, customers forget. The decay term prevents the model from predicting permanent coasting on historical investment. Persistence requires ongoing, if modest, maintenance.
+
+\section{The Master Equation as a Business Diagnostic}
+
+The master equation is not merely a theoretical expression. It is a working diagnostic tool. Given estimates for each variable, it produces a structured analysis of any business's commercial position, its vulnerabilities, and its highest-leverage improvement opportunities.
+
+The diagnostic procedure:
+
+\textbf{1. Estimate all variables.} Using the rubrics in Chapter 18, score $\alpha$, $\sigma$, $\Phi$, $\Delta$, $\lambda$, $E$, $R_p$, and $A_r$ for the specific business and market.
+
+\textbf{2. Compute the numerator.} $(E + \Delta A_r R_p)(\alpha(1+\omega R_p) + \lambda\Delta\,\chi(R_p))$. If this value is small, the entity lacks productive force. The numerator diagnoses \textit{what the business has}.
+
+\textbf{3. Compute the denominator.} $\Phi(1+\sigma(1+\psi R_p))^2$. If this value is large, the entity faces high resistance. The denominator diagnoses \textit{what the business is fighting against}.
+
+\textbf{4. Compute the ratio.} Numerator / Denominator. Values above 1.0 indicate the entity can achieve positive persistence. Values below 1.0 indicate structural viability risk. Values below 0.5 indicate the entity requires extraordinary effort to survive.
+
+\textbf{5. Identify the dominant variable.} Which term is most suppressing the ratio? If the numerator is low because $\alpha$ is low: naming improvement is the highest-leverage intervention. If the numerator is low because $\Delta$ is low: differentiation investment is the priority. If the denominator is high because $\sigma$ is high: the naming drift problem must be solved before anything else will work.
+
+\section{What the Numerator Tells You}
+
+The numerator of the master equation tells you what the entity is generating in terms of positive market force. A high numerator means the entity is producing strong, directed resolution energy. This can come from any combination of:
+
+\begin{itemize}[leftmargin=1.5em]
+  \item \textbf{Strong naming} ($\alpha$ high): the name itself is doing the resolution work
+  \item \textbf{Strong differentiation} ($\lambda\Delta$ high): the proposition is adding compensatory force
+  \item \textbf{High execution} ($E$ high): the business is actively applying marketing force
+  \item \textbf{High narrative lift} ($\Delta A_r R_p$ high): the market is distributing the message voluntarily
+  \item \textbf{High market pressure} ($R_p$ high): urgency is amplifying the value of every unit of alignment and differentiation
+\end{itemize}
+
+A business can increase its numerator through any of these levers. But they are not equivalent. Naming ($\alpha$) is the cheapest, most permanent lever. It requires no ongoing investment once the name is chosen correctly. Every other lever requires continuous expenditure to maintain its contribution.
+
+\section{What the Denominator Tells You}
+
+The denominator tells you what the entity is fighting against. A low denominator means the entity is in an accessible market with minimal misdirection. A high denominator means the entity faces substantial structural resistance.
+
+The denominator has two components that the business can influence:
+
+\textbf{$\sigma$: fully controllable through naming.} Choosing a name that does not drift toward competing categories drives $\sigma$ toward zero and significantly reduces the denominator. The $(1+\sigma)^2$ term means that even moderate drift has a disproportionate effect on resistance. Reducing $\sigma$ from 0.60 to 0.10 reduces the denominator by a factor of approximately $\frac{(1.60)^2}{(1.10)^2} = \frac{2.56}{1.21} = 2.12$ --- more than halving the resistance.
+
+\textbf{$\Phi$: partially controllable through market selection.} Sector friction is not fixed for a business's lifetime. Choosing to operate in a less-competitive niche, a less-saturated geography, or a newer category can reduce $\Phi$ substantially. This is the mathematical basis for the ``blue ocean'' strategy: choosing a market with lower $\Phi$ reduces the denominator without requiring any improvement in the numerator.
+
+\section{The Decay Term and Why Persistence Is Never Guaranteed}
+
+$R_d$, the decay term, is a permanent feature of the commercial landscape. No entity can permanently escape it. Market position built through alignment, differentiation, and execution requires maintenance --- not because those elements were wrong, but because the competitive environment is not static.
+
+The decay rate $R_d$ reflects three independent forces:
+\begin{enumerate}[leftmargin=1.5em]
+  \item \textbf{Competitive displacement:} Other entities are continuously improving their resolution and differentiation. What constituted Stable Atom status in 2020 may be only Transitional status in 2025 as competitors adapt.
+  \item \textbf{Platform algorithm evolution:} Search engines, directories, and classification systems continuously update their evaluation models. An entity that optimized for 2019 Google algorithm signals may find its classification degraded by 2024 updates.
+  \item \textbf{Market memory fading:} Without reinforcement, customer awareness, brand associations, and referral activity decay over time. The market does not permanently remember any entity.
+\end{enumerate}
+
+The practical implication: a Stable Atom entity does not require large ongoing investment --- its alignment advantage reduces the maintenance burden substantially. But it requires \textit{some} ongoing investment. Zero maintenance produces eventual decay regardless of initial alignment quality. The minimum maintenance investment for a Stable Atom entity is far lower than for a Ghost State entity, but it is not zero.
+
+\section{The General Activation Model of Market Behavior}
+
+With all terms defined and integrated, we can now state the final theoretical claim of Part V: the Master Equation is not merely a naming model. It is a General Activation Model of market behavior.
+
+\begin{keybox}[The General Activation Model]
+The Master Equation governs not just commercial identity and naming outcomes. It describes the complete causal chain from human necessity to market selection:
+
+\[
+\text{Necessity} \rightarrow R_p \rightarrow I_s \rightarrow \text{Search} \rightarrow V_s \rightarrow \text{Selection} \rightarrow P_s(t)
+\]
+
+Every step in this chain is governed by variables that appear in the master equation. Resolution Pressure activates search. Searcher Velocity determines selection speed. Alignment and differentiation determine selection outcome. Persistence governs long-run position.
+
+\textbf{Before Part V, the model could explain:}
+\begin{itemize}[leftmargin=1.5em]
+  \item Why clear names win
+  \item Why differentiation can compensate
+  \item Why execution matters
+\end{itemize}
+
+\textbf{After Part V, the model can also explain:}
+\begin{itemize}[leftmargin=1.5em]
+  \item Why people move at all
+  \item When they move
+  \item Why pressure changes the cost of every other variable
+  \item Why some markets reward clarity with extraordinary force and others are more forgiving
+  \item Why the emergency plumber with the clearest name and the divorce attorney with the most specific niche both achieve disproportionate market positions --- not through luck, but through the intersection of high pressure, high alignment, and high utility-relevant differentiation
+\end{itemize}
+
+The model is complete.
+\end{keybox}
+
+\section{The Final Law, Stated Simply}
+
+After the full derivation, the model's essential claim can be stated in one line without losing its meaning:
+
+\[
+\text{Market Success} \propto \text{Pressure} \times \text{Resolution Fit} \times \text{Execution} \;-\; \text{Resistance}
+\]
+
+Or, in the language of this textbook:
+
+\begin{itemize}[leftmargin=1.5em]
+  \item \textbf{Pressure} ($R_p$): How urgently the market needs what you do
+  \item \textbf{Resolution Fit} ($\alpha + \lambda\Delta$): How well your name and proposition answer that need
+  \item \textbf{Execution} ($E + \Delta A_r R_p$): How effectively you apply force to the market
+  \item \textbf{Resistance} ($\Phi(1+\sigma)^2$): How hard the market fights back
+\end{itemize}
+
+A business that operates in a high-pressure category, with a name that resolves that pressure immediately, and a proposition that is urgently relevant and easily transmitted --- and that executes consistently and with skill --- has aligned all four variables in its favor. The outcome is not guaranteed. But it is the closest thing to a deterministic commercial success that the mechanics of commercial identity allow.
+
+\section{Chapter Summary}
+
+Chapter 14 completes the theoretical framework:
+
+\textbf{1.} The Master Equation assembles all variables into one expression that governs commercial success as a function of pressure, resolution fitness, execution force, and structural resistance.
+
+\textbf{2.} The plain-English translation makes every term accessible: what the business has (numerator), what the business fights (denominator), and what the market forgets (decay).
+
+\textbf{3.} The equation functions as a working diagnostic: estimate the variables, compute the ratio, identify the dominant constraint, prioritize the intervention.
+
+\textbf{4.} The General Activation Model extends the framework beyond naming into a complete description of the causal chain from necessity to market persistence.
+
+\textbf{5.} The Final Law: $\text{Success} \propto \text{Pressure} \times \text{Resolution Fit} \times \text{Execution} - \text{Resistance}$.
+
+\begin{equationbox}
+\textbf{The Master Equation --- Final Form:}
+\[
+S_x(t) = \int_0^t
+\frac{
+(E + \Delta A_r R_p)
+(\alpha(1+\omega R_p) + \lambda\Delta\,\chi(R_p))
+}{
+\Phi(1+\sigma(1+\psi R_p))^2
+}
+\, dt \; - \; R_d
+\]
+
+\textbf{The Causal Chain:}
+\[
+\text{Necessity} \to R_p \to I_s \to \text{Search} \to V_s \to \text{Selection} \to P_s(t)
+\]
+
+\textbf{The Final Law:}
+\[
+\text{Success} \propto \text{Pressure} \times \text{Resolution Fit} \times \text{Execution} - \text{Resistance}
+\]
+\end{equationbox}
+
+\end{document}

@@ -1,0 +1,855 @@
+\documentclass[12pt, openany]{book}
+
+% ── PACKAGES ──────────────────────────────────────────────────────────────────
+\usepackage[
+  paperwidth=8.5in, paperheight=11in,
+  top=1.1in, bottom=1.1in, left=1.25in, right=1.25in
+]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage[most, breakable]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+\usepackage[hidelinks]{hyperref}
+
+% ── COLORS ────────────────────────────────────────────────────────────────────
+\definecolor{navy}{RGB}{26, 58, 92}
+\definecolor{midblue}{RGB}{46, 109, 164}
+\definecolor{lightblue}{RGB}{220, 235, 248}
+\definecolor{accentgray}{RGB}{100, 100, 110}
+\definecolor{rulecolor}{RGB}{180, 200, 220}
+\definecolor{boxbg}{RGB}{245, 249, 253}
+
+% ── THEOREM ENVIRONMENTS ──────────────────────────────────────────────────────
+\newtheoremstyle{thmstyle}{12pt}{8pt}{\itshape}{}{\bfseries\color{navy}}{.}{.5em}{}
+\theoremstyle{thmstyle}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\newtheoremstyle{defstyle}{12pt}{8pt}{\normalfont}{}{\bfseries\color{midblue}}{.}{.5em}{}
+\theoremstyle{defstyle}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{example}{Example}[chapter]
+
+% ── BOXES ─────────────────────────────────────────────────────────────────────
+\newtcolorbox{keybox}[1][Key Principle]{
+  enhanced, breakable, colback=boxbg, colframe=midblue,
+  fonttitle=\bfseries\color{navy}, title={#1},
+  arc=3pt, boxrule=0.8pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+
+\newtcolorbox{equationbox}{
+  enhanced, colback=lightblue!50, colframe=navy,
+  arc=4pt, boxrule=1pt, left=12pt, right=12pt, top=8pt, bottom=8pt
+}
+
+\newtcolorbox{examplebox}[1][Example]{
+  enhanced, breakable, colback=white, colframe=accentgray!60,
+  fonttitle=\bfseries\color{accentgray}, title={#1},
+  arc=3pt, boxrule=0.6pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+
+% ── SECTION FORMATTING ────────────────────────────────────────────────────────
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{navy}}
+  {\large\color{midblue}\MakeUppercase{\chaptername}\ \thechapter}
+  {10pt}
+  {\rule{\textwidth}{1.5pt}\vspace{4pt}}
+  [\vspace{2pt}\rule{\textwidth}{0.4pt}\vspace{6pt}]
+
+\titleformat{\section}{\normalfont\large\bfseries\color{navy}}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries\color{midblue}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\itshape\color{accentgray}}{\thesubsubsection}{1em}{}
+
+\titleformat{\part}[display]
+  {\normalfont\Huge\bfseries\color{navy}\centering}
+  {\large\color{midblue}\MakeUppercase{\partname}\ \thepart}
+  {16pt}{}[\vspace{6pt}\color{midblue}\rule{0.5\textwidth}{2pt}]
+
+% ── HEADERS ───────────────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\color{accentgray}\leftmark}
+\fancyhead[RO]{\small\color{accentgray}\rightmark}
+\fancyfoot[C]{\small\color{accentgray}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+% ── SPACING ───────────────────────────────────────────────────────────────────
+\setstretch{1.15}
+\setlength{\parskip}{7pt}
+\setlength{\parindent}{0pt}
+
+% ── MATH MACROS ───────────────────────────────────────────────────────────────
+\newcommand{\vstar}{V^{*}}
+\newcommand{\Nc}{N_c}
+\newcommand{\Os}{O_s}
+\newcommand{\Fa}{F_a}
+\newcommand{\Cl}{C_l}
+\newcommand{\Rp}{R_p}
+\newcommand{\Dt}{D_t}
+\newcommand{\taui}{\tau_i}
+
+\newcommand{\alphac}{\alpha}
+\newcommand{\sigmac}{\sigma}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+% ──────────────────────────────────────────────────────────────────────────────
+\begin{document}
+
+% ── HALF TITLE ────────────────────────────────────────────────────────────────
+\thispagestyle{empty}
+\vspace*{3in}
+\begin{center}
+{\Huge\bfseries\color{navy} THE THERMODYNAMICS\\[6pt] OF COMMERCIAL IDENTITY}
+\end{center}
+\newpage
+
+% ── TITLE PAGE ────────────────────────────────────────────────────────────────
+\thispagestyle{empty}
+\vspace*{1in}
+\begin{center}
+{\rule{\textwidth}{2pt}}\\[12pt]
+{\Huge\bfseries\color{navy} THE THERMODYNAMICS\\[8pt] OF COMMERCIAL IDENTITY}\\[12pt]
+{\rule{\textwidth}{0.6pt}}\\[20pt]
+{\Large\color{midblue}\itshape A Field Theory of Business Naming,\\[4pt]
+Market Resolution, and the Physics of Visibility}\\[40pt]
+{\large\color{accentgray} Armstrong Knight}\\[8pt]
+{\normalsize\color{accentgray} Intent Tensor Theory}\\[6pt]
+{\normalsize\color{accentgray} intent-tensor-theory.com}\\[40pt]
+{\small\color{accentgray} First Edition}\\[4pt]
+{\small\color{accentgray} 2026}\\[30pt]
+{\rule{\textwidth}{1pt}}
+\end{center}
+\newpage
+
+% ── COPYRIGHT ─────────────────────────────────────────────────────────────────
+\thispagestyle{empty}
+\vspace*{4in}
+{\small\color{accentgray}
+\noindent Copyright \textcopyright\ 2026 Armstrong Knight / Intent Tensor Theory.\\[4pt]
+Licensed under Creative Commons Attribution 4.0 International (CC-BY 4.0).\\[4pt]
+Published by Intent Tensor Theory.\\
+intent-tensor-theory.com\\[4pt]
+All equations and formal structures in this work are original derivations.\\
+Worked case studies use publicly documented company information.\\[4pt]
+First Edition, 2026.
+}
+\newpage
+
+% ── TABLE OF CONTENTS ─────────────────────────────────────────────────────────
+\tableofcontents
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  FOREWORD
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter*{Foreword: Why This Book Exists}
+\addcontentsline{toc}{chapter}{Foreword}
+\markboth{FOREWORD}{FOREWORD}
+
+Every year, millions of businesses are named by people who are thinking about creativity when they should be thinking about physics.
+
+They hire branding agencies that talk about resonance, personality, and memorability. They run focus groups. They read articles about the ten best ways to come up with a business name. They spend weeks debating vowel sounds and font choices. And then they launch, and they spend the next three years wondering why Google doesn't seem to know they exist, why their best customers describe the business incorrectly to their friends, and why their marketing budget never seems to move the needle the way it should.
+
+The problem is not their marketing. The problem is not their service. The problem is not their hustle.
+
+The problem is that they chose a name that fails to resolve.
+
+\vspace{8pt}
+
+This book exists to end that problem --- not with better creativity frameworks, not with more clever brainstorming exercises, but with mathematics.
+
+A business name is not a creative artifact. It is a computational input that enters a multi-substrate resolution environment the moment it is chosen, and that environment does not care about your intentions, your personality, or your brand guidelines. It evaluates the name against four independent fields simultaneously: search systems, registry systems, task classification systems, and intent systems. Each field returns a probability. The product of those probabilities determines your visibility, your classification accuracy, your customer acquisition cost, and your long-term market persistence.
+
+This is not a metaphor. It is mechanics.
+
+\vspace{8pt}
+
+The framework presented in this textbook --- which we call the \textbf{Thermodynamics of Commercial Identity} --- emerged from applying the mathematical structures of Intent Tensor Theory (ITT) to the commercial naming substrate. ITT, developed across a series of formal publications beginning in 2025, provides a general framework for understanding how structured identities persist in complex multi-field environments. When that framework is applied not to particle physics or acoustic levitation but to the problem of commercial discoverability, a complete and rigorous theory of business naming emerges.
+
+The result is a system that can:
+
+\begin{itemize}[leftmargin=1.5em]
+  \item Score any business name on a viability scale derived from first principles
+  \item Identify exactly which resolution variable is missing and what it costs
+  \item Calculate how much differentiation is required to compensate for a weak name
+  \item Predict the time-to-market-understanding for any entity in any sector
+  \item Generate the shortest name string that satisfies all required resolution variables simultaneously
+\end{itemize}
+
+\vspace{8pt}
+
+This is a textbook, not a how-to guide. It is designed to teach the underlying mechanics completely, so that anyone who completes it understands not just what to do but why the math demands it. The chapters build systematically, each introducing new variables and equations while remaining grounded in real commercial examples.
+
+The tool that accompanies this textbook at intent-tensor-theory.com applies every equation in this book in real time. You can test any name against the full model and receive a complete resolution audit: alignment scores, drift coefficients, trough depth calculations, failure mode identification, and optimized alternatives. That tool is free. The mathematics behind it is what you are holding.
+
+\vspace{8pt}
+
+If you are naming a business for the first time, this book will save you years of misdirected effort. If you are diagnosing an existing business that is not growing the way it should, this book will show you precisely where the physics broke down. If you are building systems that evaluate commercial entities at scale --- registries, search platforms, investment tools --- this book provides the theoretical substrate you have been missing.
+
+The market does not hesitate when the name is right. It cannot. Resolution is a physical process. Get the inputs correct, and the outcome is deterministic.
+
+\vspace{16pt}
+\begin{flushright}
+\textit{Armstrong Knight}\\
+\textit{intent-tensor-theory.com}\\
+\textit{2026}
+\end{flushright}
+
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  PREFACE
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter*{Preface: From Field Theory to Commercial Application}
+\addcontentsline{toc}{chapter}{Preface}
+\markboth{PREFACE}{PREFACE}
+
+Intent Tensor Theory (ITT) began as a framework for understanding how persistent structures form in pre-geometric fields. Its central insight is that stable identity --- whether the identity of a particle, a chemical bond, a living cell, or a cognitive object --- arises not from material substance but from the satisfaction of a set of irreducible closure conditions in a structured field environment. Things that persist do so because they resolve. Things that fail to resolve dissolve.
+
+The formal framework is published across several volumes, beginning with the Pre-Veil Mechanics series and the Astrosynthesis model. Those works address the deepest layers of physical reality: the conditions under which structure can form at all, the topology of stable configurations, the mathematics of persistence across multi-zone field environments.
+
+What the present work demonstrates is that the same mathematical substrate applies, without modification in principle and with only trivial adjustment in variable definitions, to the problem of commercial identity in a digital-economic environment.
+
+\vspace{8pt}
+
+The analogy is not loose. When a business entity enters the commercial environment with a given name, that name is evaluated by a set of independent classification fields whose behavior follows the same intersection logic that governs field resolution in ITT. A name that satisfies all field resolution conditions achieves what we call a \textbf{Stable Atom} state --- the commercial analog of a topologically closed entity in the physical substrate. A name that partially satisfies resolution conditions enters a high-effort zone. A name that fails resolution entirely occupies a \textbf{Ghost State} --- structurally present but invisible to the systems that govern selection.
+
+The Minimal Resolution Template $\vstar = \Cl + \Os + \Fa + \Nc$ is not a naming formula invented by creative professionals. It is a closure theorem. The four components are irreducible: fewer than four cannot produce stable simultaneous resolution across all fields, and more than four decompose into these. The proof follows the same logical structure as the proof that the ICHTB requires exactly six zones: it is forced by the field structure, not chosen by convention.
+
+\vspace{8pt}
+
+The Compensation Theorem --- which formalizes how a low-alignment entity can achieve market persistence through differentiation force --- is a direct analog of the compensation mechanics in the ITT persistence equation. The Resolution Pressure variable $\Rp$, which governs when latent need converts to active market behavior, corresponds structurally to the activation threshold mechanics in the necessity chain.
+
+None of this is accidental. Commercial markets are complex adaptive systems subject to the same deep structural constraints that govern all persistent systems. The thermodynamic language of this book --- alignment, drift, entropy, pressure, trough, crest, persistence --- is not metaphorical. These quantities are measurable, they obey definite mathematical relationships, and they generate falsifiable predictions about commercial outcomes.
+
+\vspace{8pt}
+
+This book is written for a broad audience: entrepreneurs, marketers, consultants, economists, and anyone who wants to understand the physics underlying one of the most consequential and poorly understood decisions a business makes. It assumes comfort with basic algebra and an appetite for precise reasoning. The equations are presented with complete plain-English translations, so that a reader who is not mathematically trained can still grasp the structure and apply the results.
+
+Those who want to go deeper into the underlying field theory are directed to the ITT volumes, all of which are available open-access at intent-tensor-theory.com.
+
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  HOW TO USE THIS TEXTBOOK
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter*{How to Use This Textbook}
+\addcontentsline{toc}{chapter}{How to Use This Textbook}
+\markboth{HOW TO USE THIS TEXTBOOK}{HOW TO USE THIS TEXTBOOK}
+
+\textbf{For the practitioner} who wants immediate results: read Chapters 1, 3, 4, and 18. Chapter 1 reframes how you think about naming. Chapter 3 gives you the four irreducible components. Chapter 4 shows you what a fully resolved name looks like. Chapter 18 gives you the scoring engine. You can apply the framework to any name within an hour of reading those four chapters.
+
+\textbf{For the student} who wants to understand the complete theory: read the book cover to cover. Each chapter builds on the prior one. The full mathematical structure only becomes visible when all seven parts have been completed.
+
+\textbf{For the instructor} building a course around this material: suggested course structures are provided in Appendix G. The framework works as a standalone module within a marketing, entrepreneurship, or computational linguistics curriculum, or as a full-semester advanced elective.
+
+\textbf{For the developer} building tools on top of this framework: the complete equation reference is in Appendix A. The scoring rubrics in Chapter 18 provide the computational spec for implementing the resolution engine. The registry alignment tables in Chapter 19 provide the data layer.
+
+\vspace{8pt}
+
+Each chapter ends with a \textbf{Chapter Summary} that restates the key equations introduced and their plain-English interpretations. Equations that represent major theoretical results are displayed in highlighted boxes. Worked examples appear throughout and are clearly marked. Case studies in Chapter 21 apply the full framework to real commercial entities.
+
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  A NOTE ON THE MATHEMATICS
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter*{A Note on the Mathematics}
+\addcontentsline{toc}{chapter}{A Note on the Mathematics}
+\markboth{A NOTE ON THE MATHEMATICS}{A NOTE ON THE MATHEMATICS}
+
+Every equation in this book has two representations: the formal mathematical expression and a plain-English translation that makes the business meaning explicit. Neither representation is optional. The math without the translation is useless to practitioners. The translation without the math is indistinguishable from opinion.
+
+The equations in this book are not decorative. They are the actual content. When we write:
+
+\[
+D_t = \Phi(1 - \alpha)
+\]
+
+we are not illustrating a concept with a symbol. We are stating a precise, measurable relationship: the depth of the visibility trough a business occupies before marketing begins is equal to the sector friction coefficient multiplied by the complement of its semantic alignment score. Change either input, and you change the trough. Ignore either input, and you are guessing.
+
+\vspace{8pt}
+
+The mathematics required is not advanced. It is mostly algebra, with integrals appearing in the full trajectory equations. Every integral in the book has a plain-English statement of what it measures: accumulated market force over time. If you can read $\int_0^t f(t)\,dt$ as ``the total of $f$ accumulated from now until time $t$,'' you have everything you need.
+
+The symbol reference guide on the following pages defines every variable used in the book. Refer to it freely. The goal is not memorization but comprehension of the structural relationships.
+
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  SYMBOL REFERENCE
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter*{Symbol Reference and Notation Guide}
+\addcontentsline{toc}{chapter}{Symbol Reference and Notation Guide}
+\markboth{SYMBOL REFERENCE}{SYMBOL REFERENCE}
+
+\begin{longtable}[l]{@{}p{1.4in} p{4.6in}@{}}
+\toprule
+\textbf{Symbol} & \textbf{Definition} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Symbol} & \textbf{Definition} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+$\vstar$ & Optimal resolved name string (Minimal Resolution Template) \\[4pt]
+$\alpha$ & Semantic alignment coefficient (0 to 1). Degree of match between name and system expectations. \\[4pt]
+$\sigma$ & Vector drift coefficient. Degree to which a name points away from its intended classification. \\[4pt]
+$\Phi$ & Sector friction coefficient. Competitive density and incumbent pressure in the market. \\[4pt]
+$\tau_i$ & Inference tax. The monthly cost (in effort, time, or spend) imposed by an ambiguous name. \\[4pt]
+$D_t$ & Trough depth. Visibility deficit at launch, before marketing begins. \\[4pt]
+$W_\Delta$ & Work-offset ratio. Total extra effort required to compensate for poor alignment. \\[4pt]
+$P_s(t)$ & State persistence function. Probability that the entity maintains market recognition over time. \\[4pt]
+$E$ & Execution effort. Quantified marketing and distribution force applied. \\[4pt]
+$R_d$ & Decay rate. Rate at which unrcinforced market recognition erodes. \\[4pt]
+$\Delta$ & Differentiation force. Market power generated by a unique, memorable, transmissible proposition. \\[4pt]
+$U$ & Uniqueness coefficient. How non-substitutable the positioning is ($U = 1 - O_c$). \\[4pt]
+$M$ & Memorability coefficient. Average recall probability across 1, 7, and 30-day intervals. \\[4pt]
+$T$ & Transmissibility coefficient. Ease with which the proposition is restated by others. \\[4pt]
+$\lambda$ & Differentiation conversion constant. Fraction of differentiation force that converts to market traction. \\[4pt]
+$\mu$ & Ambiguity burden constant. Penalty multiplier for low-alignment, high-drift combinations. \\[4pt]
+$S_x(t)$ & Total market success function over time. \\[4pt]
+$V$ & Viability score. Composite operational scoring metric. \\[4pt]
+$R_p$ & Resolution pressure. Activation force converting latent need into active search and selection. \\[4pt]
+$N$ & Necessity intensity. How essential the problem is to the buyer (0 to 1). \\[4pt]
+$U_r$ & Urgency of resolution. How quickly the need must be acted on (0 to 1). \\[4pt]
+$T_c$ & Consequence of delay. Penalty for not acting immediately (0 to 1). \\[4pt]
+$\eta$ & Activation threshold. Minimum pressure required for search behavior to emerge. \\[4pt]
+$I_s$ & Search intent emergence. Market movement above the activation threshold. \\[4pt]
+$F_m$ & Total usable market force. Combined effect of alignment, differentiation, and effort. \\[4pt]
+$T_u$ & Time to understanding. Cycles required for the market to accurately classify the entity. \\[4pt]
+$\mathcal{F}$ & Resolution field union. The complete set of classification environments. \\[4pt]
+$\mathcal{F}_{search}$ & Search resolution field (query matching environment). \\[4pt]
+$\mathcal{F}_{registry}$ & Registry resolution field (NAICS, GMB classification environment). \\[4pt]
+$\mathcal{F}_{task}$ & Task resolution field (O*NET, action classification environment). \\[4pt]
+$\mathcal{F}_{intent}$ & Intent resolution field (conversion and selection environment). \\[4pt]
+$N_c$ & Category noun component. Maps to industry identity. \\[4pt]
+$O_s$ & Object component. Defines the economic unit being acted upon. \\[4pt]
+$F_a$ & Function component. Defines the operation being performed. \\[4pt]
+$C_l$ & Context component. Defines locality or target audience. \\[4pt]
+$\vec{v}_i$ & Token vector. Embedding of word $i$ in high-dimensional semantic space. \\[4pt]
+$O_c$ & Competitor overlap coefficient. Degree to which positioning replicates existing players. \\[4pt]
+$L$ & Maximum attainable market share in the reachable field. \\[4pt]
+$C_h$ & Crest height. Maximum market position achievable under current conditions. \\[4pt]
+$\beta$ & Minimum recognition baseline. Irreducible time before any entity achieves classification. \\[4pt]
+$\omega$ & Pressure sensitivity of alignment. Amplification of clarity value under high $R_p$. \\[4pt]
+$\psi$ & Pressure amplification constant for drift penalty. \\[4pt]
+$A_r$ & Audience resonance. Degree to which differentiation proposition activates target market. \\[4pt]
+$k$ & Differentiation saturation constant. Governs diminishing returns of novelty. \\[4pt]
+\end{longtable}
+
+\newpage
+
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  PART I
+% ══════════════════════════════════════════════════════════════════════════════
+\part{The Physics of Identity}
+
+\vspace{16pt}
+\begin{center}
+\color{accentgray}\itshape
+The foundational claim: a business name is not a creative act.\\
+It is a thermodynamic input into a multi-substrate resolution environment\\
+that obeys measurable physical laws.
+\end{center}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  CHAPTER 1
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{The Naming Problem Is Not What You Think It Is}
+
+\begin{keybox}[Chapter Thesis]
+The conventional view of business naming --- as a creative, subjective, brand-aesthetic decision --- is not merely incomplete. It is a category error. A business name is a structured input into a deterministic resolution system. The system does not evaluate the name's creativity. It evaluates whether the name satisfies the mathematical conditions for classification, discoverability, and selection.
+\end{keybox}
+
+\section{The Creative Fallacy --- Why Every Naming Book Gets It Wrong}
+
+Walk into any bookstore, open any business naming guide, and you will find the same framework repeated in different arrangements. It goes something like this: your name should be memorable. It should reflect your brand personality. It should be unique. It should sound good. It should be available as a domain. Some guides add: it should not mean something offensive in another language. The more technical ones add: it should be easy to spell and pronounce.
+
+This advice is not wrong. It is merely addressing a different question than the one that actually determines whether your name works.
+
+The question the naming industry addresses is: \textit{Will people like it?}
+
+The question that determines commercial survival is: \textit{Will the systems that control your discoverability resolve it?}
+
+These are not the same question, and the answer to the first one does not reliably predict the answer to the second.
+
+\vspace{8pt}
+
+Consider two names. The first is ``Dallas Roof Repair Company.'' It scores poorly on every creative naming metric. It is not memorable in the traditional sense. It has no brand personality. It sounds like no one tried. It is exactly the kind of name a branding agency would reject.
+
+The second is ``ProfitLogic.'' It sounds professional. It suggests competence and systematic thinking. A focus group would rate it highly. A branding consultant would approve it.
+
+Now ask: which name does Google know exactly what to do with the moment it is indexed? Which name does a NAICS registry classify automatically and accurately? Which name does a person searching for ``roof repair Dallas'' find without any additional context? Which name resolves in under 100 milliseconds across all four classification fields?
+
+Dallas Roof Repair Company is a Stable Atom. ProfitLogic is a Ghost State.
+
+The difference is not aesthetics. It is physics.
+
+\section{What a Name Actually Does: The Multi-Substrate Model}
+
+To understand what a business name actually does when it enters the commercial environment, we need to understand what the commercial environment actually is.
+
+Most people think about a business name as something humans read. In reality, before a human ever encounters it, the name has already been processed, evaluated, classified, and either accepted or rejected by a set of automated systems that operate continuously, in parallel, and without any interest in the name's aesthetic qualities.
+
+These systems form what we call the \textbf{resolution environment}:
+
+\begin{definition}[Resolution Environment]
+The commercial resolution environment $\mathcal{F}$ is the union of all classification systems that evaluate a business entity and determine its discoverability, category assignment, and selection probability:
+\[
+\mathcal{F} = \mathcal{F}_{search} \cup \mathcal{F}_{registry} \cup \mathcal{F}_{task} \cup \mathcal{F}_{intent}
+\]
+Each field $\mathcal{F}_i$ evaluates the entity independently and returns a classification probability.
+\end{definition}
+
+This is not a theoretical construct. It is a description of the actual infrastructure that controls commercial visibility. Let us walk through each field.
+
+\textbf{The search field} $(\mathcal{F}_{search})$ includes Google, Bing, and all derivative search environments including voice assistants and AI-powered search tools. When someone types ``roof repair near me,'' the search field is evaluating the semantic distance between that query and every indexed business entity. A name that aligns closely with the natural language of search queries gets classified quickly and accurately. A name that does not forces the search system to infer the relationship --- and that inference is unreliable, slow, and expensive for the business.
+
+\textbf{The registry field} $(\mathcal{F}_{registry})$ includes NAICS codes, SIC codes, Google Business Profiles, state business registries, and every other formal classification system that assigns industry categories to business entities. These systems are fundamentally noun-dominant: they classify entities based on what they are (category nouns), not what they claim to be. A name that contains a clear, classifiable noun maps directly to a registry category. A name that does not requires manual intervention, produces misclassification, or simply fails to register at all.
+
+\textbf{The task field} $(\mathcal{F}_{task})$ includes O*NET occupational classifications, BLS industry definitions, and the action-level systems that define what a business does in terms of specific tasks and processes. These systems are verb-dominant: they classify activity, not identity. A name that contains or strongly implies a clear action verb resolves quickly in task classification systems. This matters enormously for platforms that match business capabilities to customer needs.
+
+\textbf{The intent field} $(\mathcal{F}_{intent})$ is the conversion layer: the system that determines whether a customer who finds the entity selects it. This field evaluates the clarity of the value proposition at the moment of decision. A name that makes the transaction immediately legible --- what is being offered, to whom, for what purpose --- reduces decision latency and increases conversion probability.
+
+\vspace{8pt}
+
+The critical structural fact about these four fields is that they operate \textbf{simultaneously}, not sequentially.
+
+A name is not first evaluated by search, then by registry, then by task systems. All four evaluations happen in parallel, from the moment the entity enters the environment. A name that resolves in two fields but not all four is a \textit{partially resolved entity} --- it will achieve some discoverability but will underperform in the fields where it fails.
+
+Maximum efficiency requires resolution across all four fields simultaneously.
+
+\section{Introducing Semantic Entropy: The Measure of Invisible Cost}
+
+In thermodynamics, entropy measures the degree of disorder in a system. A high-entropy state is one where the energy is dispersed, unavailable to do useful work. A low-entropy state is one where the energy is organized and accessible.
+
+In the commercial resolution environment, \textbf{semantic entropy} ($S$) measures the degree to which a business name fails to constrain the system's interpretation. A high-entropy name is one that could mean many different things across many different fields. The system cannot resolve it efficiently because the space of possible interpretations is too large. A low-entropy name is one that resolves to a precise, unambiguous classification across all fields.
+
+\begin{definition}[Semantic Entropy]
+The semantic entropy $S$ of a business name is a measure of the uncertainty it introduces into the resolution environment. A name with $S \to 0$ constrains the system to a single correct interpretation. A name with high $S$ allows many competing interpretations, forcing the system to expend computational resources inferring the correct one.
+\end{definition}
+
+Every unit of semantic entropy is paid for, in one of two ways. Either the business pays it through increased marketing spend, content production, and time-to-market-legibility. Or the customer pays it through cognitive effort, confusion, and increased probability of choosing a competitor who is easier to classify. Usually both pay it.
+
+This cost is what we call the \textbf{Inference Tax} ($\taui$), and we will formalize it precisely in Chapter 7. For now, the key intuition is this: every time any system --- human or automated --- encounters your name and cannot immediately resolve what it means, that moment of inference is a charge on your account. The bill arrives as slow indexing, low search rank, misclassification in registries, and customers who cannot explain your business to a friend.
+
+\vspace{8pt}
+
+The goal of optimal naming is to minimize semantic entropy. Not to zero --- some entropy is irreducible and unavoidable. But to the level at which all four resolution fields can classify the entity accurately, quickly, and without inference.
+
+\begin{equationbox}
+\textbf{The Entropy Minimization Objective:}
+\[
+\text{Optimal name} = \arg\min_{\text{name}} S(\text{name}) \quad \text{subject to } P(\text{resolution} \mid \text{name}) \to 1
+\]
+\textit{Plain English: Find the shortest name that drives the probability of correct resolution in all fields toward certainty.}
+\end{equationbox}
+
+\section{The Resolution Environment Defined}
+
+We now build the formal model of the resolution environment that underlies all subsequent analysis.
+
+\subsection{The Four Independent Resolution Fields}
+
+Each field in $\mathcal{F}$ evaluates an entity independently and returns what we can model as a classification probability. We define these probabilities as the fundamental outputs of the resolution process:
+
+\begin{definition}[Resolution Probability]
+For a business entity with name $N$ operating in field $\mathcal{F}_i$, the resolution probability $P_i(N)$ is the probability that $\mathcal{F}_i$ correctly classifies $N$ into its intended category on first evaluation:
+\[
+P_i(N) = P(\text{correct classification in } \mathcal{F}_i \mid N)
+\]
+\end{definition}
+
+For each field:
+
+\[
+P_{search}(N) = P(\text{query match} \mid N) \quad \text{(search field)}
+\]
+\[
+P_{registry}(N) = P(\text{correct category} \mid N) \quad \text{(registry field)}
+\]
+\[
+P_{task}(N) = P(\text{correct task classification} \mid N) \quad \text{(task field)}
+\]
+\[
+P_{intent}(N) = P(\text{conversion} \mid N) \quad \text{(intent field)}
+\]
+
+\subsection{Why Fields Evaluate Simultaneously, Not Sequentially}
+
+The reason simultaneous evaluation matters so much is that partial resolution creates a structurally unstable entity. Consider an entity that resolves well in the search field but poorly in the registry field. It will attract visitors via search but fail to appear in directory listings, category searches, and platform-native discovery mechanisms. The business will experience the paradox of getting traffic but not getting customers from that traffic --- because the traffic is coming through channels where the entity is visible, while the channels where buyers actually make selection decisions remain opaque.
+
+The inverse is equally damaging. An entity that resolves well in the registry field but poorly in the search field will have accurate category assignments in formal systems but will not appear when actual humans type actual queries. It exists in the official record but not in the functional search layer where transactions begin.
+
+Only full simultaneous resolution across all four fields produces a genuinely Stable Atom.
+
+\subsection{The Intersection Principle: Truth Lives in the Overlap}
+
+The overall resolution probability of an entity is not the average of its field-specific resolution probabilities. It is governed by their intersection.
+
+\begin{keybox}[The Intersection Principle]
+The commercial reality of an entity --- what it is, where it appears, who finds it, whether they select it --- is determined by the intersection of all field resolutions. An entity that fails in any single field loses the full value of every other field where it succeeds.
+
+\[
+\text{Entity Resolution} = \bigcap_{i} \mathcal{F}_i(N)
+\]
+\end{keybox}
+
+This is why a single missing resolution component can collapse the entire system. The entity does not lose 25\% of its visibility when one field fails. It loses the compounding value of all fields simultaneously, because the failure in one field prevents the conversion chain from completing.
+
+\section{The Ghost State: What Happens When a Name Fails to Resolve}
+
+When a business name fails to resolve across the required fields, the entity enters what we call the \textbf{Ghost State}: a condition in which the entity is structurally present in the commercial environment --- it has a website, a registration, a product or service --- but is functionally invisible to the systems that control selection.
+
+\begin{definition}[Ghost State]
+A business entity occupies the Ghost State when its name fails to achieve sufficient resolution probability in one or more critical fields such that the entity cannot be reliably found, classified, or selected through normal market mechanisms without extraordinary compensatory effort.
+
+Formally, an entity is in the Ghost State when:
+\[
+\alpha < \alpha_{min} \quad \text{or} \quad P_i(N) < P_{threshold} \text{ for any critical field } i
+\]
+\end{definition}
+
+Ghost States are more common than almost any founder realizes. The entity feels real from the inside --- the business is doing work, the team is active, customers are being served. But from the outside, from the perspective of the systems that govern discovery, the entity barely exists. It requires constant manual intervention to be found: direct referrals, paid advertising, personal outreach. The moment that manual effort stops, the entity's effective market presence collapses.
+
+\vspace{8pt}
+
+The identifying feature of a Ghost State entity is the following pattern: marketing effort produces results, but the moment the marketing spend is reduced, those results disappear. This is not a marketing problem. It is a naming problem. The entity has never built organic resolution. It has been buying its way past the classification failure every month, mistaking purchased visibility for earned visibility.
+
+\vspace{8pt}
+
+The Ghost State is not a permanent condition. But escaping it requires either fixing the name (rebuilding resolution from scratch) or achieving what we formalize in Chapter 12 as \textbf{Acquired Associative Alignment} --- the market learning, through repeated exposure, to substitute the entity's name for a missing resolution component. This process is long, expensive, and never fully eliminates the underlying structural cost. We will quantify it precisely using the DuckDuckGo case study in Chapter 11.
+
+\section{The Stable Atom: What Full Resolution Looks Like}
+
+The opposite of the Ghost State is what we call the \textbf{Stable Atom}: an entity whose name resolves immediately, accurately, and automatically across all four fields, achieving and maintaining market presence with minimal compensatory effort.
+
+\begin{definition}[Stable Atom]
+A business entity occupies the Stable Atom state when its name achieves high resolution probability across all four fields simultaneously:
+\[
+P_{search}(N) \to 1, \quad P_{registry}(N) \to 1, \quad P_{task}(N) \to 1, \quad P_{intent}(N) \to 1
+\]
+This condition is achieved when:
+\[
+\alpha \to 1, \quad \sigma \to 0, \quad \tau_i \to 0
+\]
+The entity requires no extraordinary compensatory effort to be found, classified, and selected.
+\end{definition}
+
+A Stable Atom entity achieves what we call \textbf{Algorithmic Autonomy}: the systems that control discoverability maintain the entity's market state without continuous human intervention. Search engines know what it is and return it for relevant queries. Registry systems classify it accurately. Intent systems recognize the transaction it offers and present it at the point of decision. The market does not need to be educated about the business because the name educates it automatically.
+
+This is not a theoretical ideal. It is an achievable engineering outcome. Dallas Roof Repair Company is a Stable Atom. Tax Preparation Services is a Stable Atom. Business Algorithm Consulting, with its explicit statement of function (consulting), object (business algorithms), is approaching Stable Atom status. ProfitLogic is a Ghost.
+
+The engineering question --- which this textbook answers systematically --- is how to design a name that achieves Stable Atom status from day one.
+
+\section{The Deterministic Naming Principle}
+
+We are now in a position to state the foundational principle that governs everything that follows.
+
+\begin{keybox}[The Deterministic Naming Principle]
+A business name is not a creative artifact subject to aesthetic judgment. It is a computational input into a deterministic multi-field resolution system. Given a fixed commercial environment, the resolution outcome of any name is deterministic: it either satisfies the closure conditions required for Stable Atom status, or it does not. The degree to which it fails to satisfy those conditions determines, with measurable precision, the cost that must be paid to compensate.
+\end{keybox}
+
+This principle does not eliminate creativity from naming. It locates creativity correctly. Creativity operates within the constraint space defined by resolution requirements. A name can be elegant, distinctive, and memorable while simultaneously satisfying every resolution condition. But resolution conditions are not optional. They are structural requirements. A name that violates them, no matter how creative, is a bad name in the only sense that matters: it will cost the business more than it should.
+
+\section{Chapter Summary}
+
+Chapter 1 establishes the following:
+
+\textbf{1. The naming industry addresses the wrong question.} The relevant question is not ``Will people like it?'' but ``Will the resolution systems classify it accurately?''
+
+\textbf{2. The commercial environment is a four-field resolution system.} $\mathcal{F} = \mathcal{F}_{search} \cup \mathcal{F}_{registry} \cup \mathcal{F}_{task} \cup \mathcal{F}_{intent}$. All four fields evaluate simultaneously.
+
+\textbf{3. Semantic entropy is the key variable.} Every unit of entropy in a name produces measurable cost. The Inference Tax $\taui$ is how that cost manifests commercially.
+
+\textbf{4. The Ghost State and the Stable Atom are the two endpoints of the resolution spectrum.} Most commercial entities occupy positions between them, paying ongoing costs commensurate with their distance from full resolution.
+
+\textbf{5. Naming is deterministic engineering.} Given the field structure, the conditions for Stable Atom status are fixed and derivable. The framework to derive them is developed in the remaining chapters.
+
+\begin{equationbox}
+\textbf{Core Equations from Chapter 1:}
+\[
+\mathcal{F} = \mathcal{F}_{search} \cup \mathcal{F}_{registry} \cup \mathcal{F}_{task} \cup \mathcal{F}_{intent}
+\]
+\[
+\text{Entity Resolution} = \bigcap_{i} \mathcal{F}_i(N)
+\]
+\[
+\text{Stable Atom:} \quad \alpha \to 1,\; \sigma \to 0,\; \tau_i \to 0
+\]
+\end{equationbox}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  CHAPTER 2
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{Tokens, Vectors, and the Machine's Eye}
+
+\begin{keybox}[Chapter Thesis]
+Search engines, registry systems, and AI classification tools do not process language. They process vectors. A business name, when it enters the resolution environment, is transformed into a geometric object in high-dimensional space. Understanding that transformation is essential for understanding why certain names resolve and others do not --- and it reveals why conventional grammar categories are not the right framework for naming decisions.
+\end{keybox}
+
+\section{How Machines Actually Read a Name}
+
+The first thing to understand about how automated systems evaluate a business name is that they do not read it the way a human does. A human reading ``Dallas Roof Repair Company'' processes the words sequentially, activates semantic associations, and arrives at a meaning: a business in Dallas that repairs roofs. The process feels like comprehension.
+
+A machine does something structurally different. It transforms each token --- each word --- into a high-dimensional numerical vector, and then performs geometric operations on those vectors to determine relationships, similarities, and category memberships.
+
+\begin{definition}[Token-to-Vector Transformation]
+For a word $w_i$ in a business name, the machine's representation is:
+\[
+w_i \rightarrow \vec{v}_i \in \mathbb{R}^n
+\]
+where $n$ is the dimensionality of the embedding space (typically 768 to 1536 dimensions in modern language models). Each word becomes a point in a very high-dimensional geometric space.
+\end{definition}
+
+This is not an approximation of meaning. It is a precise geometric encoding that captures semantic relationships: words with similar meanings occupy nearby regions of the space; words with different meanings occupy distant regions. The entire vocabulary of a language is mapped into this space during the training of language models, with the geometric relationships between vectors reflecting the statistical patterns of how words co-occur and relate to each other in real usage.
+
+The business name ``Dallas Roof Repair Company'' becomes, for the machine, not four words but four vectors --- four points in a geometric space --- and the machine operates on those points to determine what the entity is.
+
+\section{From Words to Vectors: The Embedding Space}
+
+To understand why certain name choices resolve better than others, we need to understand the structure of the embedding space and what kinds of words occupy what regions of it.
+
+\subsection{Why Parts of Speech Are Emergent, Not Primary}
+
+The conventional approach to naming analysis uses grammar as the primary framework: nouns are good, adjectives are decorative, verbs clarify function, and so on. This is not wrong, but it is incomplete in a way that matters.
+
+Grammar categories are not primary variables in the machine's evaluation. They are emergent patterns that arise from the geometric structure of the embedding space. The machine does not ask ``is this a noun?'' It asks ``what region of semantic space does this vector occupy, and what probability distributions over categories does that region imply?''
+
+\begin{definition}[Part-of-Speech as Vector Cluster]
+In the embedding space, grammatical categories correspond to approximate cluster regions, not discrete labels:
+\[
+POS(w) \approx \argmax_k P(\text{cluster}_k \mid \vec{v}_w)
+\]
+Nouns cluster around entity-space regions. Verbs cluster around transformation-space regions. Adjectives cluster around attribute-modifier regions.
+\end{definition}
+
+This matters for naming because it means the machine is not looking for a noun at position one and a verb at position two. It is looking for vectors that together activate a stable, unambiguous classification probability over the categories it knows. The grammar is a byproduct of that activation pattern, not the cause of it.
+
+\subsection{Noun Clusters, Verb Clusters, and What the Machine Sees}
+
+The geometry of the embedding space produces characteristic behaviors that directly affect naming resolution.
+
+\textbf{Noun clusters} (entity-space regions): Words that name things, categories, and roles occupy a region of semantic space that is high-signal for registry classification systems. When a business name contains a strong category noun --- ``plumber,'' ``attorney,'' ``consultant,'' ``repair'' --- the vector for that word falls in an entity-space region that registry systems recognize and map directly to classification categories. The noun is doing most of the classification work.
+
+\textbf{Verb clusters} (transformation-space regions): Words that name actions, processes, and operations occupy transformation-space regions. Task classification systems (O*NET, occupational databases) are calibrated to these regions. When a name contains a clear action verb --- ``repair,'' ``consult,'' ``install,'' ``manage'' --- the verb resolves the task field.
+
+\textbf{Adjective clusters} (attribute-modifier regions): Descriptive modifiers contribute almost nothing to category classification. The word ``professional'' in a business name occupies an attribute-modifier region of semantic space that nearly every business in every category also activates. It adds no discriminating information to the resolution system. The machine cannot classify ``Professional Services'' because the attribution is universal, not categorical.
+
+\textbf{Abstract/metaphorical terms}: Words like ``Logic,'' ``Apex,'' ``Nexus,'' ``Synergy,'' or ``Profit'' --- common in invented business names --- occupy semantic space regions that are either diffuse (pulling toward multiple unrelated categories simultaneously) or opaque (the machine has no strong probability assignment for them in the commercial classification context). These words actively increase semantic entropy.
+
+\subsection{The Pronoun Collapse Problem}
+
+One of the clearest demonstrations of why vector-space thinking matters for naming is what we call the \textbf{Pronoun Collapse}: the failure mode that occurs when a business name or tagline uses pronouns as its primary identity anchors.
+
+Names like ``We Fix It,'' ``Our Promise,'' ``Your Solution'' use pronouns that in linguistic context require an antecedent to resolve. In the machine's evaluation, pronouns occupy placeholder regions of semantic space --- regions that function as pointers to some other context, not as self-contained classification signals.
+
+\begin{keybox}[The Pronoun Collapse]
+For pronouns and deictic expressions, the classification probability approaches zero because they require referential context that the machine does not have at the moment of first evaluation:
+\[
+P(\text{category} \mid \text{pronoun}) \approx 0
+\]
+A business name that relies on pronouns for its primary meaning cannot resolve in the classification fields.
+\end{keybox}
+
+The machine evaluates a name in isolation, not in context. It cannot assume that ``we'' refers to roofers rather than accountants. The resolution requires the categorical information to be present in the name string itself.
+
+\section{Attention Weights and Semantic Roles in Real Queries}
+
+Modern search systems use transformer-based language models (BERT and its descendants) that process text using attention mechanisms. Understanding attention is critical for understanding which parts of a name carry the most resolution weight.
+
+An attention mechanism assigns a weight to each token in a sequence relative to every other token, capturing how much each token should ``attend to'' each other token when computing the final representation. In practice, this means that certain words in a query receive disproportionate weight in determining the overall meaning of the query.
+
+For a query like ``roof repair Dallas,'' a transformer model implicitly learns:
+\begin{itemize}[leftmargin=1.5em]
+  \item ``repair'' receives high attention from ``roof'' and vice versa, encoding the action-object relationship
+  \item ``Dallas'' receives moderate attention from both, encoding the geographic scope
+  \item The composite representation activates business categories related to home services in a specific geography
+\end{itemize}
+
+This attention pattern is \textit{learned from data}, not programmed. The model has seen millions of queries and documents where ``roof repair'' co-occurs with home services businesses, and ``Dallas'' co-occurs with Texas geography. The vectors and attention weights reflect those statistical regularities.
+
+The implication for naming is direct: the higher the semantic similarity between your name's composite vector and the composite vectors of common customer queries in your category, the higher your resolution probability in the search field.
+
+\section{The Dependency Graph: Your Name as a Network}
+
+Beyond individual token vectors, resolution systems model the \textit{relationships between tokens} in a name as a graph structure. This is the dependency parse: a representation of which words modify, act on, or relate to which other words.
+
+\begin{definition}[Name Dependency Graph]
+A business name can be modeled as a directed graph $G = (V, E)$ where:
+\begin{itemize}[leftmargin=1.5em]
+  \item $V$ = set of tokens in the name
+  \item $E$ = directed edges encoding grammatical and semantic relationships
+\end{itemize}
+The intent match probability for a query is computed as a function of the alignment between the name's dependency graph and the query's dependency graph:
+\[
+P(\text{intent match} \mid G_{name}, G_{query}) = f(G_{name}, G_{query})
+\]
+\end{definition}
+
+Consider the name ``Business Algorithm Consulting.'' Its dependency graph encodes:
+\begin{itemize}[leftmargin=1.5em]
+  \item ``Consulting'' is the head node (the primary category: what the entity is)
+  \item ``Algorithm'' is the object node (what the consulting acts on)
+  \item ``Business'' is the domain modifier (what sector the algorithms apply to)
+\end{itemize}
+
+A customer querying ``algorithm consulting for my business'' produces a query graph with the same structural relationships. The graphs align. Resolution probability is high.
+
+Now consider the name ``ProfitLogic.'' Its dependency graph is essentially a single compound node --- a portmanteau that combines ``profit'' and ``logic'' into a single synthetic term with no internal relational structure. There are no edges. There is no action-object relationship. The head node is undefined. The query graph for ``business analytics consulting'' finds no structural alignment.
+
+\subsection{Graph Density and Resolution Efficiency}
+
+The density of a name's dependency graph --- the number of meaningful semantic relationships encoded in the name string --- correlates directly with its resolution efficiency. A dense graph (multiple well-defined relationships between tokens) provides the resolution system with more information to work with, enabling faster and more accurate classification.
+
+A sparse graph (few or no relationships, isolated tokens, or synthetic compound terms) provides insufficient structure for automatic resolution.
+
+\vspace{8pt}
+
+This leads to a non-obvious but important principle: \textbf{longer names are often more resolvable than shorter names}, provided the additional length encodes additional relational structure rather than redundant or decorative content. The name ``Dallas Commercial Roof Repair Company'' is more resolvable than ``Dallas Roofing Co.'' not because it is longer, but because it encodes an additional meaningful distinction (commercial vs. residential) that reduces search-space ambiguity.
+
+The optimal length is the minimum length that fully populates the dependency graph with all required classification information. This is what we formalize in Part II as the Minimal Resolution Template.
+
+\section{How Each Resolution Field Weights Token Types Differently}
+
+One of the most important insights in this chapter is that the four resolution fields do not weight the same token types equally. A token that is high-signal in one field may be low-signal in another.
+
+\subsection{Search Fields: Query Matching and Relevance Scoring}
+
+Search fields weight tokens by their \textit{query-alignment probability}: how often does a token in the name also appear in queries made by potential customers?
+
+The formal scoring is a similarity function between the name embedding and the query embedding:
+\[
+\text{Score}_{search}(name, query) = f(\vec{v}_{name}, \vec{v}_{query})
+\]
+
+Search fields are relatively balanced across token types but are particularly sensitive to \textit{action verbs and category nouns} because these are the primary query constructs: ``repair roof,'' ``consult business,'' ``install solar.'' A name that contains the same action verbs and category nouns that appear in customer queries will score well in the search field.
+
+\subsection{Registry Fields: NAICS, SIC, and the Noun-Dominant System}
+
+Registry classification systems are structurally noun-dominant. The NAICS code system, the SIC system, the Google Business Category system --- all of them classify entities based primarily on \textit{what they are}, not what they do. This maps directly onto category nouns.
+
+Formally:
+\[
+w_{noun} \gg w_{verb} \gg w_{adjective} \quad (\text{in registry classification})
+\]
+
+A name containing a strong, unambiguous category noun (``plumber,'' ``attorney,'' ``roofing company,'' ``tax preparation service'') resolves immediately and accurately in registry systems. A name without a clear category noun forces the registry to use secondary signals, produces misclassification, or requires the business owner to manually select categories from menus --- a process that most business owners perform poorly, further degrading registry resolution.
+
+\subsection{Task Fields: O*NET and the Verb-Dominant System}
+
+Task classification systems operate on exactly the opposite weighting:
+\[
+w_{verb} \gg w_{noun} \quad (\text{in task classification})
+\]
+
+O*NET, the Bureau of Labor Statistics Occupational Outlook Handbook, and similar task-definition systems classify economic activity by \textit{what is done}, not what type of entity does it. The relevant signal is the action verb that describes the primary activity.
+
+This matters because task classification affects how businesses appear in platform-based matching systems --- contractor marketplaces, professional service directories, talent matching tools. A business whose name clearly encodes its primary action verb resolves accurately in these systems without additional metadata.
+
+\subsection{Intent Fields: Google Business Category Matching}
+
+The intent field operates as a maximum-likelihood category match:
+\[
+\text{Category}_{intent}(name) = \argmax_c P(c \mid name)
+\]
+
+Google Business Profile categories, the primary example of intent classification, function as noun-phrase dominant systems that require the name to activate a clear, unambiguous category probability. Crucially, the intent field is \textit{also sensitive to geographic context} --- it incorporates the local searcher's location to boost entities that match both the categorical and geographic components of the query.
+
+\section{The Mesh Against Mesh Principle Formalized}
+
+We are now ready to state the most important structural insight of this chapter.
+
+Each resolution field creates what we can model as a tensor field --- a structured mathematical space that maps entity representations to classification probabilities. A business name, represented as a composite vector $\vec{V}_{entity}$, is simultaneously projected into all four tensor fields.
+
+\begin{keybox}[The Mesh Against Mesh Principle]
+A business name is not evaluated by a single system. It is a vector that simultaneously enters four independent tensor fields, each with different internal structure and different token-weighting schemes:
+\[
+\vec{V}_{entity} \rightarrow
+\begin{cases}
+\mathcal{F}_{search} \\
+\mathcal{F}_{registry} \\
+\mathcal{F}_{task} \\
+\mathcal{F}_{intent}
+\end{cases}
+\]
+The mesh of the name's vector structure meets the mesh of each field's classification structure. The overlap between them determines resolution quality. High overlap in all fields $=$ Stable Atom. Low overlap in any field $=$ resolution failure in that field.
+\end{keybox}
+
+This formalization explains a puzzle that conventional naming theory cannot: why a name can perform well in Google search but poorly in directory listings, or perform well in formal registry classification but fail in conversational AI search. The answer is that these are different fields with different internal structures. Optimizing for one does not automatically optimize for the others.
+
+The design challenge is to create a name vector that simultaneously achieves high overlap with all four field structures. This is exactly what the Minimal Resolution Template accomplishes, as we prove in Part II.
+
+\section{The Final Unified View: Entity Resolution as Field Intersection}
+
+Pulling together everything in this chapter, we can now state the complete entity resolution problem as a mathematical object:
+
+\begin{equationbox}
+\textbf{Entity Resolution --- Complete Formulation:}
+\[
+\text{Resolution} = \bigcap_i f_i(\vec{V}_{entity})
+\]
+where each $f_i$ represents the projection of the entity vector onto field $\mathcal{F}_i$'s classification structure.
+
+A fully resolved entity satisfies:
+\[
+f_i(\vec{V}_{entity}) \approx 1 \quad \forall i \in \{search, registry, task, intent\}
+\]
+
+A partially resolved entity has:
+\[
+f_i(\vec{V}_{entity}) \approx 1 \text{ for some } i, \quad f_j(\vec{V}_{entity}) \approx 0 \text{ for some } j
+\]
+\end{equationbox}
+
+The question of how to construct a name vector that satisfies all four field conditions simultaneously is the central engineering problem this textbook solves. The answer begins in the next chapter with the proof that such a vector requires exactly four irreducible components.
+
+\section{Chapter Summary}
+
+Chapter 2 establishes the following:
+
+\textbf{1. Machines process names as vectors, not as language.} The transformation $w_i \rightarrow \vec{v}_i \in \mathbb{R}^n$ is the fundamental operation underlying all machine evaluation of names.
+
+\textbf{2. Parts of speech are emergent vector cluster behaviors.} Nouns occupy entity-space regions, verbs occupy transformation-space regions, adjectives occupy attribute-modifier regions. The machine weights them differently across different fields.
+
+\textbf{3. Token weighting is field-specific.} Registry fields are noun-dominant. Task fields are verb-dominant. Search fields reward query-alignment. Intent fields reward categorical clarity. Optimizing for one field does not guarantee optimization for others.
+
+\textbf{4. A name has a dependency graph structure} whose alignment with customer query graphs directly determines search resolution probability.
+
+\textbf{5. The Mesh Against Mesh Principle} formalizes why simultaneous multi-field resolution requires deliberate name construction, not creative trial and error.
+
+\begin{equationbox}
+\textbf{Core Equations from Chapter 2:}
+\[
+w_i \rightarrow \vec{v}_i \in \mathbb{R}^n \quad \text{(token embedding)}
+\]
+\[
+POS(w) \approx \argmax_k P(\text{cluster}_k \mid \vec{v}_w) \quad \text{(emergent grammar)}
+\]
+\[
+w_{noun} \gg w_{verb} \gg w_{adj} \quad \text{(registry weighting)}
+\]
+\[
+w_{verb} \gg w_{noun} \quad \text{(task field weighting)}
+\]
+\[
+\vec{V}_{entity} \rightarrow \{\mathcal{F}_{search}, \mathcal{F}_{registry}, \mathcal{F}_{task}, \mathcal{F}_{intent}\} \quad \text{(simultaneous projection)}
+\]
+\end{equationbox}
+
+\end{document}

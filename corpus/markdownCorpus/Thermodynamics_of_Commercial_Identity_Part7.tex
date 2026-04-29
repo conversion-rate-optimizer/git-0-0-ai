@@ -1,0 +1,1123 @@
+\documentclass[12pt, openany]{book}
+
+% ── PACKAGES ──────────────────────────────────────────────────────────────────
+\usepackage[
+  paperwidth=8.5in, paperheight=11in,
+  top=1.1in, bottom=1.1in, left=1.25in, right=1.25in
+]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage[most, breakable]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+\usepackage[hidelinks]{hyperref}
+
+% ── COLORS ────────────────────────────────────────────────────────────────────
+\definecolor{navy}{RGB}{26, 58, 92}
+\definecolor{midblue}{RGB}{46, 109, 164}
+\definecolor{lightblue}{RGB}{220, 235, 248}
+\definecolor{accentgray}{RGB}{100, 100, 110}
+\definecolor{boxbg}{RGB}{245, 249, 253}
+\definecolor{warningbg}{RGB}{255, 250, 235}
+\definecolor{warningborder}{RGB}{180, 130, 30}
+\definecolor{stablegreen}{RGB}{28, 110, 55}
+\definecolor{stablebg}{RGB}{236, 250, 240}
+\definecolor{transblue}{RGB}{25, 80, 150}
+\definecolor{transbg}{RGB}{235, 243, 255}
+\definecolor{effortorange}{RGB}{175, 95, 0}
+\definecolor{effortbg}{RGB}{255, 248, 232}
+\definecolor{ghostred}{RGB}{150, 35, 35}
+\definecolor{ghostbg}{RGB}{252, 238, 238}
+\definecolor{registrybg}{RGB}{242, 248, 255}
+\definecolor{registryborder}{RGB}{60, 100, 160}
+\definecolor{auditbg}{RGB}{245, 242, 255}
+\definecolor{auditborder}{RGB}{90, 60, 160}
+\definecolor{casebg}{RGB}{248, 252, 245}
+\definecolor{caseborder}{RGB}{50, 120, 70}
+
+% ── THEOREM ENVIRONMENTS ──────────────────────────────────────────────────────
+\newtheoremstyle{thmstyle}{12pt}{8pt}{\itshape}{}{\bfseries\color{navy}}{.}{.5em}{}
+\theoremstyle{thmstyle}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{proposition}[theorem]{Proposition}
+
+\newtheoremstyle{defstyle}{12pt}{8pt}{\normalfont}{}{\bfseries\color{midblue}}{.}{.5em}{}
+\theoremstyle{defstyle}
+\newtheorem{definition}{Definition}[chapter]
+
+% ── BOXES ─────────────────────────────────────────────────────────────────────
+\newtcolorbox{keybox}[1][Key Principle]{
+  enhanced, breakable, colback=boxbg, colframe=midblue,
+  fonttitle=\bfseries\color{navy}, title={#1},
+  arc=3pt, boxrule=0.8pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+\newtcolorbox{equationbox}{
+  enhanced, colback=lightblue!50, colframe=navy,
+  arc=4pt, boxrule=1pt, left=12pt, right=12pt, top=8pt, bottom=8pt
+}
+\newtcolorbox{examplebox}[1][Example]{
+  enhanced, breakable, colback=white, colframe=accentgray!50,
+  fonttitle=\bfseries\color{accentgray}, title={#1},
+  arc=3pt, boxrule=0.6pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+\newtcolorbox{warnbox}[1][Important]{
+  enhanced, breakable, colback=warningbg, colframe=warningborder,
+  fonttitle=\bfseries\color{warningborder}, title={#1},
+  arc=3pt, boxrule=0.8pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+\newtcolorbox{calcbox}[1][Calculation]{
+  enhanced, breakable, colback=lightblue!20, colframe=midblue!60,
+  fonttitle=\bfseries\color{midblue}, title={#1},
+  arc=3pt, boxrule=0.6pt, left=10pt, right=10pt, top=8pt, bottom=8pt
+}
+\newtcolorbox{stablebox}{
+  enhanced, colback=stablebg, colframe=stablegreen,
+  arc=3pt, boxrule=1pt, left=10pt, right=10pt, top=8pt, bottom=8pt,
+  fontupper=\color{stablegreen}
+}
+\newtcolorbox{transbox}{
+  enhanced, colback=transbg, colframe=transblue,
+  arc=3pt, boxrule=1pt, left=10pt, right=10pt, top=8pt, bottom=8pt,
+  fontupper=\color{transblue}
+}
+\newtcolorbox{effortbox}{
+  enhanced, colback=effortbg, colframe=effortorange,
+  arc=3pt, boxrule=1pt, left=10pt, right=10pt, top=8pt, bottom=8pt,
+  fontupper=\color{effortorange}
+}
+\newtcolorbox{ghostbox2}{
+  enhanced, colback=ghostbg, colframe=ghostred,
+  arc=3pt, boxrule=1pt, left=10pt, right=10pt, top=8pt, bottom=8pt,
+  fontupper=\color{ghostred}
+}
+\newtcolorbox{registrybox}[1][Registry Reference]{
+  enhanced, breakable, colback=registrybg, colframe=registryborder,
+  fonttitle=\bfseries\color{registryborder}, title={#1},
+  arc=3pt, boxrule=0.8pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+\newtcolorbox{auditbox}[1][Audit Step]{
+  enhanced, breakable, colback=auditbg, colframe=auditborder,
+  fonttitle=\bfseries\color{auditborder}, title={#1},
+  arc=3pt, boxrule=0.8pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+\newtcolorbox{casebox}[1][Case Study]{
+  enhanced, breakable, colback=casebg, colframe=caseborder,
+  fonttitle=\bfseries\color{caseborder}, title={#1},
+  arc=3pt, boxrule=0.8pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+
+% ── SECTION FORMATTING ────────────────────────────────────────────────────────
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{navy}}
+  {\large\color{midblue}\MakeUppercase{\chaptername}\ \thechapter}
+  {10pt}
+  {\rule{\textwidth}{1.5pt}\vspace{4pt}}
+  [\vspace{2pt}\rule{\textwidth}{0.4pt}\vspace{6pt}]
+
+\titleformat{\section}{\normalfont\large\bfseries\color{navy}}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries\color{midblue}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\itshape\color{accentgray}}{\thesubsubsection}{1em}{}
+
+\titleformat{\part}[display]
+  {\normalfont\Huge\bfseries\color{navy}\centering}
+  {\large\color{midblue}\MakeUppercase{\partname}\ \thepart}
+  {16pt}{}[\vspace{6pt}\color{midblue}\rule{0.5\textwidth}{2pt}]
+
+% ── HEADERS ───────────────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\color{accentgray}\leftmark}
+\fancyhead[RO]{\small\color{accentgray}\rightmark}
+\fancyfoot[C]{\small\color{accentgray}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+% ── SPACING ───────────────────────────────────────────────────────────────────
+\setstretch{1.15}
+\setlength{\parskip}{7pt}
+\setlength{\parindent}{0pt}
+
+% ── COUNTERS ──────────────────────────────────────────────────────────────────
+\setcounter{chapter}{17}
+\setcounter{part}{6}
+
+% ── MATH MACROS ───────────────────────────────────────────────────────────────
+\newcommand{\vstar}{V^{*}}
+\newcommand{\Rp}{R_p}
+\newcommand{\Dt}{D_t}
+\newcommand{\taui}{\tau_i}
+\newcommand{\Wdelta}{W_{\Delta}}
+\newcommand{\Fm}{F_m}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+% ──────────────────────────────────────────────────────────────────────────────
+\begin{document}
+\tableofcontents
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  PART VII OPENER
+% ══════════════════════════════════════════════════════════════════════════════
+\part{The Scoring Engine and Practical Application}
+
+\vspace{16pt}
+\begin{center}
+\color{accentgray}\itshape
+Everything above converted into a working diagnostic system.\\
+Scoring rubrics, registry alignment tables, viability bands,\\
+the complete audit protocol, and seven fully worked case studies.
+\end{center}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  CHAPTER 18
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{The Resolution Score: From Math to Measurement}
+
+\begin{keybox}[Chapter Thesis]
+The viability score $V = \alpha + \lambda\Delta - \mu(1-\alpha)\sigma$ converts the full theoretical framework into a single operational number. This chapter delivers the complete scoring rubrics for each variable, defines the four viability bands and what they predict commercially, and provides the full scoring worksheet that any practitioner can complete for any named entity in under thirty minutes.
+\end{keybox}
+
+\section{The Viability Score Formula: $V = \alpha + \lambda\Delta - \mu(1-\alpha)\sigma$}
+
+\begin{definition}[Viability Score]
+The Viability Score $V$ is the operational summary statistic of the commercial identity model:
+\begin{equation}
+V = \alpha + \lambda\Delta - \mu(1-\alpha)\sigma
+\label{eq:viability}
+\end{equation}
+where $\mu = 0.25$ is the standard ambiguity burden constant. $V$ combines the positive contributions of alignment and converted differentiation with the negative contribution of the ambiguity penalty.
+\end{definition}
+
+The Viability Score is a \textit{compressed} form of the master equation --- it does not capture temporal dynamics, execution effort, or Resolution Pressure. It answers a single practical question: \textit{Given this name and this proposition, is this entity structurally viable?} It provides a fast, consistent, comparable score for any named entity that can be applied before launch, during a naming audit, or as part of a competitor analysis.
+
+\section{The Four Viability Bands and What They Predict}
+
+\subsection{Stable Atom: $V \geq 0.85$}
+
+\begin{stablebox}
+\textbf{STABLE ATOM} \hfill $V \geq 0.85$
+
+\vspace{4pt}
+\textbf{What it means:} The entity's naming and differentiation combination achieves or approaches full resolution across all four fields. The algorithm maintains the entity. Marketing investment compounds rather than compensates.
+
+\textbf{Commercial predictions:}
+\begin{itemize}[leftmargin=1.5em, topsep=2pt]
+  \item Organic search visibility achievable within weeks to months of launch
+  \item Registry classification automatic and accurate
+  \item New customer acquisition cost at category baseline or below
+  \item Marketing investment builds compounding returns
+  \item Entity survives 90-day marketing pauses without significant visibility loss
+\end{itemize}
+
+\textbf{Strategic implication:} Maintain. Invest in execution and differentiation to raise the ceiling. Do not rename.
+\end{stablebox}
+
+\subsection{Transitional Entity: $0.65 \leq V < 0.85$}
+
+\begin{transbox}
+\textbf{TRANSITIONAL ENTITY} \hfill $0.65 \leq V < 0.85$
+
+\vspace{4pt}
+\textbf{What it means:} The entity is partially resolved. One or two components are missing or weak. The entity is visible but not autonomous --- it requires ongoing effort to maintain visibility, and that effort produces returns, but at a cost multiplier above baseline.
+
+\textbf{Commercial predictions:}
+\begin{itemize}[leftmargin=1.5em, topsep=2pt]
+  \item Organic visibility achievable but requires 3--12 months of consistent effort
+  \item Registry classification partially accurate; may require manual confirmation
+  \item Customer acquisition cost 1.5--2.5$\times$ category baseline
+  \item Marketing investment produces returns but does not fully compound
+  \item 90-day marketing pause causes moderate visibility decline that recovers slowly
+\end{itemize}
+
+\textbf{Strategic implication:} Evaluate the cost-benefit of adding the missing resolution component. In most cases, a minor name refinement moves the entity to Stable Atom and eliminates the ongoing cost multiplier permanently.
+\end{transbox}
+
+\subsection{High Effort Entity: $0.45 \leq V < 0.65$}
+
+\begin{effortbox}
+\textbf{HIGH EFFORT ENTITY} \hfill $0.45 \leq V < 0.65$
+
+\vspace{4pt}
+\textbf{What it means:} The entity faces significant structural resistance. Two or more resolution components are missing or the name has moderate drift. Persistence is achievable but requires above-average sustained investment that never fully stops.
+
+\textbf{Commercial predictions:}
+\begin{itemize}[leftmargin=1.5em, topsep=2pt]
+  \item Organic visibility requires 12--36 months of sustained effort
+  \item Registry misclassification likely; ongoing platform management required
+  \item Customer acquisition cost 2.5--5$\times$ category baseline
+  \item Marketing investment compensates for naming deficit rather than building on top of it
+  \item 90-day marketing pause causes significant visibility collapse
+\end{itemize}
+
+\textbf{Strategic implication:} Calculate the annual Inference Tax. In virtually all cases, the accumulated cost over three to five years exceeds the cost of renaming. The rename conversation should happen now, not after the tax has been paid for another year.
+\end{effortbox}
+
+\subsection{Ghost Risk: $V < 0.45$}
+
+\begin{ghostbox2}
+\textbf{GHOST RISK} \hfill $V < 0.45$
+
+\vspace{4pt}
+\textbf{What it means:} The entity is structurally in or approaching the Ghost State. Naming quality is insufficient for organic commercial viability. Persistence requires extraordinary ongoing investment that cannot be reduced without collapse.
+
+\textbf{Commercial predictions:}
+\begin{itemize}[leftmargin=1.5em, topsep=2pt]
+  \item Organic search visibility unlikely without extraordinary sustained investment
+  \item Registry classification absent, wrong, or contested
+  \item Customer acquisition cost 5--100$\times$ category baseline (depending on $\alpha$)
+  \item Marketing investment is structural overhead, not compounding investment
+  \item Any marketing pause causes near-total visibility collapse
+\end{itemize}
+
+\textbf{Strategic implication:} Rename. The compensation threshold calculation will confirm that required $\Delta$ is above $0.70$ for virtually all Ghost Risk entities --- achievable only by companies with the resources, patience, and market conditions of DuckDuckGo. Rename to a Stable Atom and redeploy the accumulated Inference Tax savings into execution.
+\end{ghostbox2}
+
+\section{Scoring $\alpha$: The Alignment Coefficient Rubric}
+
+Score $\alpha$ by evaluating the name against four criteria, each scored 0--1, then averaging.
+
+\begin{center}
+\begin{tabular}{p{2.2in}p{1.0in}p{2.5in}}
+\toprule
+\textbf{Criterion} & \textbf{Weight} & \textbf{Scoring Guide} \\
+\midrule
+\textbf{Category Noun Clarity} ($N_c$) &
+25\% &
+1.0: Clear, unambiguous category noun (``plumber,'' ``attorney'').\newline
+0.6: Implied or moderate category noun.\newline
+0.2: Generic or absent ($N_c = \emptyset$). \\[4pt]
+\textbf{Function Word Presence} ($F_a$) &
+25\% &
+1.0: Explicit action verb or nominalization (``repair,'' ``consulting'').\newline
+0.5: Implied by category.\newline
+0.0: Completely absent. \\[4pt]
+\textbf{Object Specificity} ($O_s$) &
+25\% &
+1.0: Precise, unambiguous object (``pipe,'' ``tax return'').\newline
+0.5: Implied or moderately specific.\newline
+0.1: Generic or absent. \\[4pt]
+\textbf{Context Clarity} ($C_l$) &
+25\% &
+1.0: Clear geographic or audience context (``Dallas,'' ``commercial'').\newline
+0.5: Partially specified or inferrable.\newline
+0.0: Absent (use 0.5 if non-local market). \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+$\alpha = $ (average of four criterion scores). Cross-check: run the three-test diagnostic from Chapter 15 --- scores below 0.50 on the diagnostic confirm Ghost Risk or High Effort zone.
+
+\section{Scoring $\sigma$: The Drift Coefficient Rubric}
+
+\begin{center}
+\begin{tabular}{p{2.2in}p{3.3in}}
+\toprule
+\textbf{Drift Level} & \textbf{Scoring Criteria} \\
+\midrule
+$\sigma \leq 0.10$ (Negligible drift) &
+Every token in the name maps to a single stable commercial category with no competing associations. No token activates unintended basins. \\[4pt]
+$0.10 < \sigma \leq 0.30$ (Low drift) &
+One token has a secondary association that could be confused with another category, but the overall name is clearly within the intended field. \\[4pt]
+$0.30 < \sigma \leq 0.55$ (Moderate drift) &
+One or two tokens pull toward competing categories with moderate force. The intended classification is still recoverable from context but not automatic. \\[4pt]
+$0.55 < \sigma \leq 0.80$ (High drift) &
+One or more tokens have strong associations with a competing category. The name is as likely to be classified wrong as right on first encounter. \\[4pt]
+$\sigma > 0.80$ (Maximum drift) &
+The primary token maps to a competing category more strongly than to the intended category. Misclassification is the default outcome. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Basin test for $\sigma$:} If a name contains ``Transitions,'' ``Apex,'' ``Legacy,'' ``Nexus,'' ``Catalyst,'' ``Pinnacle,'' ``Elevate,'' ``Transform,'' ``Synergy,'' or similar abstraction/aspiration terms as primary tokens, assign $\sigma \geq 0.55$ and run the basin test from Chapter 15 to confirm.
+
+\section{Scoring $\Phi$: The Sector Friction Rubric}
+
+Use the industry friction table from Chapter 8 as the primary reference. For sectors not listed, estimate $\Phi$ using the following framework:
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Friction Indicator} & \textbf{$\Phi$ Contribution} & \textbf{Notes} \\
+\midrule
+Incumbent count $> 500$ in local market & +0.15 & Dense competitive field \\
+Top 3 results dominated by national brands & +0.12 & Platform position locked \\
+Category has been stable $> 20$ years & +0.08 & Mature classification \\
+Primary query term has $> 100K$ monthly searches & +0.10 & High query competition \\
+Category uses paid-heavy acquisition models & +0.08 & Organic displacement \\
+New/emerging category ($< 5$ years old) & $-0.15$ & Thin classification field \\
+Niche specialization reduces direct competitors & $-0.12$ & Reduced local density \\
+Geographic isolation (small market) & $-0.08$ & Lower incumbent density \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Start from a base of $\Phi = 0.60$. Add and subtract contributions. Cap at $\Phi = 0.97$ (no market is frictionless at the top or completely impenetrable at the bottom).
+
+\section{Scoring $\Delta$: The Differentiation Force Rubric}
+
+Score each component of $\Delta = U \cdot M \cdot T$ on the following criteria:
+
+\textbf{Uniqueness ($U = 1 - O_c$):}
+\begin{itemize}[leftmargin=1.5em]
+  \item $U \geq 0.80$: The proposition is genuinely non-substitutable. No competitor makes the same specific claim with the same specific mechanism.
+  \item $0.50 \leq U < 0.80$: The proposition is distinctive but has some competitive overlap.
+  \item $U < 0.50$: The proposition is either common or easily duplicated. ``Great service,'' ``personalized attention,'' and ``trusted partner'' all score $U < 0.20$.
+\end{itemize}
+
+\textbf{Memorability ($M$):}
+\begin{itemize}[leftmargin=1.5em]
+  \item $M \geq 0.80$: Someone who heard the proposition once could accurately restate it 30 days later.
+  \item $0.50 \leq M < 0.80$: The core idea is retained but details may fade.
+  \item $M < 0.50$: The proposition requires re-exposure to recall accurately.
+\end{itemize}
+
+\textbf{Transmissibility ($T = V_s / F_c$):}
+\begin{itemize}[leftmargin=1.5em]
+  \item $T \geq 0.80$: The proposition can be accurately restated in one sentence with no loss of meaning.
+  \item $0.50 \leq T < 0.80$: Requires two to three sentences; some distortion in transmission.
+  \item $T < 0.50$: Requires explanation; high distortion in word-of-mouth transmission.
+\end{itemize}
+
+The conversion constant $\lambda = C_r \cdot C_m$: estimate $C_r$ from the category receptivity table in Chapter 9 and $C_m$ from the medium-compatibility assessment for your primary acquisition channel.
+
+\section{Scoring $R_p$: The Resolution Pressure Rubric}
+
+$R_p = N \cdot U_r \cdot T_c$. Score each component using the tables in Chapter 12. The $R_p$ score is the product of the three scores. Use the industry $R_p$ mapping table from Chapter 12 as a cross-check.
+
+\section{The Complete Scoring Worksheet}
+
+\begin{center}
+\begin{tabular}{p{2.5in}p{1.0in}p{2.0in}}
+\toprule
+\textbf{Variable} & \textbf{Your Score} & \textbf{Source / Method} \\
+\midrule
+$\alpha$ (alignment) & \underline{\hspace{0.8in}} & Four-criterion rubric above \\
+$\sigma$ (drift) & \underline{\hspace{0.8in}} & Drift rubric + basin test \\
+$\Phi$ (sector friction) & \underline{\hspace{0.8in}} & Industry table + adjustments \\
+$U$ (uniqueness) & \underline{\hspace{0.8in}} & Competitor overlap test \\
+$M$ (memorability) & \underline{\hspace{0.8in}} & 30-day recall estimate \\
+$T$ (transmissibility) & \underline{\hspace{0.8in}} & One-sentence restate test \\
+$\Delta = U \cdot M \cdot T$ & \underline{\hspace{0.8in}} & Product of above three \\
+$\lambda = C_r \cdot C_m$ & \underline{\hspace{0.8in}} & Receptivity + medium tables \\
+$\lambda\Delta$ & \underline{\hspace{0.8in}} & Product \\
+$R_p = N \cdot U_r \cdot T_c$ & \underline{\hspace{0.8in}} & Pressure tables \\
+\midrule
+\textbf{Viability Score:} & \multicolumn{2}{l}{$V = \alpha + \lambda\Delta - 0.25(1-\alpha)\sigma = $ \underline{\hspace{0.8in}}} \\
+\textbf{Trough Depth:} & \multicolumn{2}{l}{$D_t = \Phi(1-\alpha) = $ \underline{\hspace{0.8in}}} \\
+\textbf{Work-Offset:} & \multicolumn{2}{l}{$W_\Delta = 1/\alpha^2 = $ \underline{\hspace{0.8in}}} \\
+\textbf{Atm.\ Resultant:} & \multicolumn{2}{l}{$R_{sn} = (\alpha - \sigma)/[\Phi(1+\sigma)] = $ \underline{\hspace{0.8in}}} \\
+\textbf{Viability Band:} & \multicolumn{2}{l}{\underline{\hspace{2.2in}}} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{keybox}[The Score Is a Prediction, Not an Opinion]
+A Viability Score is not a subjective assessment of whether a name is ``good.'' It is a model-derived prediction of the structural conditions the entity will face in the commercial resolution environment. Two people applying the rubric consistently to the same name will produce the same score. The score is falsifiable: it predicts specific commercial outcomes that can be verified against actual business performance data.
+\end{keybox}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  CHAPTER 19
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{Registry Alignment Reference Tables}
+
+\begin{keybox}[Chapter Purpose]
+This chapter provides the practical reference layer of the resolution framework. It maps name components to NAICS codes, Google Business Profile categories, O*NET task classifications, and domain suffix recommendations. These tables are the data substrate for the audit protocol and the scoring engine. They are also the reference used by the tool at intent-tensor-theory.com to automate registry alignment scoring.
+\end{keybox}
+
+\section{How to Use This Chapter}
+
+Each section of this chapter provides alignment guidance for a specific classification system. For any named entity under analysis:
+
+\begin{enumerate}[leftmargin=1.5em]
+  \item Identify the entity's primary NAICS code using Section 19.2.
+  \item Confirm and map to the Google Business Profile primary category using Section 19.3.
+  \item Identify the primary O*NET task verb for the entity's core activity using Section 19.5.
+  \item Verify domain suffix alignment using Section 19.8.
+\end{enumerate}
+
+Full registry alignment means the entity's name contains tokens that map directly to entries in all four systems. Gaps indicate the missing resolution components identified in Chapter 3.
+
+\section{NAICS Code Alignment by Name Component}
+
+The following table maps strong category noun tokens to their primary NAICS codes. A name containing any of these tokens achieves immediate registry field alignment for that category.
+
+\begin{longtable}{p{1.4in}p{0.9in}p{3.2in}}
+\toprule
+\textbf{Category Token} & \textbf{NAICS} & \textbf{Industry Description} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Category Token} & \textbf{NAICS} & \textbf{Industry Description} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+Plumber / Plumbing & 238220 & Plumbing, Heating, A/C Contractors \\
+Electrician / Electrical & 238210 & Electrical Contractors \\
+Roofer / Roofing & 238160 & Roofing Contractors \\
+HVAC / Heating / Cooling & 238220 & Plumbing, Heating, A/C Contractors \\
+Landscaping / Landscaper & 561730 & Landscaping Services \\
+Painter / Painting & 238320 & Painting and Wall Covering \\
+Flooring / Floor & 238330 & Flooring Contractors \\
+Concrete / Mason / Masonry & 238140 & Masonry Contractors \\
+Cleaning / Cleaner & 561720 & Janitorial Services \\
+Attorney / Law / Legal & 541110 & Offices of Lawyers \\
+Accountant / Accounting & 541211 & Offices of Certified Public Accountants \\
+Tax Preparation & 541213 & Tax Preparation Services \\
+Bookkeeping & 541214 & Payroll Services / Bookkeeping \\
+Financial Planning / Advisor & 523930 & Investment Advice \\
+Insurance & 524210 & Insurance Agencies and Brokerages \\
+Real Estate & 531210 & Offices of Real Estate Agents \\
+Property Management & 531311 & Residential Property Managers \\
+Consulting / Consultant & 541611 & Admin \& General Mgmt Consulting \\
+IT Services / Technology & 541512 & Computer Systems Design Services \\
+Software / Development & 511210 & Software Publishers \\
+Marketing / Advertising & 541810 & Advertising Agencies \\
+Public Relations / PR & 541820 & Public Relations Agencies \\
+Staffing / Recruiting & 561311 & Employment Placement Agencies \\
+Engineering & 541330 & Engineering Services \\
+Architecture & 541310 & Architectural Services \\
+Trucking / Freight & 484110 & General Freight Trucking \\
+Auto Repair / Mechanic & 811111 & General Automotive Repair \\
+Auto Body & 811121 & Automotive Body, Paint, Repair \\
+Dental / Dentist & 621210 & Offices of Dentists \\
+Chiropractic & 621310 & Offices of Chiropractors \\
+Physical Therapy & 621340 & Offices of Physical Therapists \\
+Veterinary / Vet & 541940 & Veterinary Services \\
+Restaurant / Food Service & 722511 & Full-Service Restaurants \\
+Catering & 722320 & Caterers \\
+Bakery & 311811 & Retail Bakeries \\
+Retail (general) & 441--459 & Various Retail Trade codes \\
+Salon / Hair & 812112 & Beauty Salons \\
+Gym / Fitness & 713940 & Fitness and Recreational Sports Centers \\
+\end{longtable}
+
+\textbf{Using this table:} If the name under analysis contains a token listed in the left column, the NAICS alignment score for that component is 1.0. If the token is absent and the NAICS code must be inferred from context, reduce the $\alpha$ registry component score proportionally.
+
+\section{Google Business Profile Category Matching Reference}
+
+Google Business Profile (GBP) is the most commercially significant registry for consumer-facing businesses. The following table maps the most common service categories to their GBP primary category strings and their alignment trigger tokens.
+
+\begin{longtable}{p{2.0in}p{2.0in}p{1.5in}}
+\toprule
+\textbf{GBP Primary Category} & \textbf{High-Alignment Trigger Tokens} & \textbf{Low-Alignment Tokens} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{GBP Primary Category} & \textbf{High-Alignment Trigger Tokens} & \textbf{Low-Alignment Tokens} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+Roofing contractor & Roof, Roofing, Shingle & ``Apex,'' ``Summit,'' ``Shield'' \\
+Plumber & Plumb, Plumbing, Pipe & ``Flow,'' ``Aqua,'' ``Stream'' \\
+Electrician & Electric, Electrical, Wiring & ``Spark,'' ``Volt,'' ``Bright'' \\
+HVAC contractor & HVAC, Heating, Cooling, Air & ``Comfort,'' ``Climate,'' ``Breeze'' \\
+Law firm & Law, Legal, Attorney, Lawyer & ``Justice,'' ``Advocate,'' ``Shield'' \\
+Accountant & Accounting, CPA, Tax, Bookkeeping & ``Numbers,'' ``Clarity,'' ``Precision'' \\
+Financial planner & Financial, Finance, Planning, Wealth & ``Prosperity,'' ``Horizon,'' ``Legacy'' \\
+Management consultant & Consulting, Consultant, Advisory & ``Solutions,'' ``Strategy,'' ``Catalyst'' \\
+Marketing agency & Marketing, Advertising, Agency & ``Creative,'' ``Vision,'' ``Spark'' \\
+IT service provider & IT Services, Technology, Systems & ``Digital,'' ``Tech,'' ``Network'' \\
+Real estate agent & Real Estate, Realty, Property & ``Key,'' ``Haven,'' ``Harbor'' \\
+General contractor & Contractor, Construction, Build & ``Build,'' ``Craft,'' ``Structure'' \\
+Auto repair shop & Auto Repair, Mechanic, Automotive & ``Fast,'' ``Pro,'' ``Service'' \\
+Restaurant & Restaurant, Dining, Kitchen & ``Table,'' ``Fork,'' ``Hearth'' \\
+Hair salon & Hair, Salon, Barber, Stylist & ``Style,'' ``Glow,'' ``Shear'' \\
+\end{longtable}
+
+\textbf{Key insight from this table:} The ``Low-Alignment Tokens'' column lists the words that naming consultants commonly recommend as creative alternatives to direct category terms. Every one of them reduces GBP auto-classification accuracy. The creative vocabulary of professional naming is, systematically, a list of low-alignment tokens.
+
+\section{O*NET Task Verb Library}
+
+The O*NET function component $F_a$ maps to the following action verb families. A name containing a verb from the high-signal column achieves strong task field alignment. Verbs from the low-signal column convey activity but not specific occupational classification.
+
+\begin{center}
+\begin{tabular}{p{1.6in}p{1.4in}p{2.5in}}
+\toprule
+\textbf{Task Category} & \textbf{High-Signal Verbs} & \textbf{O*NET Classification} \\
+\midrule
+Physical restoration & Repair, Restore, Fix, Rebuild & Construction / Maintenance (47, 49) \\
+Installation & Install, Deploy, Mount, Place & Construction / Installation (47) \\
+Preparation / Processing & Prepare, Process, File, Compile & Administrative / Financial (43, 13) \\
+Consultation / Advisory & Consult, Advise, Counsel, Analyze & Management / Business (11, 13) \\
+Design / Creation & Design, Create, Develop, Build & Architecture / Arts (17, 27) \\
+Management / Oversight & Manage, Oversee, Direct, Coordinate & Management (11) \\
+Cleaning / Maintenance & Clean, Maintain, Service, Sanitize & Building / Grounds (37) \\
+Transportation / Delivery & Deliver, Transport, Move, Ship & Transportation (53) \\
+Medical / Therapeutic & Treat, Diagnose, Rehabilitate & Healthcare (29, 31) \\
+Teaching / Training & Teach, Train, Coach, Educate & Education (25) \\
+\midrule
+\multicolumn{3}{l}{\textbf{Low-Signal Verbs (avoid as primary $F_a$ token):}} \\
+\multicolumn{3}{l}{Transform, Elevate, Empower, Enable, Leverage, Innovate, Optimize, Pivot, Disrupt} \\
+\multicolumn{3}{l}{(These verbs are general management metaphors with no specific O*NET task mapping)} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{TLD Resolution Guide}
+
+The domain suffix (Top-Level Domain) carries a small but measurable resolution signal. TLD selection that aligns with the entity's classification reinforces the registry signal; misaligned TLD selection contributes marginally to drift.
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{TLD} & \textbf{Classification Signal} & \textbf{Optimal For} \\
+\midrule
+.com & Universal commercial intent & Any for-profit entity \\
+.co & Modern commercial, startup connotation & Digital-native, global businesses \\
+.agency & Explicit category signal for agencies & Marketing, PR, staffing agencies \\
+.consulting & Explicit category signal & Consulting firms \\
+.law & Explicit category signal & Law firms \\
+.dental / .health & Category signal & Healthcare providers \\
+.construction & Category signal & Construction firms \\
+.tax / .accountant & Category signal & Tax and accounting firms \\
+.solutions & Generic, low category signal & Avoid --- activates drift \\
+.group & Generic, low category signal & Avoid for small entities \\
+.partners & Moderate category signal & Professional partnerships \\
+.io & Technology connotation & SaaS, software products \\
+.org & Non-profit signal & Non-profits only \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  CHAPTER 20
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{The Topological Audit Protocol}
+
+\begin{keybox}[Chapter Purpose]
+The Topological Audit is the six-step procedure for applying the complete resolution framework to any named entity. It produces the full resolution report: alignment score, drift diagnosis, trough depth, failure mode identification, atmospheric resultant, trajectory prediction, and recommended resolution. This chapter specifies each step in operational detail and provides the report format.
+\end{keybox}
+
+\section{Step One: Local Vector Scan and Atmospheric Audit}
+
+\begin{auditbox}[Step 1: Local Vector Scan]
+\textbf{Objective:} Establish the competitive environment before evaluating the name.
+
+\textbf{Actions:}
+\begin{enumerate}[leftmargin=1.5em, topsep=2pt]
+  \item Search the entity's primary category + city in Google. Record the number of established competitors in the local pack.
+  \item Note the naming patterns of the top 10 results: what percentage use 3D Direct names? What percentage use Ghost State names?
+  \item Estimate $\Phi$ using the friction rubric from Chapter 18.
+  \item Estimate the population-level $R_p$ for the category using the table from Chapter 12.
+  \item Record: $\Phi$ value, $R_p$ value, primary query structure, top 3 competitor names.
+\end{enumerate}
+
+\textbf{Output:} Environmental baseline. Defines the field the name must navigate.
+\end{auditbox}
+
+\section{Step Two: Primary Search-Intent Mapping}
+
+\begin{auditbox}[Step 2: Intent Mapping]
+\textbf{Objective:} Identify the exact query structure customers use, then compare to the name.
+
+\textbf{Actions:}
+\begin{enumerate}[leftmargin=1.5em, topsep=2pt]
+  \item Identify the three most common search queries for this category and location (use Google autocomplete, keyword tools, or direct category knowledge).
+  \item Decompose each query into components: action verb, object, location/context.
+  \item Map each query component to the corresponding resolution variable: $F_a$, $O_s$, $C_l$, $N_c$.
+  \item Compare the name's tokens to the query component list. Which query components are present in the name? Which are absent?
+\end{enumerate}
+
+\textbf{Output:} Query-component coverage matrix. Directly identifies missing resolution components.
+\end{auditbox}
+
+\section{Step Three: Running the Master Equations}
+
+\begin{auditbox}[Step 3: Equation Execution]
+\textbf{Objective:} Compute the core diagnostic metrics.
+
+\textbf{Calculate in sequence:}
+
+\textbf{3a. Semantic Alignment} ($\alpha$): Apply the four-criterion rubric from Chapter 18. Record scores for $N_c$, $F_a$, $O_s$, $C_l$ and average.
+
+\textbf{3b. Vector Drift} ($\sigma$): Apply the drift rubric from Chapter 18. Run the basin test if any token triggers a competing-category association.
+
+\textbf{3c. Trough Depth} ($D_t = \Phi(1-\alpha)$): Compute using the scores from 3a and the $\Phi$ value from Step 1.
+
+\textbf{3d. Inference Tax} ($\tau_i^{monthly}$): Compute $W_\Delta = 1/\alpha^2$. Estimate monthly baseline effort $E_0$ for a well-named competitor. Calculate $\tau_i^{monthly} = E_0(W_\Delta - 1)$.
+
+\textbf{3e. Atmospheric Resultant} ($R_{sn} = (\alpha - \sigma)/[\Phi(1+\sigma)]$): Compute and apply the diagnostic ($R_{sn} > 1$ = aerodynamic; $< 1$ = compensatory effort required; $\leq 0$ = net negative).
+
+\textbf{3f. Viability Score} ($V = \alpha + \lambda\Delta - 0.25(1-\alpha)\sigma$): Score $\Delta$ and $\lambda$ using the rubrics. Compute $V$ and assign viability band.
+
+\textbf{Output:} Six numeric metrics. These constitute the quantitative audit record.
+\end{auditbox}
+
+\section{Step Four: Basin Analysis and Dimensionality Classification}
+
+\begin{auditbox}[Step 4: Topology]
+\textbf{Objective:} Classify the name's dimensionality and identify any Unintended Basin or Dimensional Tear.
+
+\textbf{Actions:}
+\begin{enumerate}[leftmargin=1.5em, topsep=2pt]
+  \item Run the three-test diagnostic from Chapter 15 (context-free recognition, basin test, registry return).
+  \item Classify: 3D Direct / 2D Metaphorical / Dimensional Tear.
+  \item If 2D Metaphorical: identify which component is symbolic rather than direct, and assess the stability of the symbolic encoding.
+  \item If Dimensional Tear: confirm with the registry test. Note the absence of any stable projection.
+  \item Check for Unintended Basin: run each primary token through the basin test. If any token has higher cosine similarity to a competing category than to the intended category, identify the competing basin.
+\end{enumerate}
+
+\textbf{Output:} Dimensionality classification + basin status. These determine whether the primary repair is additive (add a component) or replacement (remove a drifting token).
+\end{auditbox}
+
+\section{Step Five: Failure Mode Identification}
+
+\begin{auditbox}[Step 5: Failure Mode]
+\textbf{Objective:} Apply the routing matrix from Chapter 17 to identify the primary failure mode.
+
+\textbf{Actions:}
+\begin{enumerate}[leftmargin=1.5em, topsep=2pt]
+  \item Apply the three-question routing matrix: category search visibility $\to$ stranger test $\to$ registry test.
+  \item Confirm the identified failure mode against the mathematical signature table.
+  \item If multiple failure modes are present (compound failure), rank by severity: FM7 (Ambiguity Overload) and FM8 (Tear) are always primary when present; other modes are secondary.
+  \item Calculate the specific threshold that must be crossed to escape the identified failure mode.
+\end{enumerate}
+
+\textbf{Output:} Primary failure mode + ranked secondary modes + specific threshold calculation.
+\end{auditbox}
+
+\section{Step Six: Resolution and Stable Atom Generation}
+
+\begin{auditbox}[Step 6: Resolution]
+\textbf{Objective:} Generate the resolved name alternatives that achieve Stable Atom status.
+
+\textbf{Actions:}
+\begin{enumerate}[leftmargin=1.5em, topsep=2pt]
+  \item Identify the missing or weak resolution components from Steps 2 and 4.
+  \item Apply the Minimal Resolution Template: $\vstar = C_l + O_s + F_a + N_c$.
+  \item Generate three to five candidate names that satisfy the template, using the NAICS token table (Section 19.2), GBP category table (Section 19.3), and O*NET verb library (Section 19.5).
+  \item Score each candidate using the viability worksheet from Chapter 18.
+  \item Select the candidate with the highest $V$ score; confirm $R_{sn} > 1$.
+  \item If the entity has significant established brand equity in the current name, apply the transition protocol from Chapter 16.
+\end{enumerate}
+
+\textbf{Output:} Minimum three Stable Atom alternatives with viability scores, plus transition guidance if renaming from an established position.
+\end{auditbox}
+
+\section{The Audit Report Format}
+
+A completed audit report for any named entity should contain the following sections, in order:
+
+\begin{enumerate}[leftmargin=1.5em]
+  \item \textbf{Entity and Market Context}: Name, category, location, primary query, competitor landscape, $\Phi$, $R_p$.
+  \item \textbf{Quantitative Metrics}: $\alpha$, $\sigma$, $D_t$, $W_\Delta$, $R_{sn}$, $V$, viability band, monthly inference tax estimate.
+  \item \textbf{Dimensionality Classification}: 3D Direct / 2D Metaphorical / Tear, with basin status.
+  \item \textbf{Primary Failure Mode}: Mode identification with mathematical signature and threshold calculation.
+  \item \textbf{Resolution Alternatives}: Minimum three Stable Atom candidates with scores and registry confirmations.
+  \item \textbf{Strategic Recommendation}: Rename / Refine / Sustain with compensation calculation, estimated annual inference tax savings from the recommended action, and transition timeline if applicable.
+\end{enumerate}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  CHAPTER 21
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{Worked Case Studies}
+
+\begin{keybox}[Chapter Purpose]
+Seven case studies applying the complete six-step audit to real naming situations. Each represents a distinct failure mode or strategic scenario. Together they cover the full diagnostic range: Stable Atom from launch, Ghost State by design, metaphorical survivor, acquired-debt erosion, dimensional tear, local dominance play, and the compensation survivor. Each case produces a complete resolution report in the format specified in Chapter 20.
+\end{keybox}
+
+\section{Case Study Format and Scoring Protocol}
+
+Each case study follows the same structure: entity description, Step 1--6 audit in compressed form, quantitative summary table, resolution alternatives with scores, and the strategic lesson the case illustrates.
+
+Scores are estimated using the rubrics from Chapter 18. They are representative approximations, not exact machine-computed values. The purpose is to demonstrate the audit process and illustrate how the variables interact in real scenarios --- not to produce authoritative scores for the specific businesses named.
+
+\section{Case One: The Perfectly Resolved Name}
+
+\begin{casebox}[Case One: Dallas Roof Repair Company]
+\textbf{Entity:} A residential and commercial roofing contractor serving the Dallas--Fort Worth metro.
+
+\textbf{Step 1 --- Environmental Scan:}
+DFW roofing is a competitive market with hundreds of registered contractors. Multiple national brands (HomeAdvisor, Angi) and large regional operators anchor the local pack. $\Phi \approx 0.72$. $R_p \approx 0.75$ (weather-driven urgency cycle, high consequence of delay in storm season).
+
+\textbf{Step 2 --- Intent Mapping:}
+Primary queries: ``roof repair Dallas,'' ``Dallas roofing contractor,'' ``emergency roof repair DFW.'' Components: $C_l$ = Dallas/DFW, $O_s$ = roof, $F_a$ = repair, $N_c$ = contractor/company. All four present in the name.
+
+\textbf{Step 3 --- Metrics:}
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Metric & Value & Assessment \\
+\midrule
+$\alpha$ & 0.92 & Stable Atom \\
+$\sigma$ & 0.05 & Negligible drift \\
+$D_t = 0.72(1-0.92)$ & 0.058 & Near-zero trough \\
+$W_\Delta = 1/0.92^2$ & 1.18 & 18\% over baseline effort \\
+$R_{sn} = (0.92-0.05)/(0.72 \times 1.05)$ & 1.15 & Aerodynamic \\
+$V$ (no differentiation) & 0.91 & \textbf{Stable Atom} \\
+Monthly inference tax & $\approx \$180$ & Near-zero \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Steps 4--5:} 3D Direct. No failure mode. All three diagnostic tests pass.
+
+\textbf{Strategic Lesson:} A 3D Direct Stable Atom name starts at $V = 0.91$ \textit{before any differentiation investment}. Every dollar of marketing effort compounds on a structural foundation rather than compensating for a structural deficit. The entity is aerodynamic ($R_{sn} = 1.15$) in a moderately competitive market. The naming decision provides a permanent structural advantage that no competitor can erode through superior marketing.
+\end{casebox}
+
+\section{Case Two: The Clever-But-Invisible Name}
+
+\begin{casebox}[Case Two: ProfitLogic (Business Analytics Consulting)]
+\textbf{Entity:} A business analytics and data consulting firm targeting mid-market companies.
+
+\textbf{Step 1:} $\Phi \approx 0.85$ (competitive consulting market). $R_p \approx 0.40$ (strategic, not urgent).
+
+\textbf{Step 2:} Primary queries: ``business analytics consulting,'' ``data consulting firm,'' ``BI consulting services.'' Components: $C_l$ = absent (national market), $O_s$ = analytics/data, $F_a$ = consulting, $N_c$ = firm/services. None of these components are present in ``ProfitLogic.''
+
+\textbf{Step 3 --- Metrics:}
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Metric & Value & Assessment \\
+\midrule
+$\alpha$ & 0.08 & Ghost Risk \\
+$\sigma$ & 0.80 & High drift (financial/generic tech) \\
+$D_t = 0.85(1-0.08)$ & 0.782 & Near-fatal trough \\
+$W_\Delta = 1/0.08^2$ & 156 & Impossibly high \\
+$R_{sn} = (0.08-0.80)/(0.85 \times 1.80)$ & $-0.47$ & Net negative \\
+$V$ (no differentiation) & $-0.07$ & \textbf{Ghost Risk} \\
+Monthly inference tax & $\approx \$31{,}000$ & Structural \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Steps 4--5:} Dimensional Tear (FM8). Three-test all fails. Basin: financial services AND generic technology simultaneously. Net negative $R_{sn}$ confirms: the name works against the business.
+
+\textbf{Resolution alternatives:}
+
+\begin{enumerate}[leftmargin=1.5em]
+  \item \textit{Business Analytics Consulting} --- $V = 0.91$, $R_{sn} = 1.08$, Stable Atom
+  \item \textit{Data Strategy Consulting} --- $V = 0.87$, $R_{sn} = 1.02$, Stable Atom
+  \item \textit{Business Intelligence Consulting} --- $V = 0.89$, $R_{sn} = 1.05$, Stable Atom
+\end{enumerate}
+
+\textbf{Strategic Lesson:} ``ProfitLogic'' is a professionally chosen name that scores better on every traditional branding metric (memorable, distinctive, sounds intelligent) than ``Business Analytics Consulting.'' Yet it has $V = -0.07$ versus $V = 0.91$. The creative metric and the commercial metric are not just uncorrelated --- in this case they are inversely correlated. The clever name is the commercially inferior asset by a factor of approximately 12 in work-offset ratio.
+\end{casebox}
+
+\section{Case Three: The Legacy Name With Acquired Alignment}
+
+\begin{casebox}[Case Three: H\&R Block (Established 1955)]
+\textbf{Entity:} H\&R Block is one of the largest tax preparation services in the United States, founded in 1955 by Henry and Richard Bloch (the ``k'' was substituted to prevent mispronunciation as ``Blotch'').
+
+\textbf{Intrinsic alignment:} The name contains two personal initials (no category, no function, no object) and a personal surname. $\alpha_0 \approx 0.10$ --- Ghost State at launch.
+
+\textbf{Acquired alignment by 2024:} After 70 years of operation, pervasive advertising, and the single-minded association of ``H\&R Block'' with tax preparation, the acquired alignment is near-complete:
+\[
+\alpha_t = \alpha_0 + \rho m = 0.10 + 0.03 \times 58 = 0.10 + 1.74
+\]
+The acquired alignment exceeds 1.0 in the model, which means the name has effectively become a category signal in its own right. When Americans think ``H\&R Block,'' they think ``tax preparation'' with near-unity probability. The name has become its own category noun.
+
+\textbf{Strategic lesson:} This case proves the Acquired Associative Alignment model. H\&R Block is the tax category equivalent of Kleenex for tissues or Xerox for photocopying: a brand name that has achieved generic category status through sustained investment over decades. The cost of that achievement was 70 years of advertising, the first two decades of which were paid entirely as inference tax. The modern name has $\alpha_t \approx 1.0$ not because the name is good but because the investment was extraordinary. A competitor launched today named ``Tax Preparation Services'' starts with $\alpha_0 \approx 0.94$ --- matching H\&R Block's acquired alignment position from day one, at zero cost.
+\end{casebox}
+
+\section{Case Four: The High-Differentiation Survivor}
+
+\begin{casebox}[Case Four: Divorce Financial Planning Specialist (Niche Service)]
+\textbf{Entity:} A certified financial planner who specializes exclusively in the financial aspects of divorce for clients over 50. Named: ``New Chapter Financial.''
+
+\textbf{Step 3 --- Metrics:}
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Metric & Value & Assessment \\
+\midrule
+$\alpha$ & 0.48 & High Effort (``New Chapter'' has drift) \\
+$\sigma$ & 0.50 & Moderate drift (``New Chapter'' = life changes, not finance) \\
+$\Delta = 0.88 \times 0.85 \times 0.90$ & 0.673 & Strong differentiation \\
+$\lambda$ & 0.72 & High receptivity for divorce specialization \\
+$\lambda\Delta$ & 0.485 & Substantial compensation \\
+$V = 0.48 + 0.485 - 0.25(0.52)(0.50)$ & 0.900 & \textbf{Stable Atom via differentiation} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Strategic lesson:} This is the Compensation Theorem operating correctly at a small business scale. The differentiation (exclusive divorce specialization, high uniqueness, highly transmissible referral message: ``the advisor who only handles divorce finances'') is strong enough to push the viability score to Stable Atom despite a name that carries moderate drift. The entity survives because $U = 0.88$ (no direct competitor), $T = 0.90$ (the referral phrase is one sentence), and $C_r = 0.72$ (divorce attorneys are active referral sources who actively seek specialized financial planners for their clients). Compare: if the same advisor had named the firm ``Divorce Financial Planning'' ($\alpha = 0.90$), $V$ would be 0.94 and the compensation investment would not be required. The differentiation is real and valuable; the naming still imposes a tax.
+\end{casebox}
+
+\section{Case Five: The Dimensional Tear That Kills a Category Leader}
+
+\begin{casebox}[Case Five: Synaptix (Management Training Company)]
+\textbf{Entity:} A management training and leadership development firm targeting corporate clients.
+
+\textbf{Step 3 --- Metrics:}
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Metric & Value & Assessment \\
+\midrule
+$\alpha$ & 0.05 & Dimensional Tear \\
+$\sigma$ & 0.85 & Maximum drift (neuroscience / pharma) \\
+$D_t = 0.87(1-0.05)$ & 0.826 & Near-fatal \\
+$R_{sn} = (0.05-0.85)/(0.87 \times 1.85)$ & $-0.498$ & Severely negative \\
+$V$ & $-0.15$ & Deep Ghost Risk \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{The problem:} ``Synaptix'' activates neuroscience associations (synapse + -tix pharmaceutical suffix). A corporate training firm with this name will be auto-classified by GBP as a health services or medical education provider. Procurement systems at corporate clients will route it to the wrong vendor category. HR professionals searching for ``management training'' will not find it organically.
+
+\textbf{The compounding issue:} The firm's primary market is corporate HR departments and senior management. These buyers use formal procurement systems with vendor category classification. A Torn name that routes to the wrong category in procurement databases results in the firm being invisible to the exact institutional buyers it most needs to reach.
+
+\textbf{Resolution alternatives:}
+\begin{enumerate}[leftmargin=1.5em]
+  \item \textit{Leadership Development Consulting} --- $V = 0.88$, Stable Atom
+  \item \textit{Corporate Management Training} --- $V = 0.92$, Stable Atom
+  \item \textit{Executive Leadership Training} --- $V = 0.87$, Stable Atom
+\end{enumerate}
+
+\textbf{Strategic lesson:} Dimensional Tears are category-agnostic in their damage. They harm small local businesses and large corporate service firms equally. The failure mode is structural, not scale-dependent.
+\end{casebox}
+
+\section{Case Six: The Ghost State Operating at Significant Revenue}
+
+\begin{casebox}[Case Six: Smith \& Associates Financial Planning]
+\textbf{Entity:} An established independent financial planning firm operating for 14 years, $\approx$\$2M annual revenue, 8 staff. Named after the founding partner.
+
+\textbf{Step 3 --- Metrics:}
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Metric & Value & Assessment \\
+\midrule
+$\alpha_0$ (intrinsic) & 0.12 & Ghost Risk \\
+$\alpha_t$ (acquired over 14 years) & $0.12 + 0.03 \times 11 = 0.45$ & High Effort \\
+$\sigma$ & 0.30 & Low-moderate (``Associates'' implies professional firm) \\
+$\Phi$ & 0.88 & High friction (financial services) \\
+$D_t = 0.88(1-0.45)$ & 0.484 & Significant trough \\
+$V$ & 0.41 & High Effort / Ghost Risk boundary \\
+Monthly inference tax & $\approx \$6{,}500$ & Structural and ongoing \\
+Annual inference tax & $\approx \$78{,}000$ & Paid since year one \\
+14-year accumulated tax & $\approx \$1.09M$ & The naming cost of the business \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{The situation:} The firm is thriving --- $\$2M$ revenue, established relationships, a founding partner with a strong professional reputation. It \textit{feels} like naming doesn't matter here because the business works.
+
+\textbf{What the math shows:} The business works \textit{because} of 14 years of relationship-building, referral network cultivation, and professional reputation development --- all of which are compensating for the name's inability to drive organic discovery. The firm has paid approximately \$1.09 million in excess marketing costs over 14 years due to its name. That money built a referral network instead of organic visibility. It worked. But it was a choice made by default, not by design.
+
+\textbf{The forward-looking cost:} The next associate who joins the firm and eventually becomes a named partner (``Smith, Jones \& Associates'') will add zero resolution value to the firm's name --- in fact, adding a second personal name slightly increases the resource required to manage the firm's classification ambiguity.
+
+\textbf{Strategic lesson:} Ghost States can generate significant revenue. The naming cost is not ``the business fails'' --- it is ``the business pays a structural tax every year that a well-named competitor does not pay.'' At \$2M revenue, \$78K/year is 3.9\% of top-line revenue in invisible overhead. The founding partner who recognized this in year one and named the firm ``Dallas Retirement Financial Planning'' would have retained that 3.9\% compounding for 14 years.
+\end{casebox}
+
+\section{Case Seven: The Local Business That Dominates Its Vector}
+
+\begin{casebox}[Case Seven: Austin Commercial Pipe Repair Specialists]
+\textbf{Entity:} A commercial plumbing contractor targeting commercial and industrial clients exclusively in the Austin metro. Named with full resolution template satisfaction.
+
+\textbf{Step 3 --- Metrics:}
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Metric & Value & Assessment \\
+\midrule
+$\alpha$ & 0.96 & Maximum Stable Atom \\
+$\sigma$ & 0.02 & Negligible \\
+$\Phi$ & 0.66 & Medium friction (niche market reduces density) \\
+$D_t = 0.66(1-0.96)$ & 0.026 & Near-zero \\
+$W_\Delta = 1/0.96^2$ & 1.09 & 9\% over baseline only \\
+$R_{sn} = (0.96-0.02)/(0.66 \times 1.02)$ & 1.40 & Highly aerodynamic \\
+$R_p$ (commercial client, facilities mgr) & 0.72 & High urgency context \\
+$V$ & 0.95 & Peak Stable Atom \\
+Monthly inference tax & $\approx \$90$ & Negligible \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{The three-layer competitive advantage:}
+
+\textbf{Layer 1 --- Name-level ($C_l$ specificity):} ``Austin'' scopes the entity to the Austin commercial market. The entity competes locally, not nationally. Sector friction drops from the general plumbing category ($\Phi = 0.68$) to the Austin commercial plumbing niche ($\Phi = 0.66$), but more importantly, the local classification confidence is higher because fewer competitors occupy the exact same geo-categorical space.
+
+\textbf{Layer 2 --- Audience-level ($C_l$ specificity):} ``Commercial'' scopes the audience to commercial and industrial clients rather than residential. This eliminates residential plumbers from the competitive set --- a business named ``Austin Plumbing'' competes with both residential and commercial plumbers; ``Austin Commercial Pipe Repair'' competes only with commercial plumbers. The competitive field shrinks while the conversion rate from correctly targeted leads increases.
+
+\textbf{Layer 3 --- Algorithmic Autonomy:} With $\alpha = 0.96$ and $R_{sn} = 1.40$, the entity enters a market where it is more aerodynamic than approximately 95\% of competitors. The algorithm maintains it. Every commercial facilities manager in Austin who searches ``commercial pipe repair'' finds this entity at or near the top of results without any paid advertising required to achieve that position.
+
+\textbf{Strategic lesson:} The highest viability scores come not from generic Stable Atom names (``Pipe Repair Company'') but from precision-scoped Stable Atom names that combine geographic context, audience context, and full resolution components. Each specificity layer reduces the competitive field and increases the conversion rate from reached customers. This is local vector domination: not competing in the search category, but owning a defined sub-category.
+\end{casebox}
+
+\section{Chapter Summary: Patterns Across the Case Studies}
+
+Seven cases, seven patterns:
+
+\begin{enumerate}[leftmargin=1.5em]
+  \item \textbf{3D Direct Stable Atoms} achieve near-zero trough and near-minimal inference tax from day one. The naming decision is a permanent, compounding advantage.
+  \item \textbf{Ghost State names} create structural overhead that is paid every month for the life of the business, regardless of revenue level. The tax is invisible in any single period and devastating in aggregate.
+  \item \textbf{Acquired alignment} works but requires decades of investment to achieve what a well-named competitor achieves for free from launch.
+  \item \textbf{Differentiation compensation} is real and can push $V$ to Stable Atom status despite weak naming --- but the underlying naming tax never disappears.
+  \item \textbf{Dimensional Tears} damage entities of all sizes equally. The failure mode is structural, not scale-dependent.
+  \item \textbf{Personal-name firms} produce Ghost States from day one and accumulate Inference Tax throughout their operating lives.
+  \item \textbf{Precision scoping} --- layering geographic context, audience context, and full resolution components --- produces the highest viability scores and the most defensible local market positions.
+
+\end{enumerate}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  CHAPTER 22
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{From Name to System: Naming as Engineering Practice}
+
+\begin{keybox}[Chapter Thesis]
+The final chapter of the core text converts the theoretical framework and practical tools into operational protocols for four distinct naming scenarios: pre-launch naming, the rename decision, the compensation decision, and naming within a multi-entity portfolio. It closes with the Pre-Launch Naming Checklist: a twenty-point verification protocol that ensures any name achieves Stable Atom status before it is registered, published, or committed to marketing infrastructure.
+\end{keybox}
+
+\section{The Pre-Launch Naming Checklist}
+
+\begin{keybox}[The Pre-Launch Naming Checklist]
+Apply to every candidate name before registration. A name that fails any item in the first ten should be revised before proceeding. Items eleven through twenty are optimization checks that move a passing name toward maximum performance.
+
+\vspace{6pt}
+\textbf{Minimum Viability Requirements (items 1--10):}
+
+\begin{enumerate}[leftmargin=1.5em, topsep=2pt]
+  \item $\alpha \geq 0.65$ by the four-criterion rubric (minimum Transitional zone)
+  \item $\sigma \leq 0.40$ by the drift rubric (no high-drift tokens)
+  \item $V \geq 0.65$ by the viability formula (minimum Transitional zone)
+  \item $R_{sn} > 0$ (net positive resolution --- not net negative)
+  \item Three-test diagnostic: at least 3/5 strangers identify the correct category from the name alone
+  \item Basin test passes: no primary token falls into a competing category basin
+  \item GBP registry test: auto-suggest returns the correct primary category or a close variant
+  \item No token from the Ghost Risk naming vocabulary: Solutions, Group, Partners, Ventures, Dynamics, Nexus, Apex, Catalyst, Elevate, Transform, Empower, Synergy, Premier, Elite, or generic adjective/aspiration terms used as the \textit{primary} name component
+  \item NAICS alignment confirmed: name contains at least one token that maps to the intended NAICS code
+  \item Domain availability: the exact name or a close variant is available as a .com domain
+\end{enumerate}
+
+\textbf{Optimization Targets (items 11--20):}
+
+\begin{enumerate}[leftmargin=1.5em, topsep=2pt, start=11]
+  \item $\alpha \geq 0.82$ (targeting Stable Atom rather than minimum Transitional)
+  \item $V \geq 0.85$ (Stable Atom zone confirmed)
+  \item $R_{sn} \geq 1.0$ (aerodynamic in sector)
+  \item Geographic context $C_l$ included if local market (reduces local pack competition)
+  \item Audience context included if serving a specific client segment (increases conversion rate)
+  \item O*NET task verb present as $F_a$ token (platform matching alignment)
+  \item Name length: minimum sufficient --- no tokens present beyond what is required for full resolution
+  \item TLD selection aligns with entity type per the TLD table (Section 19.8)
+  \item Name passes the transmissibility test: can be accurately restated in a phone conversation without spelling
+  \item Differentiation proposition is identified and scored before launch: $\Delta$ estimated, $\lambda$ estimated, compensation requirement calculated if $\alpha < 0.82$
+\end{enumerate}
+\end{keybox}
+
+\section{The Rename Decision Framework}
+
+When an established business is considering a rename, three calculations determine whether and how urgently the rename should proceed.
+
+\textbf{Calculation 1: Current annual inference tax.}
+\[
+\tau_i^{annual} = 12 \times E_0 \times (W_\Delta - 1) = 12 \times E_0 \times \left(\frac{1}{\alpha^2} - 1\right)
+\]
+
+\textbf{Calculation 2: Compensation requirement.}
+\[
+\Delta_{required} = \frac{\Phi(1+\sigma)^2 - \alpha}{\lambda}
+\]
+If $\Delta_{required} > 0.70$: rename is strongly indicated. If $\Delta_{required} < 0.40$: compensation is viable.
+
+\textbf{Calculation 3: Rename payback period.}
+\[
+\text{Payback} = \frac{\text{Rename cost}}{\tau_i^{annual} \text{ savings}} = \frac{\text{Rename cost}}{12 \times E_0 \times (W_{\Delta,current} - W_{\Delta,new})}
+\]
+If the payback period is less than two years: rename now. If one to three years: rename is strongly favored. If greater than five years: evaluate whether sustained differentiation investment is a comparable alternative.
+
+\section{The Compensation Decision Framework}
+
+For a business that cannot or will not rename, the compensation decision framework determines the minimum differentiation investment required and whether it is achievable.
+
+\textbf{Step 1:} Calculate $\Delta_{required}$ using the compensation requirement equation.
+
+\textbf{Step 2:} Assess current $\Delta = U \cdot M \cdot T$ honestly using the scoring rubric.
+
+\textbf{Step 3:} If $\Delta_{current} \geq \Delta_{required}$: the compensation path is viable with current differentiation. Focus on execution.
+
+\textbf{Step 4:} If $\Delta_{current} < \Delta_{required}$: calculate the gap $\Delta_{gap} = \Delta_{required} - \Delta_{current}$. Identify which of $U$, $M$, or $T$ is most improvable, and quantify the investment required to close the gap.
+
+\textbf{Step 5:} Compare the annual cost of the differentiation investment to the annual Inference Tax savings from renaming. If renaming saves more annually than the differentiation investment costs, rename.
+
+\section{The Acquired Alignment Program}
+
+For Ghost State businesses that have genuine brand equity in their current name and cannot rename, the Acquired Alignment Program provides a structured path to improve effective $\alpha_t$ over time.
+
+\[
+\alpha_t = \alpha_0 + \rho m
+\]
+
+The program has four components:
+
+\textbf{1. Classification Message.} Identify the single sentence that states, in plain language, what the business does. This sentence must contain the $N_c$, $F_a$, and $O_s$ components that the name lacks. It becomes the invariant tagline, stated in every channel, every communication, every first contact.
+
+\textbf{2. Two-Face Recovery.} Implement GBP description, tagline, and all metadata with the full 3D Direct statement. Ensure every platform where the business appears carries the classification message independently of the name.
+
+\textbf{3. Repetition Cycles.} Each cycle of consistent, wide-exposure messaging increases $\alpha_t$ by $\rho \approx 0.02$--$0.04$ per cycle. Set a timeline expectation: to reach $\alpha_t = 0.50$ from $\alpha_0 = 0.12$ requires approximately $\frac{0.38}{0.03} \approx 13$ cycles.
+
+\textbf{4. Monitoring.} Track the entity's category search rank quarterly. Improvement in organic category ranking is the observable signal that acquired alignment is increasing.
+
+\section{Naming a New Category}
+
+When the business is creating a genuinely new category --- a service that did not previously exist in any registry --- the standard Minimal Resolution Template applies with one modification: the Category Noun must be a term that the business \textit{intends to own}, and the naming decision must include a strategy to establish that term as the category name in relevant classification systems.
+
+\textbf{The new category naming strategy:}
+\begin{enumerate}[leftmargin=1.5em]
+  \item Choose the Category Noun that most precisely describes the new service, using existing language rather than invented terms.
+  \item Include the $F_a$ and $O_s$ components as normal.
+  \item Submit the business to all relevant registries using the chosen category term.
+  \item Produce category-defining content: articles, case studies, and definitions that establish the term in the classification vocabulary of the field.
+  \item The objective is to be the entity that \textit{becomes} the NAICS category, the GBP category, and the search query --- the H\&R Block of the new category.
+\end{enumerate}
+
+\section{The Multi-Entity Portfolio}
+
+When naming subsidiaries, product lines, or acquired businesses within a portfolio, the resolution framework applies with additional coordination constraints:
+
+\textbf{Parent-subsidiary alignment:} Each subsidiary name should either share a strong parent $N_c$ token (``[Parent] Tax Preparation,'' ``[Parent] Payroll Services'') or be fully independent with its own complete resolution template. Hybrid names that partially share the parent name without completing their own resolution template produce the worst outcomes: they inherit neither the parent's classification clarity nor their own.
+
+\textbf{Cross-entity drift management:} When a portfolio entity's name drifts toward a basin occupied by another entity in the same portfolio, the two entities compete for the same classification space, reducing both their individual resolution scores. Portfolio naming requires explicit basin mapping across all entities.
+
+\section{Chapter Summary: Naming as a Repeatable Engineering Discipline}
+
+The closing principle of this textbook is the same as its opening principle, stated now with the full weight of everything that has been derived:
+
+\begin{keybox}[The Final Engineering Statement]
+A business name is the first and most durable engineering decision a commercial entity makes. It is not a creative expression. It is not a brand personality. It is not a story. It is a structured input into a deterministic, multi-field classification system that will evaluate it billions of times over the entity's lifetime.
+
+The engineering specifications for that input are derivable from first principles, as this textbook has demonstrated. The tools for measuring whether any given name meets those specifications are the scoring rubrics, registry tables, and audit protocol in this part.
+
+The economic consequences of failing to apply those specifications are measurable, compounding, and avoidable.
+
+\textbf{The practice of naming is the practice of minimizing semantic entropy across a multi-field resolution environment, subject to the constraint of maximum transmissibility.}
+
+That is a deterministic engineering problem. It has a solution. The solution is $V^* = C_l + O_s + F_a + N_c$.
+
+Everything else --- the creativity, the brand story, the differentiation, the execution --- builds on top of that foundation. The foundation is either there or it is not. If it is there, every dollar spent on marketing compounds. If it is not, every dollar spent on marketing compensates.
+
+Name correctly. Build on solid ground. Let the algorithm do its job.
+\end{keybox}
+
+\begin{equationbox}
+\textbf{The Complete Framework Summary:}
+\[
+V^* = C_l + O_s + F_a + N_c \quad \text{(Minimal Resolution Template)}
+\]
+\[
+V = \alpha + \lambda\Delta - \mu(1-\alpha)\sigma \quad \text{(Viability Score)}
+\]
+\[
+S_x(t) = \int_0^t \frac{(E+\Delta A_r R_p)(\alpha(1+\omega R_p)+\lambda\Delta\chi(R_p))}{\Phi(1+\sigma(1+\psi R_p))^2}\,dt - R_d \quad \text{(Master Equation)}
+\]
+\[
+\text{Stable Atom: } V \geq 0.85, \;\; R_{sn} \geq 1, \;\; \alpha \to 1, \;\; \sigma \to 0, \;\; \tau_i \to 0
+\]
+\[
+\text{The Final Law: } \text{Success} \propto \text{Pressure} \times \text{Resolution Fit} \times \text{Execution} - \text{Resistance}
+\]
+\end{equationbox}
+
+\end{document}

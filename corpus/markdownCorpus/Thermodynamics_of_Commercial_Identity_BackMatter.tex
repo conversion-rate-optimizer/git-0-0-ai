@@ -1,0 +1,904 @@
+\documentclass[12pt, openany]{book}
+
+% ── PACKAGES ──────────────────────────────────────────────────────────────────
+\usepackage[
+  paperwidth=8.5in, paperheight=11in,
+  top=1.1in, bottom=1.1in, left=1.25in, right=1.25in
+]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{xcolor}
+\usepackage[most, breakable]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage[T1]{fontenc}
+\usepackage{palatino}
+\usepackage[hidelinks]{hyperref}
+
+% ── COLORS ────────────────────────────────────────────────────────────────────
+\definecolor{navy}{RGB}{26, 58, 92}
+\definecolor{midblue}{RGB}{46, 109, 164}
+\definecolor{lightblue}{RGB}{220, 235, 248}
+\definecolor{accentgray}{RGB}{100, 100, 110}
+\definecolor{boxbg}{RGB}{245, 249, 253}
+\definecolor{warningbg}{RGB}{255, 250, 235}
+\definecolor{warningborder}{RGB}{180, 130, 30}
+\definecolor{appendixbg}{RGB}{248, 248, 252}
+\definecolor{appendixborder}{RGB}{80, 80, 140}
+\definecolor{conclusionbg}{RGB}{245, 252, 248}
+\definecolor{conclusionborder}{RGB}{30, 110, 70}
+
+% ── THEOREM ENVIRONMENTS ──────────────────────────────────────────────────────
+\newtheoremstyle{thmstyle}{12pt}{8pt}{\itshape}{}{\bfseries\color{navy}}{.}{.5em}{}
+\theoremstyle{thmstyle}
+\newtheorem{theorem}{Theorem}[chapter]
+
+\newtheoremstyle{defstyle}{12pt}{8pt}{\normalfont}{}{\bfseries\color{midblue}}{.}{.5em}{}
+\theoremstyle{defstyle}
+\newtheorem{definition}{Definition}[chapter]
+
+% ── BOXES ─────────────────────────────────────────────────────────────────────
+\newtcolorbox{keybox}[1][Key Principle]{
+  enhanced, breakable, colback=boxbg, colframe=midblue,
+  fonttitle=\bfseries\color{navy}, title={#1},
+  arc=3pt, boxrule=0.8pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+\newtcolorbox{equationbox}{
+  enhanced, colback=lightblue!50, colframe=navy,
+  arc=4pt, boxrule=1pt, left=12pt, right=12pt, top=8pt, bottom=8pt
+}
+\newtcolorbox{examplebox}[1][Example]{
+  enhanced, breakable, colback=white, colframe=accentgray!50,
+  fonttitle=\bfseries\color{accentgray}, title={#1},
+  arc=3pt, boxrule=0.6pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+\newtcolorbox{warnbox}[1][Note]{
+  enhanced, breakable, colback=warningbg, colframe=warningborder,
+  fonttitle=\bfseries\color{warningborder}, title={#1},
+  arc=3pt, boxrule=0.8pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+\newtcolorbox{appbox}[1][Reference]{
+  enhanced, breakable, colback=appendixbg, colframe=appendixborder,
+  fonttitle=\bfseries\color{appendixborder}, title={#1},
+  arc=3pt, boxrule=0.8pt, left=8pt, right=8pt, top=6pt, bottom=6pt
+}
+\newtcolorbox{conclusionbox}{
+  enhanced, breakable, colback=conclusionbg, colframe=conclusionborder,
+  arc=4pt, boxrule=1.2pt, left=12pt, right=12pt, top=10pt, bottom=10pt
+}
+\newtcolorbox{masterbox}{
+  enhanced, colback=navy!6, colframe=navy,
+  arc=5pt, boxrule=1.5pt, left=14pt, right=14pt, top=12pt, bottom=12pt
+}
+
+% ── SECTION FORMATTING ────────────────────────────────────────────────────────
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{navy}}
+  {\large\color{midblue}\MakeUppercase{\chaptername}\ \thechapter}
+  {10pt}
+  {\rule{\textwidth}{1.5pt}\vspace{4pt}}
+  [\vspace{2pt}\rule{\textwidth}{0.4pt}\vspace{6pt}]
+
+\titleformat{\section}{\normalfont\large\bfseries\color{navy}}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries\color{midblue}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\itshape\color{accentgray}}{\thesubsubsection}{1em}{}
+
+\titleformat{\part}[display]
+  {\normalfont\Huge\bfseries\color{navy}\centering}
+  {\large\color{midblue}\MakeUppercase{\partname}\ \thepart}
+  {16pt}{}[\vspace{6pt}\color{midblue}\rule{0.5\textwidth}{2pt}]
+
+% ── HEADERS ───────────────────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\small\color{accentgray}\leftmark}
+\fancyhead[RO]{\small\color{accentgray}\rightmark}
+\fancyfoot[C]{\small\color{accentgray}\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+% ── SPACING ───────────────────────────────────────────────────────────────────
+\setstretch{1.15}
+\setlength{\parskip}{7pt}
+\setlength{\parindent}{0pt}
+
+% ── COUNTERS ──────────────────────────────────────────────────────────────────
+\setcounter{chapter}{22}
+\setcounter{part}{7}
+
+% ── MATH MACROS ───────────────────────────────────────────────────────────────
+\newcommand{\vstar}{V^{*}}
+\newcommand{\Rp}{R_p}
+\newcommand{\Dt}{D_t}
+\newcommand{\taui}{\tau_i}
+\newcommand{\Wdelta}{W_{\Delta}}
+\newcommand{\Fm}{F_m}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+% ──────────────────────────────────────────────────────────────────────────────
+\begin{document}
+\tableofcontents
+\newpage
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  BACK MATTER OPENER
+% ══════════════════════════════════════════════════════════════════════════════
+\part*{Back Matter}
+\addcontentsline{toc}{part}{Back Matter}
+\markboth{BACK MATTER}{}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  CHAPTER 23 — EXTENSIONS AND OPEN PROBLEMS
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{Extensions and Open Problems}
+
+\begin{keybox}[Chapter Purpose]
+The framework in this textbook is complete in its current scope. But commercial naming is not a static domain. Classification systems evolve, search architectures change, new media environments create new resolution requirements, and the global expansion of AI-mediated search introduces challenges that no existing framework fully addresses. This chapter identifies the most important extensions and open problems at the boundary of the current theory.
+\end{keybox}
+
+\section{The Dynamic Market Model: When $\Phi$ Changes Over Time}
+
+Throughout this textbook, sector friction $\Phi$ has been treated as a quasi-static variable: measurable at a point in time, subject to slow change. In practice, $\Phi$ can change rapidly due to:
+
+\begin{itemize}[leftmargin=1.5em]
+  \item A dominant national brand entering a previously thin local category (sudden $\Phi$ increase)
+  \item Regulatory changes that restructure competitive density (variable depending on regulation type)
+  \item Platform algorithm updates that shift which entities receive classification priority
+  \item Category emergence: a new service category splits off from an existing one, creating two thinner markets from one denser one (sudden $\Phi$ decrease in the new category)
+\end{itemize}
+
+The open problem is the formalization of $\Phi(t)$ as a time-varying function and the derivation of the conditions under which a Stable Atom entity in a low-friction market retains its position as that market's friction rises. Preliminary analysis suggests a \textbf{Classification Momentum} term $\kappa \cdot \alpha \cdot t_{established}$ that represents the accumulated classification confidence an established entity has built, which resists displacement even as $\Phi$ rises around it.
+
+\section{Multi-Language Resolution: When the Substrate Shifts}
+
+The Minimal Resolution Template $\vstar = C_l + O_s + F_a + N_c$ was derived from the structure of the resolution fields as they operate in English-language commercial environments. The fundamental field structure --- search, registry, task, intent --- is language-independent. But the token-to-vector mappings, the cluster positions of nouns and verbs, and the basin structure of the embedding space all vary by language.
+
+The open problem is whether the four irreducible components hold across languages, and what the cross-language drift characteristics are for businesses that operate in bilingual markets. Preliminary evidence from Spanish-English bilingual markets suggests that the resolution hierarchy changes: geographic context ($C_l$) becomes even more important in bilingual environments because it provides disambiguation that category nouns alone cannot achieve across language boundaries.
+
+\section{AI-Generated Names and the Semantic Entropy Floor}
+
+Large language model-based naming tools, which are becoming increasingly common, tend to generate names with a characteristic failure mode: they optimize for human aesthetic preferences (phonetic pleasantness, novelty, memorability) while producing systematically low $\alpha$ scores. The reason is structural: the training data for creative naming tools does not include resolution field performance data, so the models have no signal to optimize against.
+
+The open problem is whether resolution field performance scores can be incorporated into the reward function for naming generation models, producing AI tools that generate names satisfying both aesthetic preferences and resolution requirements simultaneously. This is the generative inverse of the scoring tool developed in this textbook.
+
+\section{Voice Search and the Phonetic Resolution Problem}
+
+Voice search queries follow a different structural pattern than text queries. They are more conversational, longer, and more frequently include complete sentences (``find me a plumber near me who can come today''). The action verb ($F_a$) component is more prominent in voice queries because spoken requests naturally take verb-first or verb-anchored structures.
+
+The open problem is the derivation of a voice-query-weighted version of the alignment coefficient $\alpha_{voice}$ that weights the $F_a$ component more heavily and the $N_c$ component slightly less heavily, reflecting the structural differences between spoken and typed queries. As voice search continues to grow as a primary search modality, businesses in high-$R_p$ categories (where the urgency-driven customer may be speaking into their phone while standing in front of the broken pipe) will face increasingly specific resolution requirements.
+
+\section{Resolution in Non-English Registry Systems}
+
+NAICS, GBP, and O*NET are primarily English-language systems. The European equivalent (NACE codes), the UN's ISIC classification, and regional registry systems each have their own token-to-category mappings. The Minimal Resolution Template applies in principle, but the specific token vocabulary for $N_c$ and $F_a$ changes by classification system.
+
+The most important open problem in this domain is the mapping of resolution component tokens across multiple international registry systems simultaneously, for businesses that operate across language and regulatory boundaries.
+
+\section{Open Problems for Future Research}
+
+The following are formally open problems within the Thermodynamics of Commercial Identity framework:
+
+\begin{enumerate}[leftmargin=1.5em]
+  \item \textbf{The Classification Momentum Theorem}: Formalize the conditions under which an established Stable Atom entity retains its position as sector friction $\Phi$ rises, and derive the decay function for accumulated classification confidence.
+  \item \textbf{The Multi-Language Closure Proof}: Determine whether the four-component closure set $\{N_c, O_s, F_a, C_l\}$ is invariant across language families, or whether different languages require different irreducible component sets.
+  \item \textbf{The Generative Inverse}: Derive the exact specification for a name generation model that optimizes simultaneously for alignment ($\alpha$), drift ($\sigma$), and transmissibility ($T$) within a given sector friction environment.
+  \item \textbf{The Acquired Alignment Rate $\rho$}: Empirically measure the market learning rate $\rho$ across industry categories, providing a data-grounded calibration for the acquired alignment equation $\alpha_t = \alpha_0 + \rho m$.
+  \item \textbf{The Portfolio Interference Matrix}: Formalize the conditions under which two entities in the same portfolio compete for the same classification basin, and derive the optimal naming distance required to prevent basin overlap.
+  \item \textbf{The Voice-Query Alignment Correction}: Derive $\alpha_{voice}$ as a function of $\alpha_{text}$ and the structural differences between spoken and typed query patterns.
+\end{enumerate}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  CONCLUSION
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter*{Conclusion: The Deterministic Principle and What It Means}
+\addcontentsline{toc}{chapter}{Conclusion}
+\markboth{CONCLUSION}{CONCLUSION}
+
+\section*{What This Framework Changes About How You Name Things}
+
+Before this framework, naming a business was a decision made by feel. You gathered opinions. You checked domain availability. You asked friends. You hired a consultant who asked about your brand values and your target customer's lifestyle aspirations. The result was a name that people liked, or that sounded good, or that felt right --- and no one could tell you, with any precision, whether it would work.
+
+After this framework, naming a business is an engineering decision with measurable inputs, derivable outputs, and falsifiable predictions. You compute the alignment score. You check the drift. You calculate the trough depth. You run the atmospheric resultant. You score the viability. The result is a number that predicts specific commercial outcomes: the rate of organic search visibility, the cost multiplier for customer acquisition, the time to market legibility, and the annual overhead the naming decision will impose on the business's marketing budget.
+
+The engineering approach does not eliminate judgment. It does not replace the creative instinct for what sounds right in the mouth or sits well on a card. What it eliminates is the blind spot: the possibility of choosing a name that sounds right and works against you commercially from the day you register it.
+
+\section*{The Full Law, Stated Simply}
+
+\begin{conclusionbox}
+Everything in this textbook reduces to one structural claim:
+
+\vspace{8pt}
+\textbf{A business name is a thermodynamic input into a multi-substrate resolution environment. The environment evaluates it deterministically. The outcome of that evaluation --- classification accuracy, search visibility, conversion probability, persistence over time --- is a function of measurable structural properties of the name string, not of its aesthetic quality.}
+
+\vspace{8pt}
+The full law:
+\[
+\text{Success} \propto \text{Pressure} \times \text{Resolution Fit} \times \text{Execution} - \text{Resistance}
+\]
+
+\vspace{4pt}
+Or in the complete mathematical form:
+\[
+S_x(t) = \int_0^t
+\frac{(E + \Delta A_r R_p)(\alpha(1+\omega R_p) + \lambda\Delta\,\chi(R_p))}
+{\Phi(1+\sigma(1+\psi R_p))^2}
+\,dt - R_d
+\]
+
+\vspace{4pt}
+The optimal name that minimizes resistance from the start:
+\[
+V^* = C_l + O_s + F_a + N_c
+\]
+\end{conclusionbox}
+
+\section*{Naming as the First Engineering Decision of a Business}
+
+The naming decision is made before the website is built, before the first customer is acquired, before the first marketing dollar is spent. It is the only decision that is simultaneously permanent and foundational: permanent because renaming an established entity is costly and slow; foundational because every subsequent marketing investment either compounds on it (if the name is correct) or compensates for it (if it is not).
+
+This is why naming deserves the same rigor applied to any other foundational business decision. A founding team that spends months analyzing market size, competitive positioning, pricing strategy, and go-to-market approach --- and then names the company in an afternoon based on what sounds cool --- has applied first-principles thinking to every variable in the success equation except the one that multiplies all the others.
+
+\section*{Final Statement: When Name $\equiv$ Category $\equiv$ Object $\equiv$ Function}
+
+When the name achieves Algorithmic Autonomy --- when the entity's name is so precisely aligned with the resolution environment that the system maintains it, classifies it, and surfaces it without ongoing human intervention --- the company enters a different operating mode.
+
+Marketing effort stops compensating and starts compounding. Every dollar of advertising builds on a foundation that the name has already established, rather than rebuilding the foundation each month. Every new review confirms a classification the algorithm already holds. Every referral repeats a message the name already teaches.
+
+This is not a theoretical ideal. It is an achievable engineering outcome. It is achieved, systematically and repeatably, by applying the Minimal Resolution Template to every naming decision, auditing every existing name against the viability scoring criteria, and treating every point of alignment deficit as a measurable, addressable, solvable structural problem.
+
+\begin{conclusionbox}
+When Name $\equiv$ Category $\equiv$ Object $\equiv$ Function:
+
+\vspace{6pt}
+The system no longer needs to infer.\\
+The market no longer hesitates.\\
+The entity becomes the default answer.\\
+
+\vspace{6pt}
+That is Algorithmic Autonomy.\\
+That is the goal.\\
+That is what naming, done correctly, achieves.
+
+\vspace{6pt}
+\begin{flushright}
+\textit{Armstrong Knight}\\
+\textit{intent-tensor-theory.com}
+\end{flushright}
+\end{conclusionbox}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  APPENDIX A — MASTER EQUATION REFERENCE CARD
+% ══════════════════════════════════════════════════════════════════════════════
+\appendix
+\chapter{Master Equation Reference Card}
+\markboth{APPENDIX A}{MASTER EQUATION REFERENCE CARD}
+
+\begin{appbox}[Purpose]
+A single-page reference containing every major equation in the textbook, organized by function. Intended for use alongside the scoring worksheet and audit protocol.
+\end{appbox}
+
+\section*{Resolution Structure}
+
+\[
+\mathcal{F} = \mathcal{F}_{search} \cup \mathcal{F}_{registry} \cup \mathcal{F}_{task} \cup \mathcal{F}_{intent}
+\]
+\[
+V^* = C_l + O_s + F_a + N_c \quad \text{(Minimal Resolution Template)}
+\]
+\[
+\text{Entity Resolution} = \bigcap_i \mathcal{F}_i(N)
+\]
+
+\section*{Core Coefficients}
+
+\[
+\alpha = \frac{1}{|\mathcal{F}|}\sum_i P_i(N) \quad \text{(semantic alignment)}
+\]
+\[
+\sigma = \|\vec{v}_{name} - \vec{v}_{intended}\| \quad \text{(vector drift)}
+\]
+\[
+\Phi \in [0,1] \quad \text{(sector friction, from Chapter 8 table)}
+\]
+
+\section*{Cost Equations}
+
+\[
+D_t = \Phi(1-\alpha) \quad \text{(trough depth)}
+\]
+\[
+W_\Delta = \frac{1}{\alpha^2} \quad \text{(work-offset ratio)}
+\]
+\[
+\tau_i^{monthly} = E_0\!\left(\frac{1}{\alpha^2}-1\right) \quad \text{(monthly inference tax)}
+\]
+\[
+R_{sn} = \frac{\alpha - \sigma}{\Phi(1+\sigma)} \quad \text{(atmospheric resultant)}
+\]
+\[
+R_d = R_{base}(1+\gamma(1-\alpha)) \quad \text{(decay rate)}
+\]
+
+\section*{Differentiation}
+
+\[
+\Delta = U \cdot M \cdot T, \quad U = 1-O_c, \quad M = \frac{R_1+R_7+R_{30}}{3}, \quad T = \frac{V_s}{F_c}
+\]
+\[
+\lambda = C_r \cdot C_m, \quad P_\Delta = \frac{\Delta}{\Phi}
+\]
+\[
+\Delta_{required} = \frac{\Phi(1+\sigma)^2 - \alpha}{\lambda} \quad \text{(compensation requirement)}
+\]
+\[
+\Delta_{eff} = \frac{\Delta}{1+k\Delta} \quad \text{(saturation correction)}
+\]
+
+\section*{Viability Scoring}
+
+\[
+V = \alpha + \lambda\Delta - \mu(1-\alpha)\sigma, \quad \mu = 0.25
+\]
+\[
+B_e = \frac{\Phi(1+\sigma)^2}{\alpha+\lambda\Delta} \quad \text{(execution burden)}
+\]
+\[
+D_t' = \max(0, \Phi(1-(\alpha+\lambda\Delta))) \quad \text{(adjusted trough)}
+\]
+\[
+C_h = L \cdot \frac{\alpha+\lambda\Delta}{\Phi(1+\sigma)} \quad \text{(crest height)}
+\]
+
+\section*{Resolution Pressure}
+
+\[
+R_p = N \cdot U_r \cdot T_c, \quad I_s = \max(0, R_p - \eta), \quad V_s = \frac{R_p}{F_{cog}}
+\]
+\[
+\alpha_p = \alpha(1+\omega R_p), \quad \sigma_p = \sigma(1+\psi R_p), \quad \chi(R_p) = 1+\nu R_p - \zeta R_p^2
+\]
+
+\section*{The Master Equation}
+
+\begin{masterbox}
+\[
+S_x(t) = \int_0^t
+\frac{(E + \Delta A_r R_p)(\alpha(1+\omega R_p)+\lambda\Delta\,\chi(R_p))}
+{\Phi(1+\sigma(1+\psi R_p))^2}
+\,dt - R_d
+\]
+\end{masterbox}
+
+\section*{Acquired Alignment and Persistence}
+
+\[
+\alpha_t = \alpha_0 + \rho m \quad \text{(acquired associative alignment)}
+\]
+\[
+P_s(t) = \int_0^t \frac{E\cdot\alpha}{\Phi(1+\sigma)^2}\,dt - R_d \quad \text{(state persistence, simplified)}
+\]
+
+\section*{Viability Bands Quick Reference}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+$V \geq 0.85$ & Stable Atom & Algorithmic Autonomy \\
+$0.65 \leq V < 0.85$ & Transitional & Moderate ongoing effort \\
+$0.45 \leq V < 0.65$ & High Effort & Significant structural overhead \\
+$V < 0.45$ & Ghost Risk & Rename strongly indicated \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  APPENDIX B — COMPLETE SYMBOL GLOSSARY
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{Complete Symbol Glossary}
+\markboth{APPENDIX B}{COMPLETE SYMBOL GLOSSARY}
+
+\begin{longtable}{@{}p{1.0in} p{1.3in} p{3.5in}@{}}
+\toprule
+\textbf{Symbol} & \textbf{Name} & \textbf{Definition and Range} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Symbol} & \textbf{Name} & \textbf{Definition and Range} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+$V^*$ & Min.\ Resolution Template & Optimal resolved name: $C_l + O_s + F_a + N_c$ \\[3pt]
+$N_c$ & Category Noun & Maps to industry identity in registry systems \\[3pt]
+$O_s$ & Object & Transaction anchor; the economic unit acted upon \\[3pt]
+$F_a$ & Function & Operation performed; task field signal \\[3pt]
+$C_l$ & Context & Geographic or audience scope; search-space reduction \\[3pt]
+$\alpha$ & Alignment & Match between name and field expectations; $[0,1]$ \\[3pt]
+$\alpha_0$ & Intrinsic Alignment & Alignment from name content alone at launch \\[3pt]
+$\alpha_t$ & Acquired Alignment & Effective alignment after $m$ messaging cycles \\[3pt]
+$\alpha_p$ & Pressure-Adjusted Alignment & $\alpha(1+\omega R_p)$; alignment amplified by urgency \\[3pt]
+$\sigma$ & Drift & Displacement of name vector from intended category; $[0,1]$ \\[3pt]
+$\sigma_p$ & Pressure-Weighted Drift & $\sigma(1+\psi R_p)$; drift amplified by urgency \\[3pt]
+$\Phi$ & Sector Friction & Competitive resistance of market environment; $[0,1]$ \\[3pt]
+$\taui$ & Inference Tax & Monthly cost of naming ambiguity in effort/spend \\[3pt]
+$D_t$ & Trough Depth & Visibility deficit at launch: $\Phi(1-\alpha)$ \\[3pt]
+$D_t'$ & Adjusted Trough & Trough with differentiation: $\max(0, \Phi(1-\alpha-\lambda\Delta))$ \\[3pt]
+$W_\Delta$ & Work-Offset Ratio & Effort multiplier: $1/\alpha^2$ \\[3pt]
+$R_{sn}$ & Atmospheric Resultant & Net resolution force: $(\alpha-\sigma)/[\Phi(1+\sigma)]$ \\[3pt]
+$R_d$ & Decay Rate & Erosion rate of unreinforced market signals \\[3pt]
+$E$ & Execution Effort & Direct marketing and distribution force applied \\[3pt]
+$E_{eff}$ & Effective Effort & $E + \Delta A_r R_p$; includes narrative lift \\[3pt]
+$V$ & Viability Score & $\alpha + \lambda\Delta - \mu(1-\alpha)\sigma$ \\[3pt]
+$\Delta$ & Differentiation Force & $U \cdot M \cdot T$; compensatory market power \\[3pt]
+$\Delta_{eff}$ & Effective Differentiation & $\Delta/(1+k\Delta)$; saturation-corrected \\[3pt]
+$\Delta_p$ & Pressure-Convertible $\Delta$ & $\Delta \cdot \chi(R_p)$; differentiation under pressure \\[3pt]
+$U$ & Uniqueness & $1 - O_c$; non-substitutability of positioning \\[3pt]
+$M$ & Memorability & $(R_1+R_7+R_{30})/3$; average recall probability \\[3pt]
+$T$ & Transmissibility & $V_s/F_c$; ease of accurate restatement \\[3pt]
+$\lambda$ & Conversion Constant & $C_r \cdot C_m$; fraction of $\Delta$ that converts to traction \\[3pt]
+$C_r$ & Category Receptivity & Degree to which market rewards this differentiation type \\[3pt]
+$C_m$ & Medium Compatibility & Appropriateness of communication channel \\[3pt]
+$P_\Delta$ & Differentiation Pressure & $\Delta/\Phi$; differentiation vs.\ friction diagnostic \\[3pt]
+$\mu$ & Ambiguity Burden & Penalty multiplier for low-$\alpha$, high-$\sigma$ combinations; $\approx 0.25$ \\[3pt]
+$\Fm$ & Market Force & $\alpha + \lambda\Delta - \mu(1-\alpha)\sigma$ \\[3pt]
+$B_e$ & Execution Burden & $\Phi(1+\sigma)^2/(\alpha+\lambda\Delta)$; effort efficiency diagnostic \\[3pt]
+$N_l$ & Narrative Lift & $\Delta \cdot A_r$; organic distribution from resonant differentiation \\[3pt]
+$A_r$ & Audience Resonance & Degree to which differentiation activates target market \\[3pt]
+$k$ & Saturation Constant & Governs diminishing returns of differentiation \\[3pt]
+$L$ & Market Ceiling & Maximum attainable share in reachable field \\[3pt]
+$C_h$ & Crest Height & $L \cdot (\alpha+\lambda\Delta)/[\Phi(1+\sigma)]$; maximum market position \\[3pt]
+$S_x(t)$ & Market Success & Accumulated market position function over time \\[3pt]
+$P_s(t)$ & State Persistence & Probability of maintained market recognition at time $t$ \\[3pt]
+$R_p$ & Resolution Pressure & $N \cdot U_r \cdot T_c$; market activation force \\[3pt]
+$N$ & Necessity Intensity & How essential the problem is; $[0,1]$ \\[3pt]
+$U_r$ & Urgency & Speed with which resolution is required; $[0,1]$ \\[3pt]
+$T_c$ & Consequence & Cost of delay; $[0,1]$ \\[3pt]
+$\eta$ & Activation Threshold & Minimum $R_p$ for search behavior to emerge \\[3pt]
+$I_s$ & Search Intent Emergence & $\max(0, R_p - \eta)$; activated market intensity \\[3pt]
+$V_s$ & Searcher Velocity & $R_p/F_{cog}$; speed of buyer selection \\[3pt]
+$F_{cog}$ & Cognitive Friction & Mental effort required to parse the name \\[3pt]
+$\chi(R_p)$ & Pressure Conversion & $1 + \nu R_p - \zeta R_p^2$; differentiation-pressure function \\[3pt]
+$\omega$ & Alignment Sensitivity & Rate of alignment amplification under pressure \\[3pt]
+$\psi$ & Drift Amplification & Rate of drift cost amplification under pressure \\[3pt]
+$\nu$ & Pressure Gain & Positive gain coefficient for utility differentiation under pressure \\[3pt]
+$\zeta$ & Collapse Factor & Ornamental differentiation collapse coefficient under pressure \\[3pt]
+$\rho$ & Learning Rate & Rate of acquired associative alignment per messaging cycle \\[3pt]
+$m$ & Messaging Cycles & Cumulative major exposure cycles completed \\[3pt]
+$O_c$ & Overlap Coefficient & Degree of positioning overlap with competitors \\[3pt]
+$R_1, R_7, R_{30}$ & Recall Probabilities & Retention probability at 1, 7, 30 days respectively \\[3pt]
+$B_c$ & Selection Bias & $R_p(1-\sigma)$; urgency-driven preference for clarity \\[3pt]
+$\beta$ & Recognition Baseline & Minimum cycles for any entity to achieve classification \\[3pt]
+$T_u / T_r$ & Time to Understanding & Cycles to market legibility \\[3pt]
+$\mathcal{F}$ & Resolution Field Union & $\mathcal{F}_{search} \cup \mathcal{F}_{registry} \cup \mathcal{F}_{task} \cup \mathcal{F}_{intent}$ \\[3pt]
+$\vec{v}_i$ & Token Vector & Embedding of word $i$ in $\mathbb{R}^n$ \\[3pt]
+$\epsilon_{min}$ & Tear Threshold & Minimum projection amplitude for field classification \\[3pt]
+\end{longtable}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  APPENDIX C — INDUSTRY FRICTION COEFFICIENTS
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{Industry Friction Coefficients $\Phi$ by Sector}
+\markboth{APPENDIX C}{INDUSTRY FRICTION COEFFICIENTS}
+
+\begin{appbox}[How to Use]
+These estimated $\Phi$ ranges reflect average competitive density, category maturity, and query saturation. Apply the sector friction rubric from Chapter 18 to adjust within the range based on specific market characteristics. Use the midpoint as a default starting value.
+\end{appbox}
+
+\begin{longtable}{p{2.6in}ccp{1.3in}}
+\toprule
+\textbf{Industry / Service Category} & \textbf{$\Phi$ Low} & \textbf{$\Phi$ High} & \textbf{Friction Level} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Industry / Service Category} & \textbf{$\Phi$ Low} & \textbf{$\Phi$ High} & \textbf{Friction Level} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+Personal injury law & 0.93 & 0.97 & Very High \\
+Search engine optimization & 0.91 & 0.95 & Very High \\
+Financial planning / wealth management & 0.87 & 0.92 & Very High \\
+Digital marketing agencies & 0.83 & 0.89 & High \\
+Business consulting (general) & 0.82 & 0.88 & High \\
+Real estate services & 0.82 & 0.90 & High \\
+IT services / managed services & 0.80 & 0.87 & High \\
+Health coaching / wellness & 0.78 & 0.85 & High \\
+Tax preparation (national) & 0.76 & 0.84 & High \\
+Staffing and recruiting & 0.74 & 0.82 & High \\
+Corporate management training & 0.72 & 0.80 & Medium-High \\
+Residential roofing (dense metro) & 0.68 & 0.76 & Medium-High \\
+Plumbing services & 0.65 & 0.73 & Medium \\
+HVAC services & 0.63 & 0.71 & Medium \\
+Electrical contractors & 0.62 & 0.70 & Medium \\
+Landscaping services & 0.60 & 0.68 & Medium \\
+Commercial cleaning & 0.58 & 0.66 & Medium \\
+Auto body repair & 0.57 & 0.65 & Medium \\
+Catering services & 0.55 & 0.63 & Medium \\
+Tax preparation (local, seasonal) & 0.54 & 0.62 & Medium \\
+Pet grooming & 0.52 & 0.62 & Medium-Low \\
+Specialty food retail & 0.48 & 0.58 & Medium-Low \\
+Personal training (local) & 0.45 & 0.55 & Medium-Low \\
+Commercial roofing (niche) & 0.44 & 0.54 & Medium-Low \\
+Specialty B2B services & 0.40 & 0.55 & Medium-Low \\
+Divorce financial planning (niche) & 0.38 & 0.50 & Low-Medium \\
+Emerging professional services & 0.30 & 0.50 & Low \\
+New digital categories ($< 5$ yr) & 0.20 & 0.40 & Low \\
+Genuinely new category (pioneer) & 0.10 & 0.25 & Very Low \\
+\end{longtable}
+
+\textbf{Adjustment factors:} Subtract 0.08--0.12 from midpoint for rural or small-metro markets. Add 0.05--0.10 for markets with dominant national franchises. Subtract 0.10--0.15 for a genuine niche sub-specialization that eliminates most of the category's competitive density.
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  APPENDIX D — RESOLUTION SCORE QUICK-REFERENCE CALCULATOR
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{The Resolution Score Quick-Reference Calculator}
+\markboth{APPENDIX D}{RESOLUTION SCORE CALCULATOR}
+
+\begin{appbox}[Purpose]
+A fast-scoring reference for practitioners who need a viability estimate without running the full audit. Input five numbers, output the Viability Score and viability band in under five minutes.
+\end{appbox}
+
+\section*{Five-Minute Scoring Protocol}
+
+\textbf{Input 1 --- $\alpha$ estimate (alignment):}\\
+Ask: \textit{Does the name contain a clear category noun, a function word, and an object? Is it geographically scoped for a local business?}
+\begin{itemize}[leftmargin=1.5em, topsep=2pt]
+  \item All four components clear: $\alpha = 0.90$
+  \item Three components clear: $\alpha = 0.75$
+  \item Two components clear: $\alpha = 0.55$
+  \item One component or less: $\alpha = 0.25$
+  \item Invented word / no components: $\alpha = 0.08$
+\end{itemize}
+
+\textbf{Input 2 --- $\sigma$ estimate (drift):}\\
+Ask: \textit{Do any words in the name have strong associations with a different industry?}
+\begin{itemize}[leftmargin=1.5em, topsep=2pt]
+  \item No competing associations: $\sigma = 0.05$
+  \item One word has mild secondary associations: $\sigma = 0.25$
+  \item One word drifts moderately toward a competing field: $\sigma = 0.50$
+  \item One or more words strongly associated with wrong industry: $\sigma = 0.75$
+  \item Name is entirely a competing category's vocabulary: $\sigma = 0.90$
+\end{itemize}
+
+\textbf{Input 3 --- $\Phi$ estimate (friction):}\\
+Use midpoint from Appendix C table. Default: $\Phi = 0.70$.
+
+\textbf{Input 4 --- $\Delta$ estimate (differentiation):}\\
+Ask: \textit{Does the business have a genuinely unique, memorable, one-sentence proposition?}
+\begin{itemize}[leftmargin=1.5em, topsep=2pt]
+  \item Elite proposition, highly transmissible: $\Delta = 0.75$
+  \item Strong proposition, fairly transmissible: $\Delta = 0.55$
+  \item Moderate distinction, somewhat transmissible: $\Delta = 0.35$
+  \item Generic claims (``great service''): $\Delta = 0.05$
+\end{itemize}
+
+\textbf{Input 5 --- $\lambda$ estimate (conversion):}\\
+Ask: \textit{Does your market actively reward this type of distinction?}
+\begin{itemize}[leftmargin=1.5em, topsep=2pt]
+  \item High receptivity, right channel: $\lambda = 0.80$
+  \item Moderate receptivity: $\lambda = 0.55$
+  \item Low receptivity or wrong channel: $\lambda = 0.25$
+\end{itemize}
+
+\textbf{Compute:}
+\[
+V = \alpha + \lambda\Delta - 0.25(1-\alpha)\sigma
+\]
+\[
+D_t = \Phi(1-\alpha)
+\]
+\[
+R_{sn} = \frac{\alpha - \sigma}{\Phi(1+\sigma)}
+\]
+
+\textbf{Interpret} using the viability band table from Chapter 18. If $R_{sn} < 0$: name is net-negative regardless of $V$ score --- renaming is indicated.
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  APPENDIX E — GOOGLE BUSINESS CATEGORY INDEX (SELECTED)
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{Google Business Category Index (Selected High-Traffic Categories)}
+\markboth{APPENDIX E}{GOOGLE BUSINESS CATEGORY INDEX}
+
+\begin{appbox}[Purpose]
+The GBP system contains over 4,200 categories. This appendix lists the most commercially significant categories for consumer and small-business services, with the primary token alignment signal for each. The full category list is maintained at intent-tensor-theory.com/registry.
+\end{appbox}
+
+\begin{longtable}{p{2.2in}p{1.5in}p{2.0in}}
+\toprule
+\textbf{GBP Category String} & \textbf{Primary Token(s)} & \textbf{Secondary Token(s)} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{GBP Category String} & \textbf{Primary Token(s)} & \textbf{Secondary Token(s)} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+Roofing contractor & Roof, Roofing & Repair, Install, Contractor \\
+Plumber & Plumb, Plumbing & Pipe, Drain, Water \\
+Electrician & Electric, Electrical & Wire, Panel, Install \\
+HVAC contractor & HVAC, Heating, Cooling & Air, System, Unit \\
+General contractor & Contractor, Construction & Build, Remodel, Renovation \\
+Painting contractor & Paint, Painting & Interior, Exterior, Coat \\
+Flooring contractor & Floor, Flooring & Install, Hardwood, Tile \\
+Landscaping company & Landscape, Landscaping & Lawn, Garden, Maintenance \\
+Cleaning service & Clean, Cleaning & Maid, Janitorial, Sanitize \\
+Pest control service & Pest, Exterminator & Control, Treatment, Inspect \\
+Law firm & Law, Legal, Attorney & Firm, Practice, Lawyer \\
+Divorce lawyer & Divorce, Family Law & Attorney, Legal, Counsel \\
+Personal injury attorney & Personal Injury, Accident & Attorney, Lawyer, Legal \\
+Accountant & Account, Accounting, CPA & Tax, Financial, Bookkeep \\
+Tax preparation service & Tax, Taxes & Preparation, Service, Filing \\
+Financial planner & Financial, Finance & Planning, Advisor, Wealth \\
+Insurance agency & Insurance & Agency, Agent, Coverage \\
+Real estate agency & Real Estate, Realty & Agent, Property, Homes \\
+Property management company & Property Management & Rental, Tenant, Landlord \\
+Management consultant & Consulting, Consultant & Management, Advisory, Business \\
+Marketing agency & Marketing, Advertising & Agency, Digital, Campaign \\
+IT service provider & IT Services, Technology & Computer, Network, Support \\
+Software company & Software, App, Application & Development, Technology \\
+Staffing agency & Staffing, Recruiting & Agency, Employment, Talent \\
+Auto repair shop & Auto, Automotive, Car & Repair, Mechanic, Service \\
+Auto body shop & Auto Body, Collision & Repair, Paint, Restore \\
+Dentist & Dental, Dentist & Tooth, Teeth, Oral \\
+Chiropractor & Chiropractic, Chiropractor & Spine, Adjustment, Therapy \\
+Physical therapist & Physical Therapy & Rehabilitation, Therapy, Exercise \\
+Gym & Gym, Fitness & Exercise, Workout, Training \\
+Personal trainer & Personal Training, Trainer & Fitness, Workout, Coach \\
+Hair salon & Hair, Salon & Stylist, Cut, Color \\
+Barber shop & Barber, Barbershop & Hair, Cut, Shave \\
+Restaurant & Restaurant & Dining, Food, Cuisine \\
+Caterer & Catering, Caterer & Event, Food, Service \\
+Bakery & Bakery, Bakeries & Bread, Cake, Pastry \\
+Pet grooming service & Pet Grooming, Groomer & Dog, Cat, Wash, Trim \\
+Veterinarian & Vet, Veterinary, Animal & Clinic, Hospital, Care \\
+Trucking company & Trucking, Freight & Transport, Haul, Delivery \\
+Moving company & Moving, Movers & Relocation, Pack, Transport \\
+\end{longtable}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  APPENDIX F — FAILURE MODE DIAGNOSTIC FLOWCHART
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{Failure Mode Diagnostic Flowchart}
+\markboth{APPENDIX F}{FAILURE MODE DIAGNOSTIC FLOWCHART}
+
+\begin{appbox}[Purpose]
+A textual representation of the routing protocol for identifying the primary failure mode of any named entity. Follow each branch to its terminal failure mode identification.
+\end{appbox}
+
+\begin{description}[leftmargin=0em, style=nextline]
+
+\item[\textbf{START}: Does the business appear on first-page results for its category + city search?]
+
+\vspace{4pt}
+\textbf{YES} $\to$ Naming is not the primary growth constraint. Check for FM5 (Decorative Differentiation), FM6 (Non-Convertible Differentiation), or FM10 (Acquired Debt if performance is declining). Run viability score to confirm $V \geq 0.65$.
+
+\vspace{4pt}
+\textbf{NO / SOMETIMES} $\to$ Proceed to Q2.
+
+\vspace{8pt}
+\item[\textbf{Q2}: Read the business name aloud to a stranger with no additional context. What is their response?]
+
+\vspace{4pt}
+\textbf{They correctly name the industry} $\to$ Category noun is present ($N_c$ exists). Proceed to Q3 to identify which other component is missing.
+
+\vspace{4pt}
+\textbf{They name a different industry} $\to$ Unintended Basin (FM9) or Ambiguity Overload (FM7). Run basin test. If $\sigma > 0.55$, calculate ambiguity penalty. If penalty $> \lambda\Delta$: FM7 confirmed, rename required.
+
+\vspace{4pt}
+\textbf{No confident guess} $\to$ Dimensional Tear (FM8) or Missing Category (FM1). Proceed to Q4.
+
+\vspace{8pt}
+\item[\textbf{Q3}: A stranger can identify the industry but cannot identify the specific service. Which question can they NOT answer?]
+
+\vspace{4pt}
+\textbf{Cannot identify what action is performed} $\to$ \textbf{FM2: Missing Function} ($F_a = \emptyset$). Add function word.
+
+\vspace{4pt}
+\textbf{Cannot identify what is being acted upon} $\to$ \textbf{FM3: Missing Object} ($O_s$ absent or generic). Specify the object.
+
+\vspace{4pt}
+\textbf{Cannot identify who the service is for or where} $\to$ \textbf{FM4: Missing Context} ($C_l = \emptyset$). Add geographic or audience context if serving a local or specific market.
+
+\vspace{8pt}
+\item[\textbf{Q4}: Enter the business name in GBP category auto-suggest. What is returned?]
+
+\vspace{4pt}
+\textbf{Correct category on first suggestion} $\to$ Not a Tear. Return to Q3 --- one component is missing but the category noun is functioning.
+
+\vspace{4pt}
+\textbf{Wrong but specific category} $\to$ \textbf{FM9: Unintended Basin}. The name has been captured by a competing category. Remove or replace the drifting token.
+
+\vspace{4pt}
+\textbf{``Business'' or no suggestion} $\to$ \textbf{FM8: Dimensional Tear} or \textbf{FM1: Missing Category}. Run three-test diagnostic from Chapter 15 to confirm.
+\begin{itemize}[leftmargin=1.5em]
+  \item If three-test fails completely: FM8 Tear confirmed. Rename.
+  \item If three-test passes partially: FM1 Missing $N_c$. Add category noun.
+\end{itemize}
+
+\vspace{8pt}
+\item[\textbf{SECONDARY CHECK}: Is the business's organic search performance declining despite no change in marketing?]
+
+\vspace{4pt}
+\textbf{YES} $\to$ \textbf{FM10: Acquired Debt}. The name's effective $\sigma$ has increased due to environmental change. Audit current basin alignment against today's competitive landscape and update the name if needed.
+
+\vspace{4pt}
+\textbf{NO} $\to$ Failure mode identified in primary routing above. Proceed to the repair protocol for that failure mode.
+
+\end{description}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  APPENDIX G — SUGGESTED COURSES AND CURRICULUM MAPS
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter{Suggested Courses and Curriculum Maps}
+\markboth{APPENDIX G}{CURRICULUM MAPS}
+
+\begin{appbox}[Purpose]
+Three curriculum structures for using this textbook in academic and professional education settings: a four-week accelerated module, a full-semester course, and a graduate-level seminar.
+\end{appbox}
+
+\section*{Structure A: Four-Week Accelerated Module (Professional Development)}
+
+\begin{description}[leftmargin=0em]
+\item[\textbf{Week 1 --- The Resolution Framework}]
+Sessions: Foreword, Chapters 1--4. Objective: Understand the multi-field resolution environment, the Minimal Resolution Template, and the Stable Atom / Ghost State distinction. Deliverable: Score three real business names from your industry using the four-criterion rubric.
+
+\item[\textbf{Week 2 --- The Cost Variables}]
+Sessions: Chapters 5--8. Objective: Calculate $\alpha$, $\sigma$, $\Phi$, trough depth, work-offset ratio, and monthly inference tax for a real named entity. Deliverable: Complete the viability scoring worksheet for a business of your choice.
+
+\item[\textbf{Week 3 --- Differentiation and Compensation}]
+Sessions: Chapters 9--11. Objective: Score $\Delta = U \cdot M \cdot T$ for a real business proposition. Understand the Compensation Theorem and when renaming is preferred over differentiation investment. Deliverable: Run the DuckDuckGo case study analysis independently and compare results to Chapter 11.
+
+\item[\textbf{Week 4 --- Application}]
+Sessions: Chapters 12, 18, 20--22. Objective: Complete a full six-step audit on a real named entity and produce a resolution report. Deliverable: Audit report with alternative names scored, trough and viability comparisons, and strategic recommendation.
+\end{description}
+
+\section*{Structure B: Full-Semester Course (14 Weeks, Undergraduate or Graduate)}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Week(s)} & \textbf{Content} & \textbf{Assessment} \\
+\midrule
+1--2 & Chapters 1--2: Physics of Identity & Reflection paper \\
+3--4 & Chapters 3--4: Resolution Template & Name audit \#1 \\
+5--6 & Chapters 5--6: Alignment and Drift & Scoring worksheet \\
+7 & Chapter 7--8: Inference Tax and Friction & Cost calculation \\
+8 & Midterm examination & Full scoring exam \\
+9--10 & Chapters 9--10: Differentiation Theory & Differentiation scoring \\
+11 & Chapter 11: DuckDuckGo Case & Case replication \\
+12 & Chapters 12--14: Resolution Pressure & Sector pressure mapping \\
+13 & Chapters 15--17: Topology / Failure Modes & Failure mode identification \\
+14 & Chapters 18--22: Scoring and Application & Final audit project \\
+Finals & Comprehensive audit & Full resolution report \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{Structure C: Graduate Seminar (8 Weeks, Research Focus)}
+
+\begin{description}[leftmargin=0em]
+\item[\textbf{Weeks 1--2}] Foundational theory (Parts I--II) plus the ITT Pre-Veil Mechanics source material. Seminar discussion: is the Minimal Resolution Template a closure theorem or a heuristic? Derive alternative closures for different field structures.
+
+\item[\textbf{Weeks 3--4}] Quantitative framework (Parts III--IV). Problem sets: compute exact compensation requirements for five real businesses; derive the conditions under which differentiation and naming are substitutable vs.\ non-substitutable.
+
+\item[\textbf{Weeks 5--6}] Resolution Pressure and the Master Equation (Part V). Research project: collect search volume data for three categories, estimate $R_p$ for each, and test whether high-$R_p$ categories show a measurable naming premium in actual search rankings.
+
+\item[\textbf{Weeks 7--8}] Open problems (Chapter 23). Each student selects one open problem and produces a proposal for an empirical research design to address it. Final deliverable: research proposal with formal problem statement, proposed methodology, and expected contribution.
+\end{description}
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  BIBLIOGRAPHY
+% ══════════════════════════════════════════════════════════════════════════════
+\chapter*{Bibliography and Referenced Works}
+\addcontentsline{toc}{chapter}{Bibliography}
+\markboth{BIBLIOGRAPHY}{BIBLIOGRAPHY}
+
+\begin{appbox}[Note on Sources]
+This bibliography includes the primary classification system references, the ITT source works that provide the field-theoretic substrate for this framework, and selected commercial and academic works on naming, branding, and semantic classification that informed or contrast with the model developed here.
+\end{appbox}
+
+\section*{Classification System References}
+
+\noindent U.S. Census Bureau. \textit{North American Industry Classification System (NAICS)}. Washington, DC: U.S. Census Bureau, 2022. https://www.census.gov/naics/
+
+\vspace{4pt}
+\noindent U.S. Department of Labor. \textit{O*NET OnLine: Occupational Information Network}. O*NET Resource Center, 2024. https://www.onetonline.org/
+
+\vspace{4pt}
+\noindent U.S. Bureau of Labor Statistics. \textit{Standard Occupational Classification (SOC) System}. Washington, DC: BLS, 2018.
+
+\vspace{4pt}
+\noindent Google. \textit{Google Business Profile Categories}. Google Support Documentation, 2024. https://support.google.com/business/
+
+\vspace{4pt}
+\noindent U.S. Census Bureau. \textit{Standard Industrial Classification (SIC) Manual}. Washington, DC: Executive Office of the President, 1987.
+
+\section*{Intent Tensor Theory Source Works}
+
+\noindent Knight, Armstrong. \textit{Pre-Veil Mechanics, Volume I: Field Structures and Closure Conditions}. Intent Tensor Theory, 2025. gitlab.com/intent-tensor-theory.com-group
+
+\vspace{4pt}
+\noindent Knight, Armstrong. \textit{Pre-Veil Mechanics, Volume II: Topological Extensions and Dimensional Closure}. Intent Tensor Theory, 2025.
+
+\vspace{4pt}
+\noindent Knight, Armstrong. \textit{Astrosynthesis, Volume II: Recursive Anchoring and the ICHTB Model}. Intent Tensor Theory, 2025.
+
+\vspace{4pt}
+\noindent Knight, Armstrong. \textit{The ICHTB Model, Volume III: Intent Tensor Theory and the Six-Zone Closure Proof}. Intent Tensor Theory, 2025.
+
+\vspace{4pt}
+\noindent Knight, Armstrong. \textit{T4-16 Dimensionless Mathematics: Substrate Independence and Field Projection}. Intent Tensor Theory, 2025.
+
+\vspace{4pt}
+\noindent Knight, Armstrong. \textit{The Necessity Chain: Activation Mechanics and the Causal Bridge}. Intent Tensor Theory, 2025.
+
+\section*{Semantic and Classification Research}
+
+\noindent Devlin, Jacob, et al.\ ``BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding.'' \textit{Proceedings of NAACL-HLT 2019}: 4171--4186.
+
+\vspace{4pt}
+\noindent Mikolov, Tomas, et al.\ ``Distributed Representations of Words and Phrases and their Compositionality.'' \textit{Advances in Neural Information Processing Systems} 26 (2013).
+
+\vspace{4pt}
+\noindent Pennington, Jeffrey, Richard Socher, and Christopher Manning. ``GloVe: Global Vectors for Word Representation.'' \textit{Proceedings of EMNLP 2014}: 1532--1543.
+
+\section*{Commercial and Branding Works}
+
+\noindent Ries, Al, and Jack Trout. \textit{Positioning: The Battle for Your Mind}. McGraw-Hill, 1981.
+
+\vspace{4pt}
+\noindent Aaker, David A.\ \textit{Building Strong Brands}. Free Press, 1996.
+
+\vspace{4pt}
+\noindent Keller, Kevin Lane. \textit{Strategic Brand Management: Building, Measuring, and Managing Brand Equity}. 4th ed. Pearson, 2013.
+
+\vspace{4pt}
+\noindent Watkins, Allen. \textit{Domain Name Valuation and Commercial Resolution Patterns}. ICANN Industry Reports, 2019.
+
+\section*{Case Study References}
+
+\noindent DuckDuckGo. \textit{About DuckDuckGo}. https://duckduckgo.com/about
+
+\vspace{4pt}
+\noindent DuckDuckGo. \textit{DuckDuckGo Help Pages: Search Privacy}. https://help.duckduckgo.com/
+
+\vspace{4pt}
+\noindent Wikipedia contributors. ``DuckDuckGo.'' \textit{Wikipedia, The Free Encyclopedia}. Last modified 2024. https://en.wikipedia.org/wiki/DuckDuckGo
+
+\vspace{4pt}
+\noindent H\&R Block. \textit{About H\&R Block}. https://www.hrblock.com/tax-center/around-block/about-hr-block/
+
+% ══════════════════════════════════════════════════════════════════════════════
+%  FINAL PAGE
+% ══════════════════════════════════════════════════════════════════════════════
+\newpage
+\thispagestyle{empty}
+\vspace*{3in}
+\begin{center}
+\color{navy}\rule{0.4\textwidth}{1pt}
+
+\vspace{16pt}
+{\large\color{accentgray}\itshape
+The Thermodynamics of Commercial Identity\\
+First Edition, 2026}
+
+\vspace{12pt}
+{\normalsize\color{accentgray}
+Published by Intent Tensor Theory\\
+intent-tensor-theory.com}
+
+\vspace{12pt}
+{\small\color{accentgray}
+Licensed under Creative Commons Attribution 4.0 International (CC-BY 4.0).\\
+All equations and formal structures are original derivations.}
+
+\vspace{16pt}
+\color{navy}\rule{0.4\textwidth}{1pt}
+\end{center}
+
+\end{document}
